@@ -4,3 +4,6 @@
 [submodule "Popbill"]
 	path = Popbill
 	url = https://github.com/linkhub-sdk/popbill.base.delphi.git
+[submodule "PopbillTaxinvoice"]
+	path = PopbillTaxinvoice
+	url = https://github.com/linkhub-sdk/popbill.taxinvoice.delphi.git

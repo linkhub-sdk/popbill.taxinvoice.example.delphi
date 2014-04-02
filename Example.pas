@@ -256,7 +256,7 @@ begin
         taxinvoice.InvoicerTaxRegID := ''; //종사업자 식별번호. 필요시 기재. 형식은 숫자 4자리.
         taxinvoice.InvoicerCorpName := '공급자 상호';
         taxinvoice.InvoicerMgtKey := tbMgtKey.Text;
-        taxinvoice.InvoicerCEOName := '공급자\"\" 대표자 성명';
+        taxinvoice.InvoicerCEOName := '공급자"" 대표자 성명';
         taxinvoice.InvoicerAddr := '공급자 주소';
         taxinvoice.InvoicerBizClass := '공급자 업종';
         taxinvoice.InvoicerBizType := '공급자 업태,업태2';

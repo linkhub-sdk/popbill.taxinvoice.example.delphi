@@ -9,9 +9,9 @@ uses
 
 const
         //파트너 ID.
-        PartnerID = 'INNOPOST';
+        PartnerID = 'PARTNERID';
         // 파트너 통신용 비밀키. 유출 주의.
-        SecretKey = 'VGBaxxHL7T4o4LrwDRcALHo0j8LgAxsLGhKqjuCwlX8=';
+        SecretKey = 'okH3G1/WZ3w1PMjHDLaWdcWIa/dbTX3eGuqMZ5AvnDE=';
 
 type
   TfrmExample = class(TForm)
@@ -800,7 +800,7 @@ var
         resultURL : String;
 begin
         try
-                resultURL := taxinvoiceService.getTaxinvoiceURL(txtCorpNum.Text,txtUserID.Text,'TBOX');
+                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text,txtUserID.Text,'TBOX');
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -816,7 +816,7 @@ var
         resultURL : String;
 begin
         try
-                resultURL := taxinvoiceService.getTaxinvoiceURL(txtCorpNum.Text,txtUserID.Text,'SBOX');
+                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text,txtUserID.Text,'SBOX');
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -832,7 +832,7 @@ var
         resultURL : String;
 begin
         try
-                resultURL := taxinvoiceService.getTaxinvoiceURL(txtCorpNum.Text,txtUserID.Text,'PBOX');
+                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text,txtUserID.Text,'PBOX');
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -848,7 +848,7 @@ var
         resultURL : String;
 begin
         try
-                resultURL := taxinvoiceService.getTaxinvoiceURL(txtCorpNum.Text,txtUserID.Text,'WRITE');
+                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text,txtUserID.Text,'WRITE');
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);

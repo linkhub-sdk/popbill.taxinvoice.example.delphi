@@ -1,9 +1,9 @@
 object frmExample: TfrmExample
-  Left = 721
-  Top = 145
+  Left = 993
+  Top = 249
   Width = 770
   Height = 672
-  Caption = '팝빌 전자세금계산서  SDK Examples'
+  Caption = 'Linkhub 팝빌 전자세금계산서  SDK Examples'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

@@ -821,7 +821,7 @@ object frmExample: TfrmExample
     Height = 21
     ImeName = 'Microsoft IME 2010'
     TabOrder = 3
-    Text = '4108600477'
+    Text = '1231212312'
   end
   object txtUserID: TEdit
     Left = 304

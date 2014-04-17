@@ -9,7 +9,7 @@ uses
 
 const
         //파트너 ID.
-        PartnerID = 'PARTNERID';
+        PartnerID = 'TESTER';
         // 파트너 통신용 비밀키. 유출 주의.
         SecretKey = 'okH3G1/WZ3w1PMjHDLaWdcWIa/dbTX3eGuqMZ5AvnDE=';
 
@@ -244,62 +244,62 @@ var
 begin
         taxinvoice := TTaxinvoice.Create;
         
-        taxinvoice.WriteDate := '20140319';             //필수, 기재상 작성일자
-        taxinvoice.ChargeDirection := '정과금';         //필수, {정과금, 역과금}
-        taxinvoice.IssueType := '정발행';               //필수, {정발행, 역발행, 위수탁}
-        taxinvoice.PurposeType := '영수';               //필수, {영수, 청구}
-        taxinvoice.IssueTiming := '직접발행';           //필수, {직접발행, 승인시자동발행}
-        taxinvoice.TaxType :='과세';                    //필수, {과세, 영세, 면세}
+        taxinvoice.writeDate := '20140319';             //필수, 기재상 작성일자
+        taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
+        taxinvoice.issueType := '정발행';               //필수, {정발행, 역발행, 위수탁}
+        taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
+        taxinvoice.issueTiming := '직접발행';           //필수, {직접발행, 승인시자동발행}
+        taxinvoice.taxType :='과세';                    //필수, {과세, 영세, 면세}
 
 
-        taxinvoice.InvoicerCorpNum := '4108600477';
-        taxinvoice.InvoicerTaxRegID := ''; //종사업자 식별번호. 필요시 기재. 형식은 숫자 4자리.
-        taxinvoice.InvoicerCorpName := '공급자 상호';
-        taxinvoice.InvoicerMgtKey := tbMgtKey.Text;
-        taxinvoice.InvoicerCEOName := '공급자"" 대표자 성명';
-        taxinvoice.InvoicerAddr := '공급자 주소';
-        taxinvoice.InvoicerBizClass := '공급자 업종';
-        taxinvoice.InvoicerBizType := '공급자 업태,업태2';
-        taxinvoice.InvoicerContactName := '공급자 담당자명';
-        taxinvoice.InvoicerEmail := 'test@test.com';
-        taxinvoice.InvoicerTEL := '070-7070-0707';
-        taxinvoice.InvoicerHP := '010-000-2222';
-        taxinvoice.InvoicerSMSSendYN := true; //발행시 문자발송기능 사용시 활용
+        taxinvoice.invoicerCorpNum := '1231212312';
+        taxinvoice.invoicerTaxRegID := ''; //종사업자 식별번호. 필요시 기재. 형식은 숫자 4자리.
+        taxinvoice.invoicerCorpName := '공급자 상호';
+        taxinvoice.invoicerMgtKey := tbMgtKey.Text;
+        taxinvoice.invoicerCEOName := '공급자"" 대표자 성명';
+        taxinvoice.invoicerAddr := '공급자 주소';
+        taxinvoice.invoicerBizClass := '공급자 업종';
+        taxinvoice.invoicerBizType := '공급자 업태,업태2';
+        taxinvoice.invoicerContactName := '공급자 담당자명';
+        taxinvoice.invoicerEmail := 'test@test.com';
+        taxinvoice.invoicerTEL := '070-7070-0707';
+        taxinvoice.invoicerHP := '010-000-2222';
+        taxinvoice.invoicerSMSSendYN := true; //발행시 문자발송기능 사용시 활용
 
-        taxinvoice.InvoiceeType := '사업자';
-        taxinvoice.InvoiceeCorpNum := '8888888888';
-        taxinvoice.InvoiceeCorpName := '공급받는자 상호';
-        taxinvoice.InvoiceeMgtKey := '';
-        taxinvoice.InvoiceeCEOName := '공급받는자 대표자 성명';
-        taxinvoice.InvoiceeAddr := '공급받는자 주소';
-        taxinvoice.InvoiceeBizClass := '공급받는자 업종';
-        taxinvoice.InvoiceeBizType := '공급받는자 업태';
-        taxinvoice.InvoiceeContactName1 := '공급받는자 담당자명';
-        taxinvoice.InvoiceeEmail1 := 'test@invoicee.com';
+        taxinvoice.invoiceeType := '사업자';
+        taxinvoice.invoiceeCorpNum := '8888888888';
+        taxinvoice.invoiceeCorpName := '공급받는자 상호';
+        taxinvoice.invoiceeMgtKey := '';
+        taxinvoice.invoiceeCEOName := '공급받는자 대표자 성명';
+        taxinvoice.invoiceeAddr := '공급받는자 주소';
+        taxinvoice.invoiceeBizClass := '공급받는자 업종';
+        taxinvoice.invoiceeBizType := '공급받는자 업태';
+        taxinvoice.invoiceeContactName1 := '공급받는자 담당자명';
+        taxinvoice.invoiceeEmail1 := 'test@invoicee.com';
 
-        taxinvoice.SupplyCostTotal := '100000';         //필수 공급가액 합계
-        taxinvoice.TaxTotal := '10000';                 //필수 세액 합계
-        taxinvoice.TotalAmount := '110000';             //필수 합계금액.  공급가액 + 세액
+        taxinvoice.supplyCostTotal := '100000';         //필수 공급가액 합계
+        taxinvoice.taxTotal := '10000';                 //필수 세액 합계
+        taxinvoice.totalAmount := '110000';             //필수 합계금액.  공급가액 + 세액
 
-        taxinvoice.ModifyCode := ''; //수정세금계산서 작성시 1~6까지 선택기재.
-        taxinvoice.OriginalTaxinvoiceKey := ''; //수정세금계산서 작성시 원본세금계산서의 ItemKey기재. ItemKey는 문서확인.
-        taxinvoice.SerialNum := '123';
-        taxinvoice.Cash := '';          //현금
-        taxinvoice.ChkBill := '';       //수표
-        taxinvoice.Note := '';          //어음
-        taxinvoice.Credit := '';        //외상미수금
-        taxinvoice.Remark1 := '비고1';
-        taxinvoice.Remark2 := '비고2';
-        taxinvoice.Remark3 := '비고3';
-        taxinvoice.Kwon := '1';
-        taxinvoice.Ho := '1';
+        taxinvoice.modifyCode := ''; //수정세금계산서 작성시 1~6까지 선택기재.
+        taxinvoice.originalTaxinvoiceKey := ''; //수정세금계산서 작성시 원본세금계산서의 ItemKey기재. ItemKey는 문서확인.
+        taxinvoice.serialNum := '123';
+        taxinvoice.cash := '';          //현금
+        taxinvoice.chkBill := '';       //수표
+        taxinvoice.note := '';          //어음
+        taxinvoice.credit := '';        //외상미수금
+        taxinvoice.remark1 := '비고1';
+        taxinvoice.remark2 := '비고2';
+        taxinvoice.remark3 := '비고3';
+        taxinvoice.kwon := '1';
+        taxinvoice.ho := '1';
 
-        taxinvoice.BusinessLicenseYN := false; //사업자등록증 이미지 첨부시 설정.
-        taxinvoice.BankBookYN := false ;        //통장사본 이미지 첨부시 설정.
-        taxinvoice.FaxReceiveNum := '';         //발행시 Fax발송기능 사용시 수신번호 기재.
-        taxinvoice.FaxSendYN := false;          //발행시 Fax발송시 설정.
-        
-        
+        taxinvoice.businessLicenseYN := false; //사업자등록증 이미지 첨부시 설정.
+        taxinvoice.bankBookYN := false ;        //통장사본 이미지 첨부시 설정.
+        taxinvoice.faxreceiveNum := '';         //발행시 Fax발송기능 사용시 수신번호 기재.
+        taxinvoice.faxsendYN := false;          //발행시 Fax발송시 설정.
+
+
 
         //상세항목 0~99개 까지 작성가능.
         // SerialNum 은 1부터 99까지 순차기재.
@@ -307,27 +307,27 @@ begin
         setLength(taxinvoice.detailList, 2);
 
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
-        taxinvoice.detailList[0].SerialNum := 1;                //일련번호
-        taxinvoice.detailList[0].PurchaseDT := '20140319';      //거래일자
-        taxinvoice.detailList[0].ItemName := '품목명';
-        taxinvoice.detailList[0].Spec := '규격';
-        taxinvoice.detailList[0].Qty := '1';                    //수량
-        taxinvoice.detailList[0].UnitCost := '100000';          //단가
-        taxinvoice.detailList[0].SupplyCost := '100000';        //공급가액
-        taxinvoice.detailList[0].Tax := '10000';                //세액
-        taxinvoice.detailList[0].Remark := '품목비고';
+        taxinvoice.detailList[0].serialNum := 1;                //일련번호
+        taxinvoice.detailList[0].purchaseDT := '20140319';      //거래일자
+        taxinvoice.detailList[0].itemName := '품목명';
+        taxinvoice.detailList[0].spec := '규격';
+        taxinvoice.detailList[0].qty := '1';                    //수량
+        taxinvoice.detailList[0].unitCost := '100000';          //단가
+        taxinvoice.detailList[0].supplyCost := '100000';        //공급가액
+        taxinvoice.detailList[0].tax := '10000';                //세액
+        taxinvoice.detailList[0].remark := '품목비고';
 
 
         taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
-        taxinvoice.detailList[1].SerialNum := 2;
-        taxinvoice.detailList[1].ItemName := '품목명';
+        taxinvoice.detailList[1].serialNum := 2;
+        taxinvoice.detailList[1].itemName := '품목명';
 
         //추가담당자 0~5까지 기재 가능.
-        SetLength(taxinvoice.AddContactList,1);
+        SetLength(taxinvoice.addContactList,1);
 
-        taxinvoice.AddContactList[0] := TTaxinvoiceAddContact.Create;
-        taxinvoice.AddContactList[0].Email := 'test2@invoicee.com';
-        taxinvoice.AddContactList[0].ContactName := '추가담당자명';
+        taxinvoice.addContactList[0] := TTaxinvoiceAddContact.Create;
+        taxinvoice.addContactList[0].email := 'test2@invoicee.com';
+        taxinvoice.addContactList[0].contactName := '추가담당자명';
 
         try
                 response := taxinvoiceService.Register(txtCorpNum.text,taxinvoice,txtUserID.Text);
@@ -962,62 +962,62 @@ var
 begin
         taxinvoice := TTaxinvoice.Create;
         
-        taxinvoice.WriteDate := '20140319';             //필수, 기재상 작성일자
-        taxinvoice.ChargeDirection := '정과금';         //필수, {정과금, 역과금}
-        taxinvoice.IssueType := '역발행';               //필수, {정발행, 역발행, 위수탁}
-        taxinvoice.PurposeType := '영수';               //필수, {영수, 청구}
-        taxinvoice.IssueTiming := '직접발행';           //필수, {직접발행, 승인시자동발행}
-        taxinvoice.TaxType :='과세';                    //필수, {과세, 영세, 면세}
+        taxinvoice.writedate := '20140319';             //필수, 기재상 작성일자
+        taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
+        taxinvoice.issueType := '역발행';               //필수, {정발행, 역발행, 위수탁}
+        taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
+        taxinvoice.issueTiming := '직접발행';           //필수, {직접발행, 승인시자동발행}
+        taxinvoice.taxType :='과세';                    //필수, {과세, 영세, 면세}
 
 
-        taxinvoice.InvoicerCorpNum := '8888888888';
-        taxinvoice.InvoicerTaxRegID := ''; //종사업자 식별번호. 필요시 기재. 형식은 숫자 4자리.
-        taxinvoice.InvoicerCorpName := '공급자 상호';
-        taxinvoice.InvoicerMgtKey := '';  //역발행시에는 공급받는자부분에 기재.
-        taxinvoice.InvoicerCEOName := '공급자 대표자 성명';
-        taxinvoice.InvoicerAddr := '공급자 주소';
-        taxinvoice.InvoicerBizClass := '공급자 업종';
-        taxinvoice.InvoicerBizType := '공급자 업태';
-        taxinvoice.InvoicerContactName := '공급자 담당자명';
-        taxinvoice.InvoicerEmail := 'test@test.com';
-        taxinvoice.InvoicerTEL := '070-7070-0707';
-        taxinvoice.InvoicerHP := '010-000-2222';
-        taxinvoice.InvoicerSMSSendYN := true; //발행시 문자발송기능 사용시 활용
+        taxinvoice.invoicerCorpNum := '8888888888';
+        taxinvoice.invoicerTaxRegID := ''; //종사업자 식별번호. 필요시 기재. 형식은 숫자 4자리.
+        taxinvoice.invoicerCorpName := '공급자 상호';
+        taxinvoice.invoicerMgtKey := '';  //역발행시에는 공급받는자부분에 기재.
+        taxinvoice.invoicerCEOName := '공급자 대표자 성명';
+        taxinvoice.invoicerAddr := '공급자 주소';
+        taxinvoice.invoicerBizClass := '공급자 업종';
+        taxinvoice.invoicerBizType := '공급자 업태';
+        taxinvoice.invoicerContactName := '공급자 담당자명';
+        taxinvoice.invoicerEmail := 'test@test.com';
+        taxinvoice.invoicerTEL := '070-7070-0707';
+        taxinvoice.invoicerHP := '010-000-2222';
+        taxinvoice.invoicerSMSSendYN := true; //발행시 문자발송기능 사용시 활용
 
-        taxinvoice.InvoiceeType := '사업자';
-        taxinvoice.InvoiceeCorpNum := '4108600477';
-        taxinvoice.InvoiceeCorpName := '공급받는자 상호';
-        taxinvoice.InvoiceeMgtKey := tbMgtKey.Text; //역발행시에는 필수기재.
-        taxinvoice.InvoiceeCEOName := '공급받는자 대표자 성명';
-        taxinvoice.InvoiceeAddr := '공급받는자 주소';
-        taxinvoice.InvoiceeBizClass := '공급받는자 업종';
-        taxinvoice.InvoiceeBizType := '공급받는자 업태';
-        taxinvoice.InvoiceeContactName1 := '공급받는자 담당자명';
-        taxinvoice.InvoiceeEmail1 := 'test@invoicee.com';
+        taxinvoice.invoiceeType := '사업자';
+        taxinvoice.invoiceeCorpNum := '1231212312';
+        taxinvoice.invoiceeCorpName := '공급받는자 상호';
+        taxinvoice.invoiceeMgtKey := tbMgtKey.Text; //역발행시에는 필수기재.
+        taxinvoice.invoiceeCEOName := '공급받는자 대표자 성명';
+        taxinvoice.invoiceeAddr := '공급받는자 주소';
+        taxinvoice.invoiceeBizClass := '공급받는자 업종';
+        taxinvoice.invoiceeBizType := '공급받는자 업태';
+        taxinvoice.invoiceeContactName1 := '공급받는자 담당자명';
+        taxinvoice.invoiceeEmail1 := 'test@invoicee.com';
 
-        taxinvoice.SupplyCostTotal := '100000';         //필수 공급가액 합계
-        taxinvoice.TaxTotal := '10000';                 //필수 세액 합계
-        taxinvoice.TotalAmount := '110000';             //필수 합계금액.  공급가액 + 세액
+        taxinvoice.supplyCostTotal := '100000';         //필수 공급가액 합계
+        taxinvoice.taxTotal := '10000';                 //필수 세액 합계
+        taxinvoice.totalAmount := '110000';             //필수 합계금액.  공급가액 + 세액
 
-        taxinvoice.ModifyCode := ''; //수정세금계산서 작성시 1~6까지 선택기재.
-        taxinvoice.OriginalTaxinvoiceKey := ''; //수정세금계산서 작성시 원본세금계산서의 ItemKey기재. ItemKey는 문서확인.
-        taxinvoice.SerialNum := '123';
-        taxinvoice.Cash := '';          //현금
-        taxinvoice.ChkBill := '';       //수표
-        taxinvoice.Note := '';          //어음
-        taxinvoice.Credit := '';        //외상미수금
-        taxinvoice.Remark1 := '비고1';
-        taxinvoice.Remark2 := '비고2';
-        taxinvoice.Remark3 := '비고3';
-        taxinvoice.Kwon := '1';
-        taxinvoice.Ho := '1';
+        taxinvoice.modifyCode := ''; //수정세금계산서 작성시 1~6까지 선택기재.
+        taxinvoice.originalTaxinvoiceKey := ''; //수정세금계산서 작성시 원본세금계산서의 ItemKey기재. ItemKey는 문서확인.
+        taxinvoice.serialNum := '123';
+        taxinvoice.cash := '';          //현금
+        taxinvoice.chkBill := '';       //수표
+        taxinvoice.note := '';          //어음
+        taxinvoice.credit := '';        //외상미수금
+        taxinvoice.remark1 := '비고1';
+        taxinvoice.remark2 := '비고2';
+        taxinvoice.remark3 := '비고3';
+        taxinvoice.kwon := '1';
+        taxinvoice.ho := '1';
 
-        taxinvoice.BusinessLicenseYN := false; //사업자등록증 이미지 첨부시 설정.
-        taxinvoice.BankBookYN := false ;        //통장사본 이미지 첨부시 설정.
-        taxinvoice.FaxReceiveNum := '';         //발행시 Fax발송기능 사용시 수신번호 기재.
-        taxinvoice.FaxSendYN := false;          //발행시 Fax발송시 설정.
-        
-        
+        taxinvoice.businessLicenseYN := false; //사업자등록증 이미지 첨부시 설정.
+        taxinvoice.bankBookYN := false ;        //통장사본 이미지 첨부시 설정.
+        taxinvoice.faxreceiveNum := '';         //발행시 Fax발송기능 사용시 수신번호 기재.
+        taxinvoice.faxsendYN := false;          //발행시 Fax발송시 설정.
+
+
 
         //상세항목 0~99개 까지 작성가능.
         // SerialNum 은 1부터 99까지 순차기재.
@@ -1025,27 +1025,27 @@ begin
         setLength(taxinvoice.detailList, 2);
 
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
-        taxinvoice.detailList[0].SerialNum := 1;
-        taxinvoice.detailList[0].PurchaseDT := '20140319';
-        taxinvoice.detailList[0].ItemName := '품목명';
-        taxinvoice.detailList[0].Spec := '규격';
-        taxinvoice.detailList[0].Qty := '1';
-        taxinvoice.detailList[0].UnitCost := '100000';
-        taxinvoice.detailList[0].SupplyCost := '100000';
-        taxinvoice.detailList[0].Tax := '10000';
-        taxinvoice.detailList[0].Remark := '품목비고';
+        taxinvoice.detailList[0].serialNum := 1;
+        taxinvoice.detailList[0].purchaseDT := '20140319';
+        taxinvoice.detailList[0].itemName := '품목명';
+        taxinvoice.detailList[0].spec := '규격';
+        taxinvoice.detailList[0].qty := '1';
+        taxinvoice.detailList[0].unitCost := '100000';
+        taxinvoice.detailList[0].supplyCost := '100000';
+        taxinvoice.detailList[0].tax := '10000';
+        taxinvoice.detailList[0].remark := '품목비고';
 
 
         taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
-        taxinvoice.detailList[1].SerialNum := 2;
-        taxinvoice.detailList[1].ItemName := '품목명';
+        taxinvoice.detailList[1].serialNum := 2;
+        taxinvoice.detailList[1].itemName := '품목명';
 
         //추가담당자 0~5까지 기재 가능.
-        SetLength(taxinvoice.AddContactList,1);
+        SetLength(taxinvoice.addContactList,1);
 
-        taxinvoice.AddContactList[0] := TTaxinvoiceAddContact.Create;
-        taxinvoice.AddContactList[0].Email := 'test2@invoicee.com';
-        taxinvoice.AddContactList[0].ContactName := '추가담당자명';
+        taxinvoice.addContactList[0] := TTaxinvoiceAddContact.Create;
+        taxinvoice.addContactList[0].email := 'test2@invoicee.com';
+        taxinvoice.addContactList[0].contactName := '추가담당자명';
 
         try
                 response := taxinvoiceService.Register(txtCorpNum.text,taxinvoice,txtUserID.Text);
@@ -1066,62 +1066,62 @@ var
 begin
         taxinvoice := TTaxinvoice.Create;
         
-        taxinvoice.WriteDate := '20140319';             //필수, 기재상 작성일자
-        taxinvoice.ChargeDirection := '정과금';         //필수, {정과금, 역과금}
-        taxinvoice.IssueType := '정발행';               //필수, {정발행, 역발행, 위수탁}
-        taxinvoice.PurposeType := '영수';               //필수, {영수, 청구}
-        taxinvoice.IssueTiming := '직접발행';           //필수, {직접발행, 승인시자동발행}
-        taxinvoice.TaxType :='과세';                    //필수, {과세, 영세, 면세}
+        taxinvoice.writeDate := '20140319';             //필수, 기재상 작성일자
+        taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
+        taxinvoice.issueType := '정발행';               //필수, {정발행, 역발행, 위수탁}
+        taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
+        taxinvoice.issueTiming := '직접발행';           //필수, {직접발행, 승인시자동발행}
+        taxinvoice.taxType :='과세';                    //필수, {과세, 영세, 면세}
 
 
-        taxinvoice.InvoicerCorpNum := '4108600477';
-        taxinvoice.InvoicerTaxRegID := ''; //종사업자 식별번호. 필요시 기재. 형식은 숫자 4자리.
-        taxinvoice.InvoicerCorpName := '공급자 상호';
-        taxinvoice.InvoicerMgtKey := ''; //수정시에는 기재하지 않습니다.
-        taxinvoice.InvoicerCEOName := '공급자 대표자 성명';
-        taxinvoice.InvoicerAddr := '공급자 주소';
-        taxinvoice.InvoicerBizClass := '공급자 업종';
-        taxinvoice.InvoicerBizType := '공급자 업태';
-        taxinvoice.InvoicerContactName := '공급자 담당자명';
-        taxinvoice.InvoicerEmail := 'test@test.com';
-        taxinvoice.InvoicerTEL := '070-7070-0707';
-        taxinvoice.InvoicerHP := '010-000-2222';
-        taxinvoice.InvoicerSMSSendYN := true; //발행시 문자발송기능 사용시 활용
+        taxinvoice.invoicerCorpNum := '1231212312';
+        taxinvoice.invoicerTaxRegID := ''; //종사업자 식별번호. 필요시 기재. 형식은 숫자 4자리.
+        taxinvoice.invoicerCorpName := '공급자 상호';
+        taxinvoice.invoicerMgtKey := ''; //수정시에는 기재하지 않습니다.
+        taxinvoice.invoicerCEOName := '공급자 대표자 성명';
+        taxinvoice.invoicerAddr := '공급자 주소';
+        taxinvoice.invoicerBizClass := '공급자 업종';
+        taxinvoice.invoicerBizType := '공급자 업태';
+        taxinvoice.invoicerContactName := '공급자 담당자명';
+        taxinvoice.invoicerEmail := 'test@test.com';
+        taxinvoice.invoicerTEL := '070-7070-0707';
+        taxinvoice.invoicerHP := '010-000-2222';
+        taxinvoice.invoicerSMSSendYN := true; //발행시 문자발송기능 사용시 활용
 
-        taxinvoice.InvoiceeType := '사업자';
-        taxinvoice.InvoiceeCorpNum := '8888888888';
-        taxinvoice.InvoiceeCorpName := '공급받는자 상호';
-        taxinvoice.InvoiceeMgtKey := '';
-        taxinvoice.InvoiceeCEOName := '공급받는자 대표자 성명';
-        taxinvoice.InvoiceeAddr := '공급받는자 주소';
-        taxinvoice.InvoiceeBizClass := '공급받는자 업종';
-        taxinvoice.InvoiceeBizType := '공급받는자 업태';
-        taxinvoice.InvoiceeContactName1 := '공급받는자 담당자명';
-        taxinvoice.InvoiceeEmail1 := 'test@invoicee.com';
+        taxinvoice.invoiceeType := '사업자';
+        taxinvoice.invoiceeCorpNum := '8888888888';
+        taxinvoice.invoiceeCorpName := '공급받는자 상호';
+        taxinvoice.invoiceeMgtKey := '';
+        taxinvoice.invoiceeCEOName := '공급받는자 대표자 성명';
+        taxinvoice.invoiceeAddr := '공급받는자 주소';
+        taxinvoice.invoiceeBizClass := '공급받는자 업종';
+        taxinvoice.invoiceeBizType := '공급받는자 업태';
+        taxinvoice.invoiceeContactName1 := '공급받는자 담당자명';
+        taxinvoice.invoiceeEmail1 := 'test@invoicee.com';
 
-        taxinvoice.SupplyCostTotal := '100000';         //필수 공급가액 합계
-        taxinvoice.TaxTotal := '10000';                 //필수 세액 합계
-        taxinvoice.TotalAmount := '110000';             //필수 합계금액.  공급가액 + 세액
+        taxinvoice.supplyCostTotal := '100000';         //필수 공급가액 합계
+        taxinvoice.taxTotal := '10000';                 //필수 세액 합계
+        taxinvoice.totalAmount := '110000';             //필수 합계금액.  공급가액 + 세액
 
-        taxinvoice.ModifyCode := ''; //수정세금계산서 작성시 1~6까지 선택기재.
-        taxinvoice.OriginalTaxinvoiceKey := ''; //수정세금계산서 작성시 원본세금계산서의 ItemKey기재. ItemKey는 문서확인.
-        taxinvoice.SerialNum := '123';
-        taxinvoice.Cash := '';          //현금
-        taxinvoice.ChkBill := '';       //수표
-        taxinvoice.Note := '';          //어음
-        taxinvoice.Credit := '';        //외상미수금
-        taxinvoice.Remark1 := '비고1';
-        taxinvoice.Remark2 := '비고2';
-        taxinvoice.Remark3 := '비고3';
-        taxinvoice.Kwon := '1';
-        taxinvoice.Ho := '1';
+        taxinvoice.modifyCode := ''; //수정세금계산서 작성시 1~6까지 선택기재.
+        taxinvoice.originalTaxinvoiceKey := ''; //수정세금계산서 작성시 원본세금계산서의 ItemKey기재. ItemKey는 문서확인.
+        taxinvoice.serialNum := '123';
+        taxinvoice.cash := '';          //현금
+        taxinvoice.chkBill := '';       //수표
+        taxinvoice.note := '';          //어음
+        taxinvoice.credit := '';        //외상미수금
+        taxinvoice.remark1 := '비고1';
+        taxinvoice.remark2 := '비고2';
+        taxinvoice.remark3 := '비고3';
+        taxinvoice.kwon := '1';
+        taxinvoice.ho := '1';
 
-        taxinvoice.BusinessLicenseYN := false; //사업자등록증 이미지 첨부시 설정.
-        taxinvoice.BankBookYN := false ;        //통장사본 이미지 첨부시 설정.
-        taxinvoice.FaxReceiveNum := '';         //발행시 Fax발송기능 사용시 수신번호 기재.
-        taxinvoice.FaxSendYN := false;          //발행시 Fax발송시 설정.
-        
-        
+        taxinvoice.businessLicenseYN := false; //사업자등록증 이미지 첨부시 설정.
+        taxinvoice.bankBookYN := false ;        //통장사본 이미지 첨부시 설정.
+        taxinvoice.faxreceiveNum := '';         //발행시 Fax발송기능 사용시 수신번호 기재.
+        taxinvoice.faxsendYN := false;          //발행시 Fax발송시 설정.
+
+
 
         //상세항목 0~99개 까지 작성가능.
         // SerialNum 은 1부터 99까지 순차기재.
@@ -1129,31 +1129,31 @@ begin
         setLength(taxinvoice.detailList, 3);
 
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
-        taxinvoice.detailList[0].SerialNum := 1;
-        taxinvoice.detailList[0].PurchaseDT := '20140319';
-        taxinvoice.detailList[0].ItemName := '품목명';
-        taxinvoice.detailList[0].Spec := '규격';
-        taxinvoice.detailList[0].Qty := '1';
-        taxinvoice.detailList[0].UnitCost := '100000';
-        taxinvoice.detailList[0].SupplyCost := '100000';
-        taxinvoice.detailList[0].Tax := '10000';
-        taxinvoice.detailList[0].Remark := '품목비고';
+        taxinvoice.detailList[0].serialNum := 1;
+        taxinvoice.detailList[0].purchaseDT := '20140319';
+        taxinvoice.detailList[0].itemName := '품목명';
+        taxinvoice.detailList[0].spec := '규격';
+        taxinvoice.detailList[0].qty := '1';
+        taxinvoice.detailList[0].unitCost := '100000';
+        taxinvoice.detailList[0].supplyCost := '100000';
+        taxinvoice.detailList[0].tax := '10000';
+        taxinvoice.detailList[0].remark := '품목비고';
 
 
         taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
-        taxinvoice.detailList[1].SerialNum := 2;
-        taxinvoice.detailList[1].ItemName := '품목명';
+        taxinvoice.detailList[1].serialNum := 2;
+        taxinvoice.detailList[1].itemName := '품목명';
 
         taxinvoice.detailList[2] := TTaxinvoiceDetail.Create;
-        taxinvoice.detailList[2].SerialNum := 3;
-        taxinvoice.detailList[2].ItemName := '수정된 품목명';
+        taxinvoice.detailList[2].serialNum := 3;
+        taxinvoice.detailList[2].itemName := '수정된 품목명';
 
         //추가담당자 0~5까지 기재 가능.
-        SetLength(taxinvoice.AddContactList,1);
+        SetLength(taxinvoice.addContactList,1);
 
-        taxinvoice.AddContactList[0] := TTaxinvoiceAddContact.Create;
-        taxinvoice.AddContactList[0].Email := 'test2@invoicee.com';
-        taxinvoice.AddContactList[0].ContactName := '추가담당자명';
+        taxinvoice.addContactList[0] := TTaxinvoiceAddContact.Create;
+        taxinvoice.addContactList[0].email := 'test2@invoicee.com';
+        taxinvoice.addContactList[0].contactName := '추가담당자명';
 
         try
                 response := taxinvoiceService.Update(txtCorpNum.text,MgtKeyType,tbMgtKey.Text, taxinvoice,txtUserID.Text);
@@ -1174,91 +1174,91 @@ var
 begin
         taxinvoice := TTaxinvoice.Create;
         
-        taxinvoice.WriteDate := '20140319';             //필수, 기재상 작성일자
-        taxinvoice.ChargeDirection := '정과금';         //필수, {정과금, 역과금}
-        taxinvoice.IssueType := '역발행';               //필수, {정발행, 역발행, 위수탁}
-        taxinvoice.PurposeType := '영수';               //필수, {영수, 청구}
-        taxinvoice.IssueTiming := '직접발행';           //필수, {직접발행, 승인시자동발행}
-        taxinvoice.TaxType :='과세';                    //필수, {과세, 영세, 면세}
+        taxinvoice.writeDate := '20140319';             //필수, 기재상 작성일자
+        taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
+        taxinvoice.issueType := '역발행';               //필수, {정발행, 역발행, 위수탁}
+        taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
+        taxinvoice.issueTiming := '직접발행';           //필수, {직접발행, 승인시자동발행}
+        taxinvoice.taxType :='과세';                    //필수, {과세, 영세, 면세}
 
-        taxinvoice.InvoicerCorpNum := '8888888888';
-        taxinvoice.InvoicerTaxRegID := ''; //종사업자 식별번호. 필요시 기재. 형식은 숫자 4자리.
-        taxinvoice.InvoicerCorpName := '공급자 상호';
-        taxinvoice.InvoicerMgtKey := '';  //역발행시에는 공급받는자부분에 기재.
-        taxinvoice.InvoicerCEOName := '공급자 대표자 성명';
-        taxinvoice.InvoicerAddr := '공급자 주소';
-        taxinvoice.InvoicerBizClass := '공급자 업종';
-        taxinvoice.InvoicerBizType := '공급자 업태';
-        taxinvoice.InvoicerContactName := '공급자 담당자명';
-        taxinvoice.InvoicerEmail := 'test@test.com';
-        taxinvoice.InvoicerTEL := '070-7070-0707';
-        taxinvoice.InvoicerHP := '010-000-2222';
-        taxinvoice.InvoicerSMSSendYN := true; //발행시 문자발송기능 사용시 활용
+        taxinvoice.invoicerCorpNum := '8888888888';
+        taxinvoice.invoicerTaxRegID := ''; //종사업자 식별번호. 필요시 기재. 형식은 숫자 4자리.
+        taxinvoice.invoicerCorpName := '공급자 상호';
+        taxinvoice.invoicerMgtKey := '';  //역발행시에는 공급받는자부분에 기재.
+        taxinvoice.invoicerCEOName := '공급자 대표자 성명';
+        taxinvoice.invoicerAddr := '공급자 주소';
+        taxinvoice.invoicerBizClass := '공급자 업종';
+        taxinvoice.invoicerBizType := '공급자 업태';
+        taxinvoice.invoicerContactName := '공급자 담당자명';
+        taxinvoice.invoicerEmail := 'test@test.com';
+        taxinvoice.invoicerTEL := '070-7070-0707';
+        taxinvoice.invoicerHP := '010-000-2222';
+        taxinvoice.invoicerSMSSendYN := true; //발행시 문자발송기능 사용시 활용
 
-        taxinvoice.InvoiceeType := '사업자';
-        taxinvoice.InvoiceeCorpNum := '4108600477';
-        taxinvoice.InvoiceeCorpName := '공급받는자 상호';
-        taxinvoice.InvoiceeMgtKey := tbMgtKey.Text; //역발행시에는 필수기재.
-        taxinvoice.InvoiceeCEOName := '공급받는자 대표자 성명';
-        taxinvoice.InvoiceeAddr := '공급받는자 주소';
-        taxinvoice.InvoiceeBizClass := '공급받는자 업종';
-        taxinvoice.InvoiceeBizType := '공급받는자 업태';
-        taxinvoice.InvoiceeContactName1 := '공급받는자 담당자명';
-        taxinvoice.InvoiceeEmail1 := 'test@invoicee.com';
+        taxinvoice.invoiceeType := '사업자';
+        taxinvoice.invoiceeCorpNum := '1231212312';
+        taxinvoice.invoiceeCorpName := '공급받는자 상호';
+        taxinvoice.invoiceeMgtKey := tbMgtKey.Text; //역발행시에는 필수기재.
+        taxinvoice.invoiceeCEOName := '공급받는자 대표자 성명';
+        taxinvoice.invoiceeAddr := '공급받는자 주소';
+        taxinvoice.invoiceeBizClass := '공급받는자 업종';
+        taxinvoice.invoiceeBizType := '공급받는자 업태';
+        taxinvoice.invoiceeContactName1 := '공급받는자 담당자명';
+        taxinvoice.invoiceeEmail1 := 'test@invoicee.com';
 
-        taxinvoice.SupplyCostTotal := '100000';         //필수 공급가액 합계
-        taxinvoice.TaxTotal := '10000';                 //필수 세액 합계
-        taxinvoice.TotalAmount := '110000';             //필수 합계금액.  공급가액 + 세액
+        taxinvoice.supplyCostTotal := '100000';         //필수 공급가액 합계
+        taxinvoice.taxTotal := '10000';                 //필수 세액 합계
+        taxinvoice.totalAmount := '110000';             //필수 합계금액.  공급가액 + 세액
 
-        taxinvoice.ModifyCode := ''; //수정세금계산서 작성시 1~6까지 선택기재.
-        taxinvoice.OriginalTaxinvoiceKey := ''; //수정세금계산서 작성시 원본세금계산서의 ItemKey기재. ItemKey는 문서확인.
-        taxinvoice.SerialNum := '123';
-        taxinvoice.Cash := '';          //현금
-        taxinvoice.ChkBill := '';       //수표
-        taxinvoice.Note := '';          //어음
-        taxinvoice.Credit := '';        //외상미수금
-        taxinvoice.Remark1 := '비고1';
-        taxinvoice.Remark2 := '비고2';
-        taxinvoice.Remark3 := '비고3';
-        taxinvoice.Kwon := '1';
-        taxinvoice.Ho := '1';
+        taxinvoice.modifyCode := ''; //수정세금계산서 작성시 1~6까지 선택기재.
+        taxinvoice.originalTaxinvoiceKey := ''; //수정세금계산서 작성시 원본세금계산서의 ItemKey기재. ItemKey는 문서확인.
+        taxinvoice.serialNum := '123';
+        taxinvoice.cash := '';          //현금
+        taxinvoice.chkBill := '';       //수표
+        taxinvoice.note := '';          //어음
+        taxinvoice.credit := '';        //외상미수금
+        taxinvoice.remark1 := '비고1';
+        taxinvoice.remark2 := '비고2';
+        taxinvoice.remark3 := '비고3';
+        taxinvoice.kwon := '1';
+        taxinvoice.ho := '1';
 
-        taxinvoice.BusinessLicenseYN := false; //사업자등록증 이미지 첨부시 설정.
-        taxinvoice.BankBookYN := false ;        //통장사본 이미지 첨부시 설정.
-        taxinvoice.FaxReceiveNum := '';         //발행시 Fax발송기능 사용시 수신번호 기재.
-        taxinvoice.FaxSendYN := false;          //발행시 Fax발송시 설정.
-     
+        taxinvoice.businessLicenseYN := false; //사업자등록증 이미지 첨부시 설정.
+        taxinvoice.bankBookYN := false ;        //통장사본 이미지 첨부시 설정.
+        taxinvoice.faxreceiveNum := '';         //발행시 Fax발송기능 사용시 수신번호 기재.
+        taxinvoice.faxsendYN := false;          //발행시 Fax발송시 설정.
+
         //상세항목 0~99개 까지 작성가능.
         // SerialNum 은 1부터 99까지 순차기재.
         //SetLength로 초기화 한후 기재.
         setLength(taxinvoice.detailList, 3);
 
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
-        taxinvoice.detailList[0].SerialNum := 1;
-        taxinvoice.detailList[0].PurchaseDT := '20140319';
-        taxinvoice.detailList[0].ItemName := '품목명';
-        taxinvoice.detailList[0].Spec := '규격';
-        taxinvoice.detailList[0].Qty := '1';
-        taxinvoice.detailList[0].UnitCost := '100000';
-        taxinvoice.detailList[0].SupplyCost := '100000';
-        taxinvoice.detailList[0].Tax := '10000';
-        taxinvoice.detailList[0].Remark := '품목비고';
+        taxinvoice.detailList[0].serialNum := 1;
+        taxinvoice.detailList[0].purchaseDT := '20140319';
+        taxinvoice.detailList[0].itemName := '품목명';
+        taxinvoice.detailList[0].spec := '규격';
+        taxinvoice.detailList[0].qty := '1';
+        taxinvoice.detailList[0].unitCost := '100000';
+        taxinvoice.detailList[0].supplyCost := '100000';
+        taxinvoice.detailList[0].tax := '10000';
+        taxinvoice.detailList[0].remark := '품목비고';
 
 
         taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
-        taxinvoice.detailList[1].SerialNum := 2;
-        taxinvoice.detailList[1].ItemName := '품목명';
+        taxinvoice.detailList[1].serialNum := 2;
+        taxinvoice.detailList[1].itemName := '품목명';
 
         taxinvoice.detailList[2] := TTaxinvoiceDetail.Create;
-        taxinvoice.detailList[2].SerialNum := 3;
-        taxinvoice.detailList[2].ItemName := '수정된 품목명';
+        taxinvoice.detailList[2].serialNum := 3;
+        taxinvoice.detailList[2].itemName := '수정된 품목명';
 
         //추가담당자 0~5까지 기재 가능.
-        SetLength(taxinvoice.AddContactList,1);
+        SetLength(taxinvoice.addContactList,1);
 
-        taxinvoice.AddContactList[0] := TTaxinvoiceAddContact.Create;
-        taxinvoice.AddContactList[0].Email := 'test2@invoicee.com';
-        taxinvoice.AddContactList[0].ContactName := '추가담당자명';
+        taxinvoice.addContactList[0] := TTaxinvoiceAddContact.Create;
+        taxinvoice.addContactList[0].email := 'test2@invoicee.com';
+        taxinvoice.addContactList[0].contactName := '추가담당자명';
 
         try
                 response := taxinvoiceService.Update(txtCorpNum.text,MgtKeyType,tbMgtKey.Text, taxinvoice,txtUserID.Text);
@@ -1287,41 +1287,41 @@ begin
                 end;
         end;
 
-        tmp := tmp +'WriteDate : ' +  taxinvoice.WriteDate + #13;
-        tmp := tmp +'ChargeDirection : ' +  taxinvoice.ChargeDirection + #13;
-        tmp := tmp +'IssueType : ' +  taxinvoice.IssueType + #13;
-        tmp := tmp +'IssueTiming : ' +  taxinvoice.IssueTiming + #13;
-        tmp := tmp +'TaxType : ' +  taxinvoice.TaxType + #13;
+        tmp := tmp +'writeDate : ' +  taxinvoice.WriteDate + #13;
+        tmp := tmp +'chargeDirection : ' +  taxinvoice.ChargeDirection + #13;
+        tmp := tmp +'issueType : ' +  taxinvoice.IssueType + #13;
+        tmp := tmp +'issueTiming : ' +  taxinvoice.IssueTiming + #13;
+        tmp := tmp +'taxType : ' +  taxinvoice.TaxType + #13;
 
-        tmp := tmp +'InvoicerCorpNum : ' +  taxinvoice.InvoicerCorpNum + #13;
-        tmp := tmp +'InvoicerMgtKey : ' +  taxinvoice.InvoicerMgtKey + #13;
-        tmp := tmp +'InvoicerTaxRegID : ' +  taxinvoice.InvoicerTaxRegID + #13;
-        tmp := tmp +'InvoicerCorpName : ' +  taxinvoice.InvoicerCorpName + #13;
-        tmp := tmp +'InvoicerCEOName : ' +  taxinvoice.InvoicerCEOName + #13;
-        tmp := tmp +'InvoicerAddr : ' +  taxinvoice.InvoicerAddr + #13;
-        tmp := tmp +'InvoicerBizClass : ' +  taxinvoice.InvoicerBizClass + #13;
-        tmp := tmp +'InvoicerBizType : ' +  taxinvoice.InvoicerBizType + #13;
-        tmp := tmp +'InvoicerContactName : ' +  taxinvoice.InvoicerContactName + #13;
-        tmp := tmp +'InvoicerDeptName : ' +  taxinvoice.InvoicerDeptName + #13;
-        tmp := tmp +'InvoicerTEL : ' +  taxinvoice.InvoicerTEL + #13;
-        tmp := tmp +'InvoicerHP : ' +  taxinvoice.InvoicerHP + #13;
-        tmp := tmp +'InvoicerEmail : ' +  taxinvoice.InvoicerEmail + #13;
-        tmp := tmp +'InvoicerSMSSendYN : ' +  IfThen(taxinvoice.InvoicerSMSSendYN,'true','false') + #13;
+        tmp := tmp +'invoicerCorpNum : ' +  taxinvoice.InvoicerCorpNum + #13;
+        tmp := tmp +'invoicerMgtKey : ' +  taxinvoice.InvoicerMgtKey + #13;
+        tmp := tmp +'invoicerTaxRegID : ' +  taxinvoice.InvoicerTaxRegID + #13;
+        tmp := tmp +'invoicerCorpName : ' +  taxinvoice.InvoicerCorpName + #13;
+        tmp := tmp +'invoicerCEOName : ' +  taxinvoice.InvoicerCEOName + #13;
+        tmp := tmp +'invoicerAddr : ' +  taxinvoice.InvoicerAddr + #13;
+        tmp := tmp +'invoicerBizClass : ' +  taxinvoice.InvoicerBizClass + #13;
+        tmp := tmp +'invoicerBizType : ' +  taxinvoice.InvoicerBizType + #13;
+        tmp := tmp +'invoicerContactName : ' +  taxinvoice.InvoicerContactName + #13;
+        tmp := tmp +'invoicerDeptName : ' +  taxinvoice.InvoicerDeptName + #13;
+        tmp := tmp +'invoicerTEL : ' +  taxinvoice.InvoicerTEL + #13;
+        tmp := tmp +'invoicerHP : ' +  taxinvoice.InvoicerHP + #13;
+        tmp := tmp +'invoicerEmail : ' +  taxinvoice.InvoicerEmail + #13;
+        tmp := tmp +'invoicerSMSSendYN : ' +  IfThen(taxinvoice.InvoicerSMSSendYN,'true','false') + #13;
 
-        tmp := tmp +'InvoiceeCorpNum : ' +  taxinvoice.InvoiceeCorpNum + #13;
-        tmp := tmp +'InvoiceeMgtKey : ' +  taxinvoice.InvoiceeMgtKey + #13;
-        tmp := tmp +'InvoiceeTaxRegID : ' +  taxinvoice.InvoiceeTaxRegID + #13;
-        tmp := tmp +'InvoiceeCorpName : ' +  taxinvoice.InvoiceeCorpName + #13;
-        tmp := tmp +'InvoiceeCEOName : ' +  taxinvoice.InvoiceeCEOName + #13;
-        tmp := tmp +'InvoiceeAddr : ' +  taxinvoice.InvoiceeAddr + #13;
-        tmp := tmp +'InvoiceeBizClass : ' +  taxinvoice.InvoiceeBizClass + #13;
-        tmp := tmp +'InvoiceeBizType : ' +  taxinvoice.InvoiceeBizType + #13;
-        tmp := tmp +'InvoiceeContactName1 : ' +  taxinvoice.InvoiceeContactName1 + #13;
-        tmp := tmp +'InvoiceeDeptName1 : ' +  taxinvoice.InvoiceeDeptName1 + #13;
-        tmp := tmp +'InvoiceeTEL1 : ' +  taxinvoice.InvoiceeTEL1 + #13;
-        tmp := tmp +'InvoiceeHP1 : ' +  taxinvoice.InvoiceeHP1 + #13;
-        tmp := tmp +'InvoiceeEmail1 : ' +  taxinvoice.InvoiceeEmail1 + #13;
-        tmp := tmp +'InvoiceeSMSSendYN : ' +  IfThen(taxinvoice.InvoiceeSMSSendYN,'true','false') + #13;
+        tmp := tmp +'invoiceeCorpNum : ' +  taxinvoice.InvoiceeCorpNum + #13;
+        tmp := tmp +'invoiceeMgtKey : ' +  taxinvoice.InvoiceeMgtKey + #13;
+        tmp := tmp +'invoiceeTaxRegID : ' +  taxinvoice.InvoiceeTaxRegID + #13;
+        tmp := tmp +'invoiceeCorpName : ' +  taxinvoice.InvoiceeCorpName + #13;
+        tmp := tmp +'invoiceeCEOName : ' +  taxinvoice.InvoiceeCEOName + #13;
+        tmp := tmp +'invoiceeAddr : ' +  taxinvoice.InvoiceeAddr + #13;
+        tmp := tmp +'invoiceeBizClass : ' +  taxinvoice.InvoiceeBizClass + #13;
+        tmp := tmp +'invoiceeBizType : ' +  taxinvoice.InvoiceeBizType + #13;
+        tmp := tmp +'invoiceeContactName1 : ' +  taxinvoice.InvoiceeContactName1 + #13;
+        tmp := tmp +'invoiceeDeptName1 : ' +  taxinvoice.InvoiceeDeptName1 + #13;
+        tmp := tmp +'invoiceeTEL1 : ' +  taxinvoice.InvoiceeTEL1 + #13;
+        tmp := tmp +'invoiceeHP1 : ' +  taxinvoice.InvoiceeHP1 + #13;
+        tmp := tmp +'invoiceeEmail1 : ' +  taxinvoice.InvoiceeEmail1 + #13;
+        tmp := tmp +'invoiceeSMSSendYN : ' +  IfThen(taxinvoice.InvoiceeSMSSendYN,'true','false') + #13;
 
         tmp := tmp +'trusteeCorpNum : ' +  taxinvoice.trusteeCorpNum + #13;
         tmp := tmp +'trusteeMgtKey : ' +  taxinvoice.trusteeMgtKey + #13;
@@ -1362,10 +1362,10 @@ begin
 
         tmp := tmp +'businessLicenseYN : ' +  IfThen(taxinvoice.businessLicenseYN,'true','false') + #13;
         tmp := tmp +'bankBookYN : ' +  IfThen(taxinvoice.bankBookYN,'true','false') + #13;
-        tmp := tmp +'fAXSendYN : ' +  IfThen(taxinvoice.fAXSendYN,'true','false') + #13;
+        tmp := tmp +'faxsendYN : ' +  IfThen(taxinvoice.fAXSendYN,'true','false') + #13;
 
-        tmp := tmp +'fAXReceiveNum : ' +  taxinvoice.fAXReceiveNum + #13;
-        tmp := tmp +'nTSConfirmNum : ' +  taxinvoice.nTSConfirmNum + #13;
+        tmp := tmp +'faxreceiveNum : ' +  taxinvoice.fAXReceiveNum + #13;
+        tmp := tmp +'ntsconfirmNum : ' +  taxinvoice.nTSConfirmNum + #13;
         tmp := tmp +'originalTaxinvoiceKey : ' +  taxinvoice.originalTaxinvoiceKey + #13;
 
         tmp := tmp + '-----상세항목-----' + #13;
@@ -1374,13 +1374,13 @@ begin
         begin
             tmp := tmp + IntToStr(taxinvoice.detailList[i].serialNum) + ' | ' +
                          taxinvoice.detailList[i].purchaseDT + ' | ' +
-                         taxinvoice.detailList[i].ItemName + ' | ' +
-                         taxinvoice.detailList[i].Spec + ' | ' +
-                         taxinvoice.detailList[i].Qty + ' | ' +
-                         taxinvoice.detailList[i].UnitCost + ' | ' +
-                         taxinvoice.detailList[i].SupplyCost + ' | ' +
-                         taxinvoice.detailList[i].Tax + ' | ' +
-                         taxinvoice.detailList[i].Remark + #13 ;
+                         taxinvoice.detailList[i].itemName + ' | ' +
+                         taxinvoice.detailList[i].spec + ' | ' +
+                         taxinvoice.detailList[i].qty + ' | ' +
+                         taxinvoice.detailList[i].unitCost + ' | ' +
+                         taxinvoice.detailList[i].supplyCost + ' | ' +
+                         taxinvoice.detailList[i].tax + ' | ' +
+                         taxinvoice.detailList[i].remark + #13 ;
 
         end;
 
@@ -1389,7 +1389,7 @@ begin
         begin
             tmp := tmp + IntToStr(taxinvoice.AddContactList[i].serialNum) + ' | ' +
                          taxinvoice.AddContactList[i].email + ' | ' +
-                         taxinvoice.AddContactList[i].ContactName + #13 ;
+                         taxinvoice.AddContactList[i].contactName + #13 ;
 
         end;
         ShowMessage(tmp);
@@ -1410,5 +1410,6 @@ begin
 
         if InUse then ShowMessage('사용중') else ShowMessage('미 사용중.');
 end;
+
 
 end.

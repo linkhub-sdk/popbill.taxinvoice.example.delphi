@@ -729,9 +729,6 @@ object frmExample: TfrmExample
           'LOGIN : SSO로그인'
           'CHRG : 포인트 충전'
           'CERT : 공인인증서 등록'
-          'SEAL : 인감 등록'
-          'BLICENSE : 사업자등록증 등록'
-          'BANKBOOK : 통장사본 등록'
           '')
       end
     end

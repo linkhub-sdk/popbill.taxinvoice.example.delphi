@@ -8,8 +8,8 @@ uses
   Popbill, PopbillTaxinvoice, ExtCtrls;
 
 const
-        //파트너 ID.
-        PartnerID = 'TESTER';
+        //연동아이디.
+        LinkID = 'TESTER';
         // 파트너 통신용 비밀키. 유출 주의.
         SecretKey = 'okH3G1/WZ3w1PMjHDLaWdcWIa/dbTX3eGuqMZ5AvnDE=';
 
@@ -166,7 +166,7 @@ procedure TfrmExample.FormCreate(Sender: TObject);
 begin
         MgtKeyType := SELL;
         //세금계산서 모듈 초기화.
-        taxinvoiceService := TTaxinvoiceService.Create(PartnerID,SecretKey);
+        taxinvoiceService := TTaxinvoiceService.Create(LinkID,SecretKey);
         taxinvoiceService.IsTest := true;
 end;
 
@@ -208,7 +208,7 @@ var
         response : TResponse;
         joinInfo : TJoinForm;
 begin
-        joinInfo.PartnerID := PartnerID; //파트너 아이디
+        joinInfo.LinkID := LinkID; //파트너 아이디
         joinInfo.CorpNum := '1231212312'; //사업자번호 '-' 제외.
         joinInfo.CEOName := '대표자성명';
         joinInfo.CorpName := '상호';

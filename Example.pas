@@ -11,7 +11,7 @@ const
         //연동아이디.
         LinkID = 'TESTER';
         // 파트너 통신용 비밀키. 유출 주의.
-        SecretKey = 'iHFp9iIuaTvwE3fiGk/AIGfj95pCU5C86ia8bgP8dk=';
+        SecretKey = 'iHFp9iIDuaTvwE3fiGk/AIGfj95pCU5C86ia8bgP8dk=';
 
 type
   TfrmExample = class(TForm)

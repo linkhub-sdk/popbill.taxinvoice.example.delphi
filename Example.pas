@@ -11,7 +11,7 @@ const
         //연동아이디.
         LinkID = 'TESTER';
         // 파트너 통신용 비밀키. 유출 주의.
-        SecretKey = 'okH3G1/WZ3w1PMjHDLaWdcWIa/dbTX3eGuqMZ5AvnDE=';
+        SecretKey = 'iHFp9iIuaTvwE3fiGk/AIGfj95pCU5C86ia8bgP8dk=';
 
 type
   TfrmExample = class(TForm)
@@ -489,7 +489,11 @@ begin
 
         ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
 end;
-
+Function BoolToStr(b:Boolean):String;
+begin 
+    if b = true then BoolToStr:='True'; 
+    if b = false then BoolToStr:='False'; 
+end;
 procedure TfrmExample.btnGetInfoClick(Sender: TObject);
 var
         taxinvoiceInfo : TTaxinvoiceInfo;
@@ -504,10 +508,10 @@ begin
                 end;
         end;
 
-        tmp := 'ItemKey | StateCode | TaxType | WriteDate | RegDT' + #13;
+        tmp := 'ItemKey | StateCode | TaxType | WriteDate | RegDT | OpenYN | OpenDT' + #13;
 
         tmp := tmp + taxinvoiceInfo.ItemKey + ' | ' + IntToStr(taxinvoiceInfo.StateCode) + ' | '
-        + taxinvoiceInfo.TaxType + ' | ' + taxinvoiceInfo.WriteDate + ' | ' + taxinvoiceInfo.RegDT + #13;
+        + taxinvoiceInfo.TaxType + ' | ' + taxinvoiceInfo.WriteDate + ' | ' + taxinvoiceInfo.RegDT + ' | ' + BoolToStr(taxinvoiceInfo.OpenYN) + ' | ' + taxinvoiceInfo.OpenDT+ #13;
 
         ShowMessage(tmp);
 

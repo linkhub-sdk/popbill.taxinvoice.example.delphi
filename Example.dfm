@@ -1,8 +1,8 @@
 object frmExample: TfrmExample
-  Left = 993
-  Top = 249
+  Left = 594
+  Top = 234
   Width = 770
-  Height = 672
+  Height = 712
   Caption = 'Linkhub 팝빌 전자세금계산서  SDK Examples'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -32,7 +32,7 @@ object frmExample: TfrmExample
     Left = 8
     Top = 168
     Width = 745
-    Height = 465
+    Height = 497
     Caption = '전자세금계산서 관련 API'
     TabOrder = 0
     object Label1: TLabel
@@ -771,7 +771,7 @@ object frmExample: TfrmExample
     Left = 408
     Top = 472
     Width = 209
-    Height = 153
+    Height = 185
     Caption = ' 문서관련 URL기능'
     TabOrder = 2
     object btnGetPopUpURL: TButton
@@ -794,7 +794,7 @@ object frmExample: TfrmExample
     end
     object btnGetPrintsURL: TButton
       Left = 8
-      Top = 80
+      Top = 112
       Width = 190
       Height = 25
       Caption = '대량인쇄 팝업 URL'
@@ -803,12 +803,21 @@ object frmExample: TfrmExample
     end
     object btnGetMailURL: TButton
       Left = 8
-      Top = 112
+      Top = 144
       Width = 190
       Height = 25
       Caption = '이메일의 보기버튼 URL'
       TabOrder = 3
       OnClick = btnGetMailURLClick
+    end
+    object btnGetEPrintUrl: TButton
+      Left = 8
+      Top = 80
+      Width = 190
+      Height = 25
+      Caption = '공급받는자 인쇄 팝업 URL'
+      TabOrder = 4
+      OnClick = btnGetEPrintUrlClick
     end
   end
   object txtCorpNum: TEdit

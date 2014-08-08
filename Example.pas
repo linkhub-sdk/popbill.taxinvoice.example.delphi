@@ -11,7 +11,7 @@ const
         //연동아이디.
         LinkID = 'TESTER';
         // 파트너 통신용 비밀키. 유출 주의.
-        SecretKey = 'iHFp9iIDuaTvwE3fiGk/AIGfj95pCU5C86ia8bgP8dk=';
+        SecretKey = 'yU6MMvXrwen4sml72uzylntIJQfL85ngzL30G5nkwrc=';
 
 type
   TfrmExample = class(TForm)
@@ -106,6 +106,7 @@ type
     Shape17: TShape;
     btnGetEmailPublicKey: TButton;
     btnSendToNTS: TButton;
+    btnGetEPrintUrl: TButton;
     procedure FormCreate(Sender: TObject);
     procedure btnGetPopBillURLClick(Sender: TObject);
     procedure btnJoinClick(Sender: TObject);
@@ -149,6 +150,7 @@ type
     procedure btnUpdate_ReverseClick(Sender: TObject);
     procedure btnGetDetailInfoClick(Sender: TObject);
     procedure btnCheckMgtKeyInUseClick(Sender: TObject);
+    procedure btnGetEPrintUrlClick(Sender: TObject);
   private
     MgtKeyType : EnumMgtKeyType;
   public
@@ -244,7 +246,7 @@ var
 begin
         taxinvoice := TTaxinvoice.Create;
         
-        taxinvoice.writeDate := '20140319';             //필수, 기재상 작성일자
+        taxinvoice.writeDate := '20140723';             //필수, 기재상 작성일자
         taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
         taxinvoice.issueType := '정발행';               //필수, {정발행, 역발행, 위수탁}
         taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
@@ -299,6 +301,8 @@ begin
         taxinvoice.faxreceiveNum := '';         //발행시 Fax발송기능 사용시 수신번호 기재.
         taxinvoice.faxsendYN := false;          //발행시 Fax발송시 설정.
 
+        taxinvoice.originalTaxinvoiceKey := '12312312331';
+        
 
 
         //상세항목 0~99개 까지 작성가능.
@@ -1415,5 +1419,21 @@ begin
         if InUse then ShowMessage('사용중') else ShowMessage('미 사용중.');
 end;
 
+
+procedure TfrmExample.btnGetEPrintUrlClick(Sender: TObject);
+var
+  resultURL : String;
+begin
+        try
+                resultURL := taxinvoiceService.getEPrintURL(txtCorpNum.Text,MgtKeyType,tbMgtKey.Text, txtUserID.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage('ResultURL is ' + #13 + resultURL);
+end;
 
 end.

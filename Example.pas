@@ -11,7 +11,7 @@ const
         //연동아이디.
         LinkID = 'TESTER';
         // 파트너 통신용 비밀키. 유출 주의.
-        SecretKey = 'yU6MMvXrwen4sml72uzylntIJQfL85ngzL30G5nkwrc=';
+        SecretKey = '8yXlHKIgCBDy1uxA1bNsfRHi0wuQA6m+aQOombSCtd4=';
 
 type
   TfrmExample = class(TForm)
@@ -107,6 +107,7 @@ type
     btnGetEmailPublicKey: TButton;
     btnSendToNTS: TButton;
     btnGetEPrintUrl: TButton;
+    Button1: TButton;
     procedure FormCreate(Sender: TObject);
     procedure btnGetPopBillURLClick(Sender: TObject);
     procedure btnJoinClick(Sender: TObject);
@@ -151,6 +152,7 @@ type
     procedure btnGetDetailInfoClick(Sender: TObject);
     procedure btnCheckMgtKeyInUseClick(Sender: TObject);
     procedure btnGetEPrintUrlClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     MgtKeyType : EnumMgtKeyType;
   public
@@ -1434,6 +1436,23 @@ begin
         end;
 
         ShowMessage('ResultURL is ' + #13 + resultURL);
+end;
+
+procedure TfrmExample.Button1Click(Sender: TObject);
+var
+        response : TResponse;
+begin
+        try
+                response := taxinvoiceService.CheckIsMember(txtCorpNum.text,LinkID);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+
 end;
 
 end.

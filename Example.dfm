@@ -1,6 +1,6 @@
 object frmExample: TfrmExample
-  Left = 594
-  Top = 234
+  Left = 1093
+  Top = 172
   Width = 770
   Height = 712
   Caption = 'Linkhub 팝빌 전자세금계산서  SDK Examples'
@@ -672,6 +672,15 @@ object frmExample: TfrmExample
         Caption = '회원 가입'
         TabOrder = 0
         OnClick = btnJoinClick
+      end
+      object Button1: TButton
+        Left = 8
+        Top = 56
+        Width = 120
+        Height = 25
+        Caption = '가입여부확인'
+        TabOrder = 1
+        OnClick = Button1Click
       end
     end
     object GroupBox11: TGroupBox

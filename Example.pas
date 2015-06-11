@@ -279,7 +279,7 @@ begin
         taxinvoice.invoiceeBizClass := '공급받는자 업종';
         taxinvoice.invoiceeBizType := '공급받는자 업태';
         taxinvoice.invoiceeContactName1 := '공급받는자 담당자명';
-        taxinvoice.invoiceeEmail1 := 'pallet027@gmail.com';
+        taxinvoice.invoiceeEmail1 := 'test@test.com';
 
         taxinvoice.supplyCostTotal := '100000';         //필수 공급가액 합계
         taxinvoice.taxTotal := '10000';                 //필수 세액 합계

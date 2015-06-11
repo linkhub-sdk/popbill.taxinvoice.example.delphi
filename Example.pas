@@ -11,7 +11,7 @@ const
         //연동아이디.
         LinkID = 'TESTER';
         // 파트너 통신용 비밀키. 유출 주의.
-        SecretKey = '8yXlHKIgCBDy1uxA1bNsfRHi0wuQA6m+aQOombSCtd4=';
+        SecretKey = 'SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I=';
 
 type
   TfrmExample = class(TForm)
@@ -248,7 +248,7 @@ var
 begin
         taxinvoice := TTaxinvoice.Create;
         
-        taxinvoice.writeDate := '20140723';             //필수, 기재상 작성일자
+        taxinvoice.writeDate := '20150609';             //필수, 기재상 작성일자
         taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
         taxinvoice.issueType := '정발행';               //필수, {정발행, 역발행, 위수탁}
         taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
@@ -256,7 +256,7 @@ begin
         taxinvoice.taxType :='과세';                    //필수, {과세, 영세, 면세}
 
 
-        taxinvoice.invoicerCorpNum := '1231212312';
+        taxinvoice.invoicerCorpNum := '4108600477';
         taxinvoice.invoicerTaxRegID := ''; //종사업자 식별번호. 필요시 기재. 형식은 숫자 4자리.
         taxinvoice.invoicerCorpName := '공급자 상호';
         taxinvoice.invoicerMgtKey := tbMgtKey.Text;
@@ -279,7 +279,7 @@ begin
         taxinvoice.invoiceeBizClass := '공급받는자 업종';
         taxinvoice.invoiceeBizType := '공급받는자 업태';
         taxinvoice.invoiceeContactName1 := '공급받는자 담당자명';
-        taxinvoice.invoiceeEmail1 := 'test@invoicee.com';
+        taxinvoice.invoiceeEmail1 := 'pallet027@gmail.com';
 
         taxinvoice.supplyCostTotal := '100000';         //필수 공급가액 합계
         taxinvoice.taxTotal := '10000';                 //필수 세액 합계
@@ -351,7 +351,7 @@ procedure TfrmExample.btnGetBalanceClick(Sender: TObject);
 var
         balance : Double;
 begin
-         try
+        try
                 balance := taxinvoiceService.GetBalance(txtCorpNum.text);
         except
                 on le : EPopbillException do begin
@@ -598,7 +598,7 @@ var
         response : TResponse;
 begin
         try
-                response := taxinvoiceService.Send(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,'발행예정 메모', txtUserID.Text);
+                response := taxinvoiceService.Send(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,'발행예정 메모','발행예정 문서의 이메일 제목입니다.ㄴ', txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);

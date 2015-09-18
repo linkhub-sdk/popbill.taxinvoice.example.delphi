@@ -65,7 +65,6 @@ type
     btnGetUnitCost: TButton;
     GroupBox12: TGroupBox;
     btnGetPopBillURL: TButton;
-    cbTOGO: TComboBox;
     GroupBox14: TGroupBox;
     btnGetCertificateExpireDate: TButton;
     GroupBox7: TGroupBox;
@@ -75,8 +74,6 @@ type
     btnGetMailURL: TButton;
     txtCorpNum: TEdit;
     Label3: TLabel;
-    GroupBox4: TGroupBox;
-    btnGetPartnerBalance: TButton;
     btnCheckMgtKeyInUse: TButton;
     Label4: TLabel;
     txtUserID: TEdit;
@@ -108,6 +105,24 @@ type
     btnSendToNTS: TButton;
     btnGetEPrintUrl: TButton;
     Button1: TButton;
+    btnRegistIssue: TButton;
+    btnCancelIssue: TButton;
+    btnDelete_RegistIssue: TButton;
+    GroupBox15: TGroupBox;
+    Shape19: TShape;
+    Shape20: TShape;
+    Button2: TButton;
+    Button3: TButton;
+    GroupBox4: TGroupBox;
+    GroupBox16: TGroupBox;
+    Shape21: TShape;
+    btnUpdateContact: TButton;
+    btnRegistContact: TButton;
+    btnCheckID: TButton;
+    btnGetPartnerBalance: TButton;
+    btnGetCorpInfo: TButton;
+    btnUpdateCorpInfo: TButton;
+    btnListContact: TButton;
     procedure FormCreate(Sender: TObject);
     procedure btnGetPopBillURLClick(Sender: TObject);
     procedure btnJoinClick(Sender: TObject);
@@ -153,6 +168,15 @@ type
     procedure btnCheckMgtKeyInUseClick(Sender: TObject);
     procedure btnGetEPrintUrlClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure btnCheckIDClick(Sender: TObject);
+    procedure btnGetCorpInfoClick(Sender: TObject);
+    procedure btnUpdateCorpInfoClick(Sender: TObject);
+    procedure btnListContactClick(Sender: TObject);
+    procedure btnRegistContactClick(Sender: TObject);
+    procedure btnUpdateContactClick(Sender: TObject);
+    procedure btnRegistIssueClick(Sender: TObject);
+    procedure btnCancelIssueClick(Sender: TObject);
+    procedure btnDelete_RegistIssueClick(Sender: TObject);
   private
     MgtKeyType : EnumMgtKeyType;
   public
@@ -184,19 +208,10 @@ end;
 procedure TfrmExample.btnGetPopBillURLClick(Sender: TObject);
 var
   resultURL : String;
-  TOGO : String;
 begin
-        TOGO := cbTOGO.Text;
-
-        if Pos(' : ',TOGO) = 0 then begin
-                ShowMessage('URL 코드를 선택하세요.');
-                Exit;
-        end;
-        
-        Delete(TOGO, Pos(' : ',TOGO), Length(TOGO) - Pos(' : ',TOGO) + 1);
 
         try
-                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text,txtUserID.Text,TOGO);
+                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text,txtUserID.Text,'CERT');
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -250,7 +265,7 @@ var
 begin
         taxinvoice := TTaxinvoice.Create;
         
-        taxinvoice.writeDate := '20150625';             //필수, 기재상 작성일자
+        taxinvoice.writeDate := '20150917';             //필수, 기재상 작성일자
         taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
         taxinvoice.issueType := '정발행';               //필수, {정발행, 역발행, 위수탁}
         taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
@@ -261,7 +276,7 @@ begin
         taxinvoice.invoicerTaxRegID := '';                       //종사업자 식별번호. 필요시 기재. 형식은 숫자 4자리.
         taxinvoice.invoicerCorpName := '공급자 상호';
         taxinvoice.invoicerMgtKey := tbMgtKey.Text;              //공급자 문서관리번호, 1~24자리 (숫자, 영문, '-', '_'), 사업자별 중복되지 않도록 구성
-        taxinvoice.invoicerCEOName := '공급자"" 대표자 성명';
+        taxinvoice.invoicerCEOName := '공급자 대표자 성명';
         taxinvoice.invoicerAddr := '공급자 주소';
         taxinvoice.invoicerBizClass := '공급자 업종';
         taxinvoice.invoicerBizType := '공급자 업태,업태2';
@@ -477,7 +492,7 @@ begin
         for i := 0 to Length(fileList) -1 do
         begin
             tmp := tmp +  IntToStr(fileList[i].SerialNum) + ' | ' + fileList[i].DisplayName + ' | ' + fileList[i].AttachedFile + ' | ' + fileList[i].RegDT + #13;
-
+            tbFileIndexID.Text := fileList[i].DisplayName;
         end;
 
         ShowMessage(tmp);
@@ -547,7 +562,7 @@ begin
         end;
 
         tmp := 'ItemKey | StateCode | TaxType | WriteDate | RegDT' + #13;
-        
+
         for i := 0 to Length(InfoList) -1 do
         begin
             tmp := tmp + InfoList[i].ItemKey + ' | ' + IntToStr(InfoList[i].StateCode) + ' | '
@@ -986,7 +1001,7 @@ begin
         taxinvoice.invoicerTaxRegID := '';                       //종사업자 식별번호. 필요시 기재. 형식은 숫자 4자리.
         taxinvoice.invoicerCorpName := '공급자 상호';
         taxinvoice.invoicerMgtKey := tbMgtKey.Text;              //공급자 문서관리번호, 1~24자리 (숫자, 영문, '-', '_'), 사업자별 중복되지 않도록 구성
-        taxinvoice.invoicerCEOName := '공급자"" 대표자 성명';
+        taxinvoice.invoicerCEOName := '공급자 대표자 성명';
         taxinvoice.invoicerAddr := '공급자 주소';
         taxinvoice.invoicerBizClass := '공급자 업종';
         taxinvoice.invoicerBizType := '공급자 업태,업태2';
@@ -1459,6 +1474,308 @@ begin
 
         ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
 
+end;
+
+procedure TfrmExample.btnCheckIDClick(Sender: TObject);
+var
+        response : TResponse;
+begin
+        try
+                response := taxinvoiceService.CheckID(txtUserID.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+
+end;
+
+
+procedure TfrmExample.btnGetCorpInfoClick(Sender: TObject);
+var
+        corpInfo : TCorpInfo;
+        tmp : string;
+begin
+        try
+                corpInfo := taxinvoiceService.GetCorpInfo(txtCorpNum.text, txtUserID.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        tmp := 'CorpName : ' + corpInfo.CorpName + #13;
+        tmp := tmp + 'CeoName : ' + corpInfo.CeoName + #13;
+        tmp := tmp + 'BizType : ' + corpInfo.BizType + #13;
+        tmp := tmp + 'BizClass : ' + corpInfo.BizClass + #13;
+        tmp := tmp + 'Addr : ' + corpInfo.Addr + #13;
+
+        ShowMessage(tmp);
+
+end;
+
+procedure TfrmExample.btnUpdateCorpInfoClick(Sender: TObject);
+var
+        corpInfo : TCorpInfo;
+        response : TResponse;
+begin
+        corpInfo := TCorpInfo.Create;
+
+        corpInfo.ceoname := '대표자명';
+        corpInfo.corpName := '링크허브';
+        corpInfo.addr := '서울특별시 강남구 영동대로 517';
+        corpInfo.bizType := '업태';
+        corpInfo.bizClass := '업종';
+
+        try
+                response := taxinvoiceService.UpdateCorpInfo(txtCorpNum.text,corpInfo,txtUserID.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+end;
+
+procedure TfrmExample.btnListContactClick(Sender: TObject);
+var
+        InfoList : TContactInfoList;
+        tmp : string;
+        i : Integer;
+begin
+
+        try
+                InfoList := taxinvoiceService.ListContact(txtCorpNum.text,txtUserID.text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+        tmp := 'id | email | hp | personName | searchAllAlloyYN | tel | fax | mgrYN | regDT' + #13;
+        for i := 0 to Length(InfoList) -1 do
+        begin
+            tmp := tmp + InfoList[i].id + ' | ';
+            tmp := tmp + InfoList[i].email + ' | ';
+            tmp := tmp + InfoList[i].hp + ' | ';
+            tmp := tmp + InfoList[i].personName + ' | ';
+            tmp := tmp + BoolToStr(InfoList[i].searchAllAllowYN) + ' | ';
+            tmp := tmp + InfoList[i].tel + ' | ';
+            tmp := tmp + InfoList[i].fax + ' | ';
+            tmp := tmp + BoolToStr(InfoList[i].mgrYN) + ' | ';
+            tmp := tmp + InfoList[i].regDT + #13;
+        end;
+
+        ShowMessage(tmp);
+end;
+
+procedure TfrmExample.btnRegistContactClick(Sender: TObject);
+var
+        response : TResponse;
+        joinInfo : TJoinContact;
+begin
+        joinInfo.id := 'test_201509173';
+        joinInfo.pwd := 'thisispassword';
+        joinInfo.personName := '담당자성명';
+        joinInfo.tel := '070-7510-3710';
+        joinInfo.hp := '010-1111-2222';
+        joinInfo.fax := '02-6442-9700';
+        joinInfo.email := 'test@test.com';
+        joinInfo.searchAllAllowYN := false;
+        joinInfo.mgrYN     := false;
+
+        try
+                response := taxinvoiceService.RegistContact(txtCorpNum.text,joinInfo,txtUserID.text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+end;
+
+procedure TfrmExample.btnUpdateContactClick(Sender: TObject);
+var
+        contactInfo : TContactInfo;
+        response : TResponse;
+begin
+        contactInfo := TContactInfo.Create;
+
+        contactInfo.personName := '테스트 담당자';
+        contactInfo.tel := '070-7510-3710';
+        contactInfo.hp := '010-4324-1111';
+        contactInfo.email := 'test@test.com';
+        contactInfo.fax := '02-6442-9799';
+        contactInfo.searchAllAllowYN := true;
+        contactInfo.mgrYN := false;
+
+        try
+                response := taxinvoiceService.UpdateContact(txtCorpNum.text,contactInfo,txtUserID.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+
+end;
+
+procedure TfrmExample.btnRegistIssueClick(Sender: TObject);
+var
+        taxinvoice : TTaxinvoice;
+        response : TResponse;
+        writeSpecification, forceIssue : Boolean;
+        memo, emailSubject, dealInvoiceMgtKey : String;
+begin
+        taxinvoice := TTaxinvoice.Create;
+        
+        taxinvoice.writeDate := '20150917';             //필수, 기재상 작성일자
+        taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
+        taxinvoice.issueType := '정발행';               //필수, {정발행, 역발행, 위수탁}
+        taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
+        taxinvoice.issueTiming := '직접발행';           //필수, {직접발행, 승인시자동발행}
+        taxinvoice.taxType :='과세';                    //필수, {과세, 영세, 면세}
+
+        taxinvoice.invoicerCorpNum := '1234567890';              //공급자 사업자번호
+        taxinvoice.invoicerTaxRegID := '';                       //종사업자 식별번호. 필요시 기재. 형식은 숫자 4자리.
+        taxinvoice.invoicerCorpName := '공급자 상호';
+        taxinvoice.invoicerMgtKey := tbMgtKey.Text;              //공급자 문서관리번호, 1~24자리 (숫자, 영문, '-', '_'), 사업자별 중복되지 않도록 구성
+        taxinvoice.invoicerCEOName := '공급자 대표자 성명';
+        taxinvoice.invoicerAddr := '공급자 주소';
+        taxinvoice.invoicerBizClass := '공급자 업종';
+        taxinvoice.invoicerBizType := '공급자 업태,업태2';
+        taxinvoice.invoicerContactName := '공급자 담당자명';
+        taxinvoice.invoicerEmail := 'test@test.com';
+        taxinvoice.invoicerTEL := '070-7070-0707';
+        taxinvoice.invoicerHP := '010-123-111';
+        taxinvoice.invoicerSMSSendYN := true;                    //정발행시(공급자->공급받는자) 문자발송여부
+
+        taxinvoice.invoiceeType := '사업자';                     // 공급받는자 구분, [사업자, 개인, 외국인] 중 기재
+        taxinvoice.invoiceeCorpNum := '8888888888';              // 공급받는자 사업자번호
+        taxinvoice.invoiceeCorpName := '공급받는자 상호';
+        taxinvoice.invoiceeMgtKey := '';                         // 공급받는자 문서관리번호(역발행시 필수)
+        taxinvoice.invoiceeCEOName := '공급받는자 대표자 성명';
+        taxinvoice.invoiceeAddr := '공급받는자 주소';
+        taxinvoice.invoiceeBizClass := '공급받는자 업종';
+        taxinvoice.invoiceeBizType := '공급받는자 업태';
+        taxinvoice.invoiceeContactName1 := '공급받는자 담당자명';
+        taxinvoice.invoiceeEmail1 := 'test@test.com';
+        taxinvoice.invoiceeHP1 := '010-4324-5117';
+        taxinvoice.invoiceeSMSSendYN := true;           //역발행시(공급받는자->공급자) 문자발송여부 
+
+        taxinvoice.supplyCostTotal := '100000';         //필수 공급가액 합계
+        taxinvoice.taxTotal := '10000';                 //필수 세액 합계
+        taxinvoice.totalAmount := '110000';             //필수 합계금액.  공급가액 + 세액
+
+        taxinvoice.modifyCode := ''; //수정세금계산서 작성시 1~6까지 선택기재.
+        taxinvoice.originalTaxinvoiceKey := ''; //수정세금계산서 작성시 원본세금계산서의 ItemKey기재. ItemKey는 문서확인.
+        taxinvoice.serialNum := '123';  //일련번호
+        taxinvoice.cash := '';          //현금
+        taxinvoice.chkBill := '';       //수표
+        taxinvoice.note := '';          //어음
+        taxinvoice.credit := '';        //외상미수금
+        taxinvoice.remark1 := '비고1';
+        taxinvoice.remark2 := '비고2';
+        taxinvoice.remark3 := '비고3';
+        taxinvoice.kwon := '1';
+        taxinvoice.ho := '1';
+
+        taxinvoice.businessLicenseYN := false; //사업자등록증 이미지 첨부시 설정.
+        taxinvoice.bankBookYN := false ;        //통장사본 이미지 첨부시 설정.
+
+        //상세항목 0~99개 까지 작성가능.
+        // SerialNum 은 1부터 99까지 순차기재.
+        //SetLength로 초기화 한후 기재.
+        setLength(taxinvoice.detailList, 2);
+
+        taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
+        taxinvoice.detailList[0].serialNum := 1;                //일련번호
+        taxinvoice.detailList[0].purchaseDT := '20140319';      //거래일자
+        taxinvoice.detailList[0].itemName := '품목명';
+        taxinvoice.detailList[0].spec := '규격';
+        taxinvoice.detailList[0].qty := '1';                    //수량
+        taxinvoice.detailList[0].unitCost := '100000';          //단가
+        taxinvoice.detailList[0].supplyCost := '100000';        //공급가액
+        taxinvoice.detailList[0].tax := '10000';                //세액
+        taxinvoice.detailList[0].remark := '품목비고';
+
+
+        taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
+        taxinvoice.detailList[1].serialNum := 2;
+        taxinvoice.detailList[1].itemName := '품목명';
+
+        //추가담당자 0~5까지 기재 가능.
+        SetLength(taxinvoice.addContactList,2);
+
+        taxinvoice.addContactList[0] := TTaxinvoiceAddContact.Create;
+        taxinvoice.addContactList[0].email := 'test2@invoicee.com';
+        taxinvoice.addContactList[0].serialNum := 1;
+        taxinvoice.addContactList[0].contactName := '추가담당자명';
+
+        taxinvoice.addContactList[1] := TTaxinvoiceAddContact.Create;
+        taxinvoice.addContactList[1].email := 'test3@invoicee.com';
+        taxinvoice.addContactList[1].serialNum := 2;
+        taxinvoice.addContactList[1].contactName := '추가담당자명2';
+
+
+        writeSpecification := true;
+        forceIssue := false;
+        memo := '즉시발행 메모';
+        emailSubject := '발행 안내메일 제목';
+        dealInvoiceMgtKey := '';
+
+        try
+                response := taxinvoiceService.RegistIssue(txtCorpNum.text,taxinvoice,writeSpecification,forceIssue,memo,emailSubject,dealInvoiceMgtKey,txtUserID.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+end;
+
+procedure TfrmExample.btnCancelIssueClick(Sender: TObject);
+var
+        response : TResponse;
+begin
+       try
+                response := taxinvoiceService.CancelIssue(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,'발행취소 메모', txtUserID.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+end;
+
+procedure TfrmExample.btnDelete_RegistIssueClick(Sender: TObject);
+var
+        response : TResponse;
+begin
+       try
+                response := taxinvoiceService.Delete(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,txtUserID.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message)
 end;
 
 end.

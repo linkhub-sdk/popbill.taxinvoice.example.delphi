@@ -30,14 +30,14 @@ object frmExample: TfrmExample
   end
   object GroupBox1: TGroupBox
     Left = 8
-    Top = 216
+    Top = 224
     Width = 913
     Height = 505
     Caption = '전자세금계산서 관련 API'
     TabOrder = 0
     object Label1: TLabel
-      Left = 16
-      Top = 22
+      Left = 40
+      Top = 30
       Width = 120
       Height = 13
       Caption = '문서관리번호(MgtKey) :'
@@ -73,7 +73,7 @@ object frmExample: TfrmExample
     end
     object GroupBox2: TGroupBox
       Left = 280
-      Top = 56
+      Top = 64
       Width = 321
       Height = 185
       Caption = '정발행 ( 임시저장 발행, 발행예정 ) 프로세스'
@@ -294,7 +294,7 @@ object frmExample: TfrmExample
     end
     object GroupBox3: TGroupBox
       Left = 32
-      Top = 296
+      Top = 312
       Width = 145
       Height = 153
       Caption = '첨부파일'
@@ -345,7 +345,7 @@ object frmExample: TfrmExample
     end
     object GroupBox5: TGroupBox
       Left = 196
-      Top = 296
+      Top = 312
       Width = 145
       Height = 153
       Caption = '문서 정보'
@@ -389,7 +389,7 @@ object frmExample: TfrmExample
     end
     object GroupBox6: TGroupBox
       Left = 360
-      Top = 296
+      Top = 312
       Width = 129
       Height = 153
       Caption = '부가서비스'
@@ -423,16 +423,16 @@ object frmExample: TfrmExample
       end
     end
     object tbMgtKey: TEdit
-      Left = 220
-      Top = 18
-      Width = 121
+      Left = 244
+      Top = 26
+      Width = 205
       Height = 21
       ImeName = '한국어 입력 시스템 (IME 2000)'
       TabOrder = 4
     end
     object btnCheckMgtKeyInUse: TButton
-      Left = 345
-      Top = 18
+      Left = 465
+      Top = 26
       Width = 161
       Height = 21
       Caption = '관리번호 사용여부 확인'
@@ -441,7 +441,7 @@ object frmExample: TfrmExample
     end
     object GroupBox10: TGroupBox
       Left = 744
-      Top = 296
+      Top = 312
       Width = 129
       Height = 153
       Caption = '기타  URL'
@@ -484,8 +484,8 @@ object frmExample: TfrmExample
       end
     end
     object cbMgtKeyType: TComboBox
-      Left = 144
-      Top = 18
+      Left = 168
+      Top = 26
       Width = 73
       Height = 21
       ImeName = 'Microsoft IME 2010'
@@ -500,7 +500,7 @@ object frmExample: TfrmExample
     end
     object GroupBox13: TGroupBox
       Left = 632
-      Top = 56
+      Top = 64
       Width = 257
       Height = 185
       Caption = '역발행 프로세스'
@@ -656,8 +656,8 @@ object frmExample: TfrmExample
       end
     end
     object btnGetEmailPublicKey: TButton
-      Left = 592
-      Top = 16
+      Left = 744
+      Top = 24
       Width = 145
       Height = 25
       Caption = 'ASP업체 Email 목록 확인'
@@ -672,7 +672,7 @@ object frmExample: TfrmExample
     end
     object btnSendToNTS: TButton
       Left = 248
-      Top = 256
+      Top = 264
       Width = 401
       Height = 25
       Caption = '국세청 전송'
@@ -800,23 +800,23 @@ object frmExample: TfrmExample
         TabOrder = 0
         OnClick = btnGetPopBillURLClick
       end
-      object Button2: TButton
+      object btnGetPopbillURL_CHRG: TButton
         Left = 8
-        Top = 55
+        Top = 56
         Width = 137
         Height = 25
         Caption = '포인트 충전 URL'
         TabOrder = 1
-        OnClick = btnGetPopBillURLClick
+        OnClick = btnGetPopbillURL_CHRGClick
       end
-      object Button3: TButton
+      object btnGetPopbillURL_CERT: TButton
         Left = 8
-        Top = 85
+        Top = 88
         Width = 137
         Height = 25
         Caption = '공인인증서 등록 URL'
         TabOrder = 2
-        OnClick = btnGetPopBillURLClick
+        OnClick = btnGetPopbillURL_CERTClick
       end
     end
     object GroupBox14: TGroupBox
@@ -900,7 +900,7 @@ object frmExample: TfrmExample
   end
   object GroupBox7: TGroupBox
     Left = 512
-    Top = 512
+    Top = 536
     Width = 217
     Height = 185
     Caption = ' 문서관련 URL기능'

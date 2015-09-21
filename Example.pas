@@ -111,8 +111,6 @@ type
     GroupBox15: TGroupBox;
     Shape19: TShape;
     Shape20: TShape;
-    Button2: TButton;
-    Button3: TButton;
     GroupBox4: TGroupBox;
     GroupBox16: TGroupBox;
     Shape21: TShape;
@@ -123,6 +121,8 @@ type
     btnGetCorpInfo: TButton;
     btnUpdateCorpInfo: TButton;
     btnListContact: TButton;
+    btnGetPopbillURL_CHRG: TButton;
+    btnGetPopbillURL_CERT: TButton;
     procedure FormCreate(Sender: TObject);
     procedure btnGetPopBillURLClick(Sender: TObject);
     procedure btnJoinClick(Sender: TObject);
@@ -177,6 +177,8 @@ type
     procedure btnRegistIssueClick(Sender: TObject);
     procedure btnCancelIssueClick(Sender: TObject);
     procedure btnDelete_RegistIssueClick(Sender: TObject);
+    procedure btnGetPopbillURL_CHRGClick(Sender: TObject);
+    procedure btnGetPopbillURL_CERTClick(Sender: TObject);
   private
     MgtKeyType : EnumMgtKeyType;
   public
@@ -211,7 +213,7 @@ var
 begin
 
         try
-                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text,txtUserID.Text,'CERT');
+                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text,txtUserID.Text,'LOGIN');
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -229,7 +231,7 @@ var
         response : TResponse;
         joinInfo : TJoinForm;
 begin
-        joinInfo.LinkID := LinkID;  //링크아이디
+        joinInfo.LinkID := LinkID;        //링크아이디
         joinInfo.CorpNum := '1231212312'; //사업자번호 '-' 제외.
         joinInfo.CEOName := '대표자성명';
         joinInfo.CorpName := '상호';
@@ -678,9 +680,11 @@ end;
 procedure TfrmExample.btnCancel_IssueClick(Sender: TObject);
 var
         response : TResponse;
+        memo : String;
 begin
-       try
-                response := taxinvoiceService.CancelIssue(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,'발행취소 메모', txtUserID.Text);
+        memo := '발행취소 메모';
+        try
+                response := taxinvoiceService.CancelIssue(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,memo, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -694,9 +698,15 @@ end;
 procedure TfrmExample.btnIssueClick(Sender: TObject);
 var
         response : TResponse;
+        memo : String;
+        emailSubject : String;
+        forceIssue : Boolean;
 begin
-       try
-                response := taxinvoiceService.Issue(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,'발행 메모','',false, txtUserID.Text);
+        memo := '발행메모';
+        emailSubject := '발행 안내메일 제목'; // 미기재시 기본제목으로 전송
+        forceIssue := false; // 지연발행 강제여부
+        try
+                response := taxinvoiceService.Issue(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,memo,emailSubject,forceIssue, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -1525,12 +1535,12 @@ var
 begin
         corpInfo := TCorpInfo.Create;
 
-        corpInfo.ceoname := '대표자명';
-        corpInfo.corpName := '링크허브';
-        corpInfo.addr := '서울특별시 강남구 영동대로 517';
-        corpInfo.bizType := '업태';
-        corpInfo.bizClass := '업종';
-
+        corpInfo.ceoname := '대표자명';         // 대표자명
+        corpInfo.corpName := '링크허브_SMS';    // 회사명
+        corpInfo.bizType := '업태';             // 업태
+        corpInfo.bizClass := '업종';            // 업종
+        corpInfo.addr := '서울특별시 강남구 영동대로 517';  // 주소
+        
         try
                 response := taxinvoiceService.UpdateCorpInfo(txtCorpNum.text,corpInfo,txtUserID.Text);
         except
@@ -1580,15 +1590,15 @@ var
         response : TResponse;
         joinInfo : TJoinContact;
 begin
-        joinInfo.id := 'test_201509173';
-        joinInfo.pwd := 'thisispassword';
-        joinInfo.personName := '담당자성명';
-        joinInfo.tel := '070-7510-3710';
-        joinInfo.hp := '010-1111-2222';
-        joinInfo.fax := '02-6442-9700';
-        joinInfo.email := 'test@test.com';
-        joinInfo.searchAllAllowYN := false;
-        joinInfo.mgrYN     := false;
+        joinInfo.id := 'userid';                        // [필수] 아이디 (6자 이상 20자 미만)
+        joinInfo.pwd := 'thisispassword';               // [필수] 비밀번호 (6자 이상 20자 미만)
+        joinInfo.personName := '담당자성명';            // [필수] 담당자명(한글이나 영문 30자 이내)
+        joinInfo.tel := '070-7510-3710';                // [필수] 연락처
+        joinInfo.hp := '010-1111-2222';                 // 휴대폰번호
+        joinInfo.fax := '02-6442-9700';                 // 팩스번호
+        joinInfo.email := 'test@test.com';              // [필수] 이메일
+        joinInfo.searchAllAllowYN := false;             // 조회권한(true 회사조회/ false 개인조회)
+        joinInfo.mgrYN     := false;                    // 관리자 권한여부 
 
         try
                 response := taxinvoiceService.RegistContact(txtCorpNum.text,joinInfo,txtUserID.text);
@@ -1609,13 +1619,13 @@ var
 begin
         contactInfo := TContactInfo.Create;
 
-        contactInfo.personName := '테스트 담당자';
-        contactInfo.tel := '070-7510-3710';
-        contactInfo.hp := '010-4324-1111';
-        contactInfo.email := 'test@test.com';
-        contactInfo.fax := '02-6442-9799';
-        contactInfo.searchAllAllowYN := true;
-        contactInfo.mgrYN := false;
+        contactInfo.personName := '테스트 담당자';      // 담당자명
+        contactInfo.tel := '070-7510-3710';             // 연락처
+        contactInfo.hp := '010-4324-1111';              // 휴대폰번호
+        contactInfo.email := 'test@test.com';           // 이메일 주소
+        contactInfo.fax := '02-6442-9799';              // 팩스번호
+        contactInfo.searchAllAllowYN := true;           // 조회권한, true(회사조회), false(개인조회)
+        contactInfo.mgrYN := false;                     // 관리자권한 설정여부 
 
         try
                 response := taxinvoiceService.UpdateContact(txtCorpNum.text,contactInfo,txtUserID.Text);
@@ -1627,16 +1637,24 @@ begin
         end;
 
         ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
-
 end;
 
 procedure TfrmExample.btnRegistIssueClick(Sender: TObject);
 var
         taxinvoice : TTaxinvoice;
         response : TResponse;
-        writeSpecification, forceIssue : Boolean;
-        memo, emailSubject, dealInvoiceMgtKey : String;
+        writeSpecification : Boolean;
+        forceIssue : Boolean;
+        memo : String;
+        emailSubject : String;
+        dealInvoiceMgtKey : String;
 begin
+        writeSpecification := true;     // 거래명세서 동시작성 여부
+        dealInvoiceMgtKey := '';        // 거래명세서 동시작성시 명세서 문서관리번호, 1~24자리 영문,숫자,'-','_' 조합으로 구성
+        forceIssue := false;            // 지연발행 강제여부
+        memo := '즉시발행 메모';        // 메모
+        emailSubject := '발행 안내메일 제목';  // 발행 안내메일 제목, 미기재시 기본제목으로 전송
+
         taxinvoice := TTaxinvoice.Create;
         
         taxinvoice.writeDate := '20150917';             //필수, 기재상 작성일자
@@ -1658,7 +1676,7 @@ begin
         taxinvoice.invoicerEmail := 'test@test.com';
         taxinvoice.invoicerTEL := '070-7070-0707';
         taxinvoice.invoicerHP := '010-123-111';
-        taxinvoice.invoicerSMSSendYN := true;                    //정발행시(공급자->공급받는자) 문자발송여부
+        taxinvoice.invoicerSMSSendYN := false;                    //정발행시(공급자->공급받는자) 문자발송여부
 
         taxinvoice.invoiceeType := '사업자';                     // 공급받는자 구분, [사업자, 개인, 외국인] 중 기재
         taxinvoice.invoiceeCorpNum := '8888888888';              // 공급받는자 사업자번호
@@ -1670,8 +1688,8 @@ begin
         taxinvoice.invoiceeBizType := '공급받는자 업태';
         taxinvoice.invoiceeContactName1 := '공급받는자 담당자명';
         taxinvoice.invoiceeEmail1 := 'test@test.com';
-        taxinvoice.invoiceeHP1 := '010-4324-5117';
-        taxinvoice.invoiceeSMSSendYN := true;           //역발행시(공급받는자->공급자) 문자발송여부 
+        taxinvoice.invoiceeHP1 := '010-111-222';
+        taxinvoice.invoiceeSMSSendYN := false;           //역발행시(공급받는자->공급자) 문자발송여부 
 
         taxinvoice.supplyCostTotal := '100000';         //필수 공급가액 합계
         taxinvoice.taxTotal := '10000';                 //필수 세액 합계
@@ -1727,13 +1745,6 @@ begin
         taxinvoice.addContactList[1].serialNum := 2;
         taxinvoice.addContactList[1].contactName := '추가담당자명2';
 
-
-        writeSpecification := true;
-        forceIssue := false;
-        memo := '즉시발행 메모';
-        emailSubject := '발행 안내메일 제목';
-        dealInvoiceMgtKey := '';
-
         try
                 response := taxinvoiceService.RegistIssue(txtCorpNum.text,taxinvoice,writeSpecification,forceIssue,memo,emailSubject,dealInvoiceMgtKey,txtUserID.Text);
         except
@@ -1749,9 +1760,12 @@ end;
 procedure TfrmExample.btnCancelIssueClick(Sender: TObject);
 var
         response : TResponse;
+        memo : String;
 begin
-       try
-                response := taxinvoiceService.CancelIssue(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,'발행취소 메모', txtUserID.Text);
+        memo := '발행취소 메모';
+
+        try
+                response := taxinvoiceService.CancelIssue(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,memo, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -1776,6 +1790,40 @@ begin
         end;
 
         ShowMessage(IntToStr(response.code) + ' | ' +  response.Message)
+end;
+
+procedure TfrmExample.btnGetPopbillURL_CHRGClick(Sender: TObject);
+var
+  resultURL : String;
+begin
+
+        try
+                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text,txtUserID.Text,'CHRG');
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage('ResultURL is ' + #13 + resultURL);
+end;
+
+procedure TfrmExample.btnGetPopbillURL_CERTClick(Sender: TObject);
+var
+  resultURL : String;
+begin
+
+        try
+                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text,txtUserID.Text,'CERT');
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
 end.

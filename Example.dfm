@@ -1,8 +1,8 @@
 object frmExample: TfrmExample
   Left = 223
   Top = 146
-  Width = 965
-  Height = 844
+  Width = 954
+  Height = 791
   Caption = 'Linkhub 팝빌 전자세금계산서  SDK Examples'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,22 +17,24 @@ object frmExample: TfrmExample
   object Label3: TLabel
     Left = 16
     Top = 12
-    Width = 69
+    Width = 129
     Height = 13
-    Caption = '사업자번호 : '
+    AutoSize = False
+    Caption = '팝빌회원 사업자번호 : '
   end
   object Label4: TLabel
-    Left = 232
+    Left = 304
     Top = 12
-    Width = 69
+    Width = 81
     Height = 13
+    AutoSize = False
     Caption = '팝빌아이디 : '
   end
   object GroupBox1: TGroupBox
     Left = 8
     Top = 224
     Width = 913
-    Height = 505
+    Height = 513
     Caption = '전자세금계산서 관련 API'
     TabOrder = 0
     object Label1: TLabel
@@ -296,12 +298,12 @@ object frmExample: TfrmExample
       Left = 32
       Top = 312
       Width = 145
-      Height = 153
+      Height = 161
       Caption = '첨부파일'
       TabOrder = 1
       object Label2: TLabel
         Left = 17
-        Top = 76
+        Top = 84
         Width = 89
         Height = 13
         AutoSize = False
@@ -309,7 +311,7 @@ object frmExample: TfrmExample
       end
       object btnGetFileList: TButton
         Left = 17
-        Top = 45
+        Top = 53
         Width = 113
         Height = 25
         Caption = '첨부파일 목록'
@@ -318,7 +320,7 @@ object frmExample: TfrmExample
       end
       object btnAttachFile: TButton
         Left = 17
-        Top = 16
+        Top = 24
         Width = 113
         Height = 25
         Caption = '파일 첨부'
@@ -327,7 +329,7 @@ object frmExample: TfrmExample
       end
       object btnDeleteFile: TButton
         Left = 17
-        Top = 116
+        Top = 124
         Width = 113
         Height = 25
         Caption = '첨부파일 삭제'
@@ -336,7 +338,7 @@ object frmExample: TfrmExample
       end
       object tbFileIndexID: TEdit
         Left = 17
-        Top = 90
+        Top = 98
         Width = 113
         Height = 21
         ImeName = '한국어 입력 시스템 (IME 2000)'
@@ -347,12 +349,12 @@ object frmExample: TfrmExample
       Left = 196
       Top = 312
       Width = 145
-      Height = 153
+      Height = 161
       Caption = '문서 정보'
       TabOrder = 2
       object btnGetDetailInfo: TButton
         Left = 17
-        Top = 116
+        Top = 124
         Width = 113
         Height = 25
         Caption = '문서상세정보'
@@ -361,7 +363,7 @@ object frmExample: TfrmExample
       end
       object btnGetLogs: TButton
         Left = 17
-        Top = 80
+        Top = 88
         Width = 113
         Height = 25
         Caption = '문서이력'
@@ -370,7 +372,7 @@ object frmExample: TfrmExample
       end
       object btnGetInfo: TButton
         Left = 17
-        Top = 16
+        Top = 24
         Width = 113
         Height = 25
         Caption = '문서정보'
@@ -379,7 +381,7 @@ object frmExample: TfrmExample
       end
       object btnGetInfos: TButton
         Left = 17
-        Top = 48
+        Top = 56
         Width = 113
         Height = 25
         Caption = '문서정보(대량)'
@@ -391,12 +393,12 @@ object frmExample: TfrmExample
       Left = 360
       Top = 312
       Width = 129
-      Height = 153
+      Height = 161
       Caption = '부가서비스'
       TabOrder = 3
       object btnReSendEmail: TButton
         Left = 16
-        Top = 16
+        Top = 24
         Width = 97
         Height = 25
         Caption = '이메일 전송'
@@ -405,7 +407,7 @@ object frmExample: TfrmExample
       end
       object btnReSendSMS: TButton
         Left = 16
-        Top = 48
+        Top = 56
         Width = 97
         Height = 25
         Caption = '문자 전송'
@@ -414,7 +416,7 @@ object frmExample: TfrmExample
       end
       object btnSendInvoiceFax: TButton
         Left = 16
-        Top = 80
+        Top = 88
         Width = 97
         Height = 25
         Caption = '팩스 전송'
@@ -443,12 +445,12 @@ object frmExample: TfrmExample
       Left = 744
       Top = 312
       Width = 129
-      Height = 153
+      Height = 161
       Caption = '기타  URL'
       TabOrder = 6
       object btnGetTaxinvoiceURL1: TButton
         Left = 10
-        Top = 16
+        Top = 24
         Width = 110
         Height = 25
         Caption = '연동문서함'
@@ -457,7 +459,7 @@ object frmExample: TfrmExample
       end
       object btnGetTaxinvoiceURL2: TButton
         Left = 10
-        Top = 48
+        Top = 56
         Width = 110
         Height = 25
         Caption = '매출보관함'
@@ -466,7 +468,7 @@ object frmExample: TfrmExample
       end
       object btnGetTaxinvoiceURL3: TButton
         Left = 10
-        Top = 80
+        Top = 88
         Width = 110
         Height = 25
         Caption = '매입보관함'
@@ -475,7 +477,7 @@ object frmExample: TfrmExample
       end
       object btnGetTaxinvoiceURL4: TButton
         Left = 10
-        Top = 112
+        Top = 120
         Width = 110
         Height = 25
         Caption = '매출작성'
@@ -723,7 +725,7 @@ object frmExample: TfrmExample
       TabOrder = 0
       object btnJoin: TButton
         Left = 8
-        Top = 24
+        Top = 88
         Width = 120
         Height = 25
         Caption = '회원 가입'
@@ -732,7 +734,7 @@ object frmExample: TfrmExample
       end
       object Button1: TButton
         Left = 8
-        Top = 88
+        Top = 24
         Width = 120
         Height = 25
         Caption = '가입여부확인'
@@ -902,12 +904,12 @@ object frmExample: TfrmExample
     Left = 512
     Top = 536
     Width = 217
-    Height = 185
+    Height = 193
     Caption = ' 문서관련 URL기능'
     TabOrder = 2
     object btnGetPopUpURL: TButton
       Left = 13
-      Top = 16
+      Top = 24
       Width = 190
       Height = 25
       Caption = '문서 내용보기 팝업 URL'
@@ -916,7 +918,7 @@ object frmExample: TfrmExample
     end
     object btnGetPrintURL: TButton
       Left = 13
-      Top = 48
+      Top = 56
       Width = 190
       Height = 25
       Caption = '인쇄 팝업 URL'
@@ -925,7 +927,7 @@ object frmExample: TfrmExample
     end
     object btnGetPrintsURL: TButton
       Left = 13
-      Top = 112
+      Top = 120
       Width = 190
       Height = 25
       Caption = '대량인쇄 팝업 URL'
@@ -934,7 +936,7 @@ object frmExample: TfrmExample
     end
     object btnGetMailURL: TButton
       Left = 13
-      Top = 144
+      Top = 152
       Width = 190
       Height = 25
       Caption = '이메일의 보기버튼 URL'
@@ -943,7 +945,7 @@ object frmExample: TfrmExample
     end
     object btnGetEPrintUrl: TButton
       Left = 13
-      Top = 80
+      Top = 88
       Width = 190
       Height = 25
       Caption = '공급받는자 인쇄 팝업 URL'
@@ -952,7 +954,7 @@ object frmExample: TfrmExample
     end
   end
   object txtCorpNum: TEdit
-    Left = 88
+    Left = 144
     Top = 8
     Width = 137
     Height = 21
@@ -961,7 +963,7 @@ object frmExample: TfrmExample
     Text = '1234567890'
   end
   object txtUserID: TEdit
-    Left = 304
+    Left = 384
     Top = 8
     Width = 137
     Height = 21

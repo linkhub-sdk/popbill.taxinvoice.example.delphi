@@ -123,6 +123,7 @@ type
     btnListContact: TButton;
     btnGetPopbillURL_CHRG: TButton;
     btnGetPopbillURL_CERT: TButton;
+    btnSearchInfo: TButton;
     procedure FormCreate(Sender: TObject);
     procedure btnGetPopBillURLClick(Sender: TObject);
     procedure btnJoinClick(Sender: TObject);
@@ -179,6 +180,7 @@ type
     procedure btnDelete_RegistIssueClick(Sender: TObject);
     procedure btnGetPopbillURL_CHRGClick(Sender: TObject);
     procedure btnGetPopbillURL_CERTClick(Sender: TObject);
+    procedure btnSearchInfoClick(Sender: TObject);
   private
     MgtKeyType : EnumMgtKeyType;
   public
@@ -267,7 +269,7 @@ var
 begin
         taxinvoice := TTaxinvoice.Create;
         
-        taxinvoice.writeDate := '20150922';             //필수, 기재상 작성일자
+        taxinvoice.writeDate := '20150923';             //필수, 기재상 작성일자
         taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
         taxinvoice.issueType := '정발행';               //필수, {정발행, 역발행, 위수탁}
         taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
@@ -536,10 +538,10 @@ begin
                 end;
         end;
 
-        tmp := 'ItemKey | StateCode | TaxType | WriteDate | RegDT | OpenYN | OpenDT' + #13;
+        tmp := 'ItemKey | StateCode | TaxType | WriteDate | RegDT | OpenYN | OpenDT | lateIssueYN' + #13;
 
         tmp := tmp + taxinvoiceInfo.ItemKey + ' | ' + IntToStr(taxinvoiceInfo.StateCode) + ' | '
-        + taxinvoiceInfo.TaxType + ' | ' + taxinvoiceInfo.WriteDate + ' | ' + taxinvoiceInfo.RegDT + ' | ' + BoolToStr(taxinvoiceInfo.OpenYN) + ' | ' + taxinvoiceInfo.OpenDT+ #13;
+        + taxinvoiceInfo.TaxType + ' | ' + taxinvoiceInfo.WriteDate + ' | ' + taxinvoiceInfo.RegDT + ' | ' + BoolToStr(taxinvoiceInfo.OpenYN) + ' | ' + taxinvoiceInfo.OpenDT+ ' | ' + BoolToStr(taxinvoiceInfo.lateIssueYN) +#13;
 
         ShowMessage(tmp);
 
@@ -554,7 +556,7 @@ var
         i : Integer;
 begin
         SetLength(KeyList,2);
-        KeyList[0] := '1234';
+        KeyList[0] := '20150923-01';
         KeyList[1] := '123';
         try
                 InfoList := taxinvoiceService.getInfos(txtCorpNum.text,MgtKeyType,KeyList);
@@ -565,12 +567,12 @@ begin
                 end;
         end;
 
-        tmp := 'ItemKey | StateCode | TaxType | WriteDate | RegDT' + #13;
+        tmp := 'ItemKey | StateCode | TaxType | WriteDate | RegDT | lateIssueYN' + #13;
 
         for i := 0 to Length(InfoList) -1 do
         begin
             tmp := tmp + InfoList[i].ItemKey + ' | ' + IntToStr(InfoList[i].StateCode) + ' | '
-        + InfoList[i].TaxType + ' | ' + InfoList[i].WriteDate + ' | ' + InfoList[i].RegDT + #13;
+        + InfoList[i].TaxType + ' | ' + InfoList[i].WriteDate + ' | ' + InfoList[i].RegDT + ' | ' + BoolToStr(InfoList[i].lateIssueYN) + #13;
         end;
 
         ShowMessage(tmp);
@@ -1688,13 +1690,13 @@ var
 begin
         writeSpecification := false;     // 거래명세서 동시작성 여부
         dealInvoiceMgtKey := '';        // 거래명세서 동시작성시 명세서 문서관리번호, 1~24자리 영문,숫자,'-','_' 조합으로 구성
-        forceIssue := false;            // 지연발행 강제여부
+        forceIssue := true;            // 지연발행 강제여부
         memo := '즉시발행 메모';        // 메모
         emailSubject := '';             // 발행 안내메일 제목, 미기재시 기본제목으로 전송
 
         taxinvoice := TTaxinvoice.Create;
         
-        taxinvoice.writeDate := '20150922';             //필수, 기재상 작성일자
+        taxinvoice.writeDate := '20150707';             //필수, 기재상 작성일자
         taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
         taxinvoice.issueType := '정발행';               //필수, {정발행, 역발행, 위수탁}
         taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
@@ -1865,5 +1867,82 @@ begin
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
+procedure TfrmExample.btnSearchInfoClick(Sender: TObject);
+var
+        DType : String;
+        SDate : String;
+        EDate : String;
+        State : Array Of String;
+        TType : Array Of String;
+        TaxType : Array Of String;
+        LateOnly : String;
+        Page : Integer;
+        PerPage : Integer;
+        tmp : String;
+        SearchList : TSearchList;
+        i : Integer;
+begin
+
+        DType := 'W';           // [필수] 일자유형 { R:등록일시, W:작성일자, I: 발행일시 } 중 기재
+        SDate := '20150801';    // [필수] 상세검색 시작일자, 작성형태(yyyyMMdd)
+        EDate := '20151031';    // [필수] 상세검색 종료일자, 작성형태(yyyyMMdd)
+
+        SetLength(State, 3);    // 전송상태값 배열. 미기재시 전체 상태조회, 문서상태 값 3자리의 배열, 2,3번째 와일드카드 사용가능
+        State[0] := '100';      // <개발가이드> "전자(세금)계산서 상태코드"  http://blog.linkhub.co.kr/372/
+        State[1] := '2**';
+        State[2] := '3**';
+
+
+        SetLength(TType,2);     // 문서유형 배열. {N:일반, M:수정} 선택기재, 미기재시 전체조회
+        TType[0] := 'N';
+        TType[1] := 'M';
+
+        SetLength(TaxType,3);   // 과세형태. {T:과세, N:면세, Z:영세} 선택기재, 미기재시 전체조회
+        TaxType[0] := 'T';
+        TaxType[1] := 'Z';
+        TaxType[2] := 'N';
+
+        LateOnly := '';         // 지연발행여부. {0 : 정상발행조회, 1 : 지연발행 조회} 선택기재, 공백처리시 전체조회
+        Page := 1;              // 페이지번호, 기본값 1
+        PerPage := 50;         // 페이지당 검색갯수, 기본값 500, 최대 1000
+
+        try
+                SearchList := taxinvoiceService.searchInfos(txtCorpNum.text,MgtKeyType,DType,SDate,EDate,State,TType,TaxType,LateOnly,Page,PerPage);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        tmp := 'code : '+IntToStr(SearchList.code) + #13;
+        tmp := tmp + 'total : '+ IntToStr(SearchList.total) + #13;
+        tmp := tmp + 'perPage : '+ IntToStr(SearchList.perPage) + #13;
+        tmp := tmp + 'pageNum : '+ IntToStr(SearchList.pageNum) + #13;
+        tmp := tmp + 'pageCount : '+ IntToStr(SearchList.pageCount) + #13;
+        tmp := tmp + 'message : '+ SearchList.message + #13#13;
+
+        tmp := tmp + 'ItemKey | StateCode | TaxType | WriteDate | RegDT | lateIssueYN | invoicerCorpNum | invoicerCorpName | invoiceeCorpNum | invoiceeCorpName | '
+                + ' issueType | supplyCostTotal | taxTotal '+#13;
+
+        for i := 0 to Length(SearchList.list) -1 do
+        begin
+            tmp := tmp + SearchList.list[i].ItemKey + ' | '
+                        + IntToStr(SearchList.list[i].StateCode) + ' | '
+                        + SearchList.list[i].TaxType + ' | '
+                        + SearchList.list[i].WriteDate + ' | '
+                        + SearchList.list[i].RegDT + ' | '
+                        + BoolToStr(SearchList.list[i].lateIssueYN) + ' | ' 
+                        + SearchList.list[i].invoicerCorpNum + ' | '
+                        + SearchList.list[i].invoicerCorpname + ' | '
+                        + SearchList.list[i].invoiceeCorpNum + ' | '
+                        + SearchList.list[i].invoiceeCorpname + ' | '
+                        + SearchList.list[i].issueType + ' | '
+                        + SearchList.list[i].supplyCostTotal + ' | '
+                        + SearchList.list[i].taxTotal + #13;
+        end;
+
+        ShowMessage(tmp);
+end;
 
 end.

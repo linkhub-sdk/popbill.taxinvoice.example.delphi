@@ -1,6 +1,6 @@
 object frmExample: TfrmExample
-  Left = 223
-  Top = 146
+  Left = 308
+  Top = 159
   Width = 954
   Height = 791
   Caption = 'Linkhub 팝빌 전자세금계산서  SDK Examples'
@@ -349,15 +349,15 @@ object frmExample: TfrmExample
       Left = 196
       Top = 312
       Width = 145
-      Height = 161
+      Height = 193
       Caption = '문서 정보'
       TabOrder = 2
       object btnGetDetailInfo: TButton
         Left = 17
-        Top = 124
+        Top = 120
         Width = 113
         Height = 25
-        Caption = '문서상세정보'
+        Caption = '문서 상세정보'
         TabOrder = 0
         OnClick = btnGetDetailInfoClick
       end
@@ -366,7 +366,7 @@ object frmExample: TfrmExample
         Top = 88
         Width = 113
         Height = 25
-        Caption = '문서이력'
+        Caption = '문서 이력'
         TabOrder = 1
         OnClick = btnGetLogsClick
       end
@@ -375,7 +375,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 113
         Height = 25
-        Caption = '문서정보'
+        Caption = '문서 정보'
         TabOrder = 2
         OnClick = btnGetInfoClick
       end
@@ -384,13 +384,22 @@ object frmExample: TfrmExample
         Top = 56
         Width = 113
         Height = 25
-        Caption = '문서정보(대량)'
+        Caption = '문서 정보(대량)'
         TabOrder = 3
         OnClick = btnGetInfosClick
       end
+      object btnSearchInfo: TButton
+        Left = 16
+        Top = 152
+        Width = 113
+        Height = 25
+        Caption = '문서 상세검색'
+        TabOrder = 4
+        OnClick = btnSearchInfoClick
+      end
     end
     object GroupBox6: TGroupBox
-      Left = 360
+      Left = 600
       Top = 312
       Width = 129
       Height = 161
@@ -901,7 +910,7 @@ object frmExample: TfrmExample
     end
   end
   object GroupBox7: TGroupBox
-    Left = 512
+    Left = 368
     Top = 536
     Width = 217
     Height = 193

@@ -1907,7 +1907,7 @@ begin
         PerPage := 50;          // 페이지당 검색갯수, 기본값 500, 최대 1000
 
         try
-                SearchList := taxinvoiceService.searchInfos(txtCorpNum.text,MgtKeyType,DType,SDate,EDate,State,TType,TaxType,LateOnly,Page,PerPage);
+                SearchList := taxinvoiceService.search(txtCorpNum.text,MgtKeyType,DType,SDate,EDate,State,TType,TaxType,LateOnly,Page,PerPage);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);

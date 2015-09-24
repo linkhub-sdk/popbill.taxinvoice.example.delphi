@@ -393,7 +393,7 @@ object frmExample: TfrmExample
         Top = 152
         Width = 113
         Height = 25
-        Caption = '문서 기간조회'
+        Caption = '문서 목록조회'
         TabOrder = 4
         OnClick = btnSearchInfoClick
       end

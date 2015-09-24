@@ -393,7 +393,7 @@ object frmExample: TfrmExample
         Top = 152
         Width = 113
         Height = 25
-        Caption = '문서 상세검색'
+        Caption = '문서 기간검색'
         TabOrder = 4
         OnClick = btnSearchInfoClick
       end
@@ -667,11 +667,11 @@ object frmExample: TfrmExample
       end
     end
     object btnGetEmailPublicKey: TButton
-      Left = 744
+      Left = 712
       Top = 24
-      Width = 145
+      Width = 177
       Height = 25
-      Caption = 'ASP업체 Email 목록 확인'
+      Caption = '유통사업자 메일 목록 확인'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11

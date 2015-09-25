@@ -758,7 +758,7 @@ begin
         memo := '(역)발행 요청 메모';
         
         try
-                response := taxinvoiceService.Request(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,'(역)발행요청 메모', txtUserID.Text);
+                response := taxinvoiceService.Request(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,memo, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -776,7 +776,7 @@ var
 begin
         memo := '(역)발행요청 취소 메모';
         try
-                response := taxinvoiceService.CancelRequest(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,'(역)발행요청 취소 메모', txtUserID.Text);
+                response := taxinvoiceService.CancelRequest(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,mwmo, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -794,7 +794,7 @@ var
 begin
         memo := '(역)발행요청 거부 메모';
         try
-                response := taxinvoiceService.Refuse(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,'(역)발행요청 거부 메모', txtUserID.Text);
+                response := taxinvoiceService.Refuse(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,memo, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -1037,7 +1037,7 @@ begin
         
         taxinvoice.writeDate := '20150625';             //필수, 기재상 작성일자
         taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
-        taxinvoice.issueType := '정발행';               //필수, {정발행, 역발행, 위수탁}
+        taxinvoice.issueType := '역발행';               //필수, {정발행, 역발행, 위수탁}
         taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
         taxinvoice.issueTiming := '직접발행';           //필수, {직접발행, 승인시자동발행}
         taxinvoice.taxType :='과세';                    //필수, {과세, 영세, 면세}
@@ -1480,7 +1480,7 @@ var
         InUse : boolean;
 begin
         try
-                InUse := taxinvoiceService.CheckMgtKeyInUse(txtCorpNum.text,MgtKeyType,tbMgtKey.Text);
+                InUse := taxinvoiceService.CheckMgtKey(txtCorpNum.text,MgtKeyType,tbMgtKey.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);

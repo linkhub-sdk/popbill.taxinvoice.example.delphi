@@ -1480,7 +1480,7 @@ var
         InUse : boolean;
 begin
         try
-                InUse := taxinvoiceService.CheckMgtKey(txtCorpNum.text,MgtKeyType,tbMgtKey.Text);
+                InUse := taxinvoiceService.CheckMgtKeyInUse(txtCorpNum.text,MgtKeyType,tbMgtKey.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);

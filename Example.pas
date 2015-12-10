@@ -202,6 +202,9 @@ begin
 
         //연동환경 설정값, true(테스트용), false(상업용)
         taxinvoiceService.IsTest := true;
+        
+        //Exception 처리 설정값. 미기재시 true(기본값) 
+        taxinvoiceService.IsThrowException := true;
 end;
 
 function IfThen(condition :bool; trueVal :String ; falseVal : String) : string;
@@ -1035,7 +1038,7 @@ var
 begin
         taxinvoice := TTaxinvoice.Create;
         
-        taxinvoice.writeDate := '20150625';             //필수, 기재상 작성일자
+        taxinvoice.writeDate := '20151210';             //필수, 기재상 작성일자
         taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
         taxinvoice.issueType := '역발행';               //필수, {정발행, 역발행, 위수탁}
         taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
@@ -1144,7 +1147,7 @@ var
 begin
         taxinvoice := TTaxinvoice.Create;
         
-        taxinvoice.writeDate := '20150610';             //필수, 기재상 작성일자
+        taxinvoice.writeDate := '20151210';             //필수, 기재상 작성일자
         taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
         taxinvoice.issueType := '정발행';               //필수, {정발행, 역발행, 위수탁}
         taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
@@ -1152,7 +1155,7 @@ begin
         taxinvoice.taxType :='과세';                    //필수, {과세, 영세, 면세}
 
 
-        taxinvoice.invoicerCorpNum := '1234568790';
+        taxinvoice.invoicerCorpNum := '1234567890';
         taxinvoice.invoicerTaxRegID := ''; //종사업자 식별번호. 필요시 기재. 형식은 숫자 4자리.
         taxinvoice.invoicerCorpName := '공급자 상호';
         taxinvoice.invoicerMgtKey := ''; //수정시에는 기재하지 않습니다.
@@ -1254,7 +1257,7 @@ var
 begin
         taxinvoice := TTaxinvoice.Create;
         
-        taxinvoice.writeDate := '20140319';             //필수, 기재상 작성일자
+        taxinvoice.writeDate := '20151210';             //필수, 기재상 작성일자
         taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
         taxinvoice.issueType := '역발행';               //필수, {정발행, 역발행, 위수탁}
         taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
@@ -1276,7 +1279,7 @@ begin
         taxinvoice.invoicerSMSSendYN := true; //발행시 문자발송기능 사용시 활용
 
         taxinvoice.invoiceeType := '사업자';
-        taxinvoice.invoiceeCorpNum := '1231212312';
+        taxinvoice.invoiceeCorpNum := '1234567890';
         taxinvoice.invoiceeCorpName := '공급받는자 상호';
         taxinvoice.invoiceeMgtKey := tbMgtKey.Text; //역발행시에는 필수기재.
         taxinvoice.invoiceeCEOName := '공급받는자 대표자 성명';

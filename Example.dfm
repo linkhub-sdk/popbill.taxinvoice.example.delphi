@@ -1,6 +1,6 @@
 object frmExample: TfrmExample
-  Left = 594
-  Top = 287
+  Left = 511
+  Top = 120
   Width = 954
   Height = 791
   Caption = 'Linkhub ÆËºô ÀüÀÚ¼¼±Ý°è»ê¼­  SDK Examples'
@@ -553,6 +553,7 @@ object frmExample: TfrmExample
         Height = 33
         Brush.Color = clAppWorkSpace
         Pen.Style = psClear
+        OnContextPopup = Shape23ContextPopup
       end
       object Label5: TLabel
         Left = 24

@@ -181,6 +181,8 @@ type
     procedure btnGetPopbillURL_CHRGClick(Sender: TObject);
     procedure btnGetPopbillURL_CERTClick(Sender: TObject);
     procedure btnSearchInfoClick(Sender: TObject);
+    procedure Shape23ContextPopup(Sender: TObject; MousePos: TPoint;
+      var Handled: Boolean);
   private
     MgtKeyType : EnumMgtKeyType;
   public
@@ -272,7 +274,7 @@ var
 begin
         taxinvoice := TTaxinvoice.Create;
         
-        taxinvoice.writeDate := '20150923';             //필수, 기재상 작성일자
+        taxinvoice.writeDate := '20151215';             //필수, 기재상 작성일자
         taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
         taxinvoice.issueType := '정발행';               //필수, {정발행, 역발행, 위수탁}
         taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
@@ -1038,7 +1040,7 @@ var
 begin
         taxinvoice := TTaxinvoice.Create;
         
-        taxinvoice.writeDate := '20151210';             //필수, 기재상 작성일자
+        taxinvoice.writeDate := '20151215';             //필수, 기재상 작성일자
         taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
         taxinvoice.issueType := '역발행';               //필수, {정발행, 역발행, 위수탁}
         taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
@@ -1693,13 +1695,13 @@ var
 begin
         writeSpecification := false;     // 거래명세서 동시작성 여부
         dealInvoiceMgtKey := '';        // 거래명세서 동시작성시 명세서 문서관리번호, 1~24자리 영문,숫자,'-','_' 조합으로 구성
-        forceIssue := true;            // 지연발행 강제여부
+        forceIssue := false;            // 지연발행 강제여부
         memo := '즉시발행 메모';        // 메모
         emailSubject := '';             // 발행 안내메일 제목, 미기재시 기본제목으로 전송
 
         taxinvoice := TTaxinvoice.Create;
         
-        taxinvoice.writeDate := '20150707';             //필수, 기재상 작성일자
+        taxinvoice.writeDate := '20151215';             //필수, 기재상 작성일자
         taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
         taxinvoice.issueType := '정발행';               //필수, {정발행, 역발행, 위수탁}
         taxinvoice.purposeType := '영수';               //필수, {영수, 청구}

@@ -553,7 +553,6 @@ object frmExample: TfrmExample
         Height = 33
         Brush.Color = clAppWorkSpace
         Pen.Style = psClear
-        OnContextPopup = Shape23ContextPopup
       end
       object Label5: TLabel
         Left = 24

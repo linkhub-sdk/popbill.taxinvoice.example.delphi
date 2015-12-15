@@ -181,8 +181,6 @@ type
     procedure btnGetPopbillURL_CHRGClick(Sender: TObject);
     procedure btnGetPopbillURL_CERTClick(Sender: TObject);
     procedure btnSearchInfoClick(Sender: TObject);
-    procedure Shape23ContextPopup(Sender: TObject; MousePos: TPoint;
-      var Handled: Boolean);
   private
     MgtKeyType : EnumMgtKeyType;
   public

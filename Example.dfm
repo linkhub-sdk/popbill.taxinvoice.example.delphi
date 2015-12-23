@@ -1,8 +1,8 @@
 object frmExample: TfrmExample
-  Left = 511
-  Top = 120
-  Width = 954
-  Height = 791
+  Left = 401
+  Top = 98
+  Width = 937
+  Height = 825
   Caption = 'Linkhub 팝빌 전자세금계산서  SDK Examples'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -34,7 +34,7 @@ object frmExample: TfrmExample
     Left = 8
     Top = 224
     Width = 913
-    Height = 513
+    Height = 545
     Caption = '전자세금계산서 관련 API'
     TabOrder = 0
     object Label1: TLabel
@@ -399,16 +399,16 @@ object frmExample: TfrmExample
       end
     end
     object GroupBox6: TGroupBox
-      Left = 600
+      Left = 592
       Top = 312
-      Width = 129
-      Height = 161
+      Width = 169
+      Height = 193
       Caption = '부가서비스'
       TabOrder = 3
       object btnReSendEmail: TButton
         Left = 16
         Top = 24
-        Width = 97
+        Width = 137
         Height = 25
         Caption = '이메일 전송'
         TabOrder = 0
@@ -417,7 +417,7 @@ object frmExample: TfrmExample
       object btnReSendSMS: TButton
         Left = 16
         Top = 56
-        Width = 97
+        Width = 137
         Height = 25
         Caption = '문자 전송'
         TabOrder = 1
@@ -426,11 +426,29 @@ object frmExample: TfrmExample
       object btnSendInvoiceFax: TButton
         Left = 16
         Top = 88
-        Width = 97
+        Width = 137
         Height = 25
         Caption = '팩스 전송'
         TabOrder = 2
         OnClick = btnSendInvoiceFaxClick
+      end
+      object btnDetachStatement: TButton
+        Left = 16
+        Top = 152
+        Width = 137
+        Height = 25
+        Caption = '전자명세서 첨부해제'
+        TabOrder = 3
+        OnClick = btnDetachStatementClick
+      end
+      object btnAttachStatement: TButton
+        Left = 16
+        Top = 120
+        Width = 137
+        Height = 25
+        Caption = '전자명세서 첨부'
+        TabOrder = 4
+        OnClick = btnAttachStatementClick
       end
     end
     object tbMgtKey: TEdit
@@ -451,7 +469,7 @@ object frmExample: TfrmExample
       OnClick = btnCheckMgtKeyInUseClick
     end
     object GroupBox10: TGroupBox
-      Left = 744
+      Left = 768
       Top = 312
       Width = 129
       Height = 161

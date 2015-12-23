@@ -124,6 +124,8 @@ type
     btnGetPopbillURL_CHRG: TButton;
     btnGetPopbillURL_CERT: TButton;
     btnSearchInfo: TButton;
+    btnDetachStatement: TButton;
+    btnAttachStatement: TButton;
     procedure FormCreate(Sender: TObject);
     procedure btnGetPopBillURLClick(Sender: TObject);
     procedure btnJoinClick(Sender: TObject);
@@ -181,6 +183,8 @@ type
     procedure btnGetPopbillURL_CHRGClick(Sender: TObject);
     procedure btnGetPopbillURL_CERTClick(Sender: TObject);
     procedure btnSearchInfoClick(Sender: TObject);
+    procedure btnAttachStatementClick(Sender: TObject);
+    procedure btnDetachStatementClick(Sender: TObject);
   private
     MgtKeyType : EnumMgtKeyType;
   public
@@ -1698,8 +1702,8 @@ begin
         emailSubject := '';             // 발행 안내메일 제목, 미기재시 기본제목으로 전송
 
         taxinvoice := TTaxinvoice.Create;
-        
-        taxinvoice.writeDate := '20151215';             //필수, 기재상 작성일자
+
+        taxinvoice.writeDate := '20151221';             //필수, 기재상 작성일자
         taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
         taxinvoice.issueType := '정발행';               //필수, {정발행, 역발행, 위수탁}
         taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
@@ -1946,6 +1950,48 @@ begin
         end;
 
         ShowMessage(tmp);
+end;
+
+procedure TfrmExample.btnAttachStatementClick(Sender: TObject);
+var
+        response : TResponse;
+        SubItemCode : Integer;
+        SubMgtKey : String;
+begin
+        SubItemCode := 121;             // 첨부할 전자명세서 문서종류코드, 121-거래명세서, 122-청구서 123-견적서, 124-발주서, 125-입금표, 126-영수증
+        SubMgtKey := '20151223-01';     // 첨부할 전자명세서 문서관리번호
+
+        try
+                response := taxinvoiceService.AttachStatement(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,SubItemCode,SubMgtKey);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+end;
+
+procedure TfrmExample.btnDetachStatementClick(Sender: TObject);
+var
+        response : TResponse;
+        SubItemCode : Integer;
+        SubMgtKey : String;
+begin
+        SubItemCode := 121;             // 첨부해제할 전자명세서 문서종류코드, 121-거래명세서, 122-청구서 123-견적서, 124-발주서, 125-입금표, 126-영수증
+        SubMgtKey := '20151223-01';     // 첨부해제할 전자명세서 문서관리번호
+        
+        try
+                response := taxinvoiceService.DetachStatement(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,SubItemCode,SubMgtKey);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
 end;
 
 end.

@@ -276,7 +276,7 @@ var
 begin
         taxinvoice := TTaxinvoice.Create;
         
-        taxinvoice.writeDate := '20151215';             //필수, 기재상 작성일자
+        taxinvoice.writeDate := '20160112';             //필수, 기재상 작성일자
         taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
         taxinvoice.issueType := '정발행';               //필수, {정발행, 역발행, 위수탁}
         taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
@@ -545,10 +545,12 @@ begin
                 end;
         end;
 
-        tmp := 'ItemKey | StateCode | TaxType | WriteDate | RegDT | OpenYN | OpenDT | lateIssueYN' + #13;
+        tmp := 'ItemKey | StateCode | TaxType | WriteDate | RegDT | OpenYN | OpenDT | lateIssueYN | InvoicerPrintYN | InvoiceePrintYN | TrusteePrintYN ' + #13;
 
-        tmp := tmp + taxinvoiceInfo.ItemKey + ' | ' + IntToStr(taxinvoiceInfo.StateCode) + ' | '
-        + taxinvoiceInfo.TaxType + ' | ' + taxinvoiceInfo.WriteDate + ' | ' + taxinvoiceInfo.RegDT + ' | ' + BoolToStr(taxinvoiceInfo.OpenYN) + ' | ' + taxinvoiceInfo.OpenDT+ ' | ' + BoolToStr(taxinvoiceInfo.lateIssueYN) +#13;
+        tmp := tmp + taxinvoiceInfo.ItemKey + ' | ' + IntToStr(taxinvoiceInfo.StateCode) + ' | ' + taxinvoiceInfo.TaxType + ' | '
+        + taxinvoiceInfo.WriteDate + ' | ' + taxinvoiceInfo.RegDT + ' | ' + BoolToStr(taxinvoiceInfo.OpenYN) + ' | '
+        + taxinvoiceInfo.OpenDT+ ' | ' + BoolToStr(taxinvoiceInfo.lateIssueYN) + ' | ' + BoolToStr(taxinvoiceInfo.InvoicerPrintYN) + ' | '
+        + BoolToStr(taxinvoiceInfo.InvoiceePrintYN) + ' | ' + BoolToStr(taxinvoiceInfo.TrusteePrintYN)  + #13;
 
         ShowMessage(tmp);
 
@@ -563,7 +565,7 @@ var
         i : Integer;
 begin
         SetLength(KeyList,2);
-        KeyList[0] := '20150923-01';
+        KeyList[0] := '20160112-01';
         KeyList[1] := '123';
         try
                 InfoList := taxinvoiceService.getInfos(txtCorpNum.text,MgtKeyType,KeyList);
@@ -574,12 +576,13 @@ begin
                 end;
         end;
 
-        tmp := 'ItemKey | StateCode | TaxType | WriteDate | RegDT | lateIssueYN' + #13;
+        tmp := 'ItemKey | StateCode | TaxType | WriteDate | RegDT | lateIssueYN | InvoicerPrintYN | InvoiceePrintYN | TrusteePrintYN' + #13;
 
         for i := 0 to Length(InfoList) -1 do
         begin
-            tmp := tmp + InfoList[i].ItemKey + ' | ' + IntToStr(InfoList[i].StateCode) + ' | '
-        + InfoList[i].TaxType + ' | ' + InfoList[i].WriteDate + ' | ' + InfoList[i].RegDT + ' | ' + BoolToStr(InfoList[i].lateIssueYN) + #13;
+            tmp := tmp + InfoList[i].ItemKey + ' | ' + IntToStr(InfoList[i].StateCode) + ' | ' + InfoList[i].TaxType + ' | '
+            + InfoList[i].WriteDate + ' | ' + InfoList[i].RegDT + ' | ' + BoolToStr(InfoList[i].lateIssueYN) + ' | '
+            + BoolToStr(InfoList[i].InvoicerPrintYN)+ ' | ' + BoolToStr(InfoList[i].InvoiceePrintYN) + ' | ' + BoolToStr(InfoList[i].TrusteePrintYN) + #13;
         end;
 
         ShowMessage(tmp);
@@ -1042,7 +1045,7 @@ var
 begin
         taxinvoice := TTaxinvoice.Create;
         
-        taxinvoice.writeDate := '20151215';             //필수, 기재상 작성일자
+        taxinvoice.writeDate := '20160112';             //필수, 기재상 작성일자
         taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
         taxinvoice.issueType := '역발행';               //필수, {정발행, 역발행, 위수탁}
         taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
@@ -1703,7 +1706,7 @@ begin
 
         taxinvoice := TTaxinvoice.Create;
 
-        taxinvoice.writeDate := '20151221';             //필수, 기재상 작성일자
+        taxinvoice.writeDate := '20160112';             //필수, 기재상 작성일자
         taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
         taxinvoice.issueType := '정발행';               //필수, {정발행, 역발행, 위수탁}
         taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
@@ -1892,8 +1895,8 @@ var
 begin
 
         DType := 'W';           // [필수] 일자유형 { R : 등록일시, W : 작성일자, I : 발행일시 } 중 기재
-        SDate := '20150801';    // [필수] 시작일자, 작성형태(yyyyMMdd)
-        EDate := '20151031';    // [필수] 종료일자, 작성형태(yyyyMMdd)
+        SDate := '20160101';    // [필수] 시작일자, 작성형태(yyyyMMdd)
+        EDate := '20160112';    // [필수] 종료일자, 작성형태(yyyyMMdd)
 
         SetLength(State, 3);    // 전송상태값 배열. 미기재시 전체 상태조회, 문서상태 값 3자리의 배열, 2,3번째자리 와일드카드 사용가능
         State[0] := '100';      // <개발가이드> "전자(세금)계산서 상태코드"  http://blog.linkhub.co.kr/372/
@@ -1932,24 +1935,27 @@ begin
         tmp := tmp + 'pageCount : '+ IntToStr(SearchList.pageCount) + #13;
         tmp := tmp + 'message : '+ SearchList.message + #13#13;
 
-        tmp := tmp + 'ItemKey | StateCode | TaxType | WriteDate | RegDT | lateIssueYN | invoicerCorpNum | invoicerCorpName | invoiceeCorpNum | invoiceeCorpName | '
-                + ' issueType | supplyCostTotal | taxTotal '+#13#13;
+        tmp := tmp + 'WriteDate | invoicerMgtKey | StateCode | TaxType |  RegDT | lateIssueYN | invoicerCorpNum |  invoicerCorpName | invoiceeCorpNum | invoiceeCorpName | '
+                + ' issueType | supplyCostTotal | taxTotal | invoicerPrintYN | invoiceePrintYN | trusteePrintYN '+#13#13;
 
         for i := 0 to Length(SearchList.list) -1 do
         begin
-            tmp := tmp + SearchList.list[i].ItemKey + ' | '
+            tmp := tmp + SearchList.list[i].WriteDate + ' | '
+                        + SearchList.list[i].InvoicerMgtKey  + ' | '            
                         + IntToStr(SearchList.list[i].StateCode) + ' | '
                         + SearchList.list[i].TaxType + ' | '
-                        + SearchList.list[i].WriteDate + ' | '
                         + SearchList.list[i].RegDT + ' | '
-                        + BoolToStr(SearchList.list[i].lateIssueYN) + ' | ' 
+                        + BoolToStr(SearchList.list[i].lateIssueYN) + ' | '
                         + SearchList.list[i].invoicerCorpNum + ' | '
                         + SearchList.list[i].invoicerCorpname + ' | '
                         + SearchList.list[i].invoiceeCorpNum + ' | '
                         + SearchList.list[i].invoiceeCorpname + ' | '
                         + SearchList.list[i].issueType + ' | '
                         + SearchList.list[i].supplyCostTotal + ' | '
-                        + SearchList.list[i].taxTotal + #13;
+                        + SearchList.list[i].taxTotal + ' | '
+                        + BoolToStr(SearchList.list[i].InvoicerPrintYN) + ' | '
+                        + BoolToStr(SearchList.list[i].InvoiceePrintYN) + ' | '     
+                        + BoolToStr(SearchList.list[i].TrusteePrintYN) + ' | ' + #13;
         end;
 
         ShowMessage(tmp);

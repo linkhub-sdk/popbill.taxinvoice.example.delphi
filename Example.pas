@@ -1746,8 +1746,8 @@ begin
         taxinvoice.taxTotal := '10000';                 //필수 세액 합계
         taxinvoice.totalAmount := '110000';             //필수 합계금액.  공급가액 + 세액
 
-        taxinvoice.modifyCode := '2'; //수정세금계산서 작성시 1~6까지 선택기재.
-        taxinvoice.originalTaxinvoiceKey := '016012510363100001'; //수정세금계산서 작성시 원본세금계산서의 ItemKey기재. ItemKey는 문서확인.
+        taxinvoice.modifyCode := '';                    //수정세금계산서 작성시 1~6까지 선택기재.
+        taxinvoice.originalTaxinvoiceKey := '';         //수정세금계산서 작성시 원본세금계산서의 ItemKey기재. ItemKey는 문서확인.
         taxinvoice.serialNum := '123';  //일련번호
         taxinvoice.cash := '';          //현금
         taxinvoice.chkBill := '';       //수표

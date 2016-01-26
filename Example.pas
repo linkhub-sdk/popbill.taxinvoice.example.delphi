@@ -276,7 +276,7 @@ var
 begin
         taxinvoice := TTaxinvoice.Create;
         
-        taxinvoice.writeDate := '20160112';             //필수, 기재상 작성일자
+        taxinvoice.writeDate := '20160126';             //필수, 기재상 작성일자
         taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
         taxinvoice.issueType := '정발행';               //필수, {정발행, 역발행, 위수탁}
         taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
@@ -1045,7 +1045,7 @@ var
 begin
         taxinvoice := TTaxinvoice.Create;
         
-        taxinvoice.writeDate := '20160112';             //필수, 기재상 작성일자
+        taxinvoice.writeDate := '20160126';             //필수, 기재상 작성일자
         taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
         taxinvoice.issueType := '역발행';               //필수, {정발행, 역발행, 위수탁}
         taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
@@ -1143,7 +1143,7 @@ begin
                         Exit;
                 end;
         end;
-
+        
         ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
 end;
 
@@ -1706,7 +1706,7 @@ begin
 
         taxinvoice := TTaxinvoice.Create;
 
-        taxinvoice.writeDate := '20160112';             //필수, 기재상 작성일자
+        taxinvoice.writeDate := '20160126';             //필수, 기재상 작성일자
         taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
         taxinvoice.issueType := '정발행';               //필수, {정발행, 역발행, 위수탁}
         taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
@@ -1804,6 +1804,7 @@ begin
                         Exit;
                 end;
         end;
+
 
         ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
 end;

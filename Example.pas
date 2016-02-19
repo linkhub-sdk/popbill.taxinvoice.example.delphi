@@ -214,7 +214,7 @@ end;
 
 procedure TfrmExample.FormClose(Sender:TObject; var Action:TCloseAction);
 begin
-        taxinvoiceService.Free();
+        taxinvoiceService.Free;
         Action := caFree;
 end;
 

@@ -127,6 +127,7 @@ type
     btnDetachStatement: TButton;
     btnAttachStatement: TButton;
     procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetPopBillURLClick(Sender: TObject);
     procedure btnJoinClick(Sender: TObject);
     procedure btnRegisterClick(Sender: TObject);
@@ -209,6 +210,12 @@ begin
         
         //Exception 처리 설정값. 미기재시 true(기본값) 
         taxinvoiceService.IsThrowException := true;
+end;
+
+procedure TfrmExample.FormClose(Sender:TObject; var Action:TCloseAction);
+begin
+        taxinvoiceService.Free();
+        Action := caFree;
 end;
 
 function IfThen(condition :bool; trueVal :String ; falseVal : String) : string;

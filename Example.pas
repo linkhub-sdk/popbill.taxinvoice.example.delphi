@@ -375,8 +375,10 @@ begin
 
         try
                 response := taxinvoiceService.Register(txtCorpNum.text,taxinvoice,txtUserID.Text);
+                taxinvoice.Free;
         except
                 on le : EPopbillException do begin
+                        taxinvoice.Free;
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
                         Exit;
                 end;
@@ -1144,8 +1146,10 @@ begin
 
         try
                 response := taxinvoiceService.Register(txtCorpNum.text,taxinvoice,txtUserID.Text);
+                taxinvoice.Free;
         except
                 on le : EPopbillException do begin
+                        taxinvoice.Free;
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
                         Exit;
                 end;
@@ -1254,8 +1258,10 @@ begin
 
         try
                 response := taxinvoiceService.Update(txtCorpNum.text,MgtKeyType,tbMgtKey.Text, taxinvoice,txtUserID.Text);
+                taxinvoice.Free;
         except
                 on le : EPopbillException do begin
+                        taxinvoice.Free;
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
                         Exit;
                 end;
@@ -1359,8 +1365,10 @@ begin
 
         try
                 response := taxinvoiceService.Update(txtCorpNum.text,MgtKeyType,tbMgtKey.Text, taxinvoice,txtUserID.Text);
+                taxinvoice.Free;
         except
                 on le : EPopbillException do begin
+                        taxinvoice.Free;
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
                         Exit;
                 end;
@@ -1805,8 +1813,10 @@ begin
 
         try
                 response := taxinvoiceService.RegistIssue(txtCorpNum.text,taxinvoice,writeSpecification,forceIssue,memo,emailSubject,dealInvoiceMgtKey,txtUserID.Text);
+                taxinvoice.Free;
         except
                 on le : EPopbillException do begin
+                        taxinvoice.Free;
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
                         Exit;
                 end;
@@ -1949,7 +1959,7 @@ begin
         for i := 0 to Length(SearchList.list) -1 do
         begin
             tmp := tmp + SearchList.list[i].WriteDate + ' | '
-                        + SearchList.list[i].InvoicerMgtKey  + ' | '            
+                        + SearchList.list[i].InvoicerMgtKey  + ' | '
                         + IntToStr(SearchList.list[i].StateCode) + ' | '
                         + SearchList.list[i].TaxType + ' | '
                         + SearchList.list[i].RegDT + ' | '
@@ -1962,9 +1972,11 @@ begin
                         + SearchList.list[i].supplyCostTotal + ' | '
                         + SearchList.list[i].taxTotal + ' | '
                         + BoolToStr(SearchList.list[i].InvoicerPrintYN) + ' | '
-                        + BoolToStr(SearchList.list[i].InvoiceePrintYN) + ' | '     
+                        + BoolToStr(SearchList.list[i].InvoiceePrintYN) + ' | '
                         + BoolToStr(SearchList.list[i].TrusteePrintYN) + ' | ' + #13;
         end;
+
+        SearchList.Free;
 
         ShowMessage(tmp);
 end;

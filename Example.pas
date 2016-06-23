@@ -1906,21 +1906,24 @@ var
         TType : Array Of String;
         TaxType : Array Of String;
         LateOnly : String;
+        TaxRegIDYN : Boolean;
+        TaxRegIDType : String;
+        TaxRegID : Array Of String;
         Page : Integer;
         PerPage : Integer;
         Order : String;
         tmp : String;
-        SearchList : TSearchList;
+         SearchList : TSearchList;
         i : Integer;
 begin
 
         DType := 'W';           // [필수] 일자유형 { R : 등록일시, W : 작성일자, I : 발행일시 } 중 기재
-        SDate := '20160101';    // [필수] 시작일자, 작성형태(yyyyMMdd)
-        EDate := '20160112';    // [필수] 종료일자, 작성형태(yyyyMMdd)
+        SDate := '20160601';    // [필수] 시작일자, 작성형태(yyyyMMdd)
+        EDate := '20160701';    // [필수] 종료일자, 작성형태(yyyyMMdd)
 
         SetLength(State, 3);    // 전송상태값 배열. 미기재시 전체 상태조회, 문서상태 값 3자리의 배열, 2,3번째자리 와일드카드 사용가능
-        State[0] := '100';      // <개발가이드> "전자(세금)계산서 상태코드"  http://blog.linkhub.co.kr/372/
-        State[1] := '2**';
+        State[0] := '';      // <개발가이드> "전자(세금)계산서 상태코드"  http://blog.linkhub.co.kr/372/
+        State[1] := '';
         State[2] := '3**';
 
 
@@ -1934,13 +1937,20 @@ begin
         TaxType[2] := 'N';
 
         LateOnly := '';         // 지연발행여부. {0 : 정상발행조회, 1 : 지연발행 조회} 선택기재, 공백으로 처리시 전체조회
+
+        TaxRegIDYN := false;   // 종사업장 유무
+        TaxRegIDType := '';    // 종사업장번호 사업자 유형, S-공급자, B-공급받는자, T-수탁자
+        SetLength(TaxRegID,1); // 종사업장 번호 배열
+        TaxRegID[0] := '';
+        
+        
         Page := 1;              // 페이지번호, 기본값 1
         PerPage := 50;          // 페이지당 검색갯수, 기본값 500, 최대 1000
 
         Order := 'D';           // 'D' : 내림차순 , 'A' : 오름차순
 
         try
-                SearchList := taxinvoiceService.search(txtCorpNum.text,MgtKeyType,DType,SDate,EDate,State,TType,TaxType,LateOnly,Page,PerPage,Order);
+                SearchList := taxinvoiceService.search(txtCorpNum.text,MgtKeyType,DType,SDate,EDate,State,TType,TaxType,LateOnly,TaxRegIDYN,TaxRegIDType,TaxRegID,Page,PerPage,Order);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);

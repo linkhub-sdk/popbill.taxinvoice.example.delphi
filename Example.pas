@@ -1908,7 +1908,7 @@ var
         LateOnly : String;
         TaxRegIDYN : String;
         TaxRegIDType : String;
-        TaxRegID : Array Of String;
+        TaxRegID : String;
         Page : Integer;
         PerPage : Integer;
         Order : String;
@@ -1938,8 +1938,7 @@ begin
 
         TaxRegIDType := 'S';    // 종사업장번호 사업자 유형, S-공급자, B-공급받는자, T-수탁자
 
-        SetLength(TaxRegID,1);  // 종사업장 번호 배열
-        TaxRegID[0] := '';
+        TaxRegID := '';  // 종사업장 번호, 콤마(,)로 구분하여 구성, ex) 0001,0002
 
         TaxRegIDYN := '';      // 종사업장 유무, {공백-전체조회, 0-종사업장번호 없는문서 조회, 1-검색조건에 따라 조회} 선택기재
 
@@ -1949,7 +1948,7 @@ begin
         Order := 'D';           // 'D' : 내림차순 , 'A' : 오름차순
 
         try
-                SearchList := taxinvoiceService.search(txtCorpNum.text,MgtKeyType,DType,SDate,EDate,State,TType,TaxType,LateOnly,TaxRegIDType,TaxRegID,TaxRegIDYN,Page,PerPage,Order);
+                SearchList := taxinvoiceService.search(txtCorpNum.text,MgtKeyType,DType,SDate,EDate,State,TType,TaxType,LateOnly,TaxRegIDType,TaxRegID, TaxRegIDYN,Page,PerPage,Order,txtUserID.text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);

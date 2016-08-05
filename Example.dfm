@@ -1,8 +1,8 @@
 object frmExample: TfrmExample
   Left = 401
   Top = 98
-  Width = 937
-  Height = 825
+  Width = 974
+  Height = 826
   Caption = 'Linkhub ÆËºô ÀüÀÚ¼¼±Ý°è»ê¼­  SDK Examples'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -739,8 +739,8 @@ object frmExample: TfrmExample
   object GroupBox8: TGroupBox
     Left = 8
     Top = 40
-    Width = 913
-    Height = 185
+    Width = 947
+    Height = 190
     Caption = 'ÆËºô ±âº» API'
     TabOrder = 1
     object GroupBox9: TGroupBox
@@ -825,14 +825,14 @@ object frmExample: TfrmExample
     object GroupBox12: TGroupBox
       Left = 448
       Top = 24
-      Width = 153
-      Height = 121
+      Width = 183
+      Height = 157
       Caption = 'ÆËºô ±âº» URL'
       TabOrder = 2
       object btnGetPopBillURL: TButton
         Left = 8
         Top = 25
-        Width = 137
+        Width = 166
         Height = 25
         Caption = 'ÆËºô ·Î±×ÀÎ URL'
         TabOrder = 0
@@ -841,7 +841,7 @@ object frmExample: TfrmExample
       object btnGetPopbillURL_CHRG: TButton
         Left = 8
         Top = 56
-        Width = 137
+        Width = 166
         Height = 25
         Caption = 'Æ÷ÀÎÆ® ÃæÀü URL'
         TabOrder = 1
@@ -850,11 +850,20 @@ object frmExample: TfrmExample
       object btnGetPopbillURL_CERT: TButton
         Left = 8
         Top = 88
-        Width = 137
+        Width = 166
         Height = 25
         Caption = '°øÀÎÀÎÁõ¼­ µî·Ï URL'
         TabOrder = 2
         OnClick = btnGetPopbillURL_CERTClick
+      end
+      object btnGetPopbillURL_SEAL: TButton
+        Left = 8
+        Top = 120
+        Width = 165
+        Height = 25
+        Caption = 'ÀÎ°¨ ¹× Ã·ºÎ¹®¼­ µî·Ï URL'
+        TabOrder = 3
+        OnClick = btnGetPopbillURL_SEALClick
       end
     end
     object GroupBox14: TGroupBox
@@ -875,7 +884,7 @@ object frmExample: TfrmExample
       end
     end
     object GroupBox4: TGroupBox
-      Left = 608
+      Left = 640
       Top = 24
       Width = 145
       Height = 121
@@ -910,7 +919,7 @@ object frmExample: TfrmExample
       end
     end
     object GroupBox16: TGroupBox
-      Left = 760
+      Left = 792
       Top = 24
       Width = 145
       Height = 121

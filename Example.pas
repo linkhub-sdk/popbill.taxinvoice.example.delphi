@@ -252,14 +252,14 @@ var
         joinInfo : TJoinForm;
 begin
         joinInfo.LinkID := LinkID;        //링크아이디
-        joinInfo.CorpNum := '1231212312'; //사업자번호 '-' 제외.
+        joinInfo.CorpNum := '4364364364'; //사업자번호 '-' 제외.
         joinInfo.CEOName := '대표자성명';
-        joinInfo.CorpName := '상호';
+        joinInfo.CorpName := '상호&';
         joinInfo.Addr := '주소';
         joinInfo.ZipCode := '500-100';
         joinInfo.BizType := '업태';
         joinInfo.BizClass := '업종';
-        joinInfo.ID     := 'userid';  //6자 이상 20자 미만.
+        joinInfo.ID     := 'userid0812';  //6자 이상 20자 미만.
         joinInfo.PWD    := 'pwd_must_be_long_enough'; //6자 이상 20자 미만.
         joinInfo.ContactName := '담당자명';
         joinInfo.ContactTEL :='02-999-9999';
@@ -1725,7 +1725,7 @@ begin
 
         taxinvoice := TTaxinvoice.Create;
 
-        taxinvoice.writeDate := '20160126';             //필수, 기재상 작성일자
+        taxinvoice.writeDate := '20160812';             //필수, 기재상 작성일자
         taxinvoice.chargeDirection := '정과금';         //필수, {정과금, 역과금}
         taxinvoice.issueType := '정발행';               //필수, {정발행, 역발행, 위수탁}
         taxinvoice.purposeType := '영수';               //필수, {영수, 청구}
@@ -1734,7 +1734,7 @@ begin
 
         taxinvoice.invoicerCorpNum := '1234567890';              //공급자 사업자번호
         taxinvoice.invoicerTaxRegID := '';                       //종사업자 식별번호. 필요시 기재. 형식은 숫자 4자리.
-        taxinvoice.invoicerCorpName := '공급자 상호';
+        taxinvoice.invoicerCorpName := '공급자& 상호';
         taxinvoice.invoicerMgtKey := tbMgtKey.Text;              //공급자 문서관리번호, 1~24자리 (숫자, 영문, '-', '_'), 사업자별 중복되지 않도록 구성
         taxinvoice.invoicerCEOName := '공급자 대표자 성명';
         taxinvoice.invoicerAddr := '공급자 주소';
@@ -1749,7 +1749,7 @@ begin
         taxinvoice.invoiceeType := '사업자';                     // 공급받는자 구분, [사업자, 개인, 외국인] 중 기재
         taxinvoice.invoiceeCorpNum := '8888888888';              // 공급받는자 사업자번호
         taxinvoice.invoiceeTaxRegID := ''; //종사업자 식별번호. 필요시 기재. 형식은 숫자 4자리
-        taxinvoice.invoiceeCorpName := '공급받는자 상호';
+        taxinvoice.invoiceeCorpName := '공급받는자 &상호';
         taxinvoice.invoiceeMgtKey := '';                         // 공급받는자 문서관리번호(역발행시 필수)
         taxinvoice.invoiceeCEOName := '공급받는자 대표자 성명';
         taxinvoice.invoiceeAddr := '공급받는자 주소';
@@ -1911,6 +1911,7 @@ var
         TaxRegIDYN : String;
         TaxRegIDType : String;
         TaxRegID : String;
+        QString : String;
         Page : Integer;
         PerPage : Integer;
         Order : String;
@@ -1920,8 +1921,8 @@ var
 begin
 
         DType := 'W';           // [필수] 일자유형 { R : 등록일시, W : 작성일자, I : 발행일시 } 중 기재
-        SDate := '20160501';    // [필수] 시작일자, 작성형태(yyyyMMdd)
-        EDate := '20160701';    // [필수] 종료일자, 작성형태(yyyyMMdd)
+        SDate := '20160701';    // [필수] 시작일자, 작성형태(yyyyMMdd)
+        EDate := '20160831';    // [필수] 종료일자, 작성형태(yyyyMMdd)
 
         SetLength(State, 2);    // 전송상태값 배열. 미기재시 전체 상태조회, 문서상태 값 3자리의 배열, 2,3번째자리 와일드카드 사용가능
         State[0] := '3**';         // <개발가이드> "전자(세금)계산서 상태코드"  http://blog.linkhub.co.kr/372/
@@ -1940,9 +1941,11 @@ begin
 
         TaxRegIDType := 'S';    // 종사업장번호 사업자 유형, S-공급자, B-공급받는자, T-수탁자
 
-        TaxRegID := '';  // 종사업장 번호, 콤마(,)로 구분하여 구성, ex) 0001,0002
+        TaxRegID := '';         // 종사업장 번호, 콤마(,)로 구분하여 구성, ex) 0001,0002
 
         TaxRegIDYN := '';      // 종사업장 유무, {공백-전체조회, 0-종사업장번호 없는문서 조회, 1-검색조건에 따라 조회} 선택기재
+
+        QString := '1000';       // 거래처 정보, 거래처 상호 또는 사업자 등록번호 기재, 공백 처리시 전체조회
 
         Page := 1;              // 페이지번호, 기본값 1
         PerPage := 50;          // 페이지당 검색갯수, 기본값 500, 최대 1000
@@ -1950,7 +1953,7 @@ begin
         Order := 'D';           // 'D' : 내림차순 , 'A' : 오름차순
 
         try
-                SearchList := taxinvoiceService.search(txtCorpNum.text,MgtKeyType,DType,SDate,EDate,State,TType,TaxType,LateOnly,TaxRegIDType,TaxRegID, TaxRegIDYN,Page,PerPage,Order,txtUserID.text);
+                SearchList := taxinvoiceService.search(txtCorpNum.text,MgtKeyType,DType,SDate,EDate,State,TType,TaxType,LateOnly,TaxRegIDType,TaxRegID, TaxRegIDYN, QString, Page,PerPage,Order,txtUserID.text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -2072,7 +2075,6 @@ begin
         end;
 
         ShowMessage('ResultURL is ' + #13 + resultURL);
-
 end;
 
 end.

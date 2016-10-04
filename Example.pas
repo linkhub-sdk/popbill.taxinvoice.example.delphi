@@ -283,7 +283,7 @@ begin
         joinInfo.BizClass := '종목';
 
         //아이디, 6자이상 20자 미만
-        joinInfo.ID     := 'userid0812';  //6자 이상 20자 미만.
+        joinInfo.ID     := 'userid';  //6자 이상 20자 미만.
 
         //비밀번호, 6자이상 20자 미만
         joinInfo.PWD    := 'pwd_must_be_long_enough';
@@ -295,10 +295,12 @@ begin
         joinInfo.ContactTEL :='070-4304-2991';
 
         //담당자 휴대폰번호
-        joinInfo.ContactHP := '010-1234-5678';
+        joinInfo.ContactHP := '010-000-1111';
 
         //담당자 팩스번호
         joinInfo.ContactFAX := '02-6442-9700';
+
+        // 담당자 메일
         joinInfo.ContactEmail := 'code@linkhub.co.kr';
 
         try
@@ -311,7 +313,6 @@ begin
         end;
 
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
-
 end;
 
 procedure TfrmExample.btnRegisterClick(Sender: TObject);
@@ -511,7 +512,7 @@ begin
         {**********************************************************************}
 
         // 상세항목 0~99개 까지 작성가능.
-        // 일련번호 (serialNum) 는ㄴ 1부터 99까지 순차기재.
+        // 일련번호 (serialNum) 는 1부터 99까지 순차기재.
         // SetLength로 초기화 한후 기재.
         setLength(taxinvoice.detailList, 2);
 
@@ -579,7 +580,7 @@ begin
                 balance := taxinvoiceService.GetBalance(txtCorpNum.text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
                         Exit;
                 end;
         end;
@@ -596,7 +597,7 @@ begin
                 Expired := taxinvoiceService.GetCertificateExpireDate(txtCorpNum.text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
                         Exit;
                 end;
         end;
@@ -613,7 +614,7 @@ begin
                 unitcost := taxinvoiceService.GetUnitCost(txtCorpNum.text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
                         Exit;
                 end;
         end;
@@ -629,7 +630,7 @@ begin
                 balance := taxinvoiceService.GetPartnerBalance(txtCorpNum.text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
                         Exit;
                 end;
         end;
@@ -646,7 +647,7 @@ begin
                 response := taxinvoiceService.Delete(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,txtUserID.Text);
         except
                 on le : EPopbillException do begin
-                                ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
                         Exit;
                 end;
         end;
@@ -694,7 +695,7 @@ begin
                 filelist := taxinvoiceService.GetFiles(txtCorpNum.text,MgtKeyType,tbMgtKey.Text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
                         Exit;
                 end;
         end;
@@ -759,13 +760,19 @@ begin
 
         tmp := 'ItemKey | modifyCode | StateCode | TaxType | WriteDate | RegDT | OpenYN | OpenDT | lateIssueYN | InvoicerPrintYN | InvoiceePrintYN | TrusteePrintYN ' + #13;
 
-        tmp := tmp + taxinvoiceInfo.ItemKey + ' | ' + taxinvoiceInfo.ModifyCode + ' | ' + IntToStr(taxinvoiceInfo.StateCode) + ' | ' + taxinvoiceInfo.TaxType + ' | '
-        + taxinvoiceInfo.WriteDate + ' | ' + taxinvoiceInfo.RegDT + ' | ' + BoolToStr(taxinvoiceInfo.OpenYN) + ' | '
-        + taxinvoiceInfo.OpenDT+ ' | ' + BoolToStr(taxinvoiceInfo.lateIssueYN) + ' | ' + BoolToStr(taxinvoiceInfo.InvoicerPrintYN) + ' | '
-        + BoolToStr(taxinvoiceInfo.InvoiceePrintYN) + ' | ' + BoolToStr(taxinvoiceInfo.TrusteePrintYN)  + #13;
-
+        tmp := tmp + taxinvoiceInfo.ItemKey + ' | '
+                + taxinvoiceInfo.ModifyCode + ' | '
+                + IntToStr(taxinvoiceInfo.StateCode) + ' | '
+                + taxinvoiceInfo.TaxType + ' | '
+                + taxinvoiceInfo.WriteDate + ' | '
+                + taxinvoiceInfo.RegDT + ' | '
+                + BoolToStr(taxinvoiceInfo.OpenYN) + ' | '
+                + taxinvoiceInfo.OpenDT + ' | '
+                + BoolToStr(taxinvoiceInfo.lateIssueYN) + ' | '
+                + BoolToStr(taxinvoiceInfo.InvoicerPrintYN) + ' | '
+                + BoolToStr(taxinvoiceInfo.InvoiceePrintYN) + ' | '
+                + BoolToStr(taxinvoiceInfo.TrusteePrintYN)  + #13;
         ShowMessage(tmp);
-
 
 end;
 
@@ -885,9 +892,11 @@ var
         response : TResponse;
         memo : String;
 begin
+        // 메모
         memo := '발행예정 취소 메모';
+        
         try
-                response := taxinvoiceService.CancelSend(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,memo,txtUserID.Text);
+                response := taxinvoiceService.CancelSend(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, memo, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -903,10 +912,11 @@ var
         response : TResponse;
         memo : String;
 begin
+        // 메모
         memo := '발행예정 승인 메모';
 
         try
-                response := taxinvoiceService.Accept(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,memo, txtUserID.Text);
+                response := taxinvoiceService.Accept(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, memo, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -922,9 +932,11 @@ var
         response : TResponse;
         memo : String;
 begin
+        // 메모
         memo := '발행예정 거부 메모';
+        
         try
-                response := taxinvoiceService.Deny(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,memo, txtUserID.Text);
+                response := taxinvoiceService.Deny(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, memo, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -940,6 +952,7 @@ var
         response : TResponse;
         memo : String;
 begin
+        // 메모
         memo := '발행취소 메모';
         
         try
@@ -1154,7 +1167,7 @@ begin
         // 반환되는 URL은 보안 정책으로 인해 30초의 유효시간을 갖습니다.
         
         try
-                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text,txtUserID.Text,'TBOX');
+                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, txtUserID.Text, 'TBOX');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1172,7 +1185,7 @@ begin
         // 반환되는 URL은 보안 정책으로 인해 30초의 유효시간을 갖습니다.
         
         try
-                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text,txtUserID.Text,'SBOX');
+                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, txtUserID.Text, 'SBOX');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1188,8 +1201,9 @@ var
         resultURL : String;
 begin
         // 반환되는 URL은 보안 정책으로 인해 30초의 유효시간을 갖습니다.
+        
         try
-                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text,txtUserID.Text,'PBOX');
+                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, txtUserID.Text, 'PBOX');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1207,7 +1221,7 @@ begin
         // 반환되는 URL은 보안 정책으로 인해 30초의 유효시간을 갖습니다.
         
         try
-                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text,txtUserID.Text,'WRITE');
+                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, txtUserID.Text, 'WRITE');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1225,7 +1239,7 @@ begin
         // 반환되는 URL은 보안 정책으로 인해 30초의 유효시간을 갖습니다.
         
         try
-                resultURL := taxinvoiceService.getPopupURL(txtCorpNum.Text,MgtKeyType,tbMgtKey.Text, txtUserID.Text);
+                resultURL := taxinvoiceService.getPopupURL(txtCorpNum.Text, MgtKeyType, tbMgtKey.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1243,7 +1257,7 @@ begin
         // 반환되는 URL은 보안 정책으로 인해 30초의 유효시간을 갖습니다.
         
         try
-                resultURL := taxinvoiceService.getPrintURL(txtCorpNum.Text,MgtKeyType,tbMgtKey.Text, txtUserID.Text);
+                resultURL := taxinvoiceService.getPrintURL(txtCorpNum.Text, MgtKeyType, tbMgtKey.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1261,7 +1275,7 @@ begin
         // 공급받는자 메일링크 URL은 유효시간이 존재하지 않습니다.
         
         try
-                resultURL := taxinvoiceService.getMailURL(txtCorpNum.Text,MgtKeyType,tbMgtKey.Text, txtUserID.Text);
+                resultURL := taxinvoiceService.getMailURL(txtCorpNum.Text, MgtKeyType, tbMgtKey.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -2330,7 +2344,7 @@ begin
         corpInfo.addr := '서울특별시 강남구 영동대로 517';
         
         try
-                response := taxinvoiceService.UpdateCorpInfo(txtCorpNum.text,corpInfo,txtUserID.Text);
+                response := taxinvoiceService.UpdateCorpInfo(txtCorpNum.text, corpInfo, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -2405,7 +2419,7 @@ begin
         joinInfo.searchAllAllowYN := false;
 
         // 관리자 권한여부
-        joinInfo.mgrYN     := false;
+        joinInfo.mgrYN := false;
 
         try
                 response := taxinvoiceService.RegistContact(txtCorpNum.text,joinInfo,txtUserID.text);

@@ -33,7 +33,7 @@ object frmExample: TfrmExample
   object GroupBox1: TGroupBox
     Left = 8
     Top = 232
-    Width = 913
+    Width = 945
     Height = 545
     Caption = '전자세금계산서 관련 API'
     TabOrder = 0
@@ -747,7 +747,7 @@ object frmExample: TfrmExample
       Left = 8
       Top = 24
       Width = 137
-      Height = 121
+      Height = 153
       Caption = '회원가입'
       TabOrder = 0
       object btnJoin: TButton
@@ -826,7 +826,7 @@ object frmExample: TfrmExample
       Left = 448
       Top = 24
       Width = 183
-      Height = 157
+      Height = 154
       Caption = '팝빌 기본 URL'
       TabOrder = 2
       object btnGetPopBillURL: TButton
@@ -870,7 +870,7 @@ object frmExample: TfrmExample
       Left = 304
       Top = 24
       Width = 137
-      Height = 121
+      Height = 153
       Caption = '공인인증서 관련'
       TabOrder = 3
       object btnGetCertificateExpireDate: TButton
@@ -887,7 +887,7 @@ object frmExample: TfrmExample
       Left = 640
       Top = 24
       Width = 145
-      Height = 121
+      Height = 154
       Caption = '담당자 관련'
       TabOrder = 4
       object btnUpdateContact: TButton
@@ -922,7 +922,7 @@ object frmExample: TfrmExample
       Left = 792
       Top = 24
       Width = 145
-      Height = 121
+      Height = 153
       Caption = '회사정보 관련'
       TabOrder = 5
       object btnGetCorpInfo: TButton

@@ -305,12 +305,12 @@ begin
                 response := taxinvoiceService.JoinMember(joinInfo);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
                         Exit;
                 end;
         end;
 
-        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 
 end;
 

@@ -787,7 +787,7 @@ object frmExample: TfrmExample
       TabOrder = 1
       object btnGetBalance: TButton
         Left = 8
-        Top = 24
+        Top = 56
         Width = 129
         Height = 25
         Caption = '잔여포인트 확인'
@@ -796,7 +796,7 @@ object frmExample: TfrmExample
       end
       object btnGetUnitCost: TButton
         Left = 8
-        Top = 56
+        Top = 120
         Width = 129
         Height = 25
         Caption = '요금 단가 확인'
@@ -814,7 +814,7 @@ object frmExample: TfrmExample
       end
       object btnGetChargeInfo: TButton
         Left = 8
-        Top = 120
+        Top = 24
         Width = 129
         Height = 25
         Caption = '과금정보 확인'

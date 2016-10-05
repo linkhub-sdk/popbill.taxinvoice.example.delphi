@@ -210,7 +210,7 @@ begin
         //세금계산서 모듈 초기화.
         taxinvoiceService := TTaxinvoiceService.Create(LinkID,SecretKey);
 
-        //연동환경 설정값, true(테스트용), false(상업용)
+        //연동환경 설정값, true(개발용), false(상업용)
         taxinvoiceService.IsTest := true;
         
         //Exception 처리 설정값. 미기재시 true(기본값)
@@ -226,6 +226,12 @@ end;
 function IfThen(condition :bool; trueVal :String ; falseVal : String) : string;
 begin
     if condition then result := trueVal else result := falseVal;
+end;
+
+Function BoolToStr(b:Boolean):String;
+begin
+    if b = true then BoolToStr:='True';
+    if b = false then BoolToStr:='False';
 end;
 
 procedure TfrmExample.btnGetPopBillURLClick(Sender: TObject);
@@ -261,46 +267,46 @@ begin
         {    아이디 중복확인은 btnCheckIDClick 프로시져를 참조하시기 바랍니다. }
         {**********************************************************************}
 
-        //링크아이디
+        // 링크아이디
         joinInfo.LinkID := LinkID;
 
-        //사업자번호 '-' 제외, 10자리
+        // 사업자번호 '-' 제외, 10자리
         joinInfo.CorpNum := '4364364364';
 
-        //대표자성명
+        // 대표자성명, 최대 30자
         joinInfo.CEOName := '대표자성명';
 
-        //상호명
+        // 상호명, 최대 70자
         joinInfo.CorpName := '링크허브';
 
-        //주소 
+        // 주소, 최대 300자
         joinInfo.Addr := '주소';
 
-        //업태
+        // 업태, 최대 40자
         joinInfo.BizType := '업태';
 
-        //종목
+        // 종목, 최대 40자
         joinInfo.BizClass := '종목';
 
-        //아이디, 6자이상 20자 미만
-        joinInfo.ID     := 'userid';  //6자 이상 20자 미만.
+        // 아이디, 6자이상 20자 미만
+        joinInfo.ID     := 'userid';
 
-        //비밀번호, 6자이상 20자 미만
+        // 비밀번호, 6자이상 20자 미만
         joinInfo.PWD    := 'pwd_must_be_long_enough';
 
-        //담당자명
+        // 담당자명, 최대 30자
         joinInfo.ContactName := '담당자명';
 
-        //담당자 연락처
+        // 담당자 연락처, 최대 20자
         joinInfo.ContactTEL :='070-4304-2991';
 
-        //담당자 휴대폰번호
+        // 담당자 휴대폰번호, 최대 20자
         joinInfo.ContactHP := '010-000-1111';
 
-        //담당자 팩스번호
+        // 담당자 팩스번호, 최대 20자
         joinInfo.ContactFAX := '02-6442-9700';
 
-        // 담당자 메일
+        // 담당자 메일, 최대 70자
         joinInfo.ContactEmail := 'code@linkhub.co.kr';
 
         try
@@ -559,7 +565,7 @@ begin
         taxinvoice.addContactList[1].contactName := '추가담당자명2';    // 담당자명
 
         try
-                response := taxinvoiceService.Register(txtCorpNum.text,taxinvoice,txtUserID.Text);
+                response := taxinvoiceService.Register(txtCorpNum.text, taxinvoice, txtUserID.Text);
                 taxinvoice.Free;
         except
                 on le : EPopbillException do begin
@@ -644,7 +650,7 @@ var
         response : TResponse;
 begin
         try
-                response := taxinvoiceService.Delete(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,txtUserID.Text);
+                response := taxinvoiceService.Delete(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -661,9 +667,9 @@ var
         response : TResponse;
 begin
         {**********************************************************************}
-        { 세금계산서의 첨부파일 등록은 [임시저장] 상태에서만 가능합니다.       }
-        { [발행완료]상태에서는 첨부파일을 등록 할 수 없습니다.                 }
-        { 첨부파일은 최대 5개까지 추가할 수 있습니다.                          }
+        { - 세금계산서의 첨부파일 등록은 [임시저장] 상태에서만 가능합니다.     }
+        {   [발행완료]상태에서는 첨부파일을 등록 할 수 없습니다.               }
+        { - 첨부파일은 최대 5개까지 추가할 수 있습니다.                        }
         {**********************************************************************}
 
         if OpenDialog1.Execute then begin
@@ -673,7 +679,7 @@ begin
         end;
 
         try
-                response := taxinvoiceService.AttachFile(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,filePath,txtUserID.Text);
+                response := taxinvoiceService.AttachFile(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, filePath, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -692,7 +698,7 @@ var
         i : Integer;
 begin
         try
-                filelist := taxinvoiceService.GetFiles(txtCorpNum.text,MgtKeyType,tbMgtKey.Text);
+                filelist := taxinvoiceService.GetFiles(txtCorpNum.text, MgtKeyType, tbMgtKey.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -704,7 +710,11 @@ begin
 
         for i := 0 to Length(fileList) -1 do
         begin
-            tmp := tmp +  IntToStr(fileList[i].SerialNum) + ' | ' + fileList[i].DisplayName + ' | ' + fileList[i].AttachedFile + ' | ' + fileList[i].RegDT + #13;
+            tmp := tmp +  IntToStr(fileList[i].SerialNum) + ' | '
+                        + fileList[i].DisplayName + ' | '
+                        + fileList[i].AttachedFile + ' | '
+                        + fileList[i].RegDT + #13;
+                        
             tbFileIndexID.Text := fileList[i].AttachedFile;
         end;
 
@@ -722,7 +732,8 @@ begin
         {**********************************************************************}
 
         try
-                response := taxinvoiceService.DeleteFile(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,tbFileIndexID.Text,txtUserID.Text);
+                response := taxinvoiceService.DeleteFile(txtCorpNum.text, MgtKeyType,
+                                                tbMgtKey.Text, tbFileIndexID.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -731,11 +742,6 @@ begin
         end;
 
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
-end;
-Function BoolToStr(b:Boolean):String;
-begin 
-    if b = true then BoolToStr:='True'; 
-    if b = false then BoolToStr:='False'; 
 end;
 
 procedure TfrmExample.btnGetInfoClick(Sender: TObject);
@@ -750,7 +756,7 @@ begin
         {**********************************************************************}
         
         try
-                taxinvoiceInfo := taxinvoiceService.getInfo(txtCorpNum.text,MgtKeyType,tbMgtKey.Text);
+                taxinvoiceInfo := taxinvoiceService.getInfo(txtCorpNum.text, MgtKeyType, tbMgtKey.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -772,6 +778,7 @@ begin
                 + BoolToStr(taxinvoiceInfo.InvoicerPrintYN) + ' | '
                 + BoolToStr(taxinvoiceInfo.InvoiceePrintYN) + ' | '
                 + BoolToStr(taxinvoiceInfo.TrusteePrintYN)  + #13;
+                
         ShowMessage(tmp);
 
 end;
@@ -783,13 +790,13 @@ var
         tmp : string;
         i : Integer;
 begin
-        // 세금계산서 문서관리번호 배열, 최대 1000건 까지 기재가능
+        // 세금계산서 문서관리번호 배열, 최대 1000건까지 기재가능
         SetLength(KeyList,2);
         KeyList[0] := '20161004-01';
         KeyList[1] := '20161004-02';
         
         try
-                InfoList := taxinvoiceService.getInfos(txtCorpNum.text,MgtKeyType,KeyList);
+                InfoList := taxinvoiceService.getInfos(txtCorpNum.text, MgtKeyType, KeyList);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -823,7 +830,7 @@ var
         i : Integer;
 begin
         try
-                LogList := taxinvoiceService.getLogs(txtCorpNum.text,MgtKeyType,tbMgtKey.Text);
+                LogList := taxinvoiceService.getLogs(txtCorpNum.text, MgtKeyType, tbMgtKey.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -952,11 +959,15 @@ var
         response : TResponse;
         memo : String;
 begin
+
+        // 등록되어있는 문서관리번호를 재사용하시기 위해서는 발행취소 후 삭제(Delete API)를 호출해야합니다.
+
         // 메모
         memo := '발행취소 메모';
         
         try
-                response := taxinvoiceService.CancelIssue(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,memo, txtUserID.Text);
+                response := taxinvoiceService.CancelIssue(txtCorpNum.text, MgtKeyType,
+                                                tbMgtKey.Text, memo, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -987,7 +998,8 @@ begin
         forceIssue := false;
         
         try
-                response := taxinvoiceService.Issue(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, memo, emailSubject, forceIssue, txtUserID.Text);
+                response := taxinvoiceService.Issue(txtCorpNum.text, MgtKeyType,
+                                tbMgtKey.Text, memo, emailSubject, forceIssue, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1103,7 +1115,8 @@ begin
         contents := '세금계산서가 발행되었습니다 메일을 확인해주세요.';
         
         try
-                response := taxinvoiceService.SendSMS(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, sendNum, receiveNum, contents, txtUserID.Text);
+                response := taxinvoiceService.SendSMS(txtCorpNum.text, MgtKeyType,
+                                        tbMgtKey.Text, sendNum, receiveNum, contents, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1147,7 +1160,8 @@ begin
         receiveNum := '070-1234-1234';
         
         try
-                response := taxinvoiceService.SendFAX(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, sendNum, receiveNum, txtUserID.Text);
+                response := taxinvoiceService.SendFAX(txtCorpNum.text, MgtKeyType,
+                                tbMgtKey.Text, sendNum, receiveNum, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1164,6 +1178,7 @@ procedure TfrmExample.btnGetTaxinvoiceURL1Click(Sender: TObject);
 var
         resultURL : String;
 begin
+
         // 반환되는 URL은 보안 정책으로 인해 30초의 유효시간을 갖습니다.
         
         try
@@ -1182,6 +1197,7 @@ procedure TfrmExample.btnGetTaxinvoiceURL2Click(Sender: TObject);
 var
         resultURL : String;
 begin
+
         // 반환되는 URL은 보안 정책으로 인해 30초의 유효시간을 갖습니다.
         
         try
@@ -1200,6 +1216,7 @@ procedure TfrmExample.btnGetTaxinvoiceURL3Click(Sender: TObject);
 var
         resultURL : String;
 begin
+
         // 반환되는 URL은 보안 정책으로 인해 30초의 유효시간을 갖습니다.
         
         try
@@ -1218,6 +1235,7 @@ procedure TfrmExample.btnGetTaxinvoiceURL4Click(Sender: TObject);
 var
         resultURL : String;
 begin
+
         // 반환되는 URL은 보안 정책으로 인해 30초의 유효시간을 갖습니다.
         
         try
@@ -1236,6 +1254,7 @@ procedure TfrmExample.btnGetPopUpURLClick(Sender: TObject);
 var
   resultURL : String;
 begin
+
         // 반환되는 URL은 보안 정책으로 인해 30초의 유효시간을 갖습니다.
         
         try
@@ -1254,6 +1273,7 @@ procedure TfrmExample.btnGetPrintURLClick(Sender: TObject);
 var
   resultURL : String;
 begin
+
         // 반환되는 URL은 보안 정책으로 인해 30초의 유효시간을 갖습니다.
         
         try
@@ -1272,6 +1292,7 @@ procedure TfrmExample.btnGetMailURLClick(Sender: TObject);
 var
   resultURL : String;
 begin
+
         // 공급받는자 메일링크 URL은 유효시간이 존재하지 않습니다.
         
         try
@@ -1299,7 +1320,7 @@ begin
         KeyList[3] := '20161004-04';
         
         try
-                resultURL := taxinvoiceService.getMassPrintURL(txtCorpNum.text,MgtKeyType,KeyList,txtUserID.Text);
+                resultURL := taxinvoiceService.getMassPrintURL(txtCorpNum.text, MgtKeyType, KeyList, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1600,8 +1621,8 @@ var
 begin
         {**********************************************************************}
         { - 세금계산서 수정(Update API) 는 [임시저장] 상태에서만 가능합니다.   }
-        { - 국세청에 전송이 완료된 세금계산서를 수정하기 위해서는 [수정세금계  }
-        {    산서]를 발행해야 합니다.                                          }
+        { - 국세청에 전송이 완료된 세금계산서를 수정 또는 삭제하기 위해서는    }
+        {    [수정세금계산서]를 발행해야 합니다.                               }
         { - 세금계산서 항목별 정보는 "[전자세금계산서 API 연동매뉴얼] >        }
         {   4.1 (세금)계산서 구성" 을 참조하시기 바랍니다.                     }
         {**********************************************************************}
@@ -2225,6 +2246,7 @@ begin
                          taxinvoice.AddContactList[i].contactName + #13 ;
 
         end;
+        
         ShowMessage(tmp);
 end;
 
@@ -2233,7 +2255,7 @@ var
         InUse : boolean;
 begin
         try
-                InUse := taxinvoiceService.CheckMgtKeyInUse(txtCorpNum.text,MgtKeyType,tbMgtKey.Text);
+                InUse := taxinvoiceService.CheckMgtKeyInUse(txtCorpNum.text, MgtKeyType, tbMgtKey.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -2249,9 +2271,11 @@ procedure TfrmExample.btnGetEPrintUrlClick(Sender: TObject);
 var
   resultURL : String;
 begin
-        //
+
+        // 반환되는 URL은 보안 정책으로 인해 30초의 유효시간을 갖습니다.
+        
         try
-                resultURL := taxinvoiceService.getEPrintURL(txtCorpNum.Text,MgtKeyType,tbMgtKey.Text, txtUserID.Text);
+                resultURL := taxinvoiceService.getEPrintURL(txtCorpNum.Text, MgtKeyType, tbMgtKey.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -2267,7 +2291,7 @@ var
         response : TResponse;
 begin
         try
-                response := taxinvoiceService.CheckIsMember(txtCorpNum.text,LinkID);
+                response := taxinvoiceService.CheckIsMember(txtCorpNum.text, LinkID);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -2293,7 +2317,6 @@ begin
         end;
 
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
-
 end;
 
 
@@ -2338,7 +2361,7 @@ begin
         corpInfo.bizType := '업태';
 
         // 종목, 최대 40자
-        corpInfo.bizClass := '업종';
+        corpInfo.bizClass := '종목';
 
         // 주소, 최대 300자
         corpInfo.addr := '서울특별시 강남구 영동대로 517';
@@ -2363,7 +2386,7 @@ var
 begin
 
         try
-                InfoList := taxinvoiceService.ListContact(txtCorpNum.text,txtUserID.text);
+                InfoList := taxinvoiceService.ListContact(txtCorpNum.text, txtUserID.text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -2415,14 +2438,14 @@ begin
         // [필수] 이메일
         joinInfo.email := 'test@test.com';
 
-        // 회사조회 권한여부, true-회사조회 / false-개인조회)
+        // 회사조회 권한여부, true-회사조회 / false-개인조회
         joinInfo.searchAllAllowYN := false;
 
         // 관리자 권한여부
         joinInfo.mgrYN := false;
 
         try
-                response := taxinvoiceService.RegistContact(txtCorpNum.text,joinInfo,txtUserID.text);
+                response := taxinvoiceService.RegistContact(txtCorpNum.text, joinInfo, txtUserID.text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -2483,21 +2506,6 @@ var
         emailSubject : String;
         dealInvoiceMgtKey : String;
 begin
-        // 거래명세서 동시작성 여부
-        writeSpecification := false;
-
-        // 거래명세서 동시작성시 명세서 문서관리번호, 1~24자리 영문,숫자,'-','_' 조합으로 구성
-        dealInvoiceMgtKey := '';
-
-        // 지연발행 강제여부
-        forceIssue := false;
-
-        // 메모
-        memo := '즉시발행 메모';
-
-        // 발행 안내메일 제목, 미기재시 기본제목으로 전송
-        emailSubject := '';
-
 
         {**********************************************************************}
         { - 세금계산서 항목별 정보는 "[전자세금계산서 API 연동매뉴얼] >        }
@@ -2731,8 +2739,29 @@ begin
         taxinvoice.addContactList[1].email := 'test3@invoicee.com';     // 메일주소
         taxinvoice.addContactList[1].contactName := '추가담당자명2';    // 담당자명
 
+
+        // 거래명세서 동시작성 여부
+        writeSpecification := false;
+
+        // 거래명세서 동시작성시 명세서 문서관리번호, 1~24자리 영문,숫자,'-','_' 조합으로 구성
+        dealInvoiceMgtKey := '';
+
+        // 지연발행 강제여부(forceIssue)
+        // 발행마감일이 지난 세금계산서를 발행하는 경우, 가산세가 부과될 수 있습니다.
+        // 가산세가 부과되더라도 발행을 해야하는 경우에는 forceIssue의 값을
+        // true로 선언하여 발행(Issue API)를 호출하시면 됩니다.
+        forceIssue := false;
+
+        // 메모
+        memo := '즉시발행 메모';
+
+        // 발행 안내메일 제목, 미기재시 기본제목으로 전송
+        emailSubject := '';
+
         try
-                response := taxinvoiceService.RegistIssue(txtCorpNum.text,taxinvoice,writeSpecification,forceIssue,memo,emailSubject,dealInvoiceMgtKey,txtUserID.Text);
+                response := taxinvoiceService.RegistIssue(txtCorpNum.text, taxinvoice,
+                                        writeSpecification, forceIssue, memo, emailSubject,
+                                        dealInvoiceMgtKey, txtUserID.Text);
                 taxinvoice.Free;
         except
                 on le : EPopbillException do begin
@@ -2750,11 +2779,13 @@ var
         response : TResponse;
         memo : String;
 begin
+        // 등록되어있는 문서관리번호를 재사용하시기 위해서는 발행취소 후 삭제(Delete API)를 호출해야합니다.
+
         // 메모
         memo := '발행취소 메모';
 
         try
-                response := taxinvoiceService.CancelIssue(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,memo, txtUserID.Text);
+                response := taxinvoiceService.CancelIssue(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, memo, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -2770,7 +2801,7 @@ var
         response : TResponse;
 begin
        try
-                response := taxinvoiceService.Delete(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,txtUserID.Text);
+                response := taxinvoiceService.Delete(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -2789,7 +2820,7 @@ begin
         // 반환된 URL은 보안 정책으로 30초의 유효시간을 갖습니다.
         
         try
-                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text,txtUserID.Text,'CHRG');
+                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'CHRG');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -2805,8 +2836,10 @@ var
   resultURL : String;
 begin
 
+        // 반환된 URL은 보안 정책으로 30초의 유효시간을 갖습니다.
+
         try
-                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text,txtUserID.Text,'CERT');
+                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'CERT');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -2839,7 +2872,7 @@ var
 begin
         {**********************************************************************}
         { - 조회일자와 상세조건들을 사용해 세금계산서 목록을 조회합니다.       }
-        { - 응답항목에 대한 자세한 사항은 "[전자세금계산서 API 연동매뉴얼]>    }
+        { - 응답항목에 대한 자세한 사항은 "[전자세금계산서 API 연동매뉴얼] >   }
         {   4.2. (세금)계산서 상태정보 구성" 을 참조하시기 바랍니다.           }
         {**********************************************************************}
         
@@ -2953,7 +2986,8 @@ begin
         SubMgtKey := '20151223-01';
 
         try
-                response := taxinvoiceService.AttachStatement(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, SubItemCode, SubMgtKey);
+                response := taxinvoiceService.AttachStatement(txtCorpNum.text,
+                                        MgtKeyType, tbMgtKey.Text, SubItemCode, SubMgtKey);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -2970,11 +3004,15 @@ var
         SubItemCode : Integer;
         SubMgtKey : String;
 begin
-        SubItemCode := 121;             // 첨부해제할 전자명세서 문서종류코드, 121-거래명세서, 122-청구서 123-견적서, 124-발주서, 125-입금표, 126-영수증
-        SubMgtKey := '20151223-01';     // 첨부해제할 전자명세서 문서관리번호
+        // 첨부해제할 전자명세서 문서종류코드, 121-거래명세서, 122-청구서 123-견적서, 124-발주서, 125-입금표, 126-영수증
+        SubItemCode := 121;
+
+        // 첨부해제할 전자명세서 문서관리번호
+        SubMgtKey := '20151223-01';
         
         try
-                response := taxinvoiceService.DetachStatement(txtCorpNum.text,MgtKeyType,tbMgtKey.Text,SubItemCode,SubMgtKey);
+                response := taxinvoiceService.DetachStatement(txtCorpNum.text,
+                                        MgtKeyType, tbMgtKey.Text, SubItemCode, SubMgtKey);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -3012,8 +3050,10 @@ var
   resultURL : String;
 begin
 
+        // 반환된 URL은 보안 정책으로 30초의 유효시간을 갖습니다.
+        
         try
-                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text,txtUserID.Text,'SEAL');
+                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'SEAL');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);

@@ -1,3 +1,22 @@
+{******************************************************************************}
+{ 팝빌 전자세금계산서 API Delphi SDK Example                                   }
+{                                                                              }
+{ - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/1059                  }
+{ - 업데이트 일자 : 2016-10-06                                                 }
+{ - 연동 기술지원 연락처 : 1600-8536 / 070-4304-2991 (정요한 대리)             }
+{ - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
+{                                                                              }
+{ <테스트 연동개발 준비사항>                                                   }
+{ (1) 37, 40번 라인에 선언된 링크아이디(LinkID)와 비밀키(SecretKey)를          }
+{    를 링크허브 가입시 메일로 발급받은 정보로 수정                            }
+{ (2) 팝빌 개발용 사이트(test.popbill.com)에 연동회원으로 가입                 }
+{ (3) 전자세금계산서 발행을 위해 공인인증서 등록                               }
+{    - 팝빌사이트 로그인 > [전자세금계산서] 선택 > 왼쪽 하단탭                 }
+{      [환경설정] > [공인인증서 관리] 메뉴 이용                                }
+{    - 공인인증서등록 팝업 URL (GetPopbillURL API)을 이용하여 등록             }
+{                                                                              }
+{******************************************************************************}
+
 unit Example;
 
 interface
@@ -8,8 +27,15 @@ uses
   Popbill, PopbillTaxinvoice, ExtCtrls;
 
 const
-        //링크아이디.
+        {**********************************************************************}
+        { - 인증정보(링크아이디, 비밀키)는 파트너의 연동회원을 식별하는        }
+        {   인증에 사용되므로 유출되지 않도록 주의하시기 바랍니다              }
+        { - 상업용 전환이후에도 인증정보는 변경되지 않습니다.                  }
+        {**********************************************************************}
+
+        // 링크아이디.
         LinkID = 'TESTER';
+        
         // 파트너 통신용 비밀키. 유출 주의.
         SecretKey = 'SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I=';
 
@@ -341,7 +367,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20161004
-        taxinvoice.writeDate := '20161004';
+        taxinvoice.writeDate := '20161006';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '정발행';
@@ -582,6 +608,12 @@ procedure TfrmExample.btnGetBalanceClick(Sender: TObject);
 var
         balance : Double;
 begin
+        {**********************************************************************}
+        { 연동회원의 잔여포인트를 확인합니다. 과금방식이 연동과금이 아닌       }
+        { 파트너과금인 경우 파트너 잔여포인트 확인(GetPartnerBalance API)를    }
+        { 이용하시기 바랍니다                                                  }
+        {**********************************************************************}
+        
         try
                 balance := taxinvoiceService.GetBalance(txtCorpNum.text);
         except
@@ -599,6 +631,12 @@ procedure TfrmExample.btnGetCertificateExpireDateClick(Sender: TObject);
 var
         Expired : String;
 begin
+        {**********************************************************************}
+        { 팝빌에 등록되어있는 공인인증서의 만료일자를 반환합니다.              }
+        { 등록된 공인인증서가 갱신/재발급/비밀번호변경 되는 경우 인증서를      }
+        { 재등록 하셔야 정상적으로 API를 이용하실 수 있습니다.                 }  
+        {**********************************************************************}
+
         try
                 Expired := taxinvoiceService.GetCertificateExpireDate(txtCorpNum.text);
         except
@@ -616,6 +654,10 @@ procedure TfrmExample.btnGetUnitCostClick(Sender: TObject);
 var
         unitcost : Single;
 begin
+        {**********************************************************************}
+        { 전자세금계산서 발행시 차감되는 포인트 단가를 반환합니다.             }
+        {**********************************************************************}
+
         try
                 unitcost := taxinvoiceService.GetUnitCost(txtCorpNum.text);
         except
@@ -632,6 +674,13 @@ procedure TfrmExample.btnGetPartnerBalanceClick(Sender: TObject);
 var
         balance : Double;
 begin
+
+        {**********************************************************************}
+        { 파트너의 잔여포인트를 확인합니다. 과금방식이 파트너과금이 아닌       }
+        { 연동과금인 경우 연동회원 잔여포인트 확인(GetBalance API)를           }
+        { 이용하시기 바랍니다                                                  }
+        {**********************************************************************}
+
         try
                 balance := taxinvoiceService.GetPartnerBalance(txtCorpNum.text);
         except
@@ -649,8 +698,15 @@ procedure TfrmExample.btnDeleteClick(Sender: TObject);
 var
         response : TResponse;
 begin
+        {**********************************************************************}
+        { 1건의 전자세금계산서를 [삭제]합니다. 세금계산서가 삭제된 경우에만    } 
+        { 문서관리번호(mgtKey)를 재사용 할 수 있습니다.                        }
+        { - 삭제가능한 문서 상태 : [임시저장], [발행취소], [취소], [거부]      }
+        {**********************************************************************}
+        
         try
-                response := taxinvoiceService.Delete(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, txtUserID.Text);
+                response := taxinvoiceService.Delete(txtCorpNum.text, MgtKeyType,
+                                                        tbMgtKey.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -679,7 +735,8 @@ begin
         end;
 
         try
-                response := taxinvoiceService.AttachFile(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, filePath, txtUserID.Text);
+                response := taxinvoiceService.AttachFile(txtCorpNum.text, MgtKeyType,
+                                                tbMgtKey.Text, filePath, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -697,6 +754,12 @@ var
         tmp : string;
         i : Integer;
 begin
+        {**********************************************************************}
+        { 전자세금계산서에 첨부된 파일의 목록을 확인합니다.                    }
+        { - 응답항목 중 파일아이디(AttachedFile)는 파일 삭제(DeleteFile API)   }
+        {   호출시 이용할 수 있습니다.                                         }
+        {**********************************************************************}
+        
         try
                 filelist := taxinvoiceService.GetFiles(txtCorpNum.text, MgtKeyType, tbMgtKey.Text);
         except
@@ -726,9 +789,9 @@ var
         response : TResponse;
 begin
         {**********************************************************************}
-        { 세금계산서 첨부파일 삭제시  파일목록 (GetFiles API)의 응답 항목중    }
-        { 파일아이디 (AttachedFile) 값을 확인하여 DeleteFile API 호출시 기재   }
-        { 하시면 첨부파일 삭제가 가능합니다.                                   }
+        { 세금계산서에 첨부된 파일을 삭제합니다.                               }
+        { 파일아이디는 파일목록 (GetFiles API)의 응답항목중 파일아이디         }
+        { (AttachedFile) 값을 확인하여 DeleteFile API 호출시 기재하시면 됩니다.}
         {**********************************************************************}
 
         try
@@ -750,9 +813,10 @@ var
         tmp : string;
 begin
         {**********************************************************************}
-        { 세금계산서 상태정보(GetInfo API) 응답항목에 대한 자세한 정보는       }
-        { "[전자세금계산서 API 연동매뉴얼] > 4.2. (세금)계산서 상태정보 구성"  }
-        { 을 참조하시기 바랍니다.                                              }
+        { 1건의 세금계산서 상태/요약 정보를 확인합니다                         }
+        { - 세금계산서 상태정보(GetInfo API) 응답항목에 대한 자세한 정보는     }
+        {  "[전자세금계산서 API 연동매뉴얼] > 4.2. (세금)계산서 상태정보 구성" }
+        {  을 참조하시기 바랍니다.                                             }
         {**********************************************************************}
         
         try
@@ -790,6 +854,13 @@ var
         tmp : string;
         i : Integer;
 begin
+        {**********************************************************************}
+        { 다량의 세금계산서 상태/요약 정보를 확인합니다. (최대 1000건)         }
+        { - 세금계산서 상태정보(GetInfos API) 응답항목에 대한 자세한 정보는    }
+        {  "[전자세금계산서 API 연동매뉴얼] > 4.2. (세금)계산서 상태정보 구성" }
+        {  을 참조하시기 바랍니다.                                             }
+        {**********************************************************************}
+
         // 세금계산서 문서관리번호 배열, 최대 1000건까지 기재가능
         SetLength(KeyList,2);
         KeyList[0] := '20161004-01';
@@ -829,6 +900,13 @@ var
         tmp : string;
         i : Integer;
 begin
+        {**********************************************************************}
+        { 세금계산서 상태 변경이력을 확인합니다                                }
+        { - 상태 변경이력 확인(GetLogs API) 응답항목에 대한 자세한 정보는      }
+        {  "[전자세금계산서 API 연동매뉴얼] > 3.6.4 상태 변경이력 확인"        }
+        {  을 참조하시기 바랍니다.                                             }
+        {**********************************************************************}
+        
         try
                 LogList := taxinvoiceService.getLogs(txtCorpNum.text, MgtKeyType, tbMgtKey.Text);
         except
@@ -868,8 +946,9 @@ var
         emailSubject : String;
 begin
         {**********************************************************************}
-        { 발행예정이란 공급자와 공급받는자 사이에 세금계산서 확인 후 발행하는  }
-        { 방법입니다.                                                          }
+        { [임시저장] 상태의 세금계산서를 [발행예정] 처리합니다.                }
+        { - 발행예정이란 공급자와 공급받는자 사이에 세금계산서 확인 후 발행하는}
+        {   방법입니다.                                                        }
         { - "[전자세금계산서 API 연동매뉴얼] > 1.3.1. 정발행 프로세스 흐름도 > }
         {   다. 임시저장 발행예정" 의 프로세스를 참조하시기 바랍니다.          }
         {**********************************************************************}
@@ -899,11 +978,18 @@ var
         response : TResponse;
         memo : String;
 begin
+        {**********************************************************************}
+        { 발행예정 세금계산서를 [취소]처리 합니다                              }
+        { - [취소]된 세금계산서를 삭제(Delete API)하면 등록된 문서관리번호를   }
+        {   재사용할 수 있습니다.                                              }
+        {**********************************************************************}
+        
         // 메모
         memo := '발행예정 취소 메모';
         
         try
-                response := taxinvoiceService.CancelSend(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, memo, txtUserID.Text);
+                response := taxinvoiceService.CancelSend(txtCorpNum.text, MgtKeyType,
+                                                        tbMgtKey.Text, memo, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -919,11 +1005,16 @@ var
         response : TResponse;
         memo : String;
 begin
+        {**********************************************************************}
+        { 발행예정 세금계산서를 [승인]처리 합니다                              }
+        {**********************************************************************}
+        
         // 메모
         memo := '발행예정 승인 메모';
 
         try
-                response := taxinvoiceService.Accept(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, memo, txtUserID.Text);
+                response := taxinvoiceService.Accept(txtCorpNum.text, MgtKeyType,
+                                                        tbMgtKey.Text, memo, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -939,6 +1030,12 @@ var
         response : TResponse;
         memo : String;
 begin
+        {**********************************************************************}
+        { 발행예정 세금계산서를 [거부]처리 합니다                              }
+        { - [거부]된 세금계산서를 삭제(Delete API)하면 등록된 문서관리번호를   }
+        {   재사용할 수 있습니다.                                              }
+        {**********************************************************************}
+
         // 메모
         memo := '발행예정 거부 메모';
         
@@ -960,7 +1057,13 @@ var
         memo : String;
 begin
 
-        // 등록되어있는 문서관리번호를 재사용하시기 위해서는 발행취소 후 삭제(Delete API)를 호출해야합니다.
+        {**********************************************************************}
+        { [발행완료] 상태의 세금계산서를 [발행취소] 합니다.                    }
+        { - [발행취소]는 해당 세금계산서가 국세청 전송전에만 가능합니다.       }
+        { - [발행취소]된 세금계산서는 국세청에 전송되지 않습니다.              }
+        { - [발행취소] 세금계산서에 기재된 문서관리번호를 재사용 하기 위해서는 }
+        {   삭제(Delete API)를 호출하여 [삭제] 처리 하셔야 합니다.             }
+        {**********************************************************************}
 
         // 메모
         memo := '발행취소 메모';
@@ -985,13 +1088,25 @@ var
         emailSubject : String;
         forceIssue : Boolean;
 begin
+        {**********************************************************************}
+        { [임시저장] 상태의 세금계산서를 [발행]처리 합니다.                    }
+        { - 발행(Issue API)를 호출하는 시점에서 포인트가 차감됩니다.           }
+        { - [발행완료] 세금계산서는 연동회원의 국세청 전송설정에 따라          }
+        {    익일/즉시전송 처리됩니다. 기본설정(익일전송)                      }
+        { - 국세청 전송설정은 "팝빌 로그인" > [전자세금계산서] > [환경설정] >  }
+        {   [전자세금계산서 관리] > [국세청 전송 및 지연발행 설정] 탭에서      }
+        {   확인할 수 있습니다.                                                }
+        { - 국세청 전송정책에 대한 사항은 "[전자세금계산서 API 연동매뉴얼] >   }
+        {   1.4. 국세청 전송 정책" 을 참조하시기 바랍니다                      }
+        {**********************************************************************}
+
         // 메모
         memo := '발행메모';
         
         // 공급받는자에게 전송되는 발행안내메일 제목, 미기재시 기본제목으로 전송
         emailSubject := '';
 
-        // 지연발행 강제여부(forceIssue)
+        // 지연발행 강제여부(forceIssue), 기본값-false
         // 발행마감일이 지난 세금계산서를 발행하는 경우, 가산세가 부과될 수 있습니다.
         // 가산세가 부과되더라도 발행을 해야하는 경우에는 forceIssue의 값을
         // true로 선언하여 발행(Issue API)를 호출하시면 됩니다.
@@ -1014,14 +1129,14 @@ procedure TfrmExample.btnSendToNTSClick(Sender: TObject);
 var
         response : TResponse;
 begin
-        {***********************************************************************}
-        { [발행완료] 상태의 세금계산서를 국세청으로 즉시전송 합니다.            }
-        { - 국세청 즉시전송을 호출하지 않은 경우 [발행완료] 상태의 세금계산서는 }
-        {   발행일 기준으로 익일 오후 3시에 일괄적으로 국세청으로 전송됩니다.   }
-        { - 익일전송시 전송일이 법정공휴일인 경우 다음 영업일에 전송됩니다.     }
-        { - 국세청 전송에 관한 사항은 "[API 연동매뉴얼] > 1.4 국세청 전송 정책" }
-        {   을 참조하시기 바랍니다                                              }
-        {***********************************************************************}
+        {**********************************************************************}
+        { [발행완료] 상태의 세금계산서를 국세청으로 즉시전송 합니다.           }
+        { - 국세청 즉시전송을 호출하지 않은 경우 [발행완료] 상태의 세금계산서는}
+        {   발행일 기준으로 익일 오후 3시에 일괄적으로 국세청으로 전송됩니다.  }
+        { - 익일전송시 전송일이 법정공휴일인 경우 다음 영업일에 전송됩니다.    }
+        { - 국세청 전송에 관한 사항은 "[API 연동매뉴얼] > 1.4 국세청 전송 정책"}
+        {   을 참조하시기 바랍니다                                             }
+        {**********************************************************************}
         
         try
                 response := taxinvoiceService.SendToNTS(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, txtUserID.Text);
@@ -1042,11 +1157,21 @@ var
         response : TResponse;
         memo : String;
 begin
+        {**********************************************************************}
+        { 공급받는자가 공급자에게 1건의 역)발행 세금계산서를 발행요청합니다.   }
+        { - 역)발행 세금계산서를 발행하기 위해서는 공급자/공급받는자가 모두    }
+        {  팝빌에 회원이여야 합니다.                                           }
+        { - 역)발행 요청후 공급자가 [발행] 처리시 포인트가 차감되며 역)발행    }
+        {   세금계산서 항목중 과금방향(ChargeDirection) 에 기재한  값에 따라   }
+        {   "정과금"-공급자과금 "역과금"-공급받는자과금 처리됩니다.            }
+        {**********************************************************************}
+
         // 메모
         memo := '(역)발행 요청 메모';
-        
+
         try
-                response := taxinvoiceService.Request(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, memo, txtUserID.Text);
+                response := taxinvoiceService.Request(txtCorpNum.text, MgtKeyType,
+                                                tbMgtKey.Text, memo, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1062,11 +1187,18 @@ var
         response : TResponse;
         memo : String;
 begin
+        {**********************************************************************}
+        { 공급받는자가 요청한 1건의 역)발행 세금계산서를 [취소] 처리합니다.    }
+        { - [취소]처리 된 세금계산서의 문서관리번호를 재사용 하기 위해서는     }
+        {   삭제 (Delete API) 호출해야 합니다.                                 }
+        {**********************************************************************}
+
         // 메모
         memo := '(역)발행요청 취소 메모';
         
         try
-                response := taxinvoiceService.CancelRequest(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, memo, txtUserID.Text);
+                response := taxinvoiceService.CancelRequest(txtCorpNum.text, MgtKeyType,
+                                                        tbMgtKey.Text, memo, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1082,6 +1214,12 @@ var
         response : TResponse;
         memo : String;
 begin
+        {**********************************************************************}
+        { 공급자가 요청받은 역)발행 세금계산서를 [거부] 처리합니다.            }
+        { - [거부]처리 된 세금계산서의 문서관리번호를 재사용 하기 위해서는     }
+        {   삭제 (Delete API) 호출해야 합니다.                                 }
+        {**********************************************************************}
+
         // 메모
         memo := '(역)발행요청 거부 메모';
         
@@ -1104,7 +1242,14 @@ var
         receiveNum : String;
         contents : String;
 begin
-        // 발신번호 
+        {**********************************************************************}
+        { 알림문자를 전송합니다. (단문/SMS- 한글 최대 45자)                    }
+        { - 알림문자 전송시 포인트가 차감됩니다. (전송실패시 환불처리)         }
+        { - 전송내역 확인은 "팝빌 로그인" > [문자 팩스] > [전송내역] 탭에서    }
+        {   전송결과를 확인할 수 있습니다.                                     }
+        {**********************************************************************}
+
+        // 발신번호, [참고] 발신번호 세칙규정 - http://blog.linkhub.co.kr/3064
         sendNum := '010-1111-2222';
 
         // 수신번호 
@@ -1132,11 +1277,17 @@ var
         response : TResponse;
         email : String;
 begin
-        // 수신메일주소
+        {**********************************************************************}
+        { 발행 안내메일을 재전송합니다.                                        }
+        { - 메일내용중 전자세금계산서 [보기] 버튼이 동작하지 않는 경우,        }
+        {   키보드 왼쪽 Shift 키를 누르고 버튼을 클릭해보시기 바랍니다         }
+        {**********************************************************************}
+
         email := 'test@test.com';
         
         try
-                response := taxinvoiceService.SendEmail(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, email, txtUserID.Text);
+                response := taxinvoiceService.SendEmail(txtCorpNum.text, MgtKeyType,
+                                                tbMgtKey.Text, email, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1153,6 +1304,13 @@ var
         sendNum : String;
         receiveNum : String;
 begin
+        {**********************************************************************}
+        { 전자세금계산서를 팩스전송합니다.                                     }
+        { - 팩스 전송 요청시 비용이 차감됩니다. (전송실패시 환불처리)          }
+        { - 전송내역 확인은 "팝빌 로그인" > [문자 팩스] > [팩스] > [전송내역]  }
+        {   메뉴에서 전송결과를 확인할 수 있습니다.                            }
+        {**********************************************************************}
+
         // 팩스전송 발신번호
         sendNum := '070-111-222';
 
@@ -1161,7 +1319,7 @@ begin
         
         try
                 response := taxinvoiceService.SendFAX(txtCorpNum.text, MgtKeyType,
-                                tbMgtKey.Text, sendNum, receiveNum, txtUserID.Text);
+                                         tbMgtKey.Text, sendNum, receiveNum, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1178,9 +1336,11 @@ procedure TfrmExample.btnGetTaxinvoiceURL1Click(Sender: TObject);
 var
         resultURL : String;
 begin
+        {**********************************************************************}
+        { 팝빌 > 임시(연동)문서함 팝업 URL을 반환합니다.                       }
+        { - 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.              }
+        {**********************************************************************}
 
-        // 반환되는 URL은 보안 정책으로 인해 30초의 유효시간을 갖습니다.
-        
         try
                 resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, txtUserID.Text, 'TBOX');
         except
@@ -1197,9 +1357,11 @@ procedure TfrmExample.btnGetTaxinvoiceURL2Click(Sender: TObject);
 var
         resultURL : String;
 begin
+        {**********************************************************************}
+        { 팝빌 > 매출 문서함 팝업 URL을 반환합니다.                            }
+        { - 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.              }
+        {**********************************************************************}
 
-        // 반환되는 URL은 보안 정책으로 인해 30초의 유효시간을 갖습니다.
-        
         try
                 resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, txtUserID.Text, 'SBOX');
         except
@@ -1216,8 +1378,10 @@ procedure TfrmExample.btnGetTaxinvoiceURL3Click(Sender: TObject);
 var
         resultURL : String;
 begin
-
-        // 반환되는 URL은 보안 정책으로 인해 30초의 유효시간을 갖습니다.
+        {**********************************************************************}
+        { 팝빌 > 매입 문서함 팝업 URL을 반환합니다.                            }
+        { - 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.              }
+        {**********************************************************************}
         
         try
                 resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, txtUserID.Text, 'PBOX');
@@ -1235,9 +1399,11 @@ procedure TfrmExample.btnGetTaxinvoiceURL4Click(Sender: TObject);
 var
         resultURL : String;
 begin
+        {**********************************************************************}
+        { 팝빌 > 매출 문서작성 팝업 URL을 반환합니다.                          }
+        { - 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.              }
+        {**********************************************************************}
 
-        // 반환되는 URL은 보안 정책으로 인해 30초의 유효시간을 갖습니다.
-        
         try
                 resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, txtUserID.Text, 'WRITE');
         except
@@ -1254,11 +1420,14 @@ procedure TfrmExample.btnGetPopUpURLClick(Sender: TObject);
 var
   resultURL : String;
 begin
-
-        // 반환되는 URL은 보안 정책으로 인해 30초의 유효시간을 갖습니다.
+        {**********************************************************************}
+        { 1건의 전자세금계산서 보기 팝업 URL을 반환합니다.                     }
+        { - 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.              }
+        {**********************************************************************}
         
         try
-                resultURL := taxinvoiceService.getPopupURL(txtCorpNum.Text, MgtKeyType, tbMgtKey.Text, txtUserID.Text);
+                resultURL := taxinvoiceService.getPopupURL(txtCorpNum.Text,
+                                        MgtKeyType, tbMgtKey.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1273,11 +1442,14 @@ procedure TfrmExample.btnGetPrintURLClick(Sender: TObject);
 var
   resultURL : String;
 begin
-
-        // 반환되는 URL은 보안 정책으로 인해 30초의 유효시간을 갖습니다.
+        {**********************************************************************}
+        { 1건의 전자세금계산서 인쇄팝업 URL을 반환합니다.                      }
+        { - 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.              }
+        {**********************************************************************}
         
         try
-                resultURL := taxinvoiceService.getPrintURL(txtCorpNum.Text, MgtKeyType, tbMgtKey.Text, txtUserID.Text);
+                resultURL := taxinvoiceService.getPrintURL(txtCorpNum.Text,
+                                        MgtKeyType, tbMgtKey.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1292,11 +1464,14 @@ procedure TfrmExample.btnGetMailURLClick(Sender: TObject);
 var
   resultURL : String;
 begin
-
-        // 공급받는자 메일링크 URL은 유효시간이 존재하지 않습니다.
+        {**********************************************************************}
+        { 공급받는자 메일링크 URL을 반환합니다.                                }
+        { - 메일링크 URL은 유효시간이 존재하지 않습니다.                       }
+        {**********************************************************************}
         
         try
-                resultURL := taxinvoiceService.getMailURL(txtCorpNum.Text, MgtKeyType, tbMgtKey.Text, txtUserID.Text);
+                resultURL := taxinvoiceService.getMailURL(txtCorpNum.Text,
+                                        MgtKeyType, tbMgtKey.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1312,7 +1487,11 @@ var
         KeyList : Array of String;
         resultURL : String;
 begin
-        // 인쇄할 세금계산서 문서관리번호 배열, 최대 100건 
+        {**********************************************************************}
+        { 다수건의 전자세금계산서 인쇄팝업 URL을 반환합니다.                   }
+        { - 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.              }
+        {**********************************************************************}
+
         SetLength(KeyList,4);
         KeyList[0] := '20161004-01';
         KeyList[1] := '20161004-02';
@@ -1338,6 +1517,11 @@ var
         tmp : string;
         i  :Integer;
 begin
+        {**********************************************************************}
+        { 공급받는자 메일링크 URL을 반환합니다.                                }
+        { - 메일링크 URL은 유효시간이 존재하지 않습니다.                       }
+        {**********************************************************************}
+
         try
                 EmailPublicKeyList := taxinvoiceService.GetEmailPublicKeys(txtCorpNum.Text);
         except
@@ -1366,7 +1550,7 @@ var
 begin
        
         {**********************************************************************}
-        { - 세금계산서 역발행은 공급자, 공급받는자 모두 팝빌 회원인 경우에만   }
+        { - 세금계산서 역)발행은 공급자, 공급받는자 모두 팝빌 회원인 경우에만  }
         {   가능합니다.                                                        }
         { - 세금계산서 항목별 정보는 "[전자세금계산서 API 연동매뉴얼] >        }
         {   4.1 (세금)계산서 구성" 을 참조하시기 바랍니다.                     }
@@ -1377,7 +1561,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20161004
-        taxinvoice.writeDate := '20161004';
+        taxinvoice.writeDate := '20161006';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '역발행';
@@ -1620,7 +1804,7 @@ var
         response : TResponse;
 begin
         {**********************************************************************}
-        { - 세금계산서 수정(Update API) 는 [임시저장] 상태에서만 가능합니다.   }
+        { [임시저장] 상태의 세금계산서의 기재항목을 수정합니다.                }
         { - 국세청에 전송이 완료된 세금계산서를 수정 또는 삭제하기 위해서는    }
         {    [수정세금계산서]를 발행해야 합니다.                               }
         { - 세금계산서 항목별 정보는 "[전자세금계산서 API 연동매뉴얼] >        }
@@ -1856,7 +2040,8 @@ begin
         taxinvoice.addContactList[1].contactName := '추가담당자명2';    // 담당자명
 
         try
-                response := taxinvoiceService.Update(txtCorpNum.text,MgtKeyType,tbMgtKey.Text, taxinvoice,txtUserID.Text);
+                response := taxinvoiceService.Update(txtCorpNum.text, MgtKeyType,
+                                        tbMgtKey.Text, taxinvoice,txtUserID.Text);
                 taxinvoice.Free;
         except
                 on le : EPopbillException do begin
@@ -1875,6 +2060,7 @@ var
         response : TResponse;
 begin
         {**********************************************************************}
+        { [임시저장] 상태의 역)발행 세금계산서의 기재항목을 수정합니다.        }
         { - 세금계산서 수정은 [임시저장]상태에서만 가능합니다.                 }
         { - 세금계산서 항목별 정보는 "[전자세금계산서 API 연동매뉴얼] >        }
         {   4.1 (세금)계산서 구성" 을 참조하시기 바랍니다.                     }
@@ -2128,7 +2314,8 @@ var
         i : integer;
 begin
         {***********************************************************************}
-        { 세금계산서 항목에 대한 자세한 사항은 "[전자세금계산서 API 연동매뉴얼] }
+        { 1건의 세금계산서 상세항목을 확인합니다.                               }
+        { - 응답항목에 대한 자세한 사항은 "[전자세금계산서 API 연동매뉴얼]      }
         { > 4.1 (세금)계산서 구성" 을 참조하시기 바랍니다.                      }
         {***********************************************************************}
         
@@ -2254,6 +2441,11 @@ procedure TfrmExample.btnCheckMgtKeyInUseClick(Sender: TObject);
 var
         InUse : boolean;
 begin
+        {***********************************************************************}
+        { 세금계산서를 발행하기전 관리번호 중복여부를 확인합니다.               }
+        { - 관리번호는 1~24자리 숫자, 영문, '-', '_' 조합으로 구성할수 있습니다.}
+        {***********************************************************************}
+
         try
                 InUse := taxinvoiceService.CheckMgtKeyInUse(txtCorpNum.text, MgtKeyType, tbMgtKey.Text);
         except
@@ -2271,9 +2463,11 @@ procedure TfrmExample.btnGetEPrintUrlClick(Sender: TObject);
 var
   resultURL : String;
 begin
+        {**********************************************************************}
+        { 세금계산서 인쇄(공급받는자) URL을 반환합니다.                        }
+        { - URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.       }
+        {**********************************************************************}
 
-        // 반환되는 URL은 보안 정책으로 인해 30초의 유효시간을 갖습니다.
-        
         try
                 resultURL := taxinvoiceService.getEPrintURL(txtCorpNum.Text, MgtKeyType, tbMgtKey.Text, txtUserID.Text);
         except
@@ -2290,6 +2484,11 @@ procedure TfrmExample.Button1Click(Sender: TObject);
 var
         response : TResponse;
 begin
+        {**********************************************************************}
+        { 해당 사업자의 파트너 연동회원 가입여부를 확인합니다.                 }
+        { - LinkID는 인증정보에 설정되어 있는 링크아이디 입니다. (37번라인)    }
+        {**********************************************************************}
+
         try
                 response := taxinvoiceService.CheckIsMember(txtCorpNum.text, LinkID);
         except
@@ -2307,6 +2506,10 @@ procedure TfrmExample.btnCheckIDClick(Sender: TObject);
 var
         response : TResponse;
 begin
+        {**********************************************************************}
+        { 회원가입(JoinMember API)을 호출하기 전 아이디 중복을 확인합니다.     }
+        {**********************************************************************}
+
         try
                 response := taxinvoiceService.CheckID(txtUserID.Text);
         except
@@ -2325,6 +2528,10 @@ var
         corpInfo : TCorpInfo;
         tmp : string;
 begin
+        {**********************************************************************}
+        { 연동회원의 회사정보를 확인합니다.                                    }
+        {**********************************************************************}
+
         try
                 corpInfo := taxinvoiceService.GetCorpInfo(txtCorpNum.text, txtUserID.Text);
         except
@@ -2349,6 +2556,10 @@ var
         corpInfo : TCorpInfo;
         response : TResponse;
 begin
+        {**********************************************************************}
+        { 연동회원의 회사정보를 수정합니다.                                    }
+        {**********************************************************************}
+
         corpInfo := TCorpInfo.Create;
 
         // 대표자명, 최대 30자
@@ -2384,6 +2595,9 @@ var
         tmp : string;
         i : Integer;
 begin
+        {**********************************************************************}
+        { 연동회원의 담당자 목록을 확인합니다.                                 }
+        {**********************************************************************}
 
         try
                 InfoList := taxinvoiceService.ListContact(txtCorpNum.text, txtUserID.text);
@@ -2417,6 +2631,10 @@ var
         response : TResponse;
         joinInfo : TJoinContact;
 begin
+        {**********************************************************************}
+        { 연동회원의 담당자를 신규로 등록합니다.                               }
+        {**********************************************************************}
+
         // [필수] 담당자 아이디 (6자 이상 20자 미만)
         joinInfo.id := 'testkorea1004_01';
         
@@ -2461,6 +2679,10 @@ var
         contactInfo : TContactInfo;
         response : TResponse;
 begin
+        {**********************************************************************}
+        { 연동회원의 담당자 정보를 수정합니다.                                 }
+        {**********************************************************************}
+
         contactInfo := TContactInfo.Create;
 
         // 담당자명
@@ -2508,6 +2730,7 @@ var
 begin
 
         {**********************************************************************}
+        { 1건의 세금계산서를 즉시발행 처리합니다. (권장)                       }
         { - 세금계산서 항목별 정보는 "[전자세금계산서 API 연동매뉴얼] >        }
         {   4.1 (세금)계산서 구성" 을 참조하시기 바랍니다.                     }
         {**********************************************************************}
@@ -2516,7 +2739,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20161004
-        taxinvoice.writeDate := '20161004';
+        taxinvoice.writeDate := '20161006';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '정발행';
@@ -2779,13 +3002,20 @@ var
         response : TResponse;
         memo : String;
 begin
-        // 등록되어있는 문서관리번호를 재사용하시기 위해서는 발행취소 후 삭제(Delete API)를 호출해야합니다.
+
+        {**********************************************************************}
+        { [발행완료] 상태의 세금계산서를 발행취소 처리합니다.                  }
+        { - [발행취소] 세금계산서는 국세청에 전송되지 않습니다.                }
+        { - [발행취소] 세금계산서의 문서관리번호를 재사용하기 위해서는 삭제    }
+        {   (Delete API) 를 호출하여 삭제 처리를 해야 합니다.                  }
+        {**********************************************************************}
 
         // 메모
         memo := '발행취소 메모';
 
         try
-                response := taxinvoiceService.CancelIssue(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, memo, txtUserID.Text);
+                response := taxinvoiceService.CancelIssue(txtCorpNum.text, MgtKeyType,
+                                                 tbMgtKey.Text, memo, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -2800,7 +3030,13 @@ procedure TfrmExample.btnDelete_RegistIssueClick(Sender: TObject);
 var
         response : TResponse;
 begin
-       try
+        {**********************************************************************}
+        { 1건의 전자세금계산서를 [삭제]합니다. 세금계산서가 삭제된 경우에만    } 
+        { 문서관리번호(mgtKey)를 재사용 할 수 있습니다.                        }
+        { - 삭제가능한 문서 상태 : [임시저장], [발행취소], [취소], [거부]      }
+        {**********************************************************************}
+        
+        try
                 response := taxinvoiceService.Delete(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
@@ -2816,8 +3052,10 @@ procedure TfrmExample.btnGetPopbillURL_CHRGClick(Sender: TObject);
 var
   resultURL : String;
 begin
-
-        // 반환된 URL은 보안 정책으로 30초의 유효시간을 갖습니다.
+        {**********************************************************************}
+        {    연동회원 포인트 충전 URL을 반환합니다.                            }
+        {    URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.      }
+        {**********************************************************************}
         
         try
                 resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'CHRG');
@@ -2835,8 +3073,10 @@ procedure TfrmExample.btnGetPopbillURL_CERTClick(Sender: TObject);
 var
   resultURL : String;
 begin
-
-        // 반환된 URL은 보안 정책으로 30초의 유효시간을 갖습니다.
+        {**********************************************************************}
+        {    공인인증서 등록  URL을 반환합니다.                                }
+        {    URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.      }
+        {**********************************************************************}
 
         try
                 resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'CERT');
@@ -2871,7 +3111,7 @@ var
         i : Integer;
 begin
         {**********************************************************************}
-        { - 조회일자와 상세조건들을 사용해 세금계산서 목록을 조회합니다.       }
+        { 검색조건을 사용하여 세금계산서 목록을 조회합니다.                    }
         { - 응답항목에 대한 자세한 사항은 "[전자세금계산서 API 연동매뉴얼] >   }
         {   4.2. (세금)계산서 상태정보 구성" 을 참조하시기 바랍니다.           }
         {**********************************************************************}
@@ -2938,12 +3178,12 @@ begin
                 end;
         end;
 
-        tmp := 'code : '+IntToStr(SearchList.code) + #13;
-        tmp := tmp + 'total : '+ IntToStr(SearchList.total) + #13;
-        tmp := tmp + 'perPage : '+ IntToStr(SearchList.perPage) + #13;
-        tmp := tmp + 'pageNum : '+ IntToStr(SearchList.pageNum) + #13;
-        tmp := tmp + 'pageCount : '+ IntToStr(SearchList.pageCount) + #13;
-        tmp := tmp + 'message : '+ SearchList.message + #13#13;
+        tmp := 'code (응답코드) : '+IntToStr(SearchList.code) + #13;
+        tmp := tmp + 'total (총 검색결과 건수) : '+ IntToStr(SearchList.total) + #13;
+        tmp := tmp + 'perPage (페이지당 검색개수) : '+ IntToStr(SearchList.perPage) + #13;
+        tmp := tmp + 'pageNum (페이지 번호) : '+ IntToStr(SearchList.pageNum) + #13;
+        tmp := tmp + 'pageCount (페이지 개수) : '+ IntToStr(SearchList.pageCount) + #13;
+        tmp := tmp + 'message (응답메시지) : '+ SearchList.message + #13#13;
 
         tmp := tmp + 'WriteDate | invoicerMgtKey | StateCode | TaxType |  RegDT | lateIssueYN | invoicerCorpNum |  invoicerCorpName | invoiceeCorpNum | invoiceeCorpName | '
                 + ' issueType | supplyCostTotal | taxTotal | invoicerPrintYN | invoiceePrintYN | trusteePrintYN '+#13#13;
@@ -2979,6 +3219,10 @@ var
         SubItemCode : Integer;
         SubMgtKey : String;
 begin
+        {**********************************************************************}
+        { 팝빌에 등록된 1건의 전자명세서를 세금계산서에 첨부합니다.            }
+        {**********************************************************************}
+        
         // 첨부할 전자명세서 문서종류코드, 121-거래명세서, 122-청구서 123-견적서, 124-발주서, 125-입금표, 126-영수증
         SubItemCode := 121;
 
@@ -3004,6 +3248,10 @@ var
         SubItemCode : Integer;
         SubMgtKey : String;
 begin
+        {**********************************************************************}
+        { 세금계산서에 첨부된 전자명세서 1건을 첨부해제합니다.                 }
+        {**********************************************************************}
+
         // 첨부해제할 전자명세서 문서종류코드, 121-거래명세서, 122-청구서 123-견적서, 124-발주서, 125-입금표, 126-영수증
         SubItemCode := 121;
 
@@ -3028,6 +3276,9 @@ var
         chargeInfo : TTaxinvoiceChargeInfo;
         tmp : String;
 begin
+        {**********************************************************************}
+        { 연동회원의 전자세금계산서 API 서비스 과금정보를 확인합니다.          }
+        {**********************************************************************}
 
         try
                 chargeInfo := taxinvoiceService.GetChargeInfo(txtCorpNum.text);
@@ -3049,8 +3300,10 @@ procedure TfrmExample.btnGetPopbillURL_SEALClick(Sender: TObject);
 var
   resultURL : String;
 begin
-
-        // 반환된 URL은 보안 정책으로 30초의 유효시간을 갖습니다.
+        {**********************************************************************}
+        { 인감 및 첨부문서 등록  URL을 반환합니다.                             }
+        { URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.         }
+        {**********************************************************************}
         
         try
                 resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'SEAL');

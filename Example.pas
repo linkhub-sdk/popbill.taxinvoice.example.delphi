@@ -2738,7 +2738,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20161004
-        taxinvoice.writeDate := '20161006';
+        taxinvoice.writeDate := '20161028';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '정발행';
@@ -2922,7 +2922,7 @@ begin
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[0].serialNum := 1;                //일련번호
         taxinvoice.detailList[0].purchaseDT := '20161004';      //거래일자
-        taxinvoice.detailList[0].itemName := '품목명';
+        taxinvoice.detailList[0].itemName := copy('일이$삼사오육칠팔구십', 1, 8);
         taxinvoice.detailList[0].spec := '규격';
         taxinvoice.detailList[0].qty := '1';                    //수량
         taxinvoice.detailList[0].unitCost := '100000';          //단가

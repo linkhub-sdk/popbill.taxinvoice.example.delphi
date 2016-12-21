@@ -828,7 +828,7 @@ begin
                 end;
         end;
 
-        tmp := 'ItemKey | modifyCode | StateCode | TaxType | WriteDate | RegDT | OpenYN | OpenDT | lateIssueYN | InvoicerPrintYN | InvoiceePrintYN | TrusteePrintYN ' + #13;
+        tmp := 'ItemKey | modifyCode | StateCode | TaxType | WriteDate | RegDT | OpenYN | OpenDT | lateIssueYN | InvoicerPrintYN | InvoiceePrintYN | closeDownState | closeDownStateDate ' + #13;
 
         tmp := tmp + taxinvoiceInfo.ItemKey + ' | '
                 + taxinvoiceInfo.ModifyCode + ' | '
@@ -841,7 +841,8 @@ begin
                 + BoolToStr(taxinvoiceInfo.lateIssueYN) + ' | '
                 + BoolToStr(taxinvoiceInfo.InvoicerPrintYN) + ' | '
                 + BoolToStr(taxinvoiceInfo.InvoiceePrintYN) + ' | '
-                + BoolToStr(taxinvoiceInfo.TrusteePrintYN)  + #13;
+                + IntToStr(taxinvoiceInfo.closeDownState) + ' | '
+                + taxinvoiceInfo.closeDownStateDate  + #13;
                 
         ShowMessage(tmp);
 
@@ -863,7 +864,7 @@ begin
 
         // 세금계산서 문서관리번호 배열, 최대 1000건까지 기재가능
         SetLength(KeyList,2);
-        KeyList[0] := '20161004-01';
+        KeyList[0] := '20161221-03';
         KeyList[1] := '20161004-02';
         
         try
@@ -875,7 +876,7 @@ begin
                 end;
         end;
 
-        tmp := 'ItemKey | StateCode | TaxType | WriteDate | RegDT | lateIssueYN | InvoicerPrintYN | InvoiceePrintYN | TrusteePrintYN' + #13;
+        tmp := 'ItemKey | StateCode | TaxType | WriteDate | RegDT | lateIssueYN | InvoicerPrintYN | InvoiceePrintYN | closeDownState | closeDownStateDate' + #13;
 
         for i := 0 to Length(InfoList) -1 do
         begin
@@ -887,7 +888,8 @@ begin
                         + BoolToStr(InfoList[i].lateIssueYN) + ' | '
                         + BoolToStr(InfoList[i].InvoicerPrintYN) + ' | '
                         + BoolToStr(InfoList[i].InvoiceePrintYN) + ' | '
-                        + BoolToStr(InfoList[i].TrusteePrintYN) + #13;
+                        + IntToStr(InfoList[i].closeDownState) + ' | '
+                        + InfoList[i].closeDownStateDate  + #13;
         end;
 
         ShowMessage(tmp);
@@ -2362,6 +2364,9 @@ begin
         tmp := tmp +'invoiceeHP1 : ' +  taxinvoice.InvoiceeHP1 + #13;
         tmp := tmp +'invoiceeEmail1 : ' +  taxinvoice.InvoiceeEmail1 + #13;
         tmp := tmp +'invoiceeSMSSendYN : ' +  IfThen(taxinvoice.InvoiceeSMSSendYN,'true','false') + #13;
+        tmp := tmp +'closeDownState : ' +  IntToStr(taxinvoice.closeDownState) + #13;
+        tmp := tmp +'closeDownStateDate : ' +  taxinvoice.closeDownStateDate + #13;
+
 
         tmp := tmp +'trusteeCorpNum : ' +  taxinvoice.trusteeCorpNum + #13;
         tmp := tmp +'trusteeMgtKey : ' +  taxinvoice.trusteeMgtKey + #13;
@@ -3123,7 +3128,7 @@ begin
         SDate := '20160901';
 
         // [필수] 종료일자, 작성형태(yyyyMMdd)
-        EDate := '20161101';
+        EDate := '20161231';
 
         // 전송상태값 배열. 미기재시 전체 상태조회, 문서상태 값 3자리의 배열, 2,3번째자리 와일드카드 사용가능
         // [참고] "[전자세금계산서 API 연동매뉴얼] > 5.1. (세금)계산서 상태코드"
@@ -3185,7 +3190,7 @@ begin
         tmp := tmp + 'message (응답메시지) : '+ SearchList.message + #13#13;
 
         tmp := tmp + 'WriteDate | invoicerMgtKey | StateCode | TaxType |  RegDT | lateIssueYN | invoicerCorpNum |  invoicerCorpName | invoiceeCorpNum | invoiceeCorpName | '
-                + ' issueType | supplyCostTotal | taxTotal | invoicerPrintYN | invoiceePrintYN | trusteePrintYN '+#13#13;
+                + ' issueType | supplyCostTotal | taxTotal | invoicerPrintYN | invoiceePrintYN | closeDownState | closeDownStateDate '+#13#13;
 
         for i := 0 to Length(SearchList.list) -1 do
         begin
@@ -3204,7 +3209,8 @@ begin
                         + SearchList.list[i].taxTotal + ' | '
                         + BoolToStr(SearchList.list[i].InvoicerPrintYN) + ' | '
                         + BoolToStr(SearchList.list[i].InvoiceePrintYN) + ' | '
-                        + BoolToStr(SearchList.list[i].TrusteePrintYN) + ' | ' + #13;
+                        + IntToStr(SearchList.list[i].closeDownState) + ' | '
+                        + SearchList.list[i].closeDownStateDate  + #13;
         end;
 
         SearchList.Free;

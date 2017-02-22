@@ -367,7 +367,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20161004
-        taxinvoice.writeDate := '20161006';
+        taxinvoice.writeDate := '20170222';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '정발행';
@@ -706,7 +706,7 @@ begin
         
         try
                 response := taxinvoiceService.Delete(txtCorpNum.text, MgtKeyType,
-                                                        tbMgtKey.Text, txtUserID.Text);
+                                                        tbMgtKey.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -736,7 +736,7 @@ begin
 
         try
                 response := taxinvoiceService.AttachFile(txtCorpNum.text, MgtKeyType,
-                                                tbMgtKey.Text, filePath, txtUserID.Text);
+                                                tbMgtKey.Text, filePath);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -796,7 +796,7 @@ begin
 
         try
                 response := taxinvoiceService.DeleteFile(txtCorpNum.text, MgtKeyType,
-                                                tbMgtKey.Text, tbFileIndexID.Text, txtUserID.Text);
+                                                tbMgtKey.Text, tbFileIndexID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -964,7 +964,7 @@ begin
 
         try
                 response := taxinvoiceService.Send(txtCorpNum.text, MgtKeyType,
-                                tbMgtKey.Text, memo, emailSubject, txtUserID.Text);
+                                tbMgtKey.Text, memo, emailSubject);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -991,7 +991,7 @@ begin
         
         try
                 response := taxinvoiceService.CancelSend(txtCorpNum.text, MgtKeyType,
-                                                        tbMgtKey.Text, memo, txtUserID.Text);
+                                                        tbMgtKey.Text, memo);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1016,7 +1016,7 @@ begin
 
         try
                 response := taxinvoiceService.Accept(txtCorpNum.text, MgtKeyType,
-                                                        tbMgtKey.Text, memo, txtUserID.Text);
+                                                        tbMgtKey.Text, memo);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1042,7 +1042,8 @@ begin
         memo := '발행예정 거부 메모';
         
         try
-                response := taxinvoiceService.Deny(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, memo, txtUserID.Text);
+                response := taxinvoiceService.Deny(txtCorpNum.text, MgtKeyType,
+                        tbMgtKey.Text, memo);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1072,7 +1073,7 @@ begin
         
         try
                 response := taxinvoiceService.CancelIssue(txtCorpNum.text, MgtKeyType,
-                                                tbMgtKey.Text, memo, txtUserID.Text);
+                                                tbMgtKey.Text, memo);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1116,7 +1117,7 @@ begin
         
         try
                 response := taxinvoiceService.Issue(txtCorpNum.text, MgtKeyType,
-                                tbMgtKey.Text, memo, emailSubject, forceIssue, txtUserID.Text);
+                                tbMgtKey.Text, memo, emailSubject, forceIssue);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1141,7 +1142,7 @@ begin
         {**********************************************************************}
         
         try
-                response := taxinvoiceService.SendToNTS(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, txtUserID.Text);
+                response := taxinvoiceService.SendToNTS(txtCorpNum.text, MgtKeyType, tbMgtKey.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1173,7 +1174,7 @@ begin
 
         try
                 response := taxinvoiceService.Request(txtCorpNum.text, MgtKeyType,
-                                                tbMgtKey.Text, memo, txtUserID.Text);
+                                                tbMgtKey.Text, memo);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1200,7 +1201,7 @@ begin
         
         try
                 response := taxinvoiceService.CancelRequest(txtCorpNum.text, MgtKeyType,
-                                                        tbMgtKey.Text, memo, txtUserID.Text);
+                                                        tbMgtKey.Text, memo);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1226,7 +1227,8 @@ begin
         memo := '(역)발행요청 거부 메모';
         
         try
-                response := taxinvoiceService.Refuse(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, memo, txtUserID.Text);
+                response := taxinvoiceService.Refuse(txtCorpNum.text, MgtKeyType,
+                        tbMgtKey.Text, memo);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1263,7 +1265,7 @@ begin
         
         try
                 response := taxinvoiceService.SendSMS(txtCorpNum.text, MgtKeyType,
-                                        tbMgtKey.Text, sendNum, receiveNum, contents, txtUserID.Text);
+                                        tbMgtKey.Text, sendNum, receiveNum, contents);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1289,7 +1291,7 @@ begin
         
         try
                 response := taxinvoiceService.SendEmail(txtCorpNum.text, MgtKeyType,
-                                                tbMgtKey.Text, email, txtUserID.Text);
+                                                tbMgtKey.Text, email);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1321,7 +1323,7 @@ begin
         
         try
                 response := taxinvoiceService.SendFAX(txtCorpNum.text, MgtKeyType,
-                                         tbMgtKey.Text, sendNum, receiveNum, txtUserID.Text);
+                                         tbMgtKey.Text, sendNum, receiveNum);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1344,14 +1346,14 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, txtUserID.Text, 'TBOX');
+                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, 'TBOX');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
                         Exit;
                 end;
         end;
-
+        
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
@@ -1365,14 +1367,14 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, txtUserID.Text, 'SBOX');
+                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, 'SBOX');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
                         Exit;
                 end;
         end;
-
+        
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
@@ -1386,7 +1388,7 @@ begin
         {**********************************************************************}
         
         try
-                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, txtUserID.Text, 'PBOX');
+                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, 'PBOX');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1407,7 +1409,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, txtUserID.Text, 'WRITE');
+                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, 'WRITE');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1429,7 +1431,7 @@ begin
         
         try
                 resultURL := taxinvoiceService.getPopupURL(txtCorpNum.Text,
-                                        MgtKeyType, tbMgtKey.Text, txtUserID.Text);
+                                        MgtKeyType, tbMgtKey.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1451,7 +1453,7 @@ begin
         
         try
                 resultURL := taxinvoiceService.getPrintURL(txtCorpNum.Text,
-                                        MgtKeyType, tbMgtKey.Text, txtUserID.Text);
+                                        MgtKeyType, tbMgtKey.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1473,7 +1475,7 @@ begin
         
         try
                 resultURL := taxinvoiceService.getMailURL(txtCorpNum.Text,
-                                        MgtKeyType, tbMgtKey.Text, txtUserID.Text);
+                                        MgtKeyType, tbMgtKey.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1501,7 +1503,8 @@ begin
         KeyList[3] := '20161004-04';
         
         try
-                resultURL := taxinvoiceService.getMassPrintURL(txtCorpNum.text, MgtKeyType, KeyList, txtUserID.Text);
+                resultURL := taxinvoiceService.getMassPrintURL(txtCorpNum.text,
+                        MgtKeyType, KeyList);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1562,7 +1565,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20161004
-        taxinvoice.writeDate := '20161006';
+        taxinvoice.writeDate := '20170222';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '역발행';
@@ -1635,7 +1638,7 @@ begin
         taxinvoice.invoiceeType := '사업자';
 
         // [필수] 공급받는자 사업자번호, 하이픈('-') 제외 10자리
-        taxinvoice.invoiceeCorpNum := '1234567890';
+        taxinvoice.invoiceeCorpNum := txtCorpNum.text;
 
         // [필수] 공급받는자 종사업장 식별번호, 필요시 숫자 4자리 기재        
         taxinvoice.invoiceeTaxRegID := '';
@@ -1785,8 +1788,9 @@ begin
         taxinvoice.addContactList[1].email := 'test3@invoicee.com';     // 메일주소
         taxinvoice.addContactList[1].contactName := '추가담당자명2';    // 담당자명
 
+        
         try
-                response := taxinvoiceService.Register(txtCorpNum.text,taxinvoice,txtUserID.Text);
+                response := taxinvoiceService.Register(txtCorpNum.text, taxinvoice);
                 taxinvoice.Free;
         except
                 on le : EPopbillException do begin
@@ -2473,7 +2477,8 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := taxinvoiceService.getEPrintURL(txtCorpNum.Text, MgtKeyType, tbMgtKey.Text, txtUserID.Text);
+                resultURL := taxinvoiceService.getEPrintURL(txtCorpNum.Text,
+                        MgtKeyType, tbMgtKey.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -2743,7 +2748,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20161004
-        taxinvoice.writeDate := '20161028';
+        taxinvoice.writeDate := '20170222';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '정발행';
@@ -2988,7 +2993,7 @@ begin
         try
                 response := taxinvoiceService.RegistIssue(txtCorpNum.text, taxinvoice,
                                         writeSpecification, forceIssue, memo, emailSubject,
-                                        dealInvoiceMgtKey, txtUserID.Text);
+                                        dealInvoiceMgtKey);
                 taxinvoice.Free;
         except
                 on le : EPopbillException do begin

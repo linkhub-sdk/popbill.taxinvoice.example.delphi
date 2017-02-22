@@ -469,7 +469,7 @@ object frmExample: TfrmExample
       OnClick = btnCheckMgtKeyInUseClick
     end
     object GroupBox10: TGroupBox
-      Left = 768
+      Left = 776
       Top = 312
       Width = 129
       Height = 161
@@ -947,7 +947,7 @@ object frmExample: TfrmExample
   end
   object GroupBox7: TGroupBox
     Left = 368
-    Top = 536
+    Top = 544
     Width = 217
     Height = 193
     Caption = ' 문서관련 URL기능'

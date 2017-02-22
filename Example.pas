@@ -270,7 +270,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'LOGIN');
+                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text, 'LOGIN');
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -2582,7 +2582,7 @@ begin
         corpInfo.addr := '서울특별시 강남구 영동대로 517';
         
         try
-                response := taxinvoiceService.UpdateCorpInfo(txtCorpNum.text, corpInfo, txtUserID.Text);
+                response := taxinvoiceService.UpdateCorpInfo(txtCorpNum.text, corpInfo);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -2604,7 +2604,7 @@ begin
         {**********************************************************************}
 
         try
-                InfoList := taxinvoiceService.ListContact(txtCorpNum.text, txtUserID.text);
+                InfoList := taxinvoiceService.ListContact(txtCorpNum.text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -2640,8 +2640,8 @@ begin
         {**********************************************************************}
 
         // [필수] 담당자 아이디 (6자 이상 20자 미만)
-        joinInfo.id := 'testkorea1004_01';
-        
+        joinInfo.id := 'testkorea0222_01';
+
         // [필수] 비밀번호 (6자 이상 20자 미만)
         joinInfo.pwd := 'thisispassword';
 
@@ -2667,7 +2667,7 @@ begin
         joinInfo.mgrYN := false;
 
         try
-                response := taxinvoiceService.RegistContact(txtCorpNum.text, joinInfo, txtUserID.text);
+                response := taxinvoiceService.RegistContact(txtCorpNum.text, joinInfo);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -2711,7 +2711,7 @@ begin
         contactInfo.mgrYN := false;
 
         try
-                response := taxinvoiceService.UpdateContact(txtCorpNum.text, contactInfo, txtUserID.Text);
+                response := taxinvoiceService.UpdateContact(txtCorpNum.text, contactInfo, txtUserID.text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -3062,7 +3062,7 @@ begin
         {**********************************************************************}
         
         try
-                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'CHRG');
+                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text, 'CHRG');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -3083,7 +3083,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'CERT');
+                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text, 'CERT');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -3311,7 +3311,7 @@ begin
         {**********************************************************************}
         
         try
-                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'SEAL');
+                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text, 'SEAL');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);

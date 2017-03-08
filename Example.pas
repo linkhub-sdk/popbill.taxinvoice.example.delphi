@@ -2748,7 +2748,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20161004
-        taxinvoice.writeDate := '20170222';
+        taxinvoice.writeDate := '20170308';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '정발행';
@@ -3046,7 +3046,7 @@ begin
         {**********************************************************************}
         
         try
-                response := taxinvoiceService.Delete(txtCorpNum.text, MgtKeyType, tbMgtKey.Text, txtUserID.Text);
+                response := taxinvoiceService.Delete(txtCorpNum.text, MgtKeyType, tbMgtKey.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);

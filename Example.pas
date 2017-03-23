@@ -828,7 +828,7 @@ begin
                 end;
         end;
 
-        tmp := 'ItemKey | modifyCode | StateCode | TaxType | WriteDate | RegDT | OpenYN | OpenDT | lateIssueYN | InvoicerPrintYN | InvoiceePrintYN | closeDownState | closeDownStateDate ' + #13;
+        tmp := 'ItemKey | modifyCode | StateCode | TaxType | WriteDate | RegDT | OpenYN | OpenDT | lateIssueYN | InvoicerPrintYN | InvoiceePrintYN | closeDownState | closeDownStateDate | interOPYN ' + #13;
 
         tmp := tmp + taxinvoiceInfo.ItemKey + ' | '
                 + taxinvoiceInfo.ModifyCode + ' | '
@@ -842,7 +842,8 @@ begin
                 + BoolToStr(taxinvoiceInfo.InvoicerPrintYN) + ' | '
                 + BoolToStr(taxinvoiceInfo.InvoiceePrintYN) + ' | '
                 + IntToStr(taxinvoiceInfo.closeDownState) + ' | '
-                + taxinvoiceInfo.closeDownStateDate  + #13;
+                + taxinvoiceInfo.closeDownStateDate + ' | '
+                + BoolToStr(taxinvoiceInfo.interOPYN)  + #13;
                 
         ShowMessage(tmp);
 
@@ -876,7 +877,7 @@ begin
                 end;
         end;
 
-        tmp := 'ItemKey | StateCode | TaxType | WriteDate | RegDT | lateIssueYN | InvoicerPrintYN | InvoiceePrintYN | closeDownState | closeDownStateDate' + #13;
+        tmp := 'ItemKey | StateCode | TaxType | WriteDate | RegDT | lateIssueYN | InvoicerPrintYN | InvoiceePrintYN | closeDownState | closeDownStateDate | interOPYN' + #13;
 
         for i := 0 to Length(InfoList) -1 do
         begin
@@ -889,7 +890,8 @@ begin
                         + BoolToStr(InfoList[i].InvoicerPrintYN) + ' | '
                         + BoolToStr(InfoList[i].InvoiceePrintYN) + ' | '
                         + IntToStr(InfoList[i].closeDownState) + ' | '
-                        + InfoList[i].closeDownStateDate  + #13;
+                        + InfoList[i].closeDownStateDate + ' | '
+                        + BoolToStr(InfoList[i].interOPYN)  + #13;
         end;
 
         ShowMessage(tmp);
@@ -3195,7 +3197,7 @@ begin
         tmp := tmp + 'message (응답메시지) : '+ SearchList.message + #13#13;
 
         tmp := tmp + 'WriteDate | invoicerMgtKey | StateCode | TaxType |  RegDT | lateIssueYN | invoicerCorpNum |  invoicerCorpName | invoiceeCorpNum | invoiceeCorpName | '
-                + ' issueType | supplyCostTotal | taxTotal | invoicerPrintYN | invoiceePrintYN | closeDownState | closeDownStateDate '+#13#13;
+                + ' issueType | supplyCostTotal | taxTotal | invoicerPrintYN | invoiceePrintYN | closeDownState | closeDownStateDate | interOPYN '+#13#13;
 
         for i := 0 to Length(SearchList.list) -1 do
         begin
@@ -3215,7 +3217,8 @@ begin
                         + BoolToStr(SearchList.list[i].InvoicerPrintYN) + ' | '
                         + BoolToStr(SearchList.list[i].InvoiceePrintYN) + ' | '
                         + IntToStr(SearchList.list[i].closeDownState) + ' | '
-                        + SearchList.list[i].closeDownStateDate  + #13;
+                        + SearchList.list[i].closeDownStateDate + ' | '                        
+                        + BoolToStr(SearchList.list[i].interOPYN) + #13;
         end;
 
         SearchList.Free;

@@ -2,7 +2,7 @@
 { 팝빌 전자세금계산서 API Delphi SDK Example                                   }
 {                                                                              }
 { - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/572                   }
-{ - 업데이트 일자 : 2017-03-08                                                 }
+{ - 업데이트 일자 : 2017-03-28                                                 }
 { - 연동 기술지원 연락처 : 1600-8536 / 070-4304-2991                           }
 { - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
 {                                                                              }
@@ -3117,6 +3117,7 @@ var
         Page : Integer;
         PerPage : Integer;
         Order : String;
+        InterOPYN : String;
         tmp : String;
         SearchList : TSearchList;
         i : Integer;
@@ -3173,15 +3174,18 @@ begin
         Page := 1;
 
         // 페이지당 검색갯수, 기본값 500, 최대 1000
-        PerPage := 50;
+        PerPage := 10;
 
         // 정렬방향, 'D' : 내림차순 , 'A' : 오름차순
         Order := 'D';
 
+        // 연동문서 여부, 공백-전체조회, '0'-일반문서 조회, '1'-연동문서 조회
+        InterOPYN := '';
+
         try
                 SearchList := taxinvoiceService.search(txtCorpNum.text, MgtKeyType, DType, SDate, EDate, State, TType,
                                         TaxType, LateOnly, TaxRegIDType, TaxRegID, TaxRegIDYN, QString, Page, PerPage,
-                                        Order, txtUserID.text);
+                                        Order, InterOPYN, txtUserID.text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);

@@ -2696,6 +2696,9 @@ begin
 
         contactInfo := TContactInfo.Create;
 
+        // 담당자 아이디
+        contactInfo.id := 'testkorea';
+        
         // 담당자명
         contactInfo.personName := '테스트 담당자';
 
@@ -2714,7 +2717,7 @@ begin
         // 조회권한, true(회사조회), false(개인조회)
         contactInfo.searchAllAllowYN := true;
 
-        // 관리자권한 설정여부
+        // 관리자권한 설정여부                                
         contactInfo.mgrYN := false;
 
         try

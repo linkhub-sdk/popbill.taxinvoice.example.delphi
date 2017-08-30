@@ -1,8 +1,8 @@
 object frmExample: TfrmExample
-  Left = 440
-  Top = 189
-  Width = 974
-  Height = 826
+  Left = 300
+  Top = 147
+  Width = 1303
+  Height = 802
   Caption = 'Linkhub 팝빌 전자세금계산서  SDK Examples'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -32,9 +32,9 @@ object frmExample: TfrmExample
   end
   object GroupBox1: TGroupBox
     Left = 8
-    Top = 232
+    Top = 208
     Width = 945
-    Height = 545
+    Height = 517
     Caption = '전자세금계산서 관련 API'
     TabOrder = 0
     object Label1: TLabel
@@ -739,15 +739,15 @@ object frmExample: TfrmExample
   object GroupBox8: TGroupBox
     Left = 8
     Top = 40
-    Width = 947
-    Height = 190
+    Width = 1273
+    Height = 158
     Caption = '팝빌 기본 API'
     TabOrder = 1
     object GroupBox9: TGroupBox
-      Left = 8
+      Left = 16
       Top = 24
       Width = 137
-      Height = 153
+      Height = 122
       Caption = '회원가입'
       TabOrder = 0
       object btnJoin: TButton
@@ -779,38 +779,20 @@ object frmExample: TfrmExample
       end
     end
     object GroupBox11: TGroupBox
-      Left = 152
+      Left = 160
       Top = 24
       Width = 145
-      Height = 153
+      Height = 122
       Caption = '포인트 관련'
       TabOrder = 1
-      object btnGetBalance: TButton
+      object btnGetUnitCost: TButton
         Left = 8
         Top = 56
         Width = 129
         Height = 25
-        Caption = '잔여포인트 확인'
-        TabOrder = 0
-        OnClick = btnGetBalanceClick
-      end
-      object btnGetUnitCost: TButton
-        Left = 8
-        Top = 120
-        Width = 129
-        Height = 25
         Caption = '요금 단가 확인'
-        TabOrder = 1
+        TabOrder = 0
         OnClick = btnGetUnitCostClick
-      end
-      object btnGetPartnerBalance: TButton
-        Left = 8
-        Top = 88
-        Width = 129
-        Height = 25
-        Caption = '파트너포인트 확인'
-        TabOrder = 2
-        OnClick = btnGetPartnerBalanceClick
       end
       object btnGetChargeInfo: TButton
         Left = 8
@@ -818,15 +800,15 @@ object frmExample: TfrmExample
         Width = 129
         Height = 25
         Caption = '과금정보 확인'
-        TabOrder = 3
+        TabOrder = 1
         OnClick = btnGetChargeInfoClick
       end
     end
     object GroupBox12: TGroupBox
-      Left = 448
+      Left = 768
       Top = 24
       Width = 183
-      Height = 154
+      Height = 123
       Caption = '팝빌 기본 URL'
       TabOrder = 2
       object btnGetPopBillURL: TButton
@@ -838,56 +820,47 @@ object frmExample: TfrmExample
         TabOrder = 0
         OnClick = btnGetPopBillURLClick
       end
-      object btnGetPopbillURL_CHRG: TButton
-        Left = 8
-        Top = 56
-        Width = 166
-        Height = 25
-        Caption = '포인트 충전 URL'
-        TabOrder = 1
-        OnClick = btnGetPopbillURL_CHRGClick
-      end
-      object btnGetPopbillURL_CERT: TButton
-        Left = 8
-        Top = 88
-        Width = 166
-        Height = 25
-        Caption = '공인인증서 등록 URL'
-        TabOrder = 2
-        OnClick = btnGetPopbillURL_CERTClick
-      end
       object btnGetPopbillURL_SEAL: TButton
         Left = 8
-        Top = 120
+        Top = 56
         Width = 165
         Height = 25
         Caption = '인감 및 첨부문서 등록 URL'
-        TabOrder = 3
+        TabOrder = 1
         OnClick = btnGetPopbillURL_SEALClick
       end
     end
     object GroupBox14: TGroupBox
-      Left = 304
+      Left = 312
       Top = 24
-      Width = 137
-      Height = 153
+      Width = 145
+      Height = 122
       Caption = '공인인증서 관련'
       TabOrder = 3
       object btnGetCertificateExpireDate: TButton
         Left = 8
         Top = 24
-        Width = 121
+        Width = 129
         Height = 25
         Caption = '인증서 만료일 확인'
         TabOrder = 0
         OnClick = btnGetCertificateExpireDateClick
       end
+      object btnGetPopbillURL_CERT: TButton
+        Left = 6
+        Top = 56
+        Width = 131
+        Height = 25
+        Caption = '공인인증서 등록 URL'
+        TabOrder = 1
+        OnClick = btnGetPopbillURL_CERTClick
+      end
     end
     object GroupBox4: TGroupBox
-      Left = 640
+      Left = 960
       Top = 24
       Width = 145
-      Height = 154
+      Height = 123
       Caption = '담당자 관련'
       TabOrder = 4
       object btnUpdateContact: TButton
@@ -919,10 +892,10 @@ object frmExample: TfrmExample
       end
     end
     object GroupBox16: TGroupBox
-      Left = 792
+      Left = 1112
       Top = 24
       Width = 145
-      Height = 153
+      Height = 122
       Caption = '회사정보 관련'
       TabOrder = 5
       object btnGetCorpInfo: TButton
@@ -947,7 +920,7 @@ object frmExample: TfrmExample
   end
   object GroupBox7: TGroupBox
     Left = 368
-    Top = 544
+    Top = 520
     Width = 217
     Height = 193
     Caption = ' 문서관련 URL기능'
@@ -1015,6 +988,58 @@ object frmExample: TfrmExample
     ImeName = 'Microsoft IME 2010'
     TabOrder = 4
     Text = 'testkorea'
+  end
+  object GroupBox17: TGroupBox
+    Left = 472
+    Top = 64
+    Width = 145
+    Height = 124
+    Caption = '연동과금 포인트'
+    TabOrder = 5
+    object btnGetBalance: TButton
+      Left = 8
+      Top = 24
+      Width = 129
+      Height = 25
+      Caption = '잔여포인트 확인'
+      TabOrder = 0
+      OnClick = btnGetBalanceClick
+    end
+    object btnGetPopbillURL_CHRG: TButton
+      Left = 11
+      Top = 56
+      Width = 125
+      Height = 25
+      Caption = '포인트 충전 URL'
+      TabOrder = 1
+      OnClick = btnGetPopbillURL_CHRGClick
+    end
+  end
+  object GroupBox18: TGroupBox
+    Left = 624
+    Top = 64
+    Width = 145
+    Height = 123
+    Caption = '파트너과금 포인트'
+    TabOrder = 6
+    object btnGetPartnerBalance: TButton
+      Left = 8
+      Top = 24
+      Width = 129
+      Height = 25
+      Caption = '파트너포인트 확인'
+      TabOrder = 0
+      OnClick = btnGetPartnerBalanceClick
+    end
+    object btnGetPartnerURL_CHRG: TButton
+      Left = 8
+      Top = 56
+      Width = 129
+      Height = 25
+      Caption = '포인트 충전 URL'
+      TabOrder = 1
+      OnClick = btnGetPartnerURL_CHRGClick
+    end
   end
   object OpenDialog1: TOpenDialog
     Left = 728

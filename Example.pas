@@ -2,7 +2,7 @@
 { 팝빌 전자세금계산서 API Delphi SDK Example                                   }
 {                                                                              }
 { - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/572                   }
-{ - 업데이트 일자 : 2017-08-30                                                 }
+{ - 업데이트 일자 : 2017-12-05                                                 }
 { - 연동 기술지원 연락처 : 1600-9854 / 070-4304-2991                           }
 { - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
 {                                                                              }
@@ -3116,6 +3116,7 @@ var
         State : Array Of String;
         TType : Array Of String;
         TaxType : Array Of String;
+        IssueType : Array Of String;
         LateOnly : String;
         TaxRegIDYN : String;
         TaxRegIDType : String;
@@ -3140,16 +3141,18 @@ begin
         DType := 'W';
 
         // [필수] 시작일자, 작성형태(yyyyMMdd)
-        SDate := '20160901';
+        SDate := '20171101';
 
         // [필수] 종료일자, 작성형태(yyyyMMdd)
-        EDate := '20161231';
+        EDate := '20171231';
 
         // 전송상태값 배열. 미기재시 전체 상태조회, 문서상태 값 3자리의 배열, 2,3번째자리 와일드카드 사용가능
         // [참고] "[전자세금계산서 API 연동매뉴얼] > 5.1. (세금)계산서 상태코드"
-        SetLength(State, 2);
+        SetLength(State, 4);
         State[0] := '3**';
-        State[1] := '6**';
+        State[1] := '4**';
+        State[2] := '5**';
+        State[3] := '6**';
 
         // 문서유형 배열. {N:일반, M:수정} 선택기재, 미기재시 전체조회
         SetLength(TType,2);
@@ -3161,6 +3164,12 @@ begin
         TaxType[0] := 'T';
         TaxType[1] := 'Z';
         TaxType[2] := 'N';
+
+        // 발행형태 배열, {N:정발행, R:역발행, T:위수탁) 선택기재
+        SetLength(IssueType, 3);
+        IssueType[0] := 'N';
+        IssueType[1] := 'R';
+        IssueType[2] := 'T';
 
         // 지연발행여부. {공백 : 전체조회, 0 : 정상발행조회, 1 : 지연발행 조회} 선택기재
         LateOnly := '';
@@ -3191,7 +3200,7 @@ begin
 
         try
                 SearchList := taxinvoiceService.search(txtCorpNum.text, MgtKeyType, DType, SDate, EDate, State, TType,
-                                        TaxType, LateOnly, TaxRegIDType, TaxRegID, TaxRegIDYN, QString, Page, PerPage,
+                                        TaxType, IssueType, LateOnly, TaxRegIDType, TaxRegID, TaxRegIDYN, QString, Page, PerPage,
                                         Order, InterOPYN, txtUserID.text);
         except
                 on le : EPopbillException do begin

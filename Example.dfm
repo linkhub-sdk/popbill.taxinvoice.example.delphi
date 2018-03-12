@@ -34,7 +34,7 @@ object frmExample: TfrmExample
     Left = 8
     Top = 208
     Width = 945
-    Height = 517
+    Height = 553
     Caption = '전자세금계산서 관련 API'
     TabOrder = 0
     object Label1: TLabel
@@ -402,7 +402,7 @@ object frmExample: TfrmExample
       Left = 592
       Top = 312
       Width = 169
-      Height = 193
+      Height = 225
       Caption = '부가서비스'
       TabOrder = 3
       object btnReSendEmail: TButton
@@ -449,6 +449,15 @@ object frmExample: TfrmExample
         Caption = '전자명세서 첨부'
         TabOrder = 4
         OnClick = btnAttachStatementClick
+      end
+      object btnAssignMgtKey: TButton
+        Left = 16
+        Top = 184
+        Width = 137
+        Height = 25
+        Caption = '관리번호 할당'
+        TabOrder = 5
+        OnClick = btnAssignMgtKeyClick
       end
     end
     object tbMgtKey: TEdit

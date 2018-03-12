@@ -157,6 +157,7 @@ type
     btnGetPartnerBalance: TButton;
     btnGetPopbillURL_CERT: TButton;
     btnGetPartnerURL_CHRG: TButton;
+    btnAssignMgtKey: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetPopBillURLClick(Sender: TObject);
@@ -220,6 +221,7 @@ type
     procedure btnGetChargeInfoClick(Sender: TObject);
     procedure btnGetPopbillURL_SEALClick(Sender: TObject);
     procedure btnGetPartnerURL_CHRGClick(Sender: TObject);
+    procedure btnAssignMgtKeyClick(Sender: TObject);
   private
     MgtKeyType : EnumMgtKeyType;
   public
@@ -2757,7 +2759,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20161004
-        taxinvoice.writeDate := '20170308';
+        taxinvoice.writeDate := '20180312';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '정발행';
@@ -3370,6 +3372,38 @@ begin
         end;
 
         ShowMessage('ResultURL is ' + #13 + resultURL);
+end;
+
+procedure TfrmExample.btnAssignMgtKeyClick(Sender: TObject);
+var
+        response : TResponse;
+        mgtKey, itemKey : String;
+        keyType : EnumMgtKeyType;
+begin
+        {**********************************************************************}
+        { 팝빌사이트에서 작성된 세금계산서에 파트너 문서관리번호를 할당합니다. }
+        {**********************************************************************}
+
+        // 세금계산서 유형, SELL-매출, BUY-매입, TRUSTEE-위수탁
+        keyType := SELL;
+
+        // 세금계산서 아이템키, 문서 목록조회(Search) API의 반환항목중 ItemKey 참조
+        itemKey := '018022712201300001';
+
+        // 할당할 문서관리번호, 숫자, 영문 '-', '_' 조합으로 1~24자리까지
+        // 사업자번호별 중복없는 고유번호 할당
+        mgtKey := '20180312-02';
+
+        try
+                response := taxinvoiceService.AssignMgtKey(txtCorpNum.text, MgtKeyType, itemKey, mgtKey);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
 end.

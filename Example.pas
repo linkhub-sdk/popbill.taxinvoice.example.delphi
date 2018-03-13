@@ -3395,7 +3395,7 @@ begin
         mgtKey := '20180312-02';
 
         try
-                response := taxinvoiceService.AssignMgtKey(txtCorpNum.text, MgtKeyType, itemKey, mgtKey);
+                response := taxinvoiceService.AssignMgtKey(txtCorpNum.text, keyType, itemKey, mgtKey);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);

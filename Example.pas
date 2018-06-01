@@ -2759,7 +2759,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20161004
-        taxinvoice.writeDate := '20180312';
+        taxinvoice.writeDate := '20180601';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '정발행';

@@ -1,6 +1,6 @@
 object frmExample: TfrmExample
-  Left = 300
-  Top = 147
+  Left = 582
+  Top = 135
   Width = 1303
   Height = 802
   Caption = 'Linkhub 팝빌 전자세금계산서  SDK Examples'

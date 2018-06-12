@@ -23,7 +23,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, TypInfo, shellapi,
+  StdCtrls, TypInfo,
   Popbill, PopbillTaxinvoice, ExtCtrls;
 
 const
@@ -224,8 +224,6 @@ type
     procedure btnAssignMgtKeyClick(Sender: TObject);
   private
     MgtKeyType : EnumMgtKeyType;
-
-    function GetTextByReturnCode(ReturnCode : Integer) : String;
 
   public
     { Public declarations }
@@ -3095,28 +3093,21 @@ end;
 procedure TfrmExample.btnGetPopbillURL_CERTClick(Sender: TObject);
 var
   resultURL : String;
-  ReturnCode : Integer;
 begin
         {**********************************************************************}
-        {    -공인인증서 등록 팝업창 호출                                      }
-        {    -URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.     }
+        {    공인인증서 등록 URL을 반환합니다.                                 }
+        {    URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.      }
         {**********************************************************************}
 
         try
                 resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text, 'CERT');
-                ReturnCode := ShellExecute(Handle, 'open', 'IEXPLORE.EXE', PChar(resultURL), '', SW_SHOWNORMAL);
-
-                if ReturnCode <= 32 then
-                begin
-                        ShowMessage('응답코드 : '+ IntToStr(ReturnCode) + #10#13 +'응답메시지 : '+ GetTextByReturnCode(ReturnCode));
-                        Exit;
-                end;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
+        ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
 procedure TfrmExample.btnSearchInfoClick(Sender: TObject);
@@ -3415,25 +3406,5 @@ begin
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
-
-function TfrmExample.GetTextByReturnCode(ReturnCode: Integer): String;
-begin
-        case ReturnCode of
-                ERROR_FILE_NOT_FOUND    : Result := '지정된 파일을 찾을 수 없습니다.';
-                ERROR_PATH_NOT_FOUND    : Result := '지정한 경로를 찾을 수 없습니다.';
-                ERROR_BAD_FORMAT        : Result := '.exe 파일이 잘못되었습니다 (Win32가 아닌 .exe 이미지 또는 .exe 이미지의 오류).';
-                SE_ERR_ACCESSDENIED     : Result := '운영 체제가 지정된 파일에 대한 액세스를 거부했습니다.';
-                SE_ERR_ASSOCINCOMPLETE  : Result := '파일 이름 연결이 불완전하거나 유효하지 않습니다.';
-                SE_ERR_DDEBUSY          : Result := '다른 DDE 트랜잭션이 처리 중이기 때문에 DDE 트랜잭션을 완료 할 수 없습니다.';
-                SE_ERR_DDEFAIL          : Result := 'DDE 트랜잭션이 실패했습니다.';
-                SE_ERR_DDETIMEOUT       : Result := '요청 시간이 초과되어 DDE 트랜잭션을 완료 할 수 없습니다.';
-                SE_ERR_DLLNOTFOUND      : Result := '지정된 DLL을 찾을 수 없습니다.';
-                SE_ERR_NOASSOC          : Result := '지정된 파일 이름 확장명과 연결된 응용 프로그램이 없습니다. 인쇄 할 수없는 파일을 인쇄하려고하면이 오류가 리턴됩니다.';
-                SE_ERR_OOM              : Result := '작업을 완료하는 데 필요한 메모리가 부족합니다.';
-                SE_ERR_SHARE            : Result := '공유 위반이 발생했습니다.';
-                0                       : Result := '운영 체제의 메모리 또는 리소스가 부족합니다.';
-                else                      Result := '';
-        end;
-end;
 
 end.

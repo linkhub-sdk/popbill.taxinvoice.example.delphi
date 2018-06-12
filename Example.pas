@@ -3093,7 +3093,6 @@ end;
 procedure TfrmExample.btnGetPopbillURL_CERTClick(Sender: TObject);
 var
   resultURL : String;
-  ReturnCode : Integer;
 begin
         {**********************************************************************}
         {   -공인인증서 등록 팝업창 호출                                       }
@@ -3102,7 +3101,7 @@ begin
 
         try
                 resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text, 'CERT');
-                ReturnCode := ShellExecute(Handle, 'open', 'IEXPLORE.EXE', PChar(resultURL), '', SW_SHOWNORMAL);
+                ShellExecute(Handle, 'open', 'IEXPLORE.EXE', PChar(resultURL), '', SW_SHOWNORMAL);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);

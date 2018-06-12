@@ -23,7 +23,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, TypInfo,
+  StdCtrls, TypInfo, shellapi,
   Popbill, PopbillTaxinvoice, ExtCtrls;
 
 const
@@ -3093,21 +3093,22 @@ end;
 procedure TfrmExample.btnGetPopbillURL_CERTClick(Sender: TObject);
 var
   resultURL : String;
+  ReturnCode : Integer;
 begin
         {**********************************************************************}
-        {    공인인증서 등록 URL을 반환합니다.                                 }
-        {    URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.      }
+        {   -공인인증서 등록 팝업창 호출                                       }
+        {   -URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.      }
         {**********************************************************************}
 
         try
                 resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text, 'CERT');
+                ReturnCode := ShellExecute(Handle, 'open', 'IEXPLORE.EXE', PChar(resultURL), '', SW_SHOWNORMAL);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
-        ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
 procedure TfrmExample.btnSearchInfoClick(Sender: TObject);

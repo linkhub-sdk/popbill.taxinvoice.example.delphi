@@ -2,7 +2,7 @@
 { 팝빌 전자세금계산서 API Delphi SDK Example                                   }
 {                                                                              }
 { - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/572                   }
-{ - 업데이트 일자 : 2018-06-12                                                 }
+{ - 업데이트 일자 : 2018-09-18                                                 }
 { - 연동 기술지원 연락처 : 1600-9854 / 070-4304-2991                           }
 { - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
 {                                                                              }
@@ -158,6 +158,7 @@ type
     btnGetPopbillURL_CERT: TButton;
     btnGetPartnerURL_CHRG: TButton;
     btnAssignMgtKey: TButton;
+    btnCheckCertValidation: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetPopBillURLClick(Sender: TObject);
@@ -222,6 +223,7 @@ type
     procedure btnGetPopbillURL_SEALClick(Sender: TObject);
     procedure btnGetPartnerURL_CHRGClick(Sender: TObject);
     procedure btnAssignMgtKeyClick(Sender: TObject);
+    procedure btnCheckCertValidationClick(Sender: TObject);
   private
     MgtKeyType : EnumMgtKeyType;
 
@@ -3407,5 +3409,25 @@ begin
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
+
+procedure TfrmExample.btnCheckCertValidationClick(Sender: TObject);
+var
+        response : TResponse;
+begin
+        {**********************************************************************}
+        { 팝빌에 등록된 공인인증서의 유효성을 확인한다.                        }
+        {**********************************************************************}
+
+        try
+                response := taxinvoiceService.CheckCertValidation(txtCorpNum.text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+end;
 
 end.

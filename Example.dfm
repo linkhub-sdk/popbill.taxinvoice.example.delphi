@@ -860,9 +860,18 @@ object frmExample: TfrmExample
         Top = 56
         Width = 131
         Height = 25
-        Caption = '공인인증서 등록 URL'
+        Caption = '인증서 등록 URL'
         TabOrder = 1
         OnClick = btnGetPopbillURL_CERTClick
+      end
+      object btnCheckCertValidation: TButton
+        Left = 6
+        Top = 88
+        Width = 131
+        Height = 25
+        Caption = '인증서 유효성 확인'
+        TabOrder = 2
+        OnClick = btnCheckCertValidationClick
       end
     end
     object GroupBox4: TGroupBox

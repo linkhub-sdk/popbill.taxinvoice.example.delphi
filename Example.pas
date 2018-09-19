@@ -2,7 +2,7 @@
 { 팝빌 전자세금계산서 API Delphi SDK Example                                   }
 {                                                                              }
 { - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/572                   }
-{ - 업데이트 일자 : 2018-09-18                                                 }
+{ - 업데이트 일자 : 2018-09-19                                                 }
 { - 연동 기술지원 연락처 : 1600-9854 / 070-4304-2991                           }
 { - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
 {                                                                              }
@@ -92,11 +92,6 @@ type
     btnGetPopBillURL: TButton;
     GroupBox14: TGroupBox;
     btnGetCertificateExpireDate: TButton;
-    GroupBox7: TGroupBox;
-    btnGetPopUpURL: TButton;
-    btnGetPrintURL: TButton;
-    btnGetPrintsURL: TButton;
-    btnGetMailURL: TButton;
     txtCorpNum: TEdit;
     Label3: TLabel;
     btnCheckMgtKeyInUse: TButton;
@@ -128,7 +123,6 @@ type
     Shape17: TShape;
     btnGetEmailPublicKey: TButton;
     btnSendToNTS: TButton;
-    btnGetEPrintUrl: TButton;
     Button1: TButton;
     btnRegistIssue: TButton;
     btnCancelIssue: TButton;
@@ -159,6 +153,14 @@ type
     btnGetPartnerURL_CHRG: TButton;
     btnAssignMgtKey: TButton;
     btnCheckCertValidation: TButton;
+    btnListEmailConfig: TButton;
+    btnUpdateEmailConfig: TButton;
+    GroupBox7: TGroupBox;
+    btnGetPopUpURL: TButton;
+    btnGetPrintURL: TButton;
+    btnGetPrintsURL: TButton;
+    btnGetMailURL: TButton;
+    btnGetEPrintUrl: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetPopBillURLClick(Sender: TObject);
@@ -224,6 +226,8 @@ type
     procedure btnGetPartnerURL_CHRGClick(Sender: TObject);
     procedure btnAssignMgtKeyClick(Sender: TObject);
     procedure btnCheckCertValidationClick(Sender: TObject);
+    procedure btnListEmailConfigClick(Sender: TObject);
+    procedure btnUpdateEmailConfigClick(Sender: TObject);
   private
     MgtKeyType : EnumMgtKeyType;
 
@@ -3420,6 +3424,179 @@ begin
 
         try
                 response := taxinvoiceService.CheckCertValidation(txtCorpNum.text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+end;
+
+procedure TfrmExample.btnListEmailConfigClick(Sender: TObject);
+var
+        EmailConfigList : TEmailConfigList;
+        tmp : string;
+        i : Integer;
+begin
+        {**********************************************************************}
+        {  전자세금계산서 메일전송 항목에 대한 전송여부를 목록으로 반환한다.   }
+        {**********************************************************************}
+        
+        try
+                EmailConfigList := taxinvoiceService.ListEmailConfig(txtCorpNum.text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
+                        Exit;
+                end;
+        end;
+
+        tmp := '메일전송유형 | 전송여부' + #13;
+
+        for i := 0 to Length(EmailConfigList) -1 do
+        begin
+            if EmailConfigList[i].EmailType = 'TAX_ISSUE' then
+                tmp := tmp + 'TAX_ISSUE (공급받는자에게 전자세금계산서 발행 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_ISSUE_INVOICER' then
+                tmp := tmp + 'TAX_ISSUE_INVOICER (공급자에게 전자세금계산서 발행 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_CHECK' then
+                tmp := tmp + 'TAX_CHECK (공급자에게 전자세금계산서 수신확인 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_CANCEL_ISSUE' then
+                tmp := tmp + 'TAX_CANCEL_ISSUE (공급받는자에게 전자세금계산서 발행취소 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_SEND' then
+                tmp := tmp + 'TAX_SEND (공급받는자에게 [발행예정] 세금계산서 발송 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_ACCEPT' then
+                tmp := tmp + 'TAX_ACCEPT (공급자에게 [발행예정] 세금계산서 승인 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_ACCEPT_ISSUE' then
+                tmp := tmp + 'TAX_ACCEPT_ISSUE (공급자에게 [발행예정] 세금계산서 자동발행 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_DENY' then
+                tmp := tmp + 'TAX_DENY (공급자에게 [발행예정] 세금계산서 거부 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_CANCEL_SEND' then
+                tmp := tmp + 'TAX_CANCEL_SEND (공급받는자에게 [발행예정] 세금계산서 취소 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_REQUEST' then
+                tmp := tmp + 'TAX_REQUEST (공급자에게 세금계산서를 발행요청 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_CANCEL_REQUEST' then
+                tmp := tmp + 'TAX_CANCEL_REQUEST (공급받는자에게 세금계산서 취소 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_REFUSE' then
+                tmp := tmp + 'TAX_REFUSE (공급받는자에게 세금계산서 거부 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_TRUST_ISSUE' then
+                tmp := tmp + 'TAX_TRUST_ISSUE (공급받는자에게 전자세금계산서 발행 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_TRUST_ISSUE_TRUSTEE' then
+                tmp := tmp + 'TAX_TRUST_ISSUE_TRUSTEE (수탁자에게 전자세금계산서 발행 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_TRUST_ISSUE_INVOICER' then
+                tmp := tmp + 'TAX_TRUST_ISSUE_INVOICER (공급자에게 전자세금계산서 발행 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_TRUST_CANCEL_ISSUE' then
+                tmp := tmp + 'TAX_TRUST_CANCEL_ISSUE (공급받는자에게 전자세금계산서 발행취소 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_TRUST_CANCEL_ISSUE_INVOICER' then
+                tmp := tmp + 'TAX_TRUST_CANCEL_ISSUE_INVOICER (공급자에게 전자세금계산서 발행취소 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_TRUST_SEND' then
+                tmp := tmp + 'TAX_TRUST_SEND (공급받는자에게 [발행예정] 세금계산서 발송 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_TRUST_ACCEPT' then
+                tmp := tmp + 'TAX_TRUST_ACCEPT (수탁자에게 [발행예정] 세금계산서 승인 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_TRUST_ACCEPT_ISSUE' then
+                tmp := tmp + 'TAX_TRUST_ACCEPT_ISSUE (수탁자에게 [발행예정] 세금계산서 자동발행 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_TRUST_DENY' then
+                tmp := tmp + 'TAX_TRUST_DENY (수탁자에게 [발행예정] 세금계산서 거부 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_TRUST_CANCEL_SEND' then
+                tmp := tmp + 'TAX_TRUST_CANCEL_SEND (공급받는자에게 [발행예정] 세금계산서 취소 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_CLOSEDOWN' then
+                tmp := tmp + 'TAX_CLOSEDOWN (거래처의 휴폐업 여부 확인 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_NTSFAIL_INVOICER' then
+                tmp := tmp + 'TAX_NTSFAIL_INVOICER (전자세금계산서 국세청 전송실패 안내 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'TAX_SEND_INFO' then
+                tmp := tmp + 'TAX_SEND_INFO (전월 귀속분 [매출 발행 대기] 세금계산서 발행 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+
+            if EmailConfigList[i].EmailType = 'ETC_CERT_EXPIRATION' then
+                tmp := tmp + 'ETC_CERT_EXPIRATION (팝빌에서 이용중인 공인인증서의 갱신 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+        end;
+
+        ShowMessage(tmp);
+end;
+
+procedure TfrmExample.btnUpdateEmailConfigClick(Sender: TObject);
+var
+        response : TResponse;
+        EmailType : String;
+        SendYN    : Boolean;
+begin
+        {*********************************************************************************}
+        {전자세금계산서 메일전송 항목에 대한 전송여부를 수정한다.                         }
+        { 메일전송유형                                                                    }
+        {  [정발행]                                                                       }
+        {  TAX_ISSUE : 공급받는자에게 전자세금계산서 발행 메일 알림                       }
+        {  TAX_ISSUE_INVOICER : 공급자에게 전자세금계산서 발행 메일 알림                  }
+        {  TAX_CHECK : 공급자에게 전자세금계산서 수신확인 메일 알림                       }
+        {  TAX_CANCEL_ISSUE : 공급받는자에게 전자세금계산서 발행취소 메일 알림            }
+        {                                                                                 }
+        {  [발행예정]                                                                     }
+        {  TAX_SEND : 공급받는자에게 [발행예정] 세금계산서 발송 메일 알림                 }
+        {  TAX_ACCEPT : 공급자에게 [발행예정] 세금계산서 승인 메일 알림                   }
+        {  TAX_ACCEPT_ISSUE : 공급자에게 [발행예정] 세금계산서 자동발행 메일 알림         }
+        {  TAX_DENY : 공급자에게 [발행예정] 세금계산서 거부 메일 알림                     }
+        {  TAX_CANCEL_SEND : 공급받는자에게 [발행예정] 세금계산서 취소 메일 알림          }
+        {                                                                                 }
+        {  [역발행]                                                                       }
+        {  TAX_REQUEST : 공급자에게 세금계산서를 발행요청 메일 알림                       }
+        {  TAX_CANCEL_REQUEST : 공급받는자에게 세금계산서 취소 메일 알림                  }
+        {  TAX_REFUSE : 공급받는자에게 세금계산서 거부 메일 알림                          }
+        {                                                                                 }
+        {  [위수탁발행]                                                                   }
+        {  TAX_TRUST_ISSUE : 공급받는자에게 전자세금계산서 발행 메일 알림                 }
+        {  TAX_TRUST_ISSUE_TRUSTEE : 수탁자에게 전자세금계산서 발행 메일 알림             }
+        {  TAX_TRUST_ISSUE_INVOICER : 공급자에게 전자세금계산서 발행 메일 알림            }
+        {  TAX_TRUST_CANCEL_ISSUE : 공급받는자에게 전자세금계산서 발행취소 메일 알림      }
+        {  TAX_TRUST_CANCEL_ISSUE_INVOICER : 공급자에게 전자세금계산서 발행취소 메일 알림 }
+        {                                                                                 }
+        {  [위수탁 발행예정]                                                              }
+        {  TAX_TRUST_SEND : 공급받는자에게 [발행예정] 세금계산서 발송 메일 알림           }
+        {  TAX_TRUST_ACCEPT : 수탁자에게 [발행예정] 세금계산서 승인 메일 알림             }
+        {  TAX_TRUST_ACCEPT_ISSUE : 수탁자에게 [발행예정] 세금계산서 자동발행 메일 알림   }
+        {  TAX_TRUST_DENY : 수탁자에게 [발행예정] 세금계산서 거부 메일 알림               }
+        {  TAX_TRUST_CANCEL_SEND : 공급받는자에게 [발행예정] 세금계산서 취소 메일 알림    }
+        {                                                                                 }
+        {  [처리결과]                                                                     }
+        {  TAX_CLOSEDOWN : 거래처의 휴폐업 여부 확인 메일 알림                            }
+        {  TAX_NTSFAIL_INVOICER : 전자세금계산서 국세청 전송실패 안내 메일 알림           }
+        {                                                                                 }
+        {  [정기발송]                                                                     }
+        {  TAX_SEND_INFO : 전월 귀속분 [매출 발행 대기] 세금계산서 발행 메일 알림         }
+        {  ETC_CERT_EXPIRATION : 팝빌에서 이용중인 공인인증서의 갱신 메일 알림            }
+        {*********************************************************************************}
+
+        // 메일전송유형
+        EmailType := 'TAX_ISSUE';
+
+        // 전송여부 (True - 전송, False - 미전송)
+        SendYN := True;
+
+        try
+                response := taxinvoiceService.UpdateEmailConfig(txtCorpNum.text, EmailType, SendYN);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);

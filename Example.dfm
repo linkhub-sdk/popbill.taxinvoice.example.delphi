@@ -1,6 +1,6 @@
 object frmExample: TfrmExample
-  Left = 582
-  Top = 135
+  Left = 227
+  Top = 137
   Width = 1303
   Height = 769
   Caption = 'Linkhub 팝빌 전자세금계산서  SDK Examples'
@@ -891,23 +891,23 @@ object frmExample: TfrmExample
       Height = 123
       Caption = '팝빌 기본 URL'
       TabOrder = 2
-      object btnGetPopBillURL: TButton
+      object btnGetAccessURL: TButton
         Left = 8
         Top = 25
         Width = 166
         Height = 25
         Caption = '팝빌 로그인 URL'
         TabOrder = 0
-        OnClick = btnGetPopBillURLClick
+        OnClick = btnGetAccessURLClick
       end
-      object btnGetPopbillURL_SEAL: TButton
+      object btnGetSealURL: TButton
         Left = 8
         Top = 56
         Width = 165
         Height = 25
         Caption = '인감 및 첨부문서 등록 URL'
         TabOrder = 1
-        OnClick = btnGetPopbillURL_SEALClick
+        OnClick = btnGetSealURLClick
       end
     end
     object GroupBox14: TGroupBox
@@ -926,14 +926,14 @@ object frmExample: TfrmExample
         TabOrder = 0
         OnClick = btnGetCertificateExpireDateClick
       end
-      object btnGetPopbillURL_CERT: TButton
+      object btnGetTaxCertURL: TButton
         Left = 6
         Top = 56
         Width = 131
         Height = 25
         Caption = '인증서 등록 URL'
         TabOrder = 1
-        OnClick = btnGetPopbillURL_CERTClick
+        OnClick = btnGetTaxCertURLClick
       end
       object btnCheckCertValidation: TButton
         Left = 6
@@ -1041,14 +1041,14 @@ object frmExample: TfrmExample
       TabOrder = 0
       OnClick = btnGetBalanceClick
     end
-    object btnGetPopbillURL_CHRG: TButton
+    object btnGetChargeURL: TButton
       Left = 11
       Top = 56
       Width = 125
       Height = 25
       Caption = '포인트 충전 URL'
       TabOrder = 1
-      OnClick = btnGetPopbillURL_CHRGClick
+      OnClick = btnGetChargeURLClick
     end
   end
   object GroupBox18: TGroupBox
@@ -1067,14 +1067,14 @@ object frmExample: TfrmExample
       TabOrder = 0
       OnClick = btnGetPartnerBalanceClick
     end
-    object btnGetPartnerURL_CHRG: TButton
+    object btnGetPartnerURL: TButton
       Left = 8
       Top = 56
       Width = 129
       Height = 25
       Caption = '포인트 충전 URL'
       TabOrder = 1
-      OnClick = btnGetPartnerURL_CHRGClick
+      OnClick = btnGetPartnerURLClick
     end
   end
   object OpenDialog1: TOpenDialog

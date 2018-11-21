@@ -2,7 +2,7 @@
 { 팝빌 전자세금계산서 API Delphi SDK Example                                   }
 {                                                                              }
 { - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/572                   }
-{ - 업데이트 일자 : 2018-09-19                                                 }
+{ - 업데이트 일자 : 2018-11-21                                                 }
 { - 연동 기술지원 연락처 : 1600-9854 / 070-4304-2991                           }
 { - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
 {                                                                              }
@@ -89,7 +89,7 @@ type
     GroupBox11: TGroupBox;
     btnGetUnitCost: TButton;
     GroupBox12: TGroupBox;
-    btnGetPopBillURL: TButton;
+    btnGetAccessURL: TButton;
     GroupBox14: TGroupBox;
     btnGetCertificateExpireDate: TButton;
     txtCorpNum: TEdit;
@@ -143,14 +143,14 @@ type
     btnDetachStatement: TButton;
     btnAttachStatement: TButton;
     btnGetChargeInfo: TButton;
-    btnGetPopbillURL_SEAL: TButton;
+    btnGetSealURL: TButton;
     GroupBox17: TGroupBox;
     GroupBox18: TGroupBox;
     btnGetBalance: TButton;
-    btnGetPopbillURL_CHRG: TButton;
+    btnGetChargeURL: TButton;
     btnGetPartnerBalance: TButton;
-    btnGetPopbillURL_CERT: TButton;
-    btnGetPartnerURL_CHRG: TButton;
+    btnGetTaxCertURL: TButton;
+    btnGetPartnerURL: TButton;
     btnAssignMgtKey: TButton;
     btnCheckCertValidation: TButton;
     btnListEmailConfig: TButton;
@@ -163,7 +163,7 @@ type
     btnGetEPrintUrl: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
-    procedure btnGetPopBillURLClick(Sender: TObject);
+    procedure btnGetAccessURLClick(Sender: TObject);
     procedure btnJoinClick(Sender: TObject);
     procedure btnRegisterClick(Sender: TObject);
     procedure btnGetBalanceClick(Sender: TObject);
@@ -216,14 +216,14 @@ type
     procedure btnRegistIssueClick(Sender: TObject);
     procedure btnCancelIssueClick(Sender: TObject);
     procedure btnDelete_RegistIssueClick(Sender: TObject);
-    procedure btnGetPopbillURL_CHRGClick(Sender: TObject);
-    procedure btnGetPopbillURL_CERTClick(Sender: TObject);
+    procedure btnGetChargeURLClick(Sender: TObject);
+    procedure btnGetTaxCertURLClick(Sender: TObject);
     procedure btnSearchInfoClick(Sender: TObject);
     procedure btnAttachStatementClick(Sender: TObject);
     procedure btnDetachStatementClick(Sender: TObject);
     procedure btnGetChargeInfoClick(Sender: TObject);
-    procedure btnGetPopbillURL_SEALClick(Sender: TObject);
-    procedure btnGetPartnerURL_CHRGClick(Sender: TObject);
+    procedure btnGetSealURLClick(Sender: TObject);
+    procedure btnGetPartnerURLClick(Sender: TObject);
     procedure btnAssignMgtKeyClick(Sender: TObject);
     procedure btnCheckCertValidationClick(Sender: TObject);
     procedure btnListEmailConfigClick(Sender: TObject);
@@ -273,7 +273,7 @@ begin
     if b = false then BoolToStr:='False';
 end;
 
-procedure TfrmExample.btnGetPopBillURLClick(Sender: TObject);
+procedure TfrmExample.btnGetAccessURLClick(Sender: TObject);
 var
         resultURL : String;
 begin
@@ -283,7 +283,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text, 'LOGIN');
+                resultURL := taxinvoiceService.getAccessURL(txtCorpNum.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -380,7 +380,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20161004
-        taxinvoice.writeDate := '20170222';
+        taxinvoice.writeDate := '20181016';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '정발행';
@@ -481,7 +481,7 @@ begin
         taxinvoice.invoiceeContactName1 := '공급받는자 담당자명';
 
         // 공급받는자 메일주소
-        taxinvoice.invoiceeEmail1 := 'test@test.com';
+        taxinvoice.invoiceeEmail1 := 'centily@naver.com';
 
         // 공급받는자 연락처
         taxinvoice.invoiceeTEL1 := '070-4304-2991';
@@ -3076,7 +3076,7 @@ begin
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
-procedure TfrmExample.btnGetPopbillURL_CHRGClick(Sender: TObject);
+procedure TfrmExample.btnGetChargeURLClick(Sender: TObject);
 var
   resultURL : String;
 begin
@@ -3086,7 +3086,7 @@ begin
         {**********************************************************************}
         
         try
-                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text, 'CHRG');
+                resultURL := taxinvoiceService.GetChargeURL(txtCorpNum.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -3097,7 +3097,7 @@ begin
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
-procedure TfrmExample.btnGetPopbillURL_CERTClick(Sender: TObject);
+procedure TfrmExample.btnGetTaxCertURLClick(Sender: TObject);
 var
   resultURL : String;
 begin
@@ -3107,7 +3107,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text, 'CERT');
+                resultURL := taxinvoiceService.GetTaxCertURL(txtCorpNum.Text, txtUserID.Text);
                 ShellExecute(Handle, 'open', 'IEXPLORE.EXE', PChar(resultURL), '', SW_SHOWNORMAL);
         except
                 on le : EPopbillException do begin
@@ -3338,7 +3338,7 @@ begin
         ShowMessage(tmp);
 end;
 
-procedure TfrmExample.btnGetPopbillURL_SEALClick(Sender: TObject);
+procedure TfrmExample.btnGetSealURLClick(Sender: TObject);
 var
   resultURL : String;
 begin
@@ -3348,7 +3348,7 @@ begin
         {**********************************************************************}
         
         try
-                resultURL := taxinvoiceService.getPopbillURL(txtCorpNum.Text, 'SEAL');
+                resultURL := taxinvoiceService.GetSealURL(txtCorpNum.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -3360,7 +3360,7 @@ begin
 end;
 
 
-procedure TfrmExample.btnGetPartnerURL_CHRGClick(Sender: TObject);
+procedure TfrmExample.btnGetPartnerURLClick(Sender: TObject);
 var
   resultURL : String;
 begin
@@ -3370,7 +3370,7 @@ begin
         {**********************************************************************}
         
         try
-                resultURL := taxinvoiceService.getPartnerURL(txtCorpNum.Text, 'CHRG');
+                resultURL := taxinvoiceService.GetPartnerURL(txtCorpNum.Text, 'CHRG');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);

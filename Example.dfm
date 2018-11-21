@@ -1,6 +1,6 @@
 object frmExample: TfrmExample
-  Left = 227
-  Top = 137
+  Left = 200
+  Top = 148
   Width = 1303
   Height = 769
   Caption = 'Linkhub 팝빌 전자세금계산서  SDK Examples'
@@ -43,6 +43,95 @@ object frmExample: TfrmExample
       Width = 120
       Height = 13
       Caption = '문서관리번호(MgtKey) :'
+    end
+    object GroupBox19: TGroupBox
+      Left = 624
+      Top = 64
+      Width = 305
+      Height = 185
+      Caption = '역발행 (즉시요청) 프로세스'
+      TabOrder = 17
+      object Shape22: TShape
+        Left = 96
+        Top = 152
+        Width = 145
+        Height = 0
+      end
+      object Shape24: TShape
+        Left = 104
+        Top = 152
+        Width = 121
+        Height = 1
+      end
+      object Shape25: TShape
+        Left = 256
+        Top = 40
+        Width = 1
+        Height = 113
+      end
+      object Shape26: TShape
+        Left = 120
+        Top = 40
+        Width = 137
+        Height = 1
+      end
+      object Shape27: TShape
+        Left = 128
+        Top = 64
+        Width = 129
+        Height = 1
+      end
+      object Shape28: TShape
+        Left = 72
+        Top = 64
+        Width = 1
+        Height = 97
+      end
+      object btnIssue_Reverse_sub: TButton
+        Left = 40
+        Top = 88
+        Width = 73
+        Height = 33
+        Caption = '발행'
+        TabOrder = 0
+        OnClick = btnIssue_Reverse_subClick
+      end
+      object btnCancelIssue_Reverse_sub: TButton
+        Left = 40
+        Top = 136
+        Width = 73
+        Height = 33
+        Caption = '발행취소'
+        TabOrder = 1
+        OnClick = btnCancelIssue_Reverse_subClick
+      end
+      object btnCancelRequest_sub: TButton
+        Left = 168
+        Top = 24
+        Width = 65
+        Height = 25
+        Caption = '요청취소'
+        TabOrder = 2
+        OnClick = btnCancelRequest_subClick
+      end
+      object btnRefuse_sub: TButton
+        Left = 168
+        Top = 56
+        Width = 65
+        Height = 25
+        Caption = '거부'
+        TabOrder = 3
+        OnClick = btnRefuse_subClick
+      end
+      object btnDelete_Reverse_sub: TButton
+        Left = 224
+        Top = 136
+        Width = 65
+        Height = 33
+        Caption = '삭제'
+        TabOrder = 4
+        OnClick = btnDelete_Reverse_subClick
+      end
     end
     object GroupBox15: TGroupBox
       Left = 32
@@ -555,7 +644,7 @@ object frmExample: TfrmExample
         'TRUSTEE')
     end
     object GroupBox13: TGroupBox
-      Left = 632
+      Left = 944
       Top = 64
       Width = 257
       Height = 185
@@ -814,6 +903,15 @@ object frmExample: TfrmExample
         TabOrder = 4
         OnClick = btnGetEPrintUrlClick
       end
+    end
+    object btnRegistRequest: TButton
+      Left = 648
+      Top = 96
+      Width = 105
+      Height = 41
+      Caption = '즉시요청'
+      TabOrder = 16
+      OnClick = btnRegistRequestClick
     end
   end
   object GroupBox8: TGroupBox

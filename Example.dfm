@@ -1,8 +1,8 @@
 object frmExample: TfrmExample
   Left = 200
   Top = 148
-  Width = 1325
-  Height = 846
+  Width = 1301
+  Height = 842
   Caption = 'Linkhub 팝빌 전자세금계산서  SDK Examples'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -47,7 +47,7 @@ object frmExample: TfrmExample
     object GroupBox21: TGroupBox
       Left = 640
       Top = 72
-      Width = 601
+      Width = 617
       Height = 225
       Caption = '역발행 프로세스'
       TabOrder = 19
@@ -719,7 +719,7 @@ object frmExample: TfrmExample
         Pen.Style = psClear
       end
       object Shape16: TShape
-        Left = 77
+        Left = 53
         Top = 48
         Width = 2
         Height = 113
@@ -757,19 +757,11 @@ object frmExample: TfrmExample
         ParentColor = False
         ParentFont = False
       end
-      object Shape13: TShape
-        Left = 116
-        Top = 116
-        Width = 41
-        Height = 2
-        Brush.Color = clNavy
-        Pen.Style = psClear
-      end
       object Shape14: TShape
         Left = 115
-        Top = 84
+        Top = 81
         Width = 2
-        Height = 34
+        Height = 77
         Brush.Color = clNavy
         Pen.Style = psClear
       end
@@ -800,7 +792,7 @@ object frmExample: TfrmExample
         OnClick = btnUpdate_ReverseClick
       end
       object btnCancelIssue_Reverse: TButton
-        Left = 48
+        Left = 24
         Top = 144
         Width = 60
         Height = 25
@@ -818,7 +810,7 @@ object frmExample: TfrmExample
         OnClick = btnDeleteClick
       end
       object btnIssue_Reverse: TButton
-        Left = 48
+        Left = 24
         Top = 106
         Width = 60
         Height = 25
@@ -836,18 +828,18 @@ object frmExample: TfrmExample
         OnClick = btnCancelRequestClick
       end
       object btnRequest: TButton
-        Left = 32
+        Left = 24
         Top = 66
-        Width = 97
+        Width = 105
         Height = 25
         Caption = '(역)발행요청'
         TabOrder = 6
         OnClick = btnRequestClick
       end
       object btnRefuse: TButton
-        Left = 152
-        Top = 104
-        Width = 73
+        Left = 96
+        Top = 106
+        Width = 57
         Height = 25
         Caption = '거부'
         TabOrder = 7

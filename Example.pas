@@ -117,7 +117,6 @@ type
     btnCancelRequest: TButton;
     btnRequest: TButton;
     btnRefuse: TButton;
-    Shape13: TShape;
     Shape14: TShape;
     Shape17: TShape;
     btnGetEmailPublicKey: TButton;

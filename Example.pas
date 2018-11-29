@@ -179,6 +179,7 @@ type
     Shape30: TShape;
     Shape31: TShape;
     StaticText1: TStaticText;
+    Shape33: TShape;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetAccessURLClick(Sender: TObject);
@@ -4044,6 +4045,11 @@ begin
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 
 end;
+
+
+
+
+
 
 end.
 

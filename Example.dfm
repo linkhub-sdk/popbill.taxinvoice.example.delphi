@@ -758,7 +758,7 @@ object frmExample: TfrmExample
         ParentFont = False
       end
       object Shape14: TShape
-        Left = 115
+        Left = 123
         Top = 81
         Width = 2
         Height = 77
@@ -768,7 +768,7 @@ object frmExample: TfrmExample
       object Shape17: TShape
         Left = 116
         Top = 76
-        Width = 41
+        Width = 53
         Height = 2
         Brush.Color = clNavy
         Pen.Style = psClear
@@ -801,7 +801,7 @@ object frmExample: TfrmExample
         OnClick = btnCancel_IssueClick
       end
       object btnDelete_Reverse: TButton
-        Left = 156
+        Left = 164
         Top = 144
         Width = 65
         Height = 25
@@ -819,7 +819,7 @@ object frmExample: TfrmExample
         OnClick = btnIssueClick
       end
       object btnCancelRequest: TButton
-        Left = 152
+        Left = 160
         Top = 66
         Width = 73
         Height = 25
@@ -830,7 +830,7 @@ object frmExample: TfrmExample
       object btnRequest: TButton
         Left = 24
         Top = 66
-        Width = 105
+        Width = 121
         Height = 25
         Caption = '(开)惯青夸没'
         TabOrder = 6
@@ -839,7 +839,7 @@ object frmExample: TfrmExample
       object btnRefuse: TButton
         Left = 96
         Top = 106
-        Width = 57
+        Width = 60
         Height = 25
         Caption = '芭何'
         TabOrder = 7

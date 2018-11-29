@@ -239,9 +239,9 @@ object frmExample: TfrmExample
       end
       object Shape11: TShape
         Left = 295
-        Top = 48
+        Top = 45
         Width = 2
-        Height = 118
+        Height = 129
         Brush.Color = clNavy
         Pen.Style = psClear
       end
@@ -263,7 +263,7 @@ object frmExample: TfrmExample
       end
       object Shape9: TShape
         Left = 53
-        Top = 164
+        Top = 172
         Width = 244
         Height = 2
         Brush.Color = clNavy
@@ -384,7 +384,7 @@ object frmExample: TfrmExample
       end
       object btnCancel_Issue: TButton
         Left = 16
-        Top = 152
+        Top = 160
         Width = 60
         Height = 25
         Caption = '발행취소'

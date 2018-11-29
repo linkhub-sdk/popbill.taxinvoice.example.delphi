@@ -35,7 +35,7 @@ const
 
         // 링크아이디.
         LinkID = 'TESTER';
-        
+
         // 파트너 통신용 비밀키. 유출 주의.
         SecretKey = 'SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I=';
 
@@ -51,7 +51,6 @@ type
     Shape8: TShape;
     Shape9: TShape;
     Shape7: TShape;
-    Shape6: TShape;
     Shape4: TShape;
     Shape5: TShape;
     Shape1: TShape;
@@ -174,6 +173,13 @@ type
     Shape26: TShape;
     Shape27: TShape;
     Shape28: TShape;
+    GroupBox20: TGroupBox;
+    GroupBox21: TGroupBox;
+    Shape6: TShape;
+    Shape29: TShape;
+    Shape30: TShape;
+    Shape31: TShape;
+    StaticText1: TStaticText;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetAccessURLClick(Sender: TObject);
@@ -4041,3 +4047,7 @@ begin
 end;
 
 end.
+
+
+
+

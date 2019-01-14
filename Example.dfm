@@ -1,6 +1,6 @@
 object frmExample: TfrmExample
-  Left = 200
-  Top = 148
+  Left = 605
+  Top = 174
   Width = 1301
   Height = 842
   Caption = 'Linkhub 팝빌 전자세금계산서  SDK Examples'
@@ -407,9 +407,9 @@ object frmExample: TfrmExample
       end
       object btnDelete: TButton
         Left = 204
-        Top = 160
+        Top = 168
         Width = 65
-        Height = 25
+        Height = 17
         Caption = '삭제'
         TabOrder = 4
         OnClick = btnDeleteClick
@@ -861,10 +861,10 @@ object frmExample: TfrmExample
       end
     end
     object btnGetEmailPublicKey: TButton
-      Left = 1080
-      Top = 16
-      Width = 177
-      Height = 33
+      Left = 1088
+      Top = 24
+      Width = 169
+      Height = 25
       Caption = '유통사업자 메일 목록 확인'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -1206,9 +1206,9 @@ object frmExample: TfrmExample
       OnClick = btnGetBalanceClick
     end
     object btnGetChargeURL: TButton
-      Left = 11
+      Left = 8
       Top = 56
-      Width = 125
+      Width = 128
       Height = 25
       Caption = '포인트 충전 URL'
       TabOrder = 1

@@ -2,7 +2,7 @@
 { 팝빌 전자세금계산서 API Delphi SDK Example                                   }
 {                                                                              }
 { - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/572                   }
-{ - 업데이트 일자 : 2018-11-21                                                 }
+{ - 업데이트 일자 : 2019-01-15                                                 }
 { - 연동 기술지원 연락처 : 1600-9854 / 070-4304-2991                           }
 { - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
 {                                                                              }
@@ -3634,7 +3634,7 @@ begin
                 end;
         end;
 
-        tmp := '메일전송유형 | 전송여부' + #13;
+        tmp := 'emailType(메일전송유형) | sendYN(전송여부)' + #13;
 
         for i := 0 to Length(EmailConfigList) -1 do
         begin

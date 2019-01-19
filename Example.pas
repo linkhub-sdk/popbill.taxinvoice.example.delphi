@@ -688,9 +688,11 @@ begin
         taxinvoice.serialNum := '';
 
         // 기재 상 '권' 항목, 최대값 32767
+        // 미기재시 taxinvoice.kwon := '';
         taxinvoice.kwon := '1';
 
         // 기재 상 '호' 항목, 최대값 32767
+        // 미기재시 taxinovice.ho := '';
         taxinvoice.ho := '1';
 
         // 기재 상 '현금' 항목
@@ -1893,9 +1895,11 @@ begin
         taxinvoice.serialNum := '';
 
         // 기재 상 '권' 항목, 최대값 32767
+        // 미기재시 taxinvoice.kwon := '';
         taxinvoice.kwon := '1';
 
         // 기재 상 '호' 항목, 최대값 32767
+        // 미기재시 taxinovice.ho := '';
         taxinvoice.ho := '1';
 
         // 기재 상 '현금' 항목
@@ -2149,9 +2153,11 @@ begin
         taxinvoice.serialNum := '';
 
         // 기재 상 '권' 항목, 최대값 32767
+        // 미기재시 taxinvoice.kwon := '';
         taxinvoice.kwon := '1';
 
         // 기재 상 '호' 항목, 최대값 32767
+        // 미기재시 taxinovice.ho := '';
         taxinvoice.ho := '1';
 
         // 기재 상 '현금' 항목
@@ -2203,24 +2209,24 @@ begin
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[0].serialNum := 1;                //일련번호
         taxinvoice.detailList[0].purchaseDT := '20190114';      //거래일자
-        taxinvoice.detailList[0].itemName := '품목명';
-        taxinvoice.detailList[0].spec := '규격';
+        taxinvoice.detailList[0].itemName := '품목명1';         //품목명
+        taxinvoice.detailList[0].spec := '규격';                //규격
         taxinvoice.detailList[0].qty := '1';                    //수량
         taxinvoice.detailList[0].unitCost := '100000';          //단가
         taxinvoice.detailList[0].supplyCost := '100000';        //공급가액
         taxinvoice.detailList[0].tax := '10000';                //세액
-        taxinvoice.detailList[0].remark := '비고';
+        taxinvoice.detailList[0].remark := '비고';              //비고
 
         taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[1].serialNum := 2;                //일련번호
-        taxinvoice.detailList[1].purchaseDT := '20190114';      //거래일자
-        taxinvoice.detailList[1].itemName := '품목명2';
-        taxinvoice.detailList[1].spec := '규격';
-        taxinvoice.detailList[1].qty := '1';                    //수량
-        taxinvoice.detailList[1].unitCost := '100000';          //단가
-        taxinvoice.detailList[1].supplyCost := '100000';        //공급가액
-        taxinvoice.detailList[1].tax := '10000';                //세액
-        taxinvoice.detailList[1].remark := '비고';
+        taxinvoice.detailList[0].purchaseDT := '20190114';      //거래일자
+        taxinvoice.detailList[0].itemName := '품목명1';         //품목명
+        taxinvoice.detailList[0].spec := '규격';                //규격
+        taxinvoice.detailList[0].qty := '1';                    //수량
+        taxinvoice.detailList[0].unitCost := '100000';          //단가
+        taxinvoice.detailList[0].supplyCost := '100000';        //공급가액
+        taxinvoice.detailList[0].tax := '10000';                //세액
+        taxinvoice.detailList[0].remark := '비고';              //비고
 
 
         {**********************************************************************}
@@ -2404,9 +2410,11 @@ begin
         taxinvoice.serialNum := '';
 
         // 기재 상 '권' 항목, 최대값 32767
+        // 미기재시 taxinvoice.kwon := '';
         taxinvoice.kwon := '1';
 
         // 기재 상 '호' 항목, 최대값 32767
+        // 미기재시 taxinovice.ho := '';
         taxinvoice.ho := '1';
 
         // 기재 상 '현금' 항목
@@ -2457,25 +2465,25 @@ begin
 
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[0].serialNum := 1;                //일련번호
-        taxinvoice.detailList[0].purchaseDT := '20180114';      //거래일자
-        taxinvoice.detailList[0].itemName := '품목명';
-        taxinvoice.detailList[0].spec := '규격';
+        taxinvoice.detailList[0].purchaseDT := '20190114';      //거래일자
+        taxinvoice.detailList[0].itemName := '품목명1';         //품목명
+        taxinvoice.detailList[0].spec := '규격';                //규격
         taxinvoice.detailList[0].qty := '1';                    //수량
         taxinvoice.detailList[0].unitCost := '100000';          //단가
         taxinvoice.detailList[0].supplyCost := '100000';        //공급가액
         taxinvoice.detailList[0].tax := '10000';                //세액
-        taxinvoice.detailList[0].remark := '비고';
+        taxinvoice.detailList[0].remark := '비고';              //비고
 
         taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[1].serialNum := 2;                //일련번호
-        taxinvoice.detailList[1].purchaseDT := '20180114';      //거래일자
-        taxinvoice.detailList[1].itemName := '품목명2';
-        taxinvoice.detailList[1].spec := '규격';
-        taxinvoice.detailList[1].qty := '1';                    //수량
-        taxinvoice.detailList[1].unitCost := '100000';          //단가
-        taxinvoice.detailList[1].supplyCost := '100000';        //공급가액
-        taxinvoice.detailList[1].tax := '10000';                //세액
-        taxinvoice.detailList[1].remark := '비고';
+        taxinvoice.detailList[0].purchaseDT := '20190114';      //거래일자
+        taxinvoice.detailList[0].itemName := '품목명1';         //품목명
+        taxinvoice.detailList[0].spec := '규격';                //규격
+        taxinvoice.detailList[0].qty := '1';                    //수량
+        taxinvoice.detailList[0].unitCost := '100000';          //단가
+        taxinvoice.detailList[0].supplyCost := '100000';        //공급가액
+        taxinvoice.detailList[0].tax := '10000';                //세액
+        taxinvoice.detailList[0].remark := '비고';              //비고
 
 
         {**********************************************************************}
@@ -2553,7 +2561,8 @@ begin
         tmp := tmp +'remark3(비고3) : ' +  taxinvoice.remark3 + #13;
 
         tmp := tmp + '-----상세항목-----' + #13;
-        tmp := tmp + '일련번호 | 거래일자 | 품명 | 규격 | 수량 | 단가 | 공급가액 | 세액 | 비고' + #13;
+        tmp := tmp + 'serialNum(일련번호) | purchaseDT(거래일자) | itemName(품명) | spec(규격) | qty(수량) |';
+        tmp := tmp + 'unitCost(단가) | supplyCost(공급가액) | tax(세액) | remark(비고)' + #13;
         for i:= 0 to Length(taxinvoice.detailList)-1 do
         begin
             tmp := tmp + IntToStr(taxinvoice.detailList[i].serialNum) + ' | ' +
@@ -3078,9 +3087,11 @@ begin
         taxinvoice.serialNum := '';
 
         // 기재 상 '권' 항목, 최대값 32767
+        // 미기재시 taxinvoice.kwon := '';
         taxinvoice.kwon := '1';
 
         // 기재 상 '호' 항목, 최대값 32767
+        // 미기재시 taxinovice.ho := '';
         taxinvoice.ho := '1';
 
         // 기재 상 '현금' 항목
@@ -3132,25 +3143,24 @@ begin
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[0].serialNum := 1;                //일련번호
         taxinvoice.detailList[0].purchaseDT := '20190114';      //거래일자
-        taxinvoice.detailList[0].itemName := copy('일이$삼사오육칠팔구십', 1, 8);
-        taxinvoice.detailList[0].spec := '규격';
+        taxinvoice.detailList[0].itemName := '품목명1';         //품목명
+        taxinvoice.detailList[0].spec := '규격';                //규격
         taxinvoice.detailList[0].qty := '1';                    //수량
         taxinvoice.detailList[0].unitCost := '100000';          //단가
         taxinvoice.detailList[0].supplyCost := '100000';        //공급가액
         taxinvoice.detailList[0].tax := '10000';                //세액
-        taxinvoice.detailList[0].remark := '비고';
+        taxinvoice.detailList[0].remark := '비고';              //비고
 
         taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[1].serialNum := 2;                //일련번호
-        taxinvoice.detailList[1].purchaseDT := '20190114';      //거래일자
-        taxinvoice.detailList[1].itemName := '품목명2';
-        taxinvoice.detailList[1].spec := '규격';
-        taxinvoice.detailList[1].qty := '1';                    //수량
-        taxinvoice.detailList[1].unitCost := '100000';          //단가
-        taxinvoice.detailList[1].supplyCost := '100000';        //공급가액
-        taxinvoice.detailList[1].tax := '10000';                //세액
-        taxinvoice.detailList[1].remark := '비고';
-
+        taxinvoice.detailList[0].purchaseDT := '20190114';      //거래일자
+        taxinvoice.detailList[0].itemName := '품목명1';         //품목명
+        taxinvoice.detailList[0].spec := '규격';                //규격
+        taxinvoice.detailList[0].qty := '1';                    //수량
+        taxinvoice.detailList[0].unitCost := '100000';          //단가
+        taxinvoice.detailList[0].supplyCost := '100000';        //공급가액
+        taxinvoice.detailList[0].tax := '10000';                //세액
+        taxinvoice.detailList[0].remark := '비고';              //비고
 
         {**********************************************************************}
         {                           추가담당자 정보                            }
@@ -3937,9 +3947,11 @@ begin
         taxinvoice.serialNum := '';
 
         // 기재 상 '권' 항목, 최대값 32767
+        // 미기재시 taxinvoice.kwon := '';
         taxinvoice.kwon := '1';
 
         // 기재 상 '호' 항목, 최대값 32767
+        // 미기재시 taxinovice.ho := '';
         taxinvoice.ho := '1';
 
         // 기재 상 '현금' 항목
@@ -3991,24 +4003,24 @@ begin
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[0].serialNum := 1;                //일련번호
         taxinvoice.detailList[0].purchaseDT := '20190114';      //거래일자
-        taxinvoice.detailList[0].itemName := '품목명1';
-        taxinvoice.detailList[0].spec := '규격';
+        taxinvoice.detailList[0].itemName := '품목명1';         //품목명
+        taxinvoice.detailList[0].spec := '규격';                //규격
         taxinvoice.detailList[0].qty := '1';                    //수량
         taxinvoice.detailList[0].unitCost := '100000';          //단가
         taxinvoice.detailList[0].supplyCost := '100000';        //공급가액
         taxinvoice.detailList[0].tax := '10000';                //세액
-        taxinvoice.detailList[0].remark := '비고';
+        taxinvoice.detailList[0].remark := '비고';              //비고
 
         taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[1].serialNum := 2;                //일련번호
-        taxinvoice.detailList[1].purchaseDT := '20190114';      //거래일자
-        taxinvoice.detailList[1].itemName := '품목명2';
-        taxinvoice.detailList[1].spec := '규격';
-        taxinvoice.detailList[1].qty := '1';                    //수량
-        taxinvoice.detailList[1].unitCost := '100000';          //단가
-        taxinvoice.detailList[1].supplyCost := '100000';        //공급가액
-        taxinvoice.detailList[1].tax := '10000';                //세액
-        taxinvoice.detailList[1].remark := '비고';
+        taxinvoice.detailList[0].purchaseDT := '20190114';      //거래일자
+        taxinvoice.detailList[0].itemName := '품목명1';         //품목명
+        taxinvoice.detailList[0].spec := '규격';                //규격
+        taxinvoice.detailList[0].qty := '1';                    //수량
+        taxinvoice.detailList[0].unitCost := '100000';          //단가
+        taxinvoice.detailList[0].supplyCost := '100000';        //공급가액
+        taxinvoice.detailList[0].tax := '10000';                //세액
+        taxinvoice.detailList[0].remark := '비고';              //비고
 
 
         {**********************************************************************}

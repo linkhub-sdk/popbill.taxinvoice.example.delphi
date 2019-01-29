@@ -322,7 +322,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -362,7 +361,7 @@ var
         memo : String;
 begin
         {**********************************************************************}
-        { 공급자가 요청받은 역)발행 세금계산서를 [거부] 처리합니다.            }
+        { 공급자가 요청받은 역발행 세금계산서를 [거부] 처리합니다.             }
         { - [거부]처리 된 세금계산서의 문서관리번호를 재사용 하기 위해서는     }
         {   삭제 (Delete API) 호출해야 합니다.                                 }
         {**********************************************************************}
@@ -379,7 +378,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -389,7 +387,7 @@ var
         memo : String;
 begin
         {**********************************************************************}
-        { 공급받는자가 요청한 1건의 역)발행 세금계산서를 [취소] 처리합니다.    }
+        { 공급받는자가 요청한 1건의 역발행 세금계산서를 [취소] 처리합니다.     }
         { - [취소]처리 된 세금계산서의 문서관리번호를 재사용 하기 위해서는     }
         {   삭제 (Delete API) 호출해야 합니다.                                 }
         {**********************************************************************}
@@ -406,7 +404,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -430,7 +427,6 @@ begin
                 end;
         end;
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
-
 end;
 
 procedure TfrmExample.btnGetAccessURLClick(Sender: TObject);
@@ -450,7 +446,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
@@ -514,7 +509,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -523,7 +517,6 @@ var
         taxinvoice : TTaxinvoice;
         response : TResponse;
 begin
-
         {**********************************************************************}
         { - 세금계산서 임시저장(Register API) 호출후에는 발행(Issue API)을     }
         {   호출해야만 국세청으로 전송됩니다.                                  }
@@ -554,7 +547,6 @@ begin
 
         // [필수] 과세형태, [과세, 영세, 면세] 중 기재
         taxinvoice.taxType :='과세';
-
 
         {**********************************************************************}
         {                             공급자 정보                              }
@@ -602,7 +594,6 @@ begin
         // - 전송시 포인트가 차감되며 전송실패하는 경우 포인트 환불처리
         taxinvoice.invoicerSMSSendYN := false;
 
-
         {**********************************************************************}
         {                            공급받는자 정보                           }
         {**********************************************************************}
@@ -646,7 +637,6 @@ begin
 
         // 공급받는자 휴대폰번호
         taxinvoice.invoiceeHP1 := '010-0000-222';
-
 
         {**********************************************************************}
         {                           세금계산서 정보                            }
@@ -695,7 +685,6 @@ begin
         // 통장사본 이미지 첨부여부
         taxinvoice.bankBookYN := false;
 
-
         {**********************************************************************}
         {         수정세금계산서 정보 (수정세금계산서 작성시에만 기재          }
         {   수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조    }
@@ -708,13 +697,12 @@ begin
         // 원본세금계산서의 ItemKey, 문서확인 (GetInfo API)의 응답결과(ItemKey 항목) 확인.
         taxinvoice.originalTaxinvoiceKey := '';
 
-
         {**********************************************************************}
         {                        상세항목(품목) 정보                           }
         {**********************************************************************}
 
         // 상세항목 0~99개 까지 작성가능.
-        // 일련번호 (serialNum) 는 1부터 99까지 순차기재.
+        // 일련번호(serialNum) 는 1부터 99까지 순차기재.
         // SetLength로 초기화 한후 기재.
         setLength(taxinvoice.detailList, 2);
 
@@ -739,7 +727,6 @@ begin
         taxinvoice.detailList[1].supplyCost := '100000';        //공급가액
         taxinvoice.detailList[1].tax := '10000';                //세액
         taxinvoice.detailList[1].remark := '비고';              //비고
-
 
         {**********************************************************************}
         {                           추가담당자 정보                            }
@@ -770,7 +757,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -792,9 +778,7 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('잔여포인트 : ' + FloatToStr(balance));
-
 end;
 
 procedure TfrmExample.btnGetCertificateExpireDateClick(Sender: TObject);
@@ -815,9 +799,7 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('인증서 만료일 : '+ Expired);
-
 end;
 
 procedure TfrmExample.btnGetUnitCostClick(Sender: TObject);
@@ -836,7 +818,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('세금계산서 발행단가 : '+ FloatToStr(unitcost));
 end;
 
@@ -859,9 +840,7 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('잔여포인트 : ' + FloatToStr(balance));
-
 end;
 
 procedure TfrmExample.btnDeleteClick(Sender: TObject);
@@ -884,7 +863,6 @@ begin
                 end;
         end;
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
-
 end;
 
 procedure TfrmExample.btnAttachFileClick(Sender: TObject);
@@ -913,9 +891,7 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
-
 end;                                                 
 
 procedure TfrmExample.btnGetFileListClick(Sender: TObject);
@@ -947,10 +923,9 @@ begin
                         + fileList[i].DisplayName + ' | '
                         + fileList[i].AttachedFile + ' | '
                         + fileList[i].RegDT + #13;
-                        
+
             tbFileIndexID.Text := fileList[i].AttachedFile;
         end;
-
         ShowMessage(tmp);
 end;
 
@@ -973,7 +948,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -988,7 +962,7 @@ begin
         {  "[전자세금계산서 API 연동매뉴얼] > 4.2. (세금)계산서 상태정보 구성" }
         {  을 참조하시기 바랍니다.                                             }
         {**********************************************************************}
-        
+
         try
                 taxinvoiceInfo := taxinvoiceService.getInfo(txtCorpNum.text, MgtKeyType, tbMgtKey.Text);
         except
@@ -998,27 +972,49 @@ begin
                 end;
         end;
 
-        tmp := 'ItemKey(팝빌 관리번호) | modifyCode(수정 사유코드) | StateCode(상태코드) | TaxType(과세형태) | WriteDate(작성일자) | RegDT(임시저장 일자) | ';
-        tmp := tmp + 'OpenYN(개봉 여부) | OpenDT(개봉 일시) | lateIssueYN(지연발행 여부) | InvoicerPrintYN(공급자인쇄 여부) | InvoiceePrintYN(공급받는자 인쇄여부) |';
-        tmp := tmp + 'closeDownState(공급받는자 휴폐업상태) | closeDownStateDate(공급받는자 휴폐업일자) | interOPYN(연동문서 여부) ' + #13;
+        tmp := 'itemKey(팝빌 관리번호) |  taxType (과세형태) |  writeDate (작성일자) |  regDT (임시저장 일자) |  issueType (발행형태) |  supplyCostTotal (공급가액 합계) | ';
+        tmp := tmp + 'taxTotal (세액 합계) |  purposeType (영수/청구) | issueDT (발행일시) | lateIssueYN (지연발행 여부) | openYN (개봉 여부) | openDT (개봉 일시) | ';
+        tmp := tmp + 'stateMemo (상태메모) | stateCode (상태코드) | ntsconfirmNum (국세청승인번호) | ntsresult (국세청 전송결과) | ntssendDT (국세청 전송일시) | ';
+        tmp := tmp + 'ntsresultDT (국세청 결과 수신일시) | ntssendErrCode (실패사유 사유코드) | modifyCode (수정 사유코드) | interOPYN (연동문서 여부) | invoicerCorpName (공급자 상호) |';
+        tmp := tmp + 'invoicerCorpNum (공급자 사업자번호) | invoicerMgtKey (공급자 문서관리번호) | invoicerPrintYN (공급자 인쇄여부) | invoiceeCorpName (공급받는자 상호) |' ;
+        tmp := tmp + 'invoiceeCorpNum (공급받는자 사업자번호) | invoiceeMgtKey(공급받는자 문서관리번호) | invoiceePrintYN(공급받는자 인쇄여부) | closeDownState(공급받는자 휴폐업상태) |';
+        tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) | trusteeCorpName (수탁자 상호) | trusteeCorpNum (수탁자 사업자번호) | trusteeMgtKey(수탁자 문서관리번호) | ';
+        tmp := tmp + 'trusteePrintYN(수탁자 인쇄여부) ' + #13 + #13;
 
-        tmp := tmp + taxinvoiceInfo.ItemKey + ' | '
-                + taxinvoiceInfo.ModifyCode + ' | '
-                + IntToStr(taxinvoiceInfo.StateCode) + ' | '
-                + taxinvoiceInfo.TaxType + ' | '
-                + taxinvoiceInfo.WriteDate + ' | '
-                + taxinvoiceInfo.RegDT + ' | '
-                + BoolToStr(taxinvoiceInfo.OpenYN) + ' | '
-                + taxinvoiceInfo.OpenDT + ' | '
-                + BoolToStr(taxinvoiceInfo.lateIssueYN) + ' | '
-                + BoolToStr(taxinvoiceInfo.InvoicerPrintYN) + ' | '
-                + BoolToStr(taxinvoiceInfo.InvoiceePrintYN) + ' | '
-                + IntToStr(taxinvoiceInfo.closeDownState) + ' | '
-                + taxinvoiceInfo.closeDownStateDate + ' | '
-                + BoolToStr(taxinvoiceInfo.interOPYN)  + #13;
-                
+        tmp := tmp + taxinvoiceInfo.ItemKey + '|'
+                + taxinvoiceInfo.TaxType + '|'
+                + taxinvoiceInfo.WriteDate + '|'
+                + taxinvoiceInfo.issueType + '|'
+                + taxinvoiceInfo.supplyCostTotal + '|'
+                + taxinvoiceInfo.taxTotal + '|'
+                + taxinvoiceInfo.purposeType + '|'
+                + BoolToStr(taxinvoiceInfo.lateIssueYN) + '|'
+                + BoolToStr(taxinvoiceInfo.openYN) + '|'
+                + taxinvoiceInfo.openDT + '|'
+                + taxinvoiceInfo.stateMemo + '|'
+                + IntToStr(taxinvoiceInfo.stateCode) + '|'
+                + taxinvoiceInfo.ntsconfirmNum + '|'
+                + taxinvoiceInfo.ntsresult + '|'
+                + taxinvoiceInfo.ntssendDT + '|'
+                + taxinvoiceInfo.ntsresultDT + '|'
+                + taxinvoiceInfo.ntssendErrCode + '|'
+                + taxinvoiceInfo.modifyCode + '|'
+                + BoolToStr(taxinvoiceInfo.interOPYN) + '|'
+                + taxinvoiceInfo.invoicerCorpName + '|'
+                + taxinvoiceInfo.invoicerCorpNum + '|'
+                + taxinvoiceInfo.invoicerMgtKey + '|'
+                + BoolToStr(taxinvoiceInfo.invoicerPrintYN)+ '|'
+                + taxinvoiceInfo.invoiceeCorpName + '|'
+                + taxinvoiceInfo.invoiceeCorpNum + '|'
+                + taxinvoiceInfo.invoiceeMgtKey + '|'
+                + BoolToStr(taxinvoiceInfo.invoicerPrintYN)+ '|'
+                + IntToStr(taxinvoiceInfo.closeDownState) + '|'
+                + taxinvoiceInfo.closeDownStateDate + '|'
+                + taxinvoiceInfo.trusteeCorpName + '|'
+                + taxinvoiceInfo.trusteeCorpNum + '|'
+                + taxinvoiceInfo.trusteeMgtKey + '|'
+                + BoolToStr(taxinvoiceInfo.trusteePrintYN)+ '|';
         ShowMessage(tmp);
-
 end;
 
 procedure TfrmExample.btnGetInfosClick(Sender: TObject);
@@ -1039,7 +1035,7 @@ begin
         SetLength(KeyList,2);
         KeyList[0] := '20190114-001';
         KeyList[1] := '20190114-002';
-        
+
         try
                 InfoList := taxinvoiceService.getInfos(txtCorpNum.text, MgtKeyType, KeyList);
         except
@@ -1049,28 +1045,56 @@ begin
                 end;
         end;
 
-        tmp := 'ItemKey(팝빌 관리번호) | StateCode(상태코드) | TaxType(과세형태) | WriteDate(작성일자) | RegDT(임시저장 일자) | lateIssueYN(지연발행 여부) | ';
-        tmp := tmp + 'InvoicerPrintYN(공급자인쇄 여부) | InvoiceePrintYN(공급받는자 인쇄여부) | closeDownState(공급받는자 휴폐업상태) |';
-        tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) | interOPYN(연동문서 여부)' + #13;
-
+        tmp := 'itemKey(팝빌 관리번호) |  taxType (과세형태) |  writeDate (작성일자) |  regDT (임시저장 일자) |  issueType (발행형태) |  supplyCostTotal (공급가액 합계) | ';
+        tmp := tmp + 'taxTotal (세액 합계) |  purposeType (영수/청구) | issueDT (발행일시) | lateIssueYN (지연발행 여부) | openYN (개봉 여부) | openDT (개봉 일시) | ';
+        tmp := tmp + 'stateMemo (상태메모) | stateCode (상태코드) | ntsconfirmNum (국세청승인번호) | ntsresult (국세청 전송결과) | ntssendDT (국세청 전송일시) | ';
+        tmp := tmp + 'ntsresultDT (국세청 결과 수신일시) | ntssendErrCode (실패사유 사유코드) | modifyCode (수정 사유코드) | interOPYN (연동문서 여부) | invoicerCorpName (공급자 상호) |';
+        tmp := tmp + 'invoicerCorpNum (공급자 사업자번호) | invoicerMgtKey (공급자 문서관리번호) | invoicerPrintYN (공급자 인쇄여부) | invoiceeCorpName (공급받는자 상호) |' ;
+        tmp := tmp + 'invoiceeCorpNum (공급받는자 사업자번호) | invoiceeMgtKey(공급받는자 문서관리번호) | invoiceePrintYN(공급받는자 인쇄여부) | closeDownState(공급받는자 휴폐업상태) |';
+        tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) | trusteeCorpName (수탁자 상호) | trusteeCorpNum (수탁자 사업자번호) | trusteeMgtKey(수탁자 문서관리번호) | ';
+        tmp := tmp + 'trusteePrintYN(수탁자 인쇄여부) ' + #13 + #13;
 
         for i := 0 to Length(InfoList) -1 do
         begin
-            tmp := tmp + InfoList[i].ItemKey + ' | '
-                        + IntToStr(InfoList[i].StateCode) + ' | '
-                        + InfoList[i].TaxType + ' | '
-                        + InfoList[i].WriteDate + ' | '
-                        + InfoList[i].RegDT + ' | '
-                        + BoolToStr(InfoList[i].lateIssueYN) + ' | '
-                        + BoolToStr(InfoList[i].InvoicerPrintYN) + ' | '
-                        + BoolToStr(InfoList[i].InvoiceePrintYN) + ' | '
-                        + IntToStr(InfoList[i].closeDownState) + ' | '
-                        + InfoList[i].closeDownStateDate + ' | '
-                        + BoolToStr(InfoList[i].interOPYN)  + #13;
+            tmp := tmp + InfoList[i].ItemKey + '|'
+                + InfoList[i].TaxType + '|'
+                + InfoList[i].WriteDate + '|'
+                + InfoList[i].issueType + '|'
+                + InfoList[i].supplyCostTotal + '|'
+                + InfoList[i].taxTotal + '|'
+                + InfoList[i].purposeType + '|'
+                + BoolToStr(InfoList[i].lateIssueYN) + '|'
+                + BoolToStr(InfoList[i].openYN) + '|'
+                + InfoList[i].openDT + '|'
+                + InfoList[i].stateMemo + '|'
+                + IntToStr(InfoList[i].stateCode) + '|'
+                + InfoList[i].ntsconfirmNum + '|'
+                + InfoList[i].ntsresult + '|'
+                + InfoList[i].ntssendDT + '|'
+                + InfoList[i].ntsresultDT + '|'
+                + InfoList[i].ntssendErrCode + '|'
+                + InfoList[i].modifyCode + '|'
+                + BoolToStr(InfoList[i].interOPYN) + '|'
+
+                + InfoList[i].invoicerCorpName + '|'
+                + InfoList[i].invoicerCorpNum + '|'
+                + InfoList[i].invoicerMgtKey + '|'
+                + BoolToStr(InfoList[i].invoicerPrintYN)+ '|'
+
+                + InfoList[i].invoiceeCorpName + '|'
+                + InfoList[i].invoiceeCorpNum + '|'
+                + InfoList[i].invoiceeMgtKey + '|'
+                + BoolToStr(InfoList[i].invoicerPrintYN)+ '|'
+
+                + IntToStr(InfoList[i].closeDownState) + '|'
+                + InfoList[i].closeDownStateDate + '|'
+
+                + InfoList[i].trusteeCorpName + '|'
+                + InfoList[i].trusteeCorpNum + '|'
+                + InfoList[i].trusteeMgtKey + '|'
+                + BoolToStr(InfoList[i].trusteePrintYN) + #13 + #13;
         end;
-
         ShowMessage(tmp);
-
 end;
 
 procedure TfrmExample.btnGetLogsClick(Sender: TObject);
@@ -1095,8 +1119,8 @@ begin
                 end;
         end;
 
-        tmp := 'DocLogType(로그타입) | Log(이력정보) | ProcType(처리형태) | ProcCorpName(처리담당자) | ';
-        tmp := tmp + 'ProcMemo(처리메모) | RegDT(등록일시) | IP(아이피)' + #13;
+        tmp := 'DocLogType(로그타입) | Log(이력정보) | ProcType(처리형태) | procCorpName(처리회사명) | ';
+        tmp := tmp + 'procContactName(처리담당자) | ProcMemo(처리메모) | RegDT(등록일시) | IP(아이피)' + #13;
 
         for i := 0 to Length(LogList) -1 do
         begin
@@ -1104,11 +1128,11 @@ begin
                         + LogList[i].Log + ' | '
                         + LogList[i].ProcType + ' | '
                         + LogList[i].ProcCorpName + ' | '
+                        + LogList[i].procContactName + ' | '
                         + LogList[i].ProcMemo + ' | '
                         + LogList[i].RegDT + ' | '
-                        + LogList[i].IP + ' | ' + #13;
+                        + LogList[i].IP + #13;
         end;
-
         ShowMessage(tmp);
 end;
 
@@ -1145,7 +1169,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -1158,14 +1181,14 @@ var
 begin
         {**********************************************************************}
         { [임시저장] 상태의 세금계산서를 [발행]처리 합니다.                    }
-        { - 발행(Issue API)를 호출하는 시점에서 포인트가 차감됩니다.           }
+        { - 발행(Issue API)을 호출하는 시점에서 포인트가 차감됩니다.           }
         { - [발행완료] 세금계산서는 연동회원의 국세청 전송설정에 따라          }
-        {    익일/즉시전송 처리됩니다. 기본설정(익일전송)                      }
+        {    익일/즉시전송 처리됩니다. 기본설정은 익일전송                     }
         { - 국세청 전송설정은 "팝빌 로그인" > [전자세금계산서] > [환경설정] >  }
         {   [전자세금계산서 관리] > [국세청 전송 및 지연발행 설정] 탭에서      }
         {   확인할 수 있습니다.                                                }
         { - 국세청 전송정책에 대한 사항은 "[전자세금계산서 API 연동매뉴얼] >   }
-        {   1.4. 국세청 전송 정책" 을 참조하시기 바랍니다                      }
+        {   1.3. 국세청 전송 정책" 을 참조하시기 바랍니다                      }
         {**********************************************************************}
 
         // 메모
@@ -1189,7 +1212,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -1205,7 +1227,7 @@ begin
         { - 국세청 전송에 관한 사항은 "[API 연동매뉴얼] > 1.3 국세청 전송 정책"}
         {   을 참조하시기 바랍니다                                             }
         {**********************************************************************}
-        
+
         try
                 response := taxinvoiceService.SendToNTS(txtCorpNum.text, MgtKeyType, tbMgtKey.Text);
         except
@@ -1226,7 +1248,7 @@ var
         memo : String;
 begin
         {********************************************************************************}
-        { 공급받는자가 공급자에게 1건의 임시저장 역)발행 세금계산서를 발행요청합니다.    }
+        { 공급받는자가 공급자에게 1건의 임시저장 역발행 세금계산서를 발행요청합니다.     }
         { - 역)발행 세금계산서를 발행하기 위해서는 공급자/공급받는자가 모두              }
         {  팝빌에 회원이여야 합니다.                                                     }
         { - 역)발행 요청후 공급자가 [발행] 처리시 포인트가 차감되며 역)발행              }
@@ -1246,7 +1268,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -1255,11 +1276,11 @@ var
         response : TResponse;
         memo : String;
 begin
-        {**********************************************************************}
-        { 공급받는자가 요청한 1건의 역)발행 세금계산서를 [취소] 처리합니다.    }
-        { - [취소]처리 된 세금계산서의 문서관리번호를 재사용 하기 위해서는     }
-        {   삭제 (Delete API) 호출해야 합니다.                                 }
-        {**********************************************************************}
+        {*******************************************************************}
+        { 공급받는자가 요청한 역발행 세금계산서를 [요청취소] 처리합니다.    }
+        { - [취소]처리 된 세금계산서의 문서관리번호를 재사용 하기 위해서는  }
+        {   삭제 (Delete API) 호출해야 합니다.                              }
+        {*******************************************************************}
 
         // 메모
         memo := '(역)발행요청 취소 메모';
@@ -1273,7 +1294,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -1283,7 +1303,7 @@ var
         memo : String;
 begin
         {**********************************************************************}
-        { 공급자가 요청받은 역)발행 세금계산서를 [거부] 처리합니다.            }
+        { 공급자가 요청받은 역발행 세금계산서를 [거부] 처리합니다.             }
         { - [거부]처리 된 세금계산서의 문서관리번호를 재사용 하기 위해서는     }
         {   삭제 (Delete API) 호출해야 합니다.                                 }
         {**********************************************************************}
@@ -1300,7 +1320,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -1321,13 +1340,13 @@ begin
         // 발신번호, [참고] 발신번호 세칙규정 - http://blog.linkhub.co.kr/3064
         sendNum := '010-1111-2222';
 
-        // 수신번호 
+        // 수신번호
         receiveNum := '010-222-333';
 
         // 메시지 내용, 최대 90Byte(한글 45자)
         // 길이를 초과한 내용은 삭제되어 전송됩니다.
         contents := '세금계산서가 발행되었습니다 메일을 확인해주세요.';
-        
+
         try
                 response := taxinvoiceService.SendSMS(txtCorpNum.text, MgtKeyType,
                                         tbMgtKey.Text, sendNum, receiveNum, contents);
@@ -1337,7 +1356,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -1363,7 +1381,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -1383,9 +1400,9 @@ begin
         // 팩스전송 발신번호
         sendNum := '070-111-222';
 
-        // 수신팩스번호
+        // 수신자 팩스번호
         receiveNum := '070-1234-1234';
-        
+
         try
                 response := taxinvoiceService.SendFAX(txtCorpNum.text, MgtKeyType,
                                          tbMgtKey.Text, sendNum, receiveNum);
@@ -1395,11 +1412,8 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
-
-
 
 procedure TfrmExample.btnGetTaxinvoiceURL1Click(Sender: TObject);
 var
@@ -1418,7 +1432,6 @@ begin
                         Exit;
                 end;
         end;
-        
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
@@ -1439,7 +1452,6 @@ begin
                         Exit;
                 end;
         end;
-        
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
@@ -1460,7 +1472,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
@@ -1481,7 +1492,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
@@ -1503,7 +1513,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
@@ -1525,7 +1534,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
@@ -1534,7 +1542,7 @@ var
   resultURL : String;
 begin
         {**********************************************************************}
-        { 공급받는자 메일링크 URL을 반환합니다.                                }
+        { 공급받는자 수신메일 링크 URL을 반환합니다.                                }
         { - 메일링크 URL은 유효시간이 존재하지 않습니다.                       }
         {**********************************************************************}
 
@@ -1547,7 +1555,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
@@ -1557,16 +1564,16 @@ var
         resultURL : String;
 begin
         {**********************************************************************}
-        { 다수건의 전자세금계산서 인쇄팝업 URL을 반환합니다.                   }
+        { 다수건의 전자세금계산서 인쇄팝업 URL을 반환합니다. (100건)           }
         { - 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.              }
         {**********************************************************************}
 
-        SetLength(KeyList,4);
+        SetLength(KeyList,4); //(최대 100건)
         KeyList[0] := '20190114-001';
         KeyList[1] := '20190114-002';
         KeyList[2] := '20190114-003';
         KeyList[3] := '20190114-004';
-        
+
         try
                 resultURL := taxinvoiceService.getMassPrintURL(txtCorpNum.text,
                         MgtKeyType, KeyList);
@@ -1576,9 +1583,7 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('ResultURL is ' + #13 + resultURL);
-
 end;
 
 procedure TfrmExample.btnGetEmailPublicKeyClick(Sender: TObject);
@@ -1618,12 +1623,10 @@ var
 begin
 
         {**********************************************************************}
-        { - 세금계산서 역)발행은 공급자, 공급받는자 모두 팝빌 회원인 경우에만  }
-        {   가능합니다.                                                        }
+        { - 역발행은 공급자, 공급받는자 모두 팝빌 회원인 경우에만 가능합니다.  }
         { - 세금계산서 항목별 정보는 "[전자세금계산서 API 연동매뉴얼] >        }
         {   4.1 (세금)계산서 구성" 을 참조하시기 바랍니다.                     }
         {**********************************************************************}
-
 
         // 세금계산서 객체 생성
         taxinvoice := TTaxinvoice.Create;
@@ -1646,7 +1649,6 @@ begin
 
         // [필수] 과세형태, [과세, 영세, 면세] 중 기재
         taxinvoice.taxType :='과세';
-
 
         {**********************************************************************}
         {                             공급자 정보                              }
@@ -1688,7 +1690,6 @@ begin
 
         // 공급자 담당자 휴대폰 번호
         taxinvoice.invoicerHP := '010-0000-2222';
-
 
         {**********************************************************************}
         {                            공급받는자 정보                           }
@@ -1786,7 +1787,6 @@ begin
         // 통장사본 이미지 첨부여부
         taxinvoice.bankBookYN := false;
 
-
         {**********************************************************************}
         {         수정세금계산서 정보 (수정세금계산서 작성시에만 기재          }
         {   수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조    }
@@ -1798,7 +1798,6 @@ begin
 
         // 원본세금계산서의 ItemKey, 문서확인 (GetInfo API)의 응답결과(ItemKey 항목) 확인.
         taxinvoice.originalTaxinvoiceKey := '';
-
 
         {**********************************************************************}
         {                        상세항목(품목) 정보                           }
@@ -1831,7 +1830,6 @@ begin
         taxinvoice.detailList[1].tax := '10000';                //세액
         taxinvoice.detailList[1].remark := '비고';              //비고
 
-
         try
                 response := taxinvoiceService.Register(txtCorpNum.text, taxinvoice);
                 taxinvoice.Free;
@@ -1842,7 +1840,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -1859,7 +1856,6 @@ begin
         {   4.1 (세금)계산서 구성" 을 참조하시기 바랍니다.                     }
         {**********************************************************************}
 
-        
         // 세금계산서 객체 생성
         taxinvoice := TTaxinvoice.Create;
 
@@ -2020,7 +2016,6 @@ begin
         // 통장사본 이미지 첨부여부
         taxinvoice.bankBookYN := false;
 
-
         {**********************************************************************}
         {         수정세금계산서 정보 (수정세금계산서 작성시에만 기재          }
         {   수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조    }
@@ -2039,7 +2034,7 @@ begin
         {**********************************************************************}
 
         // 상세항목 0~99개 까지 작성가능.
-        // 일련번호 (serialNum) 는ㄴ 1부터 99까지 순차기재.
+        // 일련번호(serialNum) 는 1부터 99까지 순차기재.
         // SetLength로 초기화 한후 기재.
         setLength(taxinvoice.detailList, 2);
 
@@ -2112,12 +2107,11 @@ begin
         {   4.1 (세금)계산서 구성" 을 참조하시기 바랍니다.                     }
         {**********************************************************************}
 
-
         // 세금계산서 객체 생성
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20180114
-        taxinvoice.writeDate := '20180114';
+        taxinvoice.writeDate := '20190128';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '역발행';
@@ -2300,7 +2294,7 @@ begin
 
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[0].serialNum := 1;                //일련번호
-        taxinvoice.detailList[0].purchaseDT := '20190114';      //거래일자
+        taxinvoice.detailList[0].purchaseDT := '20190128';      //거래일자
         taxinvoice.detailList[0].itemName := '품목명1';         //품목명
         taxinvoice.detailList[0].spec := '규격';                //규격
         taxinvoice.detailList[0].qty := '1';                    //수량
@@ -2311,7 +2305,7 @@ begin
 
         taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[1].serialNum := 2;                //일련번호
-        taxinvoice.detailList[1].purchaseDT := '20190114';      //거래일자
+        taxinvoice.detailList[1].purchaseDT := '20190128';      //거래일자
         taxinvoice.detailList[1].itemName := '품목명1';         //품목명
         taxinvoice.detailList[1].spec := '규격';                //규격
         taxinvoice.detailList[1].qty := '1';                    //수량
@@ -2330,7 +2324,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
 end;
 
@@ -2390,7 +2383,6 @@ begin
                          taxinvoice.detailList[i].supplyCost + ' | ' +
                          taxinvoice.detailList[i].tax + ' | ' +
                          taxinvoice.detailList[i].remark + #13 ;
-
         end;
 
         tmp := tmp + '-----공급자 정보-----' + #13;
@@ -2449,13 +2441,12 @@ begin
         tmp := tmp +'originalTaxinvoiceKey(원본 팝빌 관리번호) : ' +  taxinvoice.originalTaxinvoiceKey + #13;
 
         tmp := tmp + '-----추가담당자-----' + #13;
-        tmp := tmp + '일련번호 | 이메일 | 담당자 성명' + #13;
+        tmp := tmp + 'serialNum(일련번호) | email(이메일) | contactName(담당자 성명)' + #13;
         for i:= 0 to Length(taxinvoice.AddContactList)-1 do
         begin
             tmp := tmp + IntToStr(taxinvoice.AddContactList[i].serialNum) + ' | ' +
                          taxinvoice.AddContactList[i].email + ' | ' +
                          taxinvoice.AddContactList[i].contactName + #13 ;
-
         end;
 
         tmp := tmp +'businessLicenseYN(사업자등록증 첨부) : ' +  IfThen(taxinvoice.businessLicenseYN,'true','false') + #13;
@@ -2481,10 +2472,8 @@ begin
                         Exit;
                 end;
         end;
-
         if InUse then ShowMessage('사용중') else ShowMessage('미 사용중.');
 end;
-
 
 procedure TfrmExample.btnGetEPrintUrlClick(Sender: TObject);
 var
@@ -2504,7 +2493,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
@@ -2514,7 +2502,7 @@ var
 begin
         {**********************************************************************}
         { 해당 사업자의 파트너 연동회원 가입여부를 확인합니다.                 }
-        { - LinkID는 인증정보에 설정되어 있는 링크아이디 입니다. (37번라인)    }
+        { - LinkID는 인증정보에 설정되어 있는 링크아이디 입니다. (36번라인)    }
         {**********************************************************************}
 
         try
@@ -2525,9 +2513,7 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
-
 end;
 
 procedure TfrmExample.btnCheckIDClick(Sender: TObject);
@@ -2546,10 +2532,8 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
-
 
 procedure TfrmExample.btnGetCorpInfoClick(Sender: TObject);
 var
@@ -2568,15 +2552,12 @@ begin
                         Exit;
                 end;
         end;
-
         tmp := 'CorpName (상호): ' + corpInfo.CorpName + #13;
         tmp := tmp + 'CeoName (대표자 성명) : ' + corpInfo.CeoName + #13;
         tmp := tmp + 'BizType (업태) : ' + corpInfo.BizType + #13;
         tmp := tmp + 'BizClass (종목) : ' + corpInfo.BizClass + #13;
         tmp := tmp + 'Addr (주소) : ' + corpInfo.Addr + #13;
-
         ShowMessage(tmp);
-
 end;
 
 procedure TfrmExample.btnUpdateCorpInfoClick(Sender: TObject);
@@ -2613,9 +2594,7 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
-
 end;
 
 procedure TfrmExample.btnListContactClick(Sender: TObject);
@@ -2653,7 +2632,6 @@ begin
             tmp := tmp + InfoList[i].regDT + ' | ';
             tmp := tmp + IntToStr(InfoList[i].state) + #13;
         end;
-
         ShowMessage(tmp);
 end;
 
@@ -2667,7 +2645,7 @@ begin
         {**********************************************************************}
 
         // [필수] 담당자 아이디 (6자 이상 50자 미만)
-        joinInfo.id := 'testkorea0222_01';
+        joinInfo.id := 'testkorea';
 
         // [필수] 비밀번호 (6자 이상 20자 미만)
         joinInfo.pwd := 'thisispassword';
@@ -2701,7 +2679,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -2748,7 +2725,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -2790,7 +2766,6 @@ begin
 
         // [필수] 과세형태, [과세, 영세, 면세] 중 기재
         taxinvoice.taxType :='과세';
-
 
         {**********************************************************************}
         {                             공급자 정보                              }
@@ -2882,7 +2857,6 @@ begin
         // 공급받는자 휴대폰번호
         taxinvoice.invoiceeHP1 := '010-0000-222';
 
-
         {**********************************************************************}
         {                           세금계산서 정보                            }
         {**********************************************************************}
@@ -2930,7 +2904,6 @@ begin
         // 통장사본 이미지 첨부여부
         taxinvoice.bankBookYN := false;
 
-
         {**********************************************************************}
         {         수정세금계산서 정보 (수정세금계산서 작성시에만 기재          }
         {   수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조    }
@@ -2942,7 +2915,6 @@ begin
 
         // 원본세금계산서의 ItemKey, 문서확인 (GetInfo API)의 응답결과(ItemKey 항목) 확인.
         taxinvoice.originalTaxinvoiceKey := '';
-
 
         {**********************************************************************}
         {                        상세항목(품목) 정보                           }
@@ -2994,7 +2966,6 @@ begin
         taxinvoice.addContactList[1].email := 'test3@invoicee.com';     // 메일주소
         taxinvoice.addContactList[1].contactName := '추가담당자명2';    // 담당자명
 
-
         // 거래명세서 동시작성 여부
         writeSpecification := false;
 
@@ -3025,7 +2996,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -3034,7 +3004,6 @@ var
         response : TResponse;
         memo : String;
 begin
-
         {**********************************************************************}
         { [발행완료] 상태의 세금계산서를 발행취소 처리합니다.                  }
         { - [발행취소] 세금계산서는 국세청에 전송되지 않습니다.                }
@@ -3054,7 +3023,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -3076,7 +3044,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -3097,7 +3064,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
@@ -3106,7 +3072,7 @@ var
   resultURL : String;
 begin
         {**********************************************************************}
-        {   -공인인증서 등록 팝업창 호출                                       }
+        {   -팝빌 회원의 공인인증서를 등록하는 팝업 URL을 반환합니다.          }
         {   -URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.      }
         {**********************************************************************}
 
@@ -3149,7 +3115,6 @@ begin
         {   4.2. (세금)계산서 상태정보 구성" 을 참조하시기 바랍니다.           }
         {**********************************************************************}
 
-
         // [필수] 일자유형 { R : 등록일시, W : 작성일자, I : 발행일시 } 중 기재
         DType := 'W';
 
@@ -3175,8 +3140,8 @@ begin
         // 과세형태. {T:과세, N:면세, Z:영세} 선택기재, 미기재시 전체조회
         SetLength(TaxType,3);
         TaxType[0] := 'T';
-        TaxType[1] := 'Z';
-        TaxType[2] := 'N';
+        TaxType[1] := 'N';
+        TaxType[2] := 'Z';
 
         // 발행형태 배열, {N:정발행, R:역발행, T:위수탁) 선택기재
         SetLength(IssueType, 3);
@@ -3229,33 +3194,52 @@ begin
         tmp := tmp + 'pageCount (페이지 개수) : '+ IntToStr(SearchList.pageCount) + #13;
         tmp := tmp + 'message (응답메시지) : '+ SearchList.message + #13#13;
 
-        tmp := tmp + 'WriteDate | invoicerMgtKey | StateCode | TaxType |  RegDT | lateIssueYN | invoicerCorpNum |  invoicerCorpName | invoiceeCorpNum | invoiceeCorpName | '
-                + ' issueType | supplyCostTotal | taxTotal | invoicerPrintYN | invoiceePrintYN | closeDownState | closeDownStateDate | interOPYN '+#13#13;
+        tmp := tmp + 'itemKey(팝빌 관리번호) |  taxType (과세형태) |  writeDate (작성일자) |  regDT (임시저장 일자) |  issueType (발행형태) |  supplyCostTotal (공급가액 합계) | ';
+        tmp := tmp + 'taxTotal (세액 합계) |  purposeType (영수/청구) | issueDT (발행일시) | lateIssueYN (지연발행 여부) | openYN (개봉 여부) | openDT (개봉 일시) | ';
+        tmp := tmp + 'stateMemo (상태메모) | stateCode (상태코드) | ntsconfirmNum (국세청승인번호) | ntsresult (국세청 전송결과) | ntssendDT (국세청 전송일시) | ';
+        tmp := tmp + 'ntsresultDT (국세청 결과 수신일시) | ntssendErrCode (실패사유 사유코드) | modifyCode (수정 사유코드) | interOPYN (연동문서 여부) | invoicerCorpName (공급자 상호) |';
+        tmp := tmp + 'invoicerCorpNum (공급자 사업자번호) | invoicerMgtKey (공급자 문서관리번호) | invoicerPrintYN (공급자 인쇄여부) | invoiceeCorpName (공급받는자 상호) |' ;
+        tmp := tmp + 'invoiceeCorpNum (공급받는자 사업자번호) | invoiceeMgtKey(공급받는자 문서관리번호) | invoiceePrintYN(공급받는자 인쇄여부) | closeDownState(공급받는자 휴폐업상태) |';
+        tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) | trusteeCorpName (수탁자 상호) | trusteeCorpNum (수탁자 사업자번호) | trusteeMgtKey(수탁자 문서관리번호) | ';
+        tmp := tmp + 'trusteePrintYN(수탁자 인쇄여부) ' + #13 + #13;
 
         for i := 0 to Length(SearchList.list) -1 do
         begin
-            tmp := tmp + SearchList.list[i].WriteDate + ' | '
-                        + SearchList.list[i].InvoicerMgtKey  + ' | '
-                        + IntToStr(SearchList.list[i].StateCode) + ' | '
-                        + SearchList.list[i].TaxType + ' | '
-                        + SearchList.list[i].RegDT + ' | '
-                        + BoolToStr(SearchList.list[i].lateIssueYN) + ' | '
-                        + SearchList.list[i].invoicerCorpNum + ' | '
-                        + SearchList.list[i].invoicerCorpname + ' | '
-                        + SearchList.list[i].invoiceeCorpNum + ' | '
-                        + SearchList.list[i].invoiceeCorpname + ' | '
-                        + SearchList.list[i].issueType + ' | '
-                        + SearchList.list[i].supplyCostTotal + ' | '
-                        + SearchList.list[i].taxTotal + ' | '
-                        + BoolToStr(SearchList.list[i].InvoicerPrintYN) + ' | '
-                        + BoolToStr(SearchList.list[i].InvoiceePrintYN) + ' | '
-                        + IntToStr(SearchList.list[i].closeDownState) + ' | '
-                        + SearchList.list[i].closeDownStateDate + ' | '                        
-                        + BoolToStr(SearchList.list[i].interOPYN) + #13;
+            tmp := tmp + SearchList.list[i].ItemKey + '|'
+                + SearchList.list[i].TaxType + '|'
+                + SearchList.list[i].WriteDate + '|'
+                + SearchList.list[i].issueType + '|'
+                + SearchList.list[i].supplyCostTotal + '|'
+                + SearchList.list[i].taxTotal + '|'
+                + SearchList.list[i].purposeType + '|'
+                + BoolToStr(SearchList.list[i].lateIssueYN) + '|'
+                + BoolToStr(SearchList.list[i].openYN) + '|'
+                + SearchList.list[i].openDT + '|'
+                + SearchList.list[i].stateMemo + '|'
+                + IntToStr(SearchList.list[i].stateCode) + '|'
+                + SearchList.list[i].ntsconfirmNum + '|'
+                + SearchList.list[i].ntsresult + '|'
+                + SearchList.list[i].ntssendDT + '|'
+                + SearchList.list[i].ntsresultDT + '|'
+                + SearchList.list[i].ntssendErrCode + '|'
+                + SearchList.list[i].modifyCode + '|'
+                + BoolToStr(SearchList.list[i].interOPYN) + '|'
+                + SearchList.list[i].invoicerCorpName + '|'
+                + SearchList.list[i].invoicerCorpNum + '|'
+                + SearchList.list[i].invoicerMgtKey + '|'
+                + BoolToStr(SearchList.list[i].invoicerPrintYN)+ '|'
+                + SearchList.list[i].invoiceeCorpName + '|'
+                + SearchList.list[i].invoiceeCorpNum + '|'
+                + SearchList.list[i].invoiceeMgtKey + '|'
+                + BoolToStr(SearchList.list[i].invoicerPrintYN)+ '|'
+                + IntToStr(SearchList.list[i].closeDownState) + '|'
+                + SearchList.list[i].closeDownStateDate + '|'
+                + SearchList.list[i].trusteeCorpName + '|'
+                + SearchList.list[i].trusteeCorpNum + '|'
+                + SearchList.list[i].trusteeMgtKey + '|'
+                + BoolToStr(SearchList.list[i].trusteePrintYN)+ #13 + #13;
         end;
-
         SearchList.Free;
-
         ShowMessage(tmp);
 end;
 
@@ -3284,7 +3268,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -3303,7 +3286,7 @@ begin
 
         // 첨부해제할 전자명세서 문서관리번호
         SubMgtKey := '20190114-001';
-        
+
         try
                 response := taxinvoiceService.DetachStatement(txtCorpNum.text,
                                         MgtKeyType, tbMgtKey.Text, SubItemCode, SubMgtKey);
@@ -3313,7 +3296,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
 end;
 
@@ -3338,7 +3320,6 @@ begin
         tmp := 'unitCost (단가) : ' + chargeInfo.unitCost + #13;
         tmp := tmp + 'chargeMethod (과금유형) : ' + chargeInfo.chargeMethod + #13;
         tmp := tmp + 'rateSystem (과금제도) : ' + chargeInfo.rateSystem + #13;
-
         ShowMessage(tmp);
 end;
 
@@ -3359,10 +3340,8 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
-
 
 procedure TfrmExample.btnGetPartnerURLClick(Sender: TObject);
 var
@@ -3381,7 +3360,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
@@ -3413,7 +3391,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -3423,7 +3400,7 @@ var
         response : TResponse;
 begin
         {**********************************************************************}
-        { 팝빌에 등록된 공인인증서의 유효성을 확인한다.                        }
+        { 팝빌에 등록된 공인인증서의 유효성을 확인합니다.                      }
         {**********************************************************************}
 
         try
@@ -3434,7 +3411,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -3447,7 +3423,7 @@ begin
         {**********************************************************************}
         {  전자세금계산서 메일전송 항목에 대한 전송여부를 목록으로 반환한다.   }
         {**********************************************************************}
-        
+
         try
                 EmailConfigList := taxinvoiceService.ListEmailConfig(txtCorpNum.text);
         except
@@ -3539,7 +3515,6 @@ begin
             if EmailConfigList[i].EmailType = 'ETC_CERT_EXPIRATION' then
                 tmp := tmp + '[정기발송] ETC_CERT_EXPIRATION (팝빌에서 이용중인 공인인증서의 갱신 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
         end;
-
         ShowMessage(tmp);
 end;
 
@@ -3607,7 +3582,6 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
@@ -3647,7 +3621,6 @@ begin
 
         // [필수] 과세형태, [과세, 영세, 면세] 중 기재
         taxinvoice.taxType :='과세';
-
 
         {**********************************************************************}
         {                             공급자 정보                              }
@@ -3689,7 +3662,6 @@ begin
 
         // 공급자 담당자 휴대폰 번호
         taxinvoice.invoicerHP := '010-0000-2222';
-
 
         {**********************************************************************}
         {                            공급받는자 정보                           }
@@ -3787,7 +3759,6 @@ begin
         // 통장사본 이미지 첨부여부
         taxinvoice.bankBookYN := false;
 
-
         {**********************************************************************}
         {         수정세금계산서 정보 (수정세금계산서 작성시에만 기재          }
         {   수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조    }
@@ -3800,13 +3771,12 @@ begin
         // 원본세금계산서의 ItemKey, 문서확인 (GetInfo API)의 응답결과(ItemKey 항목) 확인.
         taxinvoice.originalTaxinvoiceKey := '';
 
-
         {**********************************************************************}
         {                        상세항목(품목) 정보                           }
         {**********************************************************************}
 
         // 상세항목 0~99개 까지 작성가능.
-        // 일련번호 (serialNum) 는ㄴ 1부터 99까지 순차기재.
+        // 일련번호(serialNum) 는 1부터 99까지 순차기재.
         // SetLength로 초기화 한후 기재.
         setLength(taxinvoice.detailList, 2);
 
@@ -3846,15 +3816,7 @@ begin
                         Exit;
                 end;
         end;
-
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
-
 end;
 
-
-
 end.
-
-
-
-

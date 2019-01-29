@@ -1,6 +1,6 @@
 object frmExample: TfrmExample
-  Left = 605
-  Top = 174
+  Left = 381
+  Top = 183
   Width = 1301
   Height = 842
   Caption = 'Linkhub 팝빌 전자세금계산서  SDK Examples'
@@ -44,10 +44,140 @@ object frmExample: TfrmExample
       Height = 13
       Caption = '문서관리번호(MgtKey) :'
     end
-    object GroupBox21: TGroupBox
-      Left = 648
+    object GroupBox20: TGroupBox
+      Left = 16
       Top = 72
-      Width = 609
+      Width = 561
+      Height = 273
+      Caption = '정발행 프로세스'
+      TabOrder = 18
+    end
+    object GroupBox2: TGroupBox
+      Left = 280
+      Top = 96
+      Width = 257
+      Height = 193
+      Caption = '임시저장 발행 프로세스'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+      object Shape5: TShape
+        Left = 61
+        Top = 64
+        Width = 2
+        Height = 81
+        Brush.Color = clNavy
+        Pen.Style = psClear
+      end
+      object Shape11: TShape
+        Left = 296
+        Top = 45
+        Width = 1
+        Height = 100
+        Brush.Color = clNavy
+        Pen.Style = psClear
+      end
+      object Shape2: TShape
+        Left = 47
+        Top = 48
+        Width = 1
+        Height = 97
+        Brush.Color = clNavy
+        Pen.Style = psClear
+      end
+      object Shape9: TShape
+        Left = 53
+        Top = 140
+        Width = 148
+        Height = 2
+        Brush.Color = clNavy
+        Pen.Style = psClear
+      end
+      object Shape7: TShape
+        Left = 263
+        Top = 75
+        Width = 1
+        Height = 94
+        Brush.Color = clNavy
+        Pen.Style = psClear
+      end
+      object Shape1: TShape
+        Left = 8
+        Top = 32
+        Width = 225
+        Height = 41
+        Brush.Color = clAppWorkSpace
+        Pen.Style = psClear
+      end
+      object Label6: TLabel
+        Left = 24
+        Top = 48
+        Width = 58
+        Height = 15
+        Caption = '임시저장'
+        Color = clAppWorkSpace
+        Font.Charset = HANGEUL_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = '굴림'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object btnRegister: TButton
+        Left = 96
+        Top = 42
+        Width = 49
+        Height = 25
+        Caption = '등록'
+        TabOrder = 0
+        OnClick = btnRegisterClick
+      end
+      object btnUpdate: TButton
+        Left = 160
+        Top = 42
+        Width = 49
+        Height = 25
+        Caption = '수정'
+        TabOrder = 1
+        OnClick = btnUpdateClick
+      end
+      object btnCancel_Issue: TButton
+        Left = 32
+        Top = 128
+        Width = 60
+        Height = 25
+        Caption = '발행취소'
+        TabOrder = 2
+        OnClick = btnCancel_IssueClick
+      end
+      object btnDelete: TButton
+        Left = 148
+        Top = 128
+        Width = 65
+        Height = 25
+        Caption = '삭제'
+        TabOrder = 3
+        OnClick = btnDeleteClick
+      end
+      object btnIssue: TButton
+        Left = 32
+        Top = 82
+        Width = 60
+        Height = 25
+        Caption = '발행'
+        TabOrder = 4
+        OnClick = btnIssueClick
+      end
+    end
+    object GroupBox21: TGroupBox
+      Left = 608
+      Top = 72
+      Width = 625
       Height = 273
       Caption = '역발행 프로세스'
       TabOrder = 19
@@ -60,16 +190,8 @@ object frmExample: TfrmExample
         Pen.Style = psDot
       end
     end
-    object GroupBox20: TGroupBox
-      Left = 16
-      Top = 72
-      Width = 617
-      Height = 273
-      Caption = '정발행 프로세스'
-      TabOrder = 18
-    end
     object GroupBox19: TGroupBox
-      Left = 664
+      Left = 624
       Top = 96
       Width = 305
       Height = 193
@@ -156,7 +278,6 @@ object frmExample: TfrmExample
         Height = 25
         Caption = '요청취소'
         TabOrder = 2
-        OnClick = btnCancelRequest_subClick
       end
       object btnRefuse_sub: TButton
         Left = 128
@@ -174,7 +295,6 @@ object frmExample: TfrmExample
         Height = 25
         Caption = '삭제'
         TabOrder = 4
-        OnClick = btnDelete_Reverse_subClick
       end
       object StaticText1: TStaticText
         Left = 40
@@ -215,240 +335,11 @@ object frmExample: TfrmExample
       end
       object Shape21: TShape
         Left = 16
-        Top = 40
+        Top = 32
         Width = 201
-        Height = 33
+        Height = 41
         Brush.Color = clAppWorkSpace
         Pen.Style = psClear
-      end
-    end
-    object GroupBox2: TGroupBox
-      Left = 288
-      Top = 96
-      Width = 321
-      Height = 193
-      Caption = '임시저장 발행, 발행예정 프로세스'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 0
-      object Shape3: TShape
-        Left = 80
-        Top = 64
-        Width = 209
-        Height = 89
-        Brush.Color = clAppWorkSpace
-        Pen.Style = psClear
-      end
-      object Shape10: TShape
-        Left = 116
-        Top = 46
-        Width = 2
-        Height = 70
-        Brush.Color = clNavy
-        Pen.Style = psClear
-      end
-      object Shape11: TShape
-        Left = 295
-        Top = 45
-        Width = 2
-        Height = 129
-        Brush.Color = clNavy
-        Pen.Style = psClear
-      end
-      object Shape2: TShape
-        Left = 45
-        Top = 48
-        Width = 2
-        Height = 120
-        Brush.Color = clNavy
-        Pen.Style = psClear
-      end
-      object Shape8: TShape
-        Left = 72
-        Top = 120
-        Width = 95
-        Height = 2
-        Brush.Color = clNavy
-        Pen.Style = psClear
-      end
-      object Shape9: TShape
-        Left = 53
-        Top = 172
-        Width = 244
-        Height = 2
-        Brush.Color = clNavy
-        Pen.Style = psClear
-      end
-      object Shape7: TShape
-        Left = 263
-        Top = 75
-        Width = 1
-        Height = 94
-        Brush.Color = clNavy
-        Pen.Style = psClear
-      end
-      object Shape4: TShape
-        Left = 165
-        Top = 76
-        Width = 2
-        Height = 50
-        Brush.Color = clNavy
-        Pen.Style = psClear
-      end
-      object Shape5: TShape
-        Left = 149
-        Top = 75
-        Width = 114
-        Height = 2
-        Brush.Color = clNavy
-        Pen.Style = psClear
-      end
-      object Shape1: TShape
-        Left = 16
-        Top = 24
-        Width = 289
-        Height = 33
-        Brush.Color = clAppWorkSpace
-        Pen.Style = psClear
-      end
-      object Shape12: TShape
-        Left = 32
-        Top = 114
-        Width = 85
-        Height = 2
-        Brush.Color = clNavy
-        Pen.Style = psClear
-      end
-      object Label6: TLabel
-        Left = 24
-        Top = 34
-        Width = 52
-        Height = 12
-        Caption = '임시저장'
-        Color = clAppWorkSpace
-        Font.Charset = HANGEUL_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = '굴림'
-        Font.Style = [fsBold]
-        ParentColor = False
-        ParentFont = False
-      end
-      object Label7: TLabel
-        Left = 232
-        Top = 69
-        Width = 52
-        Height = 12
-        Caption = '발행예정'
-        Color = clAppWorkSpace
-        Font.Charset = HANGEUL_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = '굴림'
-        Font.Style = [fsBold]
-        ParentColor = False
-        ParentFont = False
-      end
-      object Shape6: TShape
-        Left = 215
-        Top = 75
-        Width = 2
-        Height = 89
-        Brush.Color = clNavy
-        Pen.Style = psClear
-      end
-      object Shape29: TShape
-        Left = 255
-        Top = 83
-        Width = 2
-        Height = 89
-        Brush.Color = clNavy
-        Pen.Style = psClear
-      end
-      object btnRegister: TButton
-        Left = 80
-        Top = 28
-        Width = 33
-        Height = 25
-        Caption = '등록'
-        TabOrder = 0
-        OnClick = btnRegisterClick
-      end
-      object btnUpdate: TButton
-        Left = 120
-        Top = 28
-        Width = 33
-        Height = 25
-        Caption = '수정'
-        TabOrder = 1
-        OnClick = btnUpdateClick
-      end
-      object btnSend: TButton
-        Left = 88
-        Top = 72
-        Width = 60
-        Height = 25
-        Caption = '발행예정'
-        TabOrder = 2
-        OnClick = btnSendClick
-      end
-      object btnCancel_Issue: TButton
-        Left = 16
-        Top = 160
-        Width = 60
-        Height = 25
-        Caption = '발행취소'
-        TabOrder = 3
-        OnClick = btnCancel_IssueClick
-      end
-      object btnDelete: TButton
-        Left = 204
-        Top = 168
-        Width = 65
-        Height = 17
-        Caption = '삭제'
-        TabOrder = 4
-        OnClick = btnDeleteClick
-      end
-      object btnIssue: TButton
-        Left = 16
-        Top = 106
-        Width = 60
-        Height = 25
-        Caption = '발행'
-        TabOrder = 5
-        OnClick = btnIssueClick
-      end
-      object btnAccept: TButton
-        Left = 144
-        Top = 104
-        Width = 41
-        Height = 25
-        Caption = '승인'
-        TabOrder = 6
-        OnClick = btnAcceptClick
-      end
-      object btnDeny: TButton
-        Left = 192
-        Top = 104
-        Width = 41
-        Height = 25
-        Caption = '거부'
-        TabOrder = 7
-        OnClick = btnDenyClick
-      end
-      object btnCancel_Send: TButton
-        Left = 240
-        Top = 104
-        Width = 41
-        Height = 25
-        Caption = '취소'
-        TabOrder = 8
-        OnClick = btnCancel_SendClick
       end
     end
     object GroupBox3: TGroupBox
@@ -664,7 +555,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 174
         Height = 25
-        Caption = '연동문서함'
+        Caption = '임시(연동) 문서함'
         TabOrder = 0
         OnClick = btnGetTaxinvoiceURL1Click
       end
@@ -673,7 +564,7 @@ object frmExample: TfrmExample
         Top = 54
         Width = 174
         Height = 25
-        Caption = '매출보관함'
+        Caption = '매출 문서함'
         TabOrder = 1
         OnClick = btnGetTaxinvoiceURL2Click
       end
@@ -682,7 +573,7 @@ object frmExample: TfrmExample
         Top = 83
         Width = 174
         Height = 25
-        Caption = '매입보관함'
+        Caption = '매입 문서함'
         TabOrder = 2
         OnClick = btnGetTaxinvoiceURL3Click
       end
@@ -691,7 +582,7 @@ object frmExample: TfrmExample
         Top = 113
         Width = 174
         Height = 25
-        Caption = '매출작성'
+        Caption = '매출 문서작성'
         TabOrder = 3
         OnClick = btnGetTaxinvoiceURL4Click
       end
@@ -712,7 +603,7 @@ object frmExample: TfrmExample
         'TRUSTEE')
     end
     object GroupBox13: TGroupBox
-      Left = 984
+      Left = 952
       Top = 96
       Width = 257
       Height = 193
@@ -788,18 +679,18 @@ object frmExample: TfrmExample
         Pen.Style = psClear
       end
       object btnRegister_Reverse: TButton
-        Left = 80
+        Left = 96
         Top = 20
-        Width = 33
+        Width = 49
         Height = 25
         Caption = '등록'
         TabOrder = 0
         OnClick = btnRegister_ReverseClick
       end
       object btnUpdate_Reverse: TButton
-        Left = 120
+        Left = 152
         Top = 20
-        Width = 33
+        Width = 49
         Height = 25
         Caption = '수정'
         TabOrder = 1
@@ -834,7 +725,7 @@ object frmExample: TfrmExample
       end
       object btnCancelRequest: TButton
         Left = 160
-        Top = 66
+        Top = 65
         Width = 73
         Height = 25
         Caption = '요청취소'
@@ -861,9 +752,9 @@ object frmExample: TfrmExample
       end
     end
     object btnGetEmailPublicKey: TButton
-      Left = 1088
+      Left = 1080
       Top = 24
-      Width = 169
+      Width = 177
       Height = 25
       Caption = '유통사업자 메일 목록 확인'
       Font.Charset = DEFAULT_CHARSET
@@ -886,7 +777,7 @@ object frmExample: TfrmExample
     end
     object btnRegistIssue: TButton
       Left = 64
-      Top = 140
+      Top = 137
       Width = 75
       Height = 25
       Caption = '즉시발행'

@@ -51,8 +51,8 @@ type
     Label6: TLabel;
     btnRegister: TButton;
     btnUpdate: TButton;
-    btnCancel_Issue: TButton;
-    btnDelete: TButton;
+    btnCancelIssue_sub: TButton;
+    btnDelete_sub: TButton;
     btnIssue: TButton;
     GroupBox3: TGroupBox;
     Label2: TLabel;
@@ -66,13 +66,13 @@ type
     btnGetInfo: TButton;
     btnGetInfos: TButton;
     GroupBox6: TGroupBox;
-    btnReSendEmail: TButton;
-    btnReSendSMS: TButton;
-    btnSendInvoiceFax: TButton;
+    btnSendEmail: TButton;
+    btnSendSMS: TButton;
+    btnSendFax: TButton;
     tbMgtKey: TEdit;
     GroupBox8: TGroupBox;
     GroupBox9: TGroupBox;
-    btnJoin: TButton;
+    btnJoinMember: TButton;
     GroupBox11: TGroupBox;
     btnGetUnitCost: TButton;
     GroupBox12: TGroupBox;
@@ -85,10 +85,10 @@ type
     Label4: TLabel;
     txtUserID: TEdit;
     GroupBox10: TGroupBox;
-    btnGetTaxinvoiceURL1: TButton;
-    btnGetTaxinvoiceURL2: TButton;
-    btnGetTaxinvoiceURL3: TButton;
-    btnGetTaxinvoiceURL4: TButton;
+    btnGetURL1: TButton;
+    btnGetURL2: TButton;
+    btnGetURL3: TButton;
+    btnGetURL4: TButton;
     OpenDialog1: TOpenDialog;
     cbMgtKeyType: TComboBox;
     GroupBox13: TGroupBox;
@@ -97,22 +97,22 @@ type
     Shape18: TShape;
     Shape23: TShape;
     Label5: TLabel;
-    btnRegister_Reverse: TButton;
-    btnUpdate_Reverse: TButton;
-    btnCancelIssue_Reverse: TButton;
-    btnDelete_Reverse: TButton;
-    btnIssue_Reverse: TButton;
-    btnCancelRequest: TButton;
+    btnRegister_reverse: TButton;
+    btnUpdate_reverse: TButton;
+    btnCancelIssue_reverse_sub: TButton;
+    btnDelete_reverse_sub: TButton;
+    btnIssue_reverse_sub: TButton;
+    btnCancelRequest_sub: TButton;
     btnRequest: TButton;
-    btnRefuse: TButton;
+    btnRefuse_sub2: TButton;
     Shape14: TShape;
     Shape17: TShape;
     btnGetEmailPublicKey: TButton;
     btnSendToNTS: TButton;
-    Button1: TButton;
+    btnCheckIsMember: TButton;
     btnRegistIssue: TButton;
     btnCancelIssue: TButton;
-    btnDelete_RegistIssue: TButton;
+    btnDelete: TButton;
     GroupBox15: TGroupBox;
     Shape19: TShape;
     Shape20: TShape;
@@ -125,7 +125,7 @@ type
     btnGetCorpInfo: TButton;
     btnUpdateCorpInfo: TButton;
     btnListContact: TButton;
-    btnSearchInfo: TButton;
+    btnSearch: TButton;
     btnDetachStatement: TButton;
     btnAttachStatement: TButton;
     btnGetChargeInfo: TButton;
@@ -144,16 +144,16 @@ type
     GroupBox7: TGroupBox;
     btnGetPopUpURL: TButton;
     btnGetPrintURL: TButton;
-    btnGetPrintsURL: TButton;
+    btnGetMassPrintURL: TButton;
     btnGetMailURL: TButton;
     btnGetEPrintUrl: TButton;
     btnRegistRequest: TButton;
     GroupBox19: TGroupBox;
-    btnIssue_Reverse_sub: TButton;
-    btnCancelIssue_Reverse_sub: TButton;
-    btnCancelRequest_sub: TButton;
-    btnRefuse_sub: TButton;
-    btnDelete_Reverse_sub: TButton;
+    btnIssue_reverse: TButton;
+    btnCancelIssue_reverse: TButton;
+    btnCancelRequest: TButton;
+    btnRefuse: TButton;
+    btnDelete_reverse: TButton;
     Shape22: TShape;
     Shape24: TShape;
     Shape25: TShape;
@@ -170,13 +170,13 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetAccessURLClick(Sender: TObject);
-    procedure btnJoinClick(Sender: TObject);
+    procedure btnJoinMemberClick(Sender: TObject);
     procedure btnRegisterClick(Sender: TObject);
     procedure btnGetBalanceClick(Sender: TObject);
     procedure btnGetCertificateExpireDateClick(Sender: TObject);
     procedure btnGetUnitCostClick(Sender: TObject);
     procedure btnGetPartnerBalanceClick(Sender: TObject);
-    procedure btnDeleteClick(Sender: TObject);
+    procedure btnDelete_subClick(Sender: TObject);
     procedure btnAttachFileClick(Sender: TObject);
     procedure btnGetFileListClick(Sender: TObject);
     procedure btnDeleteFileClick(Sender: TObject);
@@ -184,31 +184,31 @@ type
     procedure btnGetInfosClick(Sender: TObject);
     procedure btnGetLogsClick(Sender: TObject);
     procedure cbMgtKeyTypeChange(Sender: TObject);
-    procedure btnCancel_IssueClick(Sender: TObject);
+    procedure btnCancelIssue_subClick(Sender: TObject);
     procedure btnIssueClick(Sender: TObject);
     procedure btnSendToNTSClick(Sender: TObject);
     procedure btnRequestClick(Sender: TObject);
-    procedure btnCancelRequestClick(Sender: TObject);
-    procedure btnRefuseClick(Sender: TObject);
-    procedure btnReSendSMSClick(Sender: TObject);
-    procedure btnReSendEmailClick(Sender: TObject);
-    procedure btnSendInvoiceFaxClick(Sender: TObject);
-    procedure btnGetTaxinvoiceURL1Click(Sender: TObject);
-    procedure btnGetTaxinvoiceURL2Click(Sender: TObject);
-    procedure btnGetTaxinvoiceURL3Click(Sender: TObject);
-    procedure btnGetTaxinvoiceURL4Click(Sender: TObject);
+    procedure btnCancelRequest_subClick(Sender: TObject);
+    procedure btnRefuse_sub2Click(Sender: TObject);
+    procedure btnSendSMSClick(Sender: TObject);
+    procedure btnSendEmailClick(Sender: TObject);
+    procedure btnSendFaxClick(Sender: TObject);
+    procedure btnGetURL1Click(Sender: TObject);
+    procedure btnGetURL2Click(Sender: TObject);
+    procedure btnGetURL3Click(Sender: TObject);
+    procedure btnGetURL4Click(Sender: TObject);
     procedure btnGetPopUpURLClick(Sender: TObject);
     procedure btnGetPrintURLClick(Sender: TObject);
     procedure btnGetMailURLClick(Sender: TObject);
-    procedure btnGetPrintsURLClick(Sender: TObject);
+    procedure btnGetMassPrintURLClick(Sender: TObject);
     procedure btnGetEmailPublicKeyClick(Sender: TObject);
-    procedure btnRegister_ReverseClick(Sender: TObject);
+    procedure btnRegister_reverseClick(Sender: TObject);
     procedure btnUpdateClick(Sender: TObject);
-    procedure btnUpdate_ReverseClick(Sender: TObject);
+    procedure btnUpdate_reverseClick(Sender: TObject);
     procedure btnGetDetailInfoClick(Sender: TObject);
     procedure btnCheckMgtKeyInUseClick(Sender: TObject);
     procedure btnGetEPrintUrlClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    procedure btnCheckIsMemberClick(Sender: TObject);
     procedure btnCheckIDClick(Sender: TObject);
     procedure btnGetCorpInfoClick(Sender: TObject);
     procedure btnUpdateCorpInfoClick(Sender: TObject);
@@ -217,10 +217,10 @@ type
     procedure btnUpdateContactClick(Sender: TObject);
     procedure btnRegistIssueClick(Sender: TObject);
     procedure btnCancelIssueClick(Sender: TObject);
-    procedure btnDelete_RegistIssueClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
     procedure btnGetChargeURLClick(Sender: TObject);
     procedure btnGetTaxCertURLClick(Sender: TObject);
-    procedure btnSearchInfoClick(Sender: TObject);
+    procedure btnSearchClick(Sender: TObject);
     procedure btnAttachStatementClick(Sender: TObject);
     procedure btnDetachStatementClick(Sender: TObject);
     procedure btnGetChargeInfoClick(Sender: TObject);
@@ -231,11 +231,11 @@ type
     procedure btnListEmailConfigClick(Sender: TObject);
     procedure btnUpdateEmailConfigClick(Sender: TObject);
     procedure btnRegistRequestClick(Sender: TObject);
-    procedure btnIssue_Reverse_subClick(Sender: TObject);
-    procedure btnCancelIssue_Reverse_subClick(Sender: TObject);
-    procedure btnRefuse_subClick(Sender: TObject);
-    procedure btnCancelRequest_subClick(Sender: TObject);
-    procedure btnDelete_Reverse_subClick(Sender: TObject);
+    procedure btnIssue_reverseClick(Sender: TObject);
+    procedure btnCancelIssue_reverseClick(Sender: TObject);
+    procedure btnRefuseClick(Sender: TObject);
+    procedure btnCancelRequestClick(Sender: TObject);
+    procedure btnDelete_reverseClick(Sender: TObject);
 
   private
     MgtKeyType : EnumMgtKeyType;
@@ -262,7 +262,7 @@ begin
         taxinvoiceService.IsTest := true;
 
         //Exception 처리 설정값. 미기재시 true(기본값)
-        taxinvoiceService.IsThrowException := true;
+        taxinvoiceService.IsThrowException := false;
 end;
 
 procedure TfrmExample.FormClose(Sender:TObject; var Action:TCloseAction);
@@ -282,7 +282,7 @@ begin
     if b = false then BoolToStr:='False';
 end;
 
-procedure TfrmExample.btnIssue_Reverse_subClick(Sender: TObject);
+procedure TfrmExample.btnIssue_reverseClick(Sender: TObject);
 var
         response : TResponse;
         memo : String;
@@ -325,12 +325,11 @@ begin
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
-procedure TfrmExample.btnCancelIssue_Reverse_subClick(Sender: TObject);
+procedure TfrmExample.btnCancelIssue_reverseClick(Sender: TObject);
 var
         response : TResponse;
         memo : String;
 begin
-
         {**********************************************************************}
         { [발행완료] 상태의 세금계산서를 [발행취소] 합니다.                    }
         { - [발행취소]는 해당 세금계산서가 국세청 전송전에만 가능합니다.       }
@@ -355,7 +354,7 @@ begin
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
-procedure TfrmExample.btnRefuse_subClick(Sender: TObject);
+procedure TfrmExample.btnRefuseClick(Sender: TObject);
 var
         response : TResponse;
         memo : String;
@@ -381,7 +380,7 @@ begin
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
-procedure TfrmExample.btnCancelRequest_subClick(Sender: TObject);
+procedure TfrmExample.btnCancelRequestClick(Sender: TObject);
 var
         response : TResponse;
         memo : String;
@@ -407,7 +406,7 @@ begin
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
-procedure TfrmExample.btnDelete_Reverse_subClick(Sender: TObject);
+procedure TfrmExample.btnDelete_reverseClick(Sender: TObject);
 var
         response : TResponse;
 begin
@@ -418,8 +417,7 @@ begin
         {***********************************************************************}
 
         try
-                response := taxinvoiceService.Delete(txtCorpNum.text, MgtKeyType,
-                                                        tbMgtKey.Text);
+                response := taxinvoiceService.Delete(txtCorpNum.text, MgtKeyType, tbMgtKey.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -442,14 +440,14 @@ begin
                 resultURL := taxinvoiceService.getAccessURL(txtCorpNum.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
                         Exit;
                 end;
         end;
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
-procedure TfrmExample.btnJoinClick(Sender: TObject);
+procedure TfrmExample.btnJoinMemberClick(Sender: TObject);
 var
         response : TResponse;
         joinInfo : TJoinForm;
@@ -843,7 +841,7 @@ begin
         ShowMessage('잔여포인트 : ' + FloatToStr(balance));
 end;
 
-procedure TfrmExample.btnDeleteClick(Sender: TObject);
+procedure TfrmExample.btnDelete_subClick(Sender: TObject);
 var
         response : TResponse;
 begin
@@ -854,8 +852,7 @@ begin
         {***********************************************************************}
 
         try
-                response := taxinvoiceService.Delete(txtCorpNum.text, MgtKeyType,
-                                                        tbMgtKey.Text);
+                response := taxinvoiceService.Delete(txtCorpNum.text, MgtKeyType, tbMgtKey.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -963,14 +960,8 @@ begin
         {  을 참조하시기 바랍니다.                                             }
         {**********************************************************************}
 
-        try
-                taxinvoiceInfo := taxinvoiceService.getInfo(txtCorpNum.text, MgtKeyType, tbMgtKey.Text);
-        except
-                on le : EPopbillException do begin
-                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
-                        Exit;
-                end;
-        end;
+
+        taxinvoiceInfo := taxinvoiceService.getInfo(txtCorpNum.text, MgtKeyType, tbMgtKey.Text);
 
         tmp := 'itemKey(팝빌 관리번호) |  taxType (과세형태) |  writeDate (작성일자) |  regDT (임시저장 일자) |  issueType (발행형태) |  supplyCostTotal (공급가액 합계) | ';
         tmp := tmp + 'taxTotal (세액 합계) |  purposeType (영수/청구) | issueDT (발행일시) | lateIssueYN (지연발행 여부) | openYN (개봉 여부) | openDT (개봉 일시) | ';
@@ -981,9 +972,9 @@ begin
         tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) | trusteeCorpName (수탁자 상호) | trusteeCorpNum (수탁자 사업자번호) | trusteeMgtKey(수탁자 문서관리번호) | ';
         tmp := tmp + 'trusteePrintYN(수탁자 인쇄여부) ' + #13 + #13;
 
-        tmp := tmp + taxinvoiceInfo.ItemKey + '|'
-                + taxinvoiceInfo.TaxType + '|'
-                + taxinvoiceInfo.WriteDate + '|'
+        tmp := tmp + taxinvoiceInfo.itemKey + '|'
+                + taxinvoiceInfo.taxType + '|'
+                + taxinvoiceInfo.writeDate + '|'
                 + taxinvoiceInfo.issueType + '|'
                 + taxinvoiceInfo.supplyCostTotal + '|'
                 + taxinvoiceInfo.taxTotal + '|'
@@ -1014,6 +1005,7 @@ begin
                 + taxinvoiceInfo.trusteeCorpNum + '|'
                 + taxinvoiceInfo.trusteeMgtKey + '|'
                 + BoolToStr(taxinvoiceInfo.trusteePrintYN)+ '|';
+
         ShowMessage(tmp);
 end;
 
@@ -1056,11 +1048,12 @@ begin
 
         for i := 0 to Length(InfoList) -1 do
         begin
-            tmp := tmp + InfoList[i].ItemKey + '|'
-                + InfoList[i].TaxType + '|'
-                + InfoList[i].WriteDate + '|'
+            tmp := tmp + InfoList[i].itemKey + '|'
+                + InfoList[i].taxType + '|'
+                + InfoList[i].writeDate + '|'
                 + InfoList[i].issueType + '|'
                 + InfoList[i].supplyCostTotal + '|'
+
                 + InfoList[i].taxTotal + '|'
                 + InfoList[i].purposeType + '|'
                 + BoolToStr(InfoList[i].lateIssueYN) + '|'
@@ -1109,7 +1102,7 @@ begin
         {  "[전자세금계산서 API 연동매뉴얼] > 3.6.4 상태 변경이력 확인"        }
         {  을 참조하시기 바랍니다.                                             }
         {**********************************************************************}
-        
+
         try
                 LogList := taxinvoiceService.getLogs(txtCorpNum.text, MgtKeyType, tbMgtKey.Text);
         except
@@ -1143,12 +1136,11 @@ begin
 
 end;
 
-procedure TfrmExample.btnCancel_IssueClick(Sender: TObject);
+procedure TfrmExample.btnCancelIssue_subClick(Sender: TObject);
 var
         response : TResponse;
         memo : String;
 begin
-
         {**********************************************************************}
         { [발행완료] 상태의 세금계산서를 [발행취소] 합니다.                    }
         { - [발행취소]는 해당 세금계산서가 국세청 전송전에만 가능합니다.       }
@@ -1271,7 +1263,7 @@ begin
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
-procedure TfrmExample.btnCancelRequestClick(Sender: TObject);
+procedure TfrmExample.btnCancelRequest_subClick(Sender: TObject);
 var
         response : TResponse;
         memo : String;
@@ -1297,7 +1289,7 @@ begin
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
-procedure TfrmExample.btnRefuseClick(Sender: TObject);
+procedure TfrmExample.btnRefuse_sub2Click(Sender: TObject);
 var
         response : TResponse;
         memo : String;
@@ -1323,7 +1315,7 @@ begin
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
-procedure TfrmExample.btnReSendSMSClick(Sender: TObject);
+procedure TfrmExample.btnSendSMSClick(Sender: TObject);
 var
         response : TResponse;
         sendNum : String;
@@ -1359,7 +1351,7 @@ begin
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
-procedure TfrmExample.btnReSendEmailClick(Sender: TObject);
+procedure TfrmExample.btnSendEmailClick(Sender: TObject);
 var
         response : TResponse;
         email : String;
@@ -1384,7 +1376,7 @@ begin
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
-procedure TfrmExample.btnSendInvoiceFaxClick(Sender: TObject);
+procedure TfrmExample.btnSendFaxClick(Sender: TObject);
 var
         response : TResponse;
         sendNum : String;
@@ -1415,7 +1407,7 @@ begin
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
-procedure TfrmExample.btnGetTaxinvoiceURL1Click(Sender: TObject);
+procedure TfrmExample.btnGetURL1Click(Sender: TObject);
 var
         resultURL : String;
 begin
@@ -1435,7 +1427,7 @@ begin
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
-procedure TfrmExample.btnGetTaxinvoiceURL2Click(Sender: TObject);
+procedure TfrmExample.btnGetURL2Click(Sender: TObject);
 var
         resultURL : String;
 begin
@@ -1455,7 +1447,7 @@ begin
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
-procedure TfrmExample.btnGetTaxinvoiceURL3Click(Sender: TObject);
+procedure TfrmExample.btnGetURL3Click(Sender: TObject);
 var
         resultURL : String;
 begin
@@ -1475,7 +1467,7 @@ begin
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
-procedure TfrmExample.btnGetTaxinvoiceURL4Click(Sender: TObject);
+procedure TfrmExample.btnGetURL4Click(Sender: TObject);
 var
         resultURL : String;
 begin
@@ -1558,7 +1550,7 @@ begin
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
-procedure TfrmExample.btnGetPrintsURLClick(Sender: TObject);
+procedure TfrmExample.btnGetMassPrintURLClick(Sender: TObject);
 var
         KeyList : Array of String;
         resultURL : String;
@@ -1616,12 +1608,11 @@ begin
         ShowMessage(tmp);
 end;
 
-procedure TfrmExample.btnRegister_ReverseClick(Sender: TObject);
+procedure TfrmExample.btnRegister_reverseClick(Sender: TObject);
 var
         taxinvoice : TTaxinvoice;
         response : TResponse;
 begin
-
         {**********************************************************************}
         { - 역발행은 공급자, 공급받는자 모두 팝빌 회원인 경우에만 가능합니다.  }
         { - 세금계산서 항목별 정보는 "[전자세금계산서 API 연동매뉴얼] >        }
@@ -2095,7 +2086,7 @@ begin
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
-procedure TfrmExample.btnUpdate_ReverseClick(Sender: TObject);
+procedure TfrmExample.btnUpdate_reverseClick(Sender: TObject);
 var
         taxinvoice : TTaxinvoice;
         response : TResponse;
@@ -2268,7 +2259,6 @@ begin
 
         // 통장사본 이미지 첨부여부
         taxinvoice.bankBookYN := false;
-
 
         {**********************************************************************}
         {         수정세금계산서 정보 (수정세금계산서 작성시에만 기재          }
@@ -2496,12 +2486,12 @@ begin
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
-procedure TfrmExample.Button1Click(Sender: TObject);
+procedure TfrmExample.btnCheckIsMemberClick(Sender: TObject);
 var
         response : TResponse;
 begin
         {**********************************************************************}
-        { 해당 사업자의 파트너 연동회원 가입여부를 확인합니다.                 }
+        { 파트너의 연동회원으로 가입여부를 확인합니다.                 }
         { - LinkID는 인증정보에 설정되어 있는 링크아이디 입니다. (36번라인)    }
         {**********************************************************************}
 
@@ -2520,9 +2510,9 @@ procedure TfrmExample.btnCheckIDClick(Sender: TObject);
 var
         response : TResponse;
 begin
-        {**********************************************************************}
-        { 회원가입(JoinMember API)을 호출하기 전 아이디 중복을 확인합니다.     }
-        {**********************************************************************}
+        {*******************************************************************************}
+        { 연동회원 신규가입(JoinMember API)을 호출하기 전 아이디 중복을 확인합니다.     }
+        {*******************************************************************************}
 
         try
                 response := taxinvoiceService.CheckID(txtUserID.Text);
@@ -2738,7 +2728,6 @@ var
         emailSubject : String;
         dealInvoiceMgtKey : String;
 begin
-
         {**********************************************************************}
         { 1건의 세금계산서를 즉시발행 처리합니다. (권장)                       }
         { - 세금계산서 항목별 정보는 "[전자세금계산서 API 연동매뉴얼] >        }
@@ -2761,7 +2750,7 @@ begin
         // [필수] 영수/청구, [영수, 청구] 중 기재
         taxinvoice.purposeType := '영수';
 
-        // [필수] 발행시점,
+        // [필수] 발행시점
         taxinvoice.issueTiming := '직접발행';
 
         // [필수] 과세형태, [과세, 영세, 면세] 중 기재
@@ -3026,7 +3015,7 @@ begin
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
-procedure TfrmExample.btnDelete_RegistIssueClick(Sender: TObject);
+procedure TfrmExample.btnDeleteClick(Sender: TObject);
 var
         response : TResponse;
 begin
@@ -3071,10 +3060,10 @@ procedure TfrmExample.btnGetTaxCertURLClick(Sender: TObject);
 var
   resultURL : String;
 begin
-        {**********************************************************************}
-        {   -팝빌 회원의 공인인증서를 등록하는 팝업 URL을 반환합니다.          }
-        {   -URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.      }
-        {**********************************************************************}
+        {*********************************************************************}
+        {   팝빌 회원의 공인인증서를 등록하는 팝업 URL을 반환합니다.          }
+        {    URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.   }
+        {*********************************************************************}
 
         try
                 resultURL := taxinvoiceService.GetTaxCertURL(txtCorpNum.Text, txtUserID.Text);
@@ -3087,7 +3076,7 @@ begin
         end;
 end;
 
-procedure TfrmExample.btnSearchInfoClick(Sender: TObject);
+procedure TfrmExample.btnSearchClick(Sender: TObject);
 var
         DType : String;
         SDate : String;
@@ -3205,9 +3194,9 @@ begin
 
         for i := 0 to Length(SearchList.list) -1 do
         begin
-            tmp := tmp + SearchList.list[i].ItemKey + '|'
-                + SearchList.list[i].TaxType + '|'
-                + SearchList.list[i].WriteDate + '|'
+            tmp := tmp + SearchList.list[i].itemKey + '|'
+                + SearchList.list[i].taxType + '|'
+                + SearchList.list[i].writeDate + '|'
                 + SearchList.list[i].issueType + '|'
                 + SearchList.list[i].supplyCostTotal + '|'
                 + SearchList.list[i].taxTotal + '|'
@@ -3591,7 +3580,6 @@ var
         response : TResponse;
         memo : String;
 begin
-
         {**********************************************************************}
         {[공급받는자]가 공급자에게 1건의 역발행 세금계산서를 [즉시 요청]합니다.}
         { - 세금계산서 항목별 정보는 "[전자세금계산서 API 연동매뉴얼] >        }
@@ -3609,8 +3597,8 @@ begin
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '역발행';
 
-        // [필수] [정과금, 역과금] 중 기재, '역과금' 은 역발행 프로세스에서만 이용가능
-        // 정과금(공급자 과금), 역과금(공급받는자 과금)
+        // [필수] [정과금, 역과금] 중 기재, 역발행의 경우 발행시 공급받는자의
+        // 포인트가 차감되는 '역과금' 가능
         taxinvoice.chargeDirection := '정과금';
 
         // [필수] 영수/청구, [영수, 청구] 중 기재
@@ -3804,7 +3792,6 @@ begin
 
         // 메모
         memo := '즉시요청 메모';
-
 
         try
                 response := taxinvoiceService.RegistRequest(txtCorpNum.text, taxinvoice, memo, txtUserID.text);

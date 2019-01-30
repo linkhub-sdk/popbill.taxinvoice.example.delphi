@@ -1,5 +1,5 @@
 object frmExample: TfrmExample
-  Left = 615
+  Left = 254
   Top = 124
   Width = 1312
   Height = 842
@@ -726,7 +726,7 @@ object frmExample: TfrmExample
         OnClick = btnIssueClick
       end
       object btnCancelRequest_sub: TButton
-        Left = 160
+        Left = 164
         Top = 74
         Width = 65
         Height = 27

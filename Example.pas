@@ -1078,7 +1078,6 @@ begin
                 + InfoList[i].invoiceeCorpNum + '|'
                 + InfoList[i].invoiceeMgtKey + '|'
                 + BoolToStr(InfoList[i].invoicerPrintYN)+ '|'
-
                 + IntToStr(InfoList[i].closeDownState) + '|'
                 + InfoList[i].closeDownStateDate + '|'
 
@@ -1556,7 +1555,7 @@ var
         resultURL : String;
 begin
         {**********************************************************************}
-        { 다수건의 전자세금계산서 인쇄팝업 URL을 반환합니다. (100건)           }
+        { 다수건의 전자세금계산서 인쇄팝업 URL을 반환합니다. (최대 100건)      }
         { - 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.              }
         {**********************************************************************}
 
@@ -2310,11 +2309,11 @@ begin
         except
                 on le : EPopbillException do begin
                         taxinvoice.Free;
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
                         Exit;
                 end;
         end;
-        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
 
 procedure TfrmExample.btnGetDetailInfoClick(Sender: TObject);

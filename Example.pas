@@ -262,7 +262,7 @@ begin
         taxinvoiceService.IsTest := true;
 
         //Exception 처리 설정값. 미기재시 true(기본값)
-        taxinvoiceService.IsThrowException := false;
+        taxinvoiceService.IsThrowException := true;
 end;
 
 procedure TfrmExample.FormClose(Sender:TObject; var Action:TCloseAction);
@@ -3341,7 +3341,7 @@ begin
         {**********************************************************************}
         
         try
-                resultURL := taxinvoiceService.GetPartnerURL(txtCorpNum.Text, 'CHRG');
+                resultURL := taxinvoiceService.GetPartnerURL(txtCorpNum.Text, 'CHRG' , '123');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);

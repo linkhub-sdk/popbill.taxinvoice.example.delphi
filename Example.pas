@@ -960,52 +960,42 @@ begin
         {  을 참조하시기 바랍니다.                                             }
         {**********************************************************************}
 
-
         taxinvoiceInfo := taxinvoiceService.getInfo(txtCorpNum.text, MgtKeyType, tbMgtKey.Text);
 
-        tmp := 'itemKey(팝빌 관리번호) |  taxType (과세형태) |  writeDate (작성일자) |  regDT (임시저장 일자) |  issueType (발행형태) |  supplyCostTotal (공급가액 합계) | ';
-        tmp := tmp + 'taxTotal (세액 합계) |  purposeType (영수/청구) | issueDT (발행일시) | lateIssueYN (지연발행 여부) | openYN (개봉 여부) | openDT (개봉 일시) | ';
-        tmp := tmp + 'stateMemo (상태메모) | stateCode (상태코드) | ntsconfirmNum (국세청승인번호) | ntsresult (국세청 전송결과) | ntssendDT (국세청 전송일시) | ';
-        tmp := tmp + 'ntsresultDT (국세청 결과 수신일시) | ntssendErrCode (실패사유 사유코드) | modifyCode (수정 사유코드) | interOPYN (연동문서 여부) | invoicerCorpName (공급자 상호) |';
-        tmp := tmp + 'invoicerCorpNum (공급자 사업자번호) | invoicerMgtKey (공급자 문서관리번호) | invoicerPrintYN (공급자 인쇄여부) | invoiceeCorpName (공급받는자 상호) |' ;
-        //tmp := tmp + 'invoiceeCorpNum (공급받는자 사업자번호) | invoiceeMgtKey(공급받는자 문서관리번호) | invoiceePrintYN(공급받는자 인쇄여부) | closeDownState(공급받는자 휴폐업상태) |';
-        //tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) | trusteeCorpName (수탁자 상호) | trusteeCorpNum (수탁자 사업자번호) | trusteeMgtKey(수탁자 문서관리번호) | ';
-        //tmp := tmp + 'trusteePrintYN(수탁자 인쇄여부) ' + #13 + #13;
-
-        tmp := tmp + taxinvoiceInfo.itemKey + '|'
-                + taxinvoiceInfo.taxType + '|'
-                + taxinvoiceInfo.writeDate + '|'
-                + taxinvoiceInfo.issueType + '|'
-                + taxinvoiceInfo.supplyCostTotal + '|'
-                + taxinvoiceInfo.taxTotal + '|'
-                + taxinvoiceInfo.purposeType + '|'
-                + BoolToStr(taxinvoiceInfo.lateIssueYN) + '|'
-                + BoolToStr(taxinvoiceInfo.openYN) + '|'
-                + taxinvoiceInfo.openDT + '|'
-                + taxinvoiceInfo.stateMemo + '|'
-                + IntToStr(taxinvoiceInfo.stateCode) + '|'
-                + taxinvoiceInfo.ntsconfirmNum + '|'
-                + taxinvoiceInfo.ntsresult + '|'
-                + taxinvoiceInfo.ntssendDT + '|'
-                + taxinvoiceInfo.ntsresultDT + '|'
-                + taxinvoiceInfo.ntssendErrCode + '|'
-                + taxinvoiceInfo.modifyCode + '|'
-                + BoolToStr(taxinvoiceInfo.interOPYN) + '|'
-                + taxinvoiceInfo.invoicerCorpName + '|'
-                + taxinvoiceInfo.invoicerCorpNum + '|'
-                + taxinvoiceInfo.invoicerMgtKey + '|'
-                + BoolToStr(taxinvoiceInfo.invoicerPrintYN)+ '|'
-                + taxinvoiceInfo.invoiceeCorpName + '|'
-                + taxinvoiceInfo.invoiceeCorpNum + '|'
-                + taxinvoiceInfo.invoiceeMgtKey + '|'
-                + BoolToStr(taxinvoiceInfo.invoicerPrintYN)+ '|'
-                + IntToStr(taxinvoiceInfo.closeDownState) + '|'
-                + taxinvoiceInfo.closeDownStateDate + '|'
-                + taxinvoiceInfo.trusteeCorpName + '|'
-                + taxinvoiceInfo.trusteeCorpNum + '|'
-                + taxinvoiceInfo.trusteeMgtKey + '|'
-                + BoolToStr(taxinvoiceInfo.trusteePrintYN)+ '|';
-
+        tmp := 'itemKey(팝빌 관리번호) :' +  taxinvoiceInfo.itemKey + #13;
+        tmp := tmp + 'taxType (과세형태) :' + taxinvoiceInfo.taxType + #13;
+        tmp := tmp + 'writeDate (작성일자) :' + taxinvoiceInfo.writeDate + #13;
+        tmp := tmp + 'regDT (임시저장 일자 :' + taxinvoiceInfo.regDT + #13;
+        tmp := tmp + 'issueType (발행형태) :' + taxinvoiceInfo.issueType + #13;
+        tmp := tmp + 'supplyCostTotal (공급가액 합계) :' + taxinvoiceInfo.supplyCostTotal + #13;
+        tmp := tmp + 'taxTotal (세액 합계) :' + taxinvoiceInfo.taxTotal + #13;
+        tmp := tmp + 'purposeType (영수/청구) :' + taxinvoiceInfo.purposeType + #13;
+        tmp := tmp + 'lateIssueYN (지연발행 여부) :' + BoolToStr(taxinvoiceInfo.lateIssueYN) + #13;
+        tmp := tmp + 'openYN (개봉 여부) : ' + BoolToStr(taxinvoiceInfo.openYN) + #13;
+        tmp := tmp + 'openDT (개봉 일시) : ' + taxinvoiceInfo.openDT + #13;
+        tmp := tmp + 'stateMemo (상태메모) : ' + taxinvoiceInfo.stateMemo + #13;
+        tmp := tmp + 'stateCode (상태코드) : ' + IntToStr(taxinvoiceInfo.stateCode) + #13;
+        tmp := tmp + 'ntsconfirmNum (국세청승인번호) : ' + taxinvoiceInfo.ntsconfirmNum + #13;
+        tmp := tmp + 'ntsresult (국세청 전송결과) : ' + taxinvoiceInfo.ntsresult + #13;
+        tmp := tmp + 'ntssendDT (국세청 전송일시) : ' + taxinvoiceInfo.ntssendDT + #13;
+        tmp := tmp + 'ntsresultDT (국세청 결과 수신일시) : ' + taxinvoiceInfo.ntsresultDT + #13;
+        tmp := tmp + 'ntssendErrCode (실패사유 사유코드) : ' + taxinvoiceInfo.ntssendErrCode + #13;
+        tmp := tmp + 'modifyCode (수정 사유코드) : ' + taxinvoiceInfo.modifyCode + #13;
+        tmp := tmp + 'interOPYN (연동문서 여부) : ' + BoolToStr(taxinvoiceInfo.interOPYN) + #13;
+        tmp := tmp + 'invoicerCorpName (공급자 상호) : ' + taxinvoiceInfo.invoicerCorpName + #13;
+        tmp := tmp + 'invoicerCorpNum (공급자 사업자번호) : ' + taxinvoiceInfo.invoicerCorpNum + #13;
+        tmp := tmp + 'invoicerMgtKey (공급자 문서관리번호) : ' + taxinvoiceInfo.invoicerMgtKey + #13;
+        tmp := tmp + 'invoicerPrintYN (공급자 인쇄여부) : ' + BoolToStr(taxinvoiceInfo.invoicerPrintYN)+ #13;
+        tmp := tmp + 'invoiceeCorpName (공급받는자 상호) : ' + taxinvoiceInfo.invoiceeCorpName + #13;
+        tmp := tmp + 'invoiceeCorpNum (공급받는자 사업자번호) : ' + taxinvoiceInfo.invoiceeCorpNum + #13;
+        tmp := tmp + 'invoiceeMgtKey(공급받는자 문서관리번호) : ' + taxinvoiceInfo.invoiceeMgtKey + #13;
+        tmp := tmp + 'invoiceePrintYN(공급받는자 인쇄여부) : ' + BoolToStr(taxinvoiceInfo.invoicerPrintYN)+ #13;
+        tmp := tmp + 'closeDownState(공급받는자 휴폐업상태) : ' + IntToStr(taxinvoiceInfo.closeDownState) + #13;
+        tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) : ' + taxinvoiceInfo.closeDownStateDate + #13;
+        tmp := tmp + 'trusteeCorpName (수탁자 상호) : ' + taxinvoiceInfo.trusteeCorpName + #13;
+        tmp := tmp + 'trusteeCorpNum (수탁자 사업자번호) : ' + taxinvoiceInfo.trusteeCorpNum + #13;
+        tmp := tmp + 'trusteeMgtKey(수탁자 문서관리번호) : ' + taxinvoiceInfo.trusteeMgtKey + #13;
+        tmp := tmp + 'trusteePrintYN(수탁자 인쇄여부) : ' + BoolToStr(taxinvoiceInfo.trusteePrintYN);
         ShowMessage(tmp);
 end;
 
@@ -1045,7 +1035,7 @@ begin
         tmp := tmp + 'invoiceeCorpNum (공급받는자 사업자번호) | invoiceeMgtKey(공급받는자 문서관리번호) | invoiceePrintYN(공급받는자 인쇄여부) | closeDownState(공급받는자 휴폐업상태) |';
         tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) | trusteeCorpName (수탁자 상호) | trusteeCorpNum (수탁자 사업자번호) | trusteeMgtKey(수탁자 문서관리번호) | ';
         tmp := tmp + 'trusteePrintYN(수탁자 인쇄여부) ' + #13 + #13;
-
+
         for i := 0 to Length(InfoList) -1 do
         begin
             tmp := tmp + InfoList[i].itemKey + '|'

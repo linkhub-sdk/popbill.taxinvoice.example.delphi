@@ -960,7 +960,15 @@ begin
         {  을 참조하시기 바랍니다.                                             }
         {**********************************************************************}
 
-        taxinvoiceInfo := taxinvoiceService.getInfo(txtCorpNum.text, MgtKeyType, tbMgtKey.Text);
+        try
+            taxinvoiceInfo := taxinvoiceService.getInfo(txtCorpNum.text, MgtKeyType, tbMgtKey.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
+                        Exit;
+                end;
+        end;
+
 
         tmp := 'itemKey(팝빌 관리번호) :' +  taxinvoiceInfo.itemKey + #13;
         tmp := tmp + 'taxType (과세형태) :' + taxinvoiceInfo.taxType + #13;
@@ -1221,8 +1229,6 @@ begin
 
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
 end;
-
-
 
 procedure TfrmExample.btnRequestClick(Sender: TObject);
 var

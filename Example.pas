@@ -1111,7 +1111,7 @@ begin
                         + LogList[i].Log + ' | '
                         + LogList[i].ProcType + ' | '
                         + LogList[i].ProcCorpName + ' | '
-                        + LogList[i].procContactName + ' | '
+                        + LogList[i].ProcContactName + ' | '
                         + LogList[i].ProcMemo + ' | '
                         + LogList[i].RegDT + ' | '
                         + LogList[i].IP + #13;
@@ -1604,6 +1604,7 @@ var
         response : TResponse;
 begin
         {**********************************************************************}
+        { 1건의 역발행 세금계산서를 등록(임시저장)합니다.                      }
         { - 역발행은 공급자, 공급받는자 모두 팝빌 회원인 경우에만 가능합니다.  }
         { - 세금계산서 항목별 정보는 "[전자세금계산서 API 연동매뉴얼] >        }
         {   4.1 (세금)계산서 구성" 을 참조하시기 바랍니다.                     }
@@ -2366,8 +2367,8 @@ begin
         end;
 
         tmp := tmp + '-----공급자 정보-----' + #13;
-        tmp := tmp +'invoicerCorpNum(관리번호) : ' +  taxinvoice.InvoicerCorpNum + #13;
-        tmp := tmp +'invoicerMgtKey(사업자번호) : ' +  taxinvoice.InvoicerMgtKey + #13;
+        tmp := tmp +'invoicerCorpNum(사업자번호) : ' +  taxinvoice.InvoicerCorpNum + #13;
+        tmp := tmp +'invoicerMgtKey(관리번호) : ' +  taxinvoice.InvoicerMgtKey + #13;
         tmp := tmp +'invoicerTaxRegID(종사업장 식별번호) : ' +  taxinvoice.InvoicerTaxRegID + #13;
         tmp := tmp +'invoicerCorpName(상호) : ' +  taxinvoice.InvoicerCorpName + #13;
         tmp := tmp +'invoicerCEOName(대표자 성명) : ' +  taxinvoice.InvoicerCEOName + #13;
@@ -2382,9 +2383,9 @@ begin
         tmp := tmp +'invoicerSMSSendYN(문자전송 여부) : ' +  IfThen(taxinvoice.InvoicerSMSSendYN,'true','false') + #13;
 
         tmp := tmp + '-----공급받는자 정보-----' + #13;
-        tmp := tmp +'invoiceeCorpNum(관리번호) : ' +  taxinvoice.InvoiceeCorpNum + #13;
+        tmp := tmp +'invoiceeCorpNum(사업자번호) : ' +  taxinvoice.InvoiceeCorpNum + #13;
         tmp := tmp +'invoiceeType(구분) : ' +  taxinvoice.invoiceeType + #13;
-        tmp := tmp +'invoiceeMgtKey(사업자번호) : ' +  taxinvoice.InvoiceeMgtKey + #13;
+        tmp := tmp +'invoiceeMgtKey(관리번호) : ' +  taxinvoice.InvoiceeMgtKey + #13;
         tmp := tmp +'invoiceeTaxRegID(종사업장 식별번호) : ' +  taxinvoice.InvoiceeTaxRegID + #13;
         tmp := tmp +'invoiceeCorpName(상호) : ' +  taxinvoice.InvoiceeCorpName + #13;
         tmp := tmp +'invoiceeCEOName(대표자 성명) : ' +  taxinvoice.InvoiceeCEOName + #13;
@@ -3229,9 +3230,9 @@ var
         SubItemCode : Integer;
         SubMgtKey : String;
 begin
-        {**********************************************************************}
-        { 팝빌에 등록된 1건의 전자명세서를 세금계산서에 첨부합니다.            }
-        {**********************************************************************}
+        {****************************************************************}
+        { 전자세금계산서에 팝빌에 등록된 전자명세서를 첨부합니다.        }
+        {****************************************************************}
 
         // 첨부할 전자명세서 문서종류코드, 121-거래명세서, 122-청구서, 123-견적서, 124-발주서, 125-입금표, 126-영수증
         SubItemCode := 121;

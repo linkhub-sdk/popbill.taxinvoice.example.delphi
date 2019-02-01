@@ -968,9 +968,9 @@ begin
         tmp := tmp + 'stateMemo (상태메모) | stateCode (상태코드) | ntsconfirmNum (국세청승인번호) | ntsresult (국세청 전송결과) | ntssendDT (국세청 전송일시) | ';
         tmp := tmp + 'ntsresultDT (국세청 결과 수신일시) | ntssendErrCode (실패사유 사유코드) | modifyCode (수정 사유코드) | interOPYN (연동문서 여부) | invoicerCorpName (공급자 상호) |';
         tmp := tmp + 'invoicerCorpNum (공급자 사업자번호) | invoicerMgtKey (공급자 문서관리번호) | invoicerPrintYN (공급자 인쇄여부) | invoiceeCorpName (공급받는자 상호) |' ;
-        tmp := tmp + 'invoiceeCorpNum (공급받는자 사업자번호) | invoiceeMgtKey(공급받는자 문서관리번호) | invoiceePrintYN(공급받는자 인쇄여부) | closeDownState(공급받는자 휴폐업상태) |';
-        tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) | trusteeCorpName (수탁자 상호) | trusteeCorpNum (수탁자 사업자번호) | trusteeMgtKey(수탁자 문서관리번호) | ';
-        tmp := tmp + 'trusteePrintYN(수탁자 인쇄여부) ' + #13 + #13;
+        //tmp := tmp + 'invoiceeCorpNum (공급받는자 사업자번호) | invoiceeMgtKey(공급받는자 문서관리번호) | invoiceePrintYN(공급받는자 인쇄여부) | closeDownState(공급받는자 휴폐업상태) |';
+        //tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) | trusteeCorpName (수탁자 상호) | trusteeCorpNum (수탁자 사업자번호) | trusteeMgtKey(수탁자 문서관리번호) | ';
+        //tmp := tmp + 'trusteePrintYN(수탁자 인쇄여부) ' + #13 + #13;
 
         tmp := tmp + taxinvoiceInfo.itemKey + '|'
                 + taxinvoiceInfo.taxType + '|'
@@ -3341,7 +3341,7 @@ begin
         {**********************************************************************}
         
         try
-                resultURL := taxinvoiceService.GetPartnerURL(txtCorpNum.Text, 'CHRG' , '123');
+                resultURL := taxinvoiceService.GetPartnerURL(txtCorpNum.Text, 'CHRG');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);

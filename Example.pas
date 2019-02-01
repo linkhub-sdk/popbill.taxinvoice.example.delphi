@@ -3179,17 +3179,16 @@ begin
         tmp := tmp + 'ntsresultDT (국세청 결과 수신일시) | ntssendErrCode (실패사유 사유코드) | modifyCode (수정 사유코드) | interOPYN (연동문서 여부) | invoicerCorpName (공급자 상호) |';
         tmp := tmp + 'invoicerCorpNum (공급자 사업자번호) | invoicerMgtKey (공급자 문서관리번호) | invoicerPrintYN (공급자 인쇄여부) | invoiceeCorpName (공급받는자 상호) |' ;
         tmp := tmp + 'invoiceeCorpNum (공급받는자 사업자번호) | invoiceeMgtKey(공급받는자 문서관리번호) | invoiceePrintYN(공급받는자 인쇄여부) | closeDownState(공급받는자 휴폐업상태) |';
-        tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) | trusteeCorpName (수탁자 상호) | trusteeCorpNum (수탁자 사업자번호) | trusteeMgtKey(수탁자 문서관리번호) | ';
-        tmp := tmp + 'trusteePrintYN(수탁자 인쇄여부) ' + #13 + #13;
-        for i := 0 to Length(SearchList.list) -1 do
-        begin
-        tmp := tmp + SearchList.list[i].itemKey + '|'
-
-
-                + SearchList.list[i].taxType + '|'
-                + SearchList.list[i].writeDate + '|'
-                + SearchList.list[i].regDT + '|'
-                + SearchList.list[i].issueType + '|'
+        tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) | trusteeCorpName (수탁자 상호) | trusteeCorpNum (수탁자 사업자번호) | trusteeMgtKey(수탁자 문서관리번호) | ';
+        tmp := tmp + 'trusteePrintYN(수탁자 인쇄여부) ' + #13 + #13;
+        
+	for i := 0 to Length(SearchList.list) -1 do        
+	    begin
+	      tmp := tmp + SearchList.list[i].itemKey + '|'
+                + SearchList.list[i].taxType + '|'
+                + SearchList.list[i].writeDate + '|'
+                + SearchList.list[i].regDT + '|'
+                + SearchList.list[i].issueType + '|'
                 + SearchList.list[i].supplyCostTotal + '|'
                 + SearchList.list[i].taxTotal + '|'
                 + SearchList.list[i].purposeType + '|'
@@ -3233,7 +3232,7 @@ begin
         {**********************************************************************}
         { 팝빌에 등록된 1건의 전자명세서를 세금계산서에 첨부합니다.            }
         {**********************************************************************}
-        
+
         // 첨부할 전자명세서 문서종류코드, 121-거래명세서, 122-청구서, 123-견적서, 124-발주서, 125-입금표, 126-영수증
         SubItemCode := 121;
 

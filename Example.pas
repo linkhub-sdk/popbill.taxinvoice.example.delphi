@@ -3181,6 +3181,10 @@ begin
         tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) | trusteeCorpName (수탁자 상호) | trusteeCorpNum (수탁자 사업자번호) | trusteeMgtKey(수탁자 문서관리번호) | ';
         tmp := tmp + 'trusteePrintYN(수탁자 인쇄여부) ' + #13 + #13;;
 
+        tmp := tmp + 'invoiceeCorpNum (공급받는자 사업자번호) | invoiceeMgtKey(공급받는자 문서관리번호) | invoiceePrintYN(공급받는자 인쇄여부) | closeDownState(공급받는자 휴폐업상태) |';
+        tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) | trusteeCorpName (수탁자 상호) | trusteeCorpNum (수탁자 사업자번호) | trusteeMgtKey(수탁자 문서관리번호) | ';
+        tmp := tmp + 'trusteePrintYN(수탁자 인쇄여부) ' + #13 + #13;;
+
         for i := 0 to Length(SearchList.list) -1 do
         begin
             tmp := tmp + SearchList.list[i].itemKey + '|'

@@ -3182,8 +3182,8 @@ begin
 
         for i := 0 to Length(SearchList.list) -1 do
         begin
-            tmp := tmp + SearchList.list[i].itemKey + '|'
-                + SearchList.list[i].taxType + '|'
+             tmp := tmp + SearchList.list[i].itemKey + '|'
+                + SearchList.list[i].taxType + '|'
                 + SearchList.list[i].writeDate + '|'
                 + SearchList.list[i].regDT + '|'
                 + SearchList.list[i].issueType + '|'

@@ -2,7 +2,7 @@
 { 팝빌 전자세금계산서 API Delphi SDK Example                                   }
 {                                                                              }
 { - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/572                   }
-{ - 업데이트 일자 : 2019-01-29                                                 }
+{ - 업데이트 일자 : 2019-02-07                                                 }
 { - 연동 기술지원 연락처 : 1600-9854 / 070-4304-2991                           }
 { - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
 {                                                                              }
@@ -444,7 +444,7 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('ResultURL is ' + #13 + resultURL);
+        ShowMessage('URL : ' + #13 + resultURL);
 end;
 
 procedure TfrmExample.btnJoinMemberClick(Sender: TObject);
@@ -973,7 +973,7 @@ begin
         tmp := 'itemKey(팝빌 관리번호) :' +  taxinvoiceInfo.itemKey + #13;
         tmp := tmp + 'taxType (과세형태) :' + taxinvoiceInfo.taxType + #13;
         tmp := tmp + 'writeDate (작성일자) :' + taxinvoiceInfo.writeDate + #13;
-        tmp := tmp + 'regDT (임시저장 일자 :' + taxinvoiceInfo.regDT + #13;
+        tmp := tmp + 'regDT (임시저장 일자) :' + taxinvoiceInfo.regDT + #13;
         tmp := tmp + 'issueType (발행형태) :' + taxinvoiceInfo.issueType + #13;
         tmp := tmp + 'supplyCostTotal (공급가액 합계) :' + taxinvoiceInfo.supplyCostTotal + #13;
         tmp := tmp + 'taxTotal (세액 합계) :' + taxinvoiceInfo.taxTotal + #13;
@@ -1420,7 +1420,7 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('ResultURL is ' + #13 + resultURL);
+        ShowMessage('URL : ' + #13 + resultURL);
 end;
 
 procedure TfrmExample.btnGetURL2Click(Sender: TObject);
@@ -1440,7 +1440,8 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('ResultURL is ' + #13 + resultURL);
+
+        ShowMessage('URL : ' + #13 + resultURL);
 end;
 
 procedure TfrmExample.btnGetURL3Click(Sender: TObject);
@@ -1451,7 +1452,7 @@ begin
         { 팝빌 > 전자세금계산서 > 매입 문서함 팝업 URL을 반환합니다.           }
         { - 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.              }
         {**********************************************************************}
-        
+
         try
                 resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, 'PBOX');
         except
@@ -1460,7 +1461,7 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('ResultURL is ' + #13 + resultURL);
+        ShowMessage('URL : ' + #13 + resultURL);
 end;
 
 procedure TfrmExample.btnGetURL4Click(Sender: TObject);
@@ -1480,7 +1481,8 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('ResultURL is ' + #13 + resultURL);
+
+        ShowMessage('URL : ' + #13 + resultURL);
 end;
 
 procedure TfrmExample.btnGetPopUpURLClick(Sender: TObject);
@@ -1501,7 +1503,7 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('ResultURL is ' + #13 + resultURL);
+        ShowMessage('URL :  ' + #13 + resultURL);
 end;
 
 procedure TfrmExample.btnGetPrintURLClick(Sender: TObject);
@@ -1522,7 +1524,7 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('ResultURL is ' + #13 + resultURL);
+        ShowMessage('URL : ' + #13 + resultURL);
 end;
 
 procedure TfrmExample.btnGetMailURLClick(Sender: TObject);
@@ -1543,7 +1545,7 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('ResultURL is ' + #13 + resultURL);
+        ShowMessage('URL : ' + #13 + resultURL);
 end;
 
 procedure TfrmExample.btnGetMassPrintURLClick(Sender: TObject);
@@ -1572,7 +1574,7 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('ResultURL is ' + #13 + resultURL);
+        ShowMessage('URL : ' + #13 + resultURL);
 end;
 
 procedure TfrmExample.btnGetEmailPublicKeyClick(Sender: TObject);
@@ -1620,8 +1622,8 @@ begin
         // 세금계산서 객체 생성
         taxinvoice := TTaxinvoice.Create;
 
-        // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20180114
-        taxinvoice.writeDate := '20180114';
+        // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20190114
+        taxinvoice.writeDate := '20190114';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '역발행';
@@ -1791,9 +1793,8 @@ begin
         {**********************************************************************}
         {                        상세항목(품목) 정보                           }
         {**********************************************************************}
-
         // 상세항목 0~99개 까지 작성가능.
-        // 일련번호 (serialNum) 는ㄴ 1부터 99까지 순차기재.
+        // 일련번호 (serialNum) 는 1부터 99까지 순차기재.
         // SetLength로 초기화 한후 기재.
         setLength(taxinvoice.detailList, 2);
 
@@ -2274,9 +2275,8 @@ begin
         {**********************************************************************}
         {                        상세항목(품목) 정보                           }
         {**********************************************************************}
-
         // 상세항목 0~99개 까지 작성가능.
-        // 일련번호 (serialNum) 는ㄴ 1부터 99까지 순차기재.
+        // 일련번호 (serialNum) 는 1부터 99까지 순차기재.
         // SetLength로 초기화 한후 기재.
         setLength(taxinvoice.detailList, 2);
 
@@ -2383,7 +2383,6 @@ begin
         tmp := tmp +'invoicerBizClass(종목) : ' +  taxinvoice.InvoicerBizClass + #13;
         tmp := tmp +'invoicerBizType(업태) : ' +  taxinvoice.InvoicerBizType + #13;
         tmp := tmp +'invoicerContactName(담당자 성명) : ' +  taxinvoice.InvoicerContactName + #13;
-        tmp := tmp +'invoicerDeptName(담당자 부서명) : ' +  taxinvoice.InvoicerDeptName + #13;
         tmp := tmp +'invoicerTEL(담당자 연락처) : ' +  taxinvoice.InvoicerTEL + #13;
         tmp := tmp +'invoicerHP(담당자 휴대폰) : ' +  taxinvoice.InvoicerHP + #13;
         tmp := tmp +'invoicerEmail(담당자 이메일) : ' +  taxinvoice.InvoicerEmail + #13;
@@ -2402,7 +2401,6 @@ begin
         tmp := tmp +'closeDownState(휴폐업상태) : ' +  IntToStr(taxinvoice.closeDownState) + #13;
         tmp := tmp +'closeDownStateDate(휴폐업일자) : ' +  taxinvoice.closeDownStateDate + #13;
         tmp := tmp +'invoiceeContactName1(주)담당자 성명) : ' +  taxinvoice.InvoiceeContactName1 + #13;
-        tmp := tmp +'invoiceeDeptName1(주)담당자 부서명) : ' +  taxinvoice.InvoiceeDeptName1 + #13;
         tmp := tmp +'invoiceeTEL1(주)담당자 연락처) : ' +  taxinvoice.InvoiceeTEL1 + #13;
         tmp := tmp +'invoiceeHP1(주)담당자 휴대폰) : ' +  taxinvoice.InvoiceeHP1 + #13;
         tmp := tmp +'invoiceeEmail1(주)담당자 이메일) : ' +  taxinvoice.InvoiceeEmail1 + #13;
@@ -2418,7 +2416,6 @@ begin
         tmp := tmp +'trusteeBizClass(종목) : ' +  taxinvoice.trusteeBizClass + #13;
         tmp := tmp +'trusteeBizType(업태) : ' +  taxinvoice.trusteeBizType + #13;
         tmp := tmp +'trusteeContactName(담당자 성명) : ' +  taxinvoice.trusteeContactName + #13;
-        tmp := tmp +'trusteeDeptName(담당자 부서) : ' +  taxinvoice.trusteeDeptName + #13;
         tmp := tmp +'trusteeTEL(담당자 연락처) : ' +  taxinvoice.trusteeTEL + #13;
         tmp := tmp +'trusteeHP(담당자 휴대폰) : ' +  taxinvoice.trusteeHP + #13;
         tmp := tmp +'trusteeEmail(담당자 이메일) : ' +  taxinvoice.trusteeEmail + #13;
@@ -2481,7 +2478,7 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('ResultURL is ' + #13 + resultURL);
+        ShowMessage('URL : ' + #13 + resultURL);
 end;
 
 procedure TfrmExample.btnCheckIsMemberClick(Sender: TObject);
@@ -2908,7 +2905,7 @@ begin
         {**********************************************************************}
 
         // 상세항목 0~99개 까지 작성가능.
-        // 일련번호 (serialNum) 는ㄴ 1부터 99까지 순차기재.
+        // 일련번호 (serialNum) 는 1부터 99까지 순차기재.
         // SetLength로 초기화 한후 기재.
         setLength(taxinvoice.detailList, 2);
 
@@ -3051,7 +3048,7 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('ResultURL is ' + #13 + resultURL);
+        ShowMessage('URL : ' + #13 + resultURL);
 end;
 
 procedure TfrmExample.btnGetTaxCertURLClick(Sender: TObject);
@@ -3328,7 +3325,7 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('ResultURL is ' + #13 + resultURL);
+        ShowMessage('URL : ' + #13 + resultURL);
 end;
 
 procedure TfrmExample.btnGetPartnerURLClick(Sender: TObject);
@@ -3348,7 +3345,7 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('ResultURL is ' + #13 + resultURL);
+        ShowMessage('URL :  ' + #13 + resultURL);
 end;
 
 procedure TfrmExample.btnAssignMgtKeyClick(Sender: TObject);

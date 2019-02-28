@@ -34,7 +34,7 @@ object frmExample: TfrmExample
     Left = 8
     Top = 208
     Width = 1273
-    Height = 577
+    Height = 593
     Caption = '전자세금계산서 관련 API'
     TabOrder = 0
     object Label1: TLabel
@@ -348,7 +348,7 @@ object frmExample: TfrmExample
       Left = 16
       Top = 368
       Width = 200
-      Height = 181
+      Height = 209
       Caption = '첨부파일'
       TabOrder = 1
       object Label2: TLabel
@@ -399,7 +399,7 @@ object frmExample: TfrmExample
       Left = 231
       Top = 368
       Width = 202
-      Height = 181
+      Height = 209
       Caption = '문서 정보'
       TabOrder = 2
       object btnGetDetailInfo: TButton
@@ -452,7 +452,7 @@ object frmExample: TfrmExample
       Left = 869
       Top = 368
       Width = 377
-      Height = 181
+      Height = 209
       Caption = '부가기능'
       TabOrder = 3
       object btnSendEmail: TButton
@@ -549,7 +549,7 @@ object frmExample: TfrmExample
       Left = 445
       Top = 368
       Width = 196
-      Height = 181
+      Height = 209
       Caption = '기타  URL'
       TabOrder = 6
       object btnGetURL1: TButton
@@ -808,7 +808,7 @@ object frmExample: TfrmExample
       Left = 654
       Top = 368
       Width = 200
-      Height = 181
+      Height = 209
       Caption = '세금계산서 보기/인쇄'
       TabOrder = 15
       object btnGetPopUpURL: TButton
@@ -822,7 +822,7 @@ object frmExample: TfrmExample
       end
       object btnGetPrintURL: TButton
         Left = 12
-        Top = 54
+        Top = 81
         Width = 174
         Height = 25
         Caption = '공급자 인쇄 팝업 URL'
@@ -831,7 +831,7 @@ object frmExample: TfrmExample
       end
       object btnGetMassPrintURL: TButton
         Left = 12
-        Top = 113
+        Top = 140
         Width = 174
         Height = 25
         Caption = '대량 인쇄 팝업 URL'
@@ -840,7 +840,7 @@ object frmExample: TfrmExample
       end
       object btnGetMailURL: TButton
         Left = 12
-        Top = 142
+        Top = 170
         Width = 174
         Height = 25
         Caption = '메일링크 URL'
@@ -849,12 +849,21 @@ object frmExample: TfrmExample
       end
       object btnGetEPrintUrl: TButton
         Left = 12
-        Top = 83
+        Top = 110
         Width = 174
         Height = 25
         Caption = '공급받는자 인쇄 팝업 URL'
         TabOrder = 4
         OnClick = btnGetEPrintUrlClick
+      end
+      object btnGetViewURL: TButton
+        Left = 12
+        Top = 53
+        Width = 174
+        Height = 25
+        Caption = '세금계산서 보기 URL(메뉴x)'
+        TabOrder = 5
+        OnClick = btnGetViewURLClick
       end
     end
     object btnRegistRequest: TButton

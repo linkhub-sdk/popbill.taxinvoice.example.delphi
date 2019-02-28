@@ -167,6 +167,7 @@ type
     StaticText1: TStaticText;
     Shape33: TShape;
     Shape5: TShape;
+    btnGetViewURL: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetAccessURLClick(Sender: TObject);
@@ -236,6 +237,7 @@ type
     procedure btnRefuseClick(Sender: TObject);
     procedure btnCancelRequestClick(Sender: TObject);
     procedure btnDelete_reverseClick(Sender: TObject);
+    procedure btnGetViewURLClick(Sender: TObject);
 
   private
     MgtKeyType : EnumMgtKeyType;
@@ -284,7 +286,7 @@ end;
 
 procedure TfrmExample.btnIssue_reverseClick(Sender: TObject);
 var
-        response : TResponse;
+        response : TIssueResponse;
         memo : String;
         emailSubject : String;
         forceIssue : Boolean;
@@ -322,7 +324,7 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message + #10#13 +'국세청승인번호 : '+  response.ntsConfirmNum);
 end;
 
 procedure TfrmExample.btnCancelIssue_reverseClick(Sender: TObject);
@@ -528,7 +530,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20190113
-        taxinvoice.writeDate := '20190114';
+        taxinvoice.writeDate := '20190228';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '정발행';
@@ -1164,7 +1166,7 @@ end;
 
 procedure TfrmExample.btnIssueClick(Sender: TObject);
 var
-        response : TResponse;
+        response : TIssueResponse;
         memo : String;
         emailSubject : String;
         forceIssue : Boolean;
@@ -1202,7 +1204,7 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message + #10#13 +'국세청승인번호 : '+  response.ntsConfirmNum);
 end;
 
 procedure TfrmExample.btnSendToNTSClick(Sender: TObject);
@@ -2716,7 +2718,7 @@ end;
 procedure TfrmExample.btnRegistIssueClick(Sender: TObject);
 var
         taxinvoice : TTaxinvoice;
-        response : TResponse;
+        response : TIssueResponse;
         writeSpecification : Boolean;
         forceIssue : Boolean;
         memo : String;
@@ -2740,7 +2742,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20190114
-        taxinvoice.writeDate := '20190114';
+        taxinvoice.writeDate := '20190228';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '정발행';
@@ -2987,7 +2989,7 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+        ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message + #10#13 +'국세청승인번호 : '+  response.ntsConfirmNum);
 end;
 
 procedure TfrmExample.btnCancelIssueClick(Sender: TObject);
@@ -3807,6 +3809,27 @@ begin
                 end;
         end;
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message);
+end;
+
+procedure TfrmExample.btnGetViewURLClick(Sender: TObject);
+var
+  resultURL : String;
+begin
+        {**********************************************************************}
+        { 1건의 전자세금계산서 보기 팝업 URL을 반환합니다. (메뉴/버튼 제외)    }
+        { - 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.              }
+        {**********************************************************************}
+
+        try
+                resultURL := taxinvoiceService.getViewURL(txtCorpNum.Text,
+                                        MgtKeyType, tbMgtKey.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
+                        Exit;
+                end;
+        end;
+        ShowMessage('URL :  ' + #13 + resultURL);
 end;
 
 end.

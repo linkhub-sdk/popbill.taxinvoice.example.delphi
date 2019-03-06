@@ -1,6 +1,6 @@
 object frmExample: TfrmExample
-  Left = 458
-  Top = 125
+  Left = 377
+  Top = 123
   Width = 1312
   Height = 842
   Caption = 'Linkhub ÆËºô ÀüÀÚ¼¼±Ý°è»ê¼­  SDK Examples'
@@ -546,7 +546,7 @@ object frmExample: TfrmExample
       OnClick = btnCheckMgtKeyInUseClick
     end
     object GroupBox10: TGroupBox
-      Left = 445
+      Left = 453
       Top = 368
       Width = 196
       Height = 209

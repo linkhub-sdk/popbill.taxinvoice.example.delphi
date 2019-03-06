@@ -971,42 +971,49 @@ begin
                 end;
         end;
 
-
-        tmp := 'itemKey(팝빌 관리번호) :' +  taxinvoiceInfo.itemKey + #13;
-        tmp := tmp + 'taxType (과세형태) :' + taxinvoiceInfo.taxType + #13;
-        tmp := tmp + 'writeDate (작성일자) :' + taxinvoiceInfo.writeDate + #13;
-        tmp := tmp + 'regDT (임시저장 일자) :' + taxinvoiceInfo.regDT + #13;
-        tmp := tmp + 'issueType (발행형태) :' + taxinvoiceInfo.issueType + #13;
-        tmp := tmp + 'supplyCostTotal (공급가액 합계) :' + taxinvoiceInfo.supplyCostTotal + #13;
-        tmp := tmp + 'taxTotal (세액 합계) :' + taxinvoiceInfo.taxTotal + #13;
-        tmp := tmp + 'purposeType (영수/청구) :' + taxinvoiceInfo.purposeType + #13;
-        tmp := tmp + 'lateIssueYN (지연발행 여부) :' + BoolToStr(taxinvoiceInfo.lateIssueYN) + #13;
-        tmp := tmp + 'openYN (개봉 여부) : ' + BoolToStr(taxinvoiceInfo.openYN) + #13;
-        tmp := tmp + 'openDT (개봉 일시) : ' + taxinvoiceInfo.openDT + #13;
-        tmp := tmp + 'stateMemo (상태메모) : ' + taxinvoiceInfo.stateMemo + #13;
-        tmp := tmp + 'stateCode (상태코드) : ' + IntToStr(taxinvoiceInfo.stateCode) + #13;
-        tmp := tmp + 'ntsconfirmNum (국세청승인번호) : ' + taxinvoiceInfo.ntsconfirmNum + #13;
-        tmp := tmp + 'ntsresult (국세청 전송결과) : ' + taxinvoiceInfo.ntsresult + #13;
-        tmp := tmp + 'ntssendDT (국세청 전송일시) : ' + taxinvoiceInfo.ntssendDT + #13;
-        tmp := tmp + 'ntsresultDT (국세청 결과 수신일시) : ' + taxinvoiceInfo.ntsresultDT + #13;
-        tmp := tmp + 'ntssendErrCode (실패사유 사유코드) : ' + taxinvoiceInfo.ntssendErrCode + #13;
-        tmp := tmp + 'modifyCode (수정 사유코드) : ' + taxinvoiceInfo.modifyCode + #13;
-        tmp := tmp + 'interOPYN (연동문서 여부) : ' + BoolToStr(taxinvoiceInfo.interOPYN) + #13;
-        tmp := tmp + 'invoicerCorpName (공급자 상호) : ' + taxinvoiceInfo.invoicerCorpName + #13;
-        tmp := tmp + 'invoicerCorpNum (공급자 사업자번호) : ' + taxinvoiceInfo.invoicerCorpNum + #13;
-        tmp := tmp + 'invoicerMgtKey (공급자 문서관리번호) : ' + taxinvoiceInfo.invoicerMgtKey + #13;
-        tmp := tmp + 'invoicerPrintYN (공급자 인쇄여부) : ' + BoolToStr(taxinvoiceInfo.invoicerPrintYN)+ #13;
-        tmp := tmp + 'invoiceeCorpName (공급받는자 상호) : ' + taxinvoiceInfo.invoiceeCorpName + #13;
-        tmp := tmp + 'invoiceeCorpNum (공급받는자 사업자번호) : ' + taxinvoiceInfo.invoiceeCorpNum + #13;
-        tmp := tmp + 'invoiceeMgtKey(공급받는자 문서관리번호) : ' + taxinvoiceInfo.invoiceeMgtKey + #13;
-        tmp := tmp + 'invoiceePrintYN(공급받는자 인쇄여부) : ' + BoolToStr(taxinvoiceInfo.invoicerPrintYN)+ #13;
-        tmp := tmp + 'closeDownState(공급받는자 휴폐업상태) : ' + IntToStr(taxinvoiceInfo.closeDownState) + #13;
-        tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) : ' + taxinvoiceInfo.closeDownStateDate + #13;
-        tmp := tmp + 'trusteeCorpName (수탁자 상호) : ' + taxinvoiceInfo.trusteeCorpName + #13;
-        tmp := tmp + 'trusteeCorpNum (수탁자 사업자번호) : ' + taxinvoiceInfo.trusteeCorpNum + #13;
-        tmp := tmp + 'trusteeMgtKey(수탁자 문서관리번호) : ' + taxinvoiceInfo.trusteeMgtKey + #13;
-        tmp := tmp + 'trusteePrintYN(수탁자 인쇄여부) : ' + BoolToStr(taxinvoiceInfo.trusteePrintYN);
-        ShowMessage(tmp);
+        if taxinvoiceService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(taxinvoiceService.LastErrCode) + #10#13 +'응답메시지 : '+  taxinvoiceService.LastErrMessage);
+                Exit;
+        end
+        else
+        begin
+                tmp := 'itemKey(팝빌 관리번호) :' +  taxinvoiceInfo.itemKey + #13;
+                tmp := tmp + 'taxType (과세형태) :' + taxinvoiceInfo.taxType + #13;
+                tmp := tmp + 'writeDate (작성일자) :' + taxinvoiceInfo.writeDate + #13;
+                tmp := tmp + 'regDT (임시저장 일자) :' + taxinvoiceInfo.regDT + #13;
+                tmp := tmp + 'issueType (발행형태) :' + taxinvoiceInfo.issueType + #13;
+                tmp := tmp + 'supplyCostTotal (공급가액 합계) :' + taxinvoiceInfo.supplyCostTotal + #13;
+                tmp := tmp + 'taxTotal (세액 합계) :' + taxinvoiceInfo.taxTotal + #13;
+                tmp := tmp + 'purposeType (영수/청구) :' + taxinvoiceInfo.purposeType + #13;
+                tmp := tmp + 'lateIssueYN (지연발행 여부) :' + BoolToStr(taxinvoiceInfo.lateIssueYN) + #13;
+                tmp := tmp + 'openYN (개봉 여부) : ' + BoolToStr(taxinvoiceInfo.openYN) + #13;
+                tmp := tmp + 'openDT (개봉 일시) : ' + taxinvoiceInfo.openDT + #13;
+                tmp := tmp + 'stateMemo (상태메모) : ' + taxinvoiceInfo.stateMemo + #13;
+                tmp := tmp + 'stateCode (상태코드) : ' + IntToStr(taxinvoiceInfo.stateCode) + #13;
+                tmp := tmp + 'ntsconfirmNum (국세청승인번호) : ' + taxinvoiceInfo.ntsconfirmNum + #13;
+                tmp := tmp + 'ntsresult (국세청 전송결과) : ' + taxinvoiceInfo.ntsresult + #13;
+                tmp := tmp + 'ntssendDT (국세청 전송일시) : ' + taxinvoiceInfo.ntssendDT + #13;
+                tmp := tmp + 'ntsresultDT (국세청 결과 수신일시) : ' + taxinvoiceInfo.ntsresultDT + #13;
+                tmp := tmp + 'ntssendErrCode (실패사유 사유코드) : ' + taxinvoiceInfo.ntssendErrCode + #13;
+                tmp := tmp + 'modifyCode (수정 사유코드) : ' + taxinvoiceInfo.modifyCode + #13;
+                tmp := tmp + 'interOPYN (연동문서 여부) : ' + BoolToStr(taxinvoiceInfo.interOPYN) + #13;
+                tmp := tmp + 'invoicerCorpName (공급자 상호) : ' + taxinvoiceInfo.invoicerCorpName + #13;
+                tmp := tmp + 'invoicerCorpNum (공급자 사업자번호) : ' + taxinvoiceInfo.invoicerCorpNum + #13;
+                tmp := tmp + 'invoicerMgtKey (공급자 문서관리번호) : ' + taxinvoiceInfo.invoicerMgtKey + #13;
+                tmp := tmp + 'invoicerPrintYN (공급자 인쇄여부) : ' + BoolToStr(taxinvoiceInfo.invoicerPrintYN)+ #13;
+                tmp := tmp + 'invoiceeCorpName (공급받는자 상호) : ' + taxinvoiceInfo.invoiceeCorpName + #13;
+                tmp := tmp + 'invoiceeCorpNum (공급받는자 사업자번호) : ' + taxinvoiceInfo.invoiceeCorpNum + #13;
+                tmp := tmp + 'invoiceeMgtKey(공급받는자 문서관리번호) : ' + taxinvoiceInfo.invoiceeMgtKey + #13;
+                tmp := tmp + 'invoiceePrintYN(공급받는자 인쇄여부) : ' + BoolToStr(taxinvoiceInfo.invoicerPrintYN)+ #13;
+                tmp := tmp + 'closeDownState(공급받는자 휴폐업상태) : ' + IntToStr(taxinvoiceInfo.closeDownState) + #13;
+                tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) : ' + taxinvoiceInfo.closeDownStateDate + #13;
+                tmp := tmp + 'trusteeCorpName (수탁자 상호) : ' + taxinvoiceInfo.trusteeCorpName + #13;
+                tmp := tmp + 'trusteeCorpNum (수탁자 사업자번호) : ' + taxinvoiceInfo.trusteeCorpNum + #13;
+                tmp := tmp + 'trusteeMgtKey(수탁자 문서관리번호) : ' + taxinvoiceInfo.trusteeMgtKey + #13;
+                tmp := tmp + 'trusteePrintYN(수탁자 인쇄여부) : ' + BoolToStr(taxinvoiceInfo.trusteePrintYN);
+                ShowMessage(tmp);
+        end;
 end;
 
 procedure TfrmExample.btnGetInfosClick(Sender: TObject);
@@ -1037,57 +1044,65 @@ begin
                 end;
         end;
 
-        tmp := tmp + 'itemKey(팝빌 관리번호) |  taxType (과세형태) |  writeDate (작성일자) |  regDT (임시저장 일시) |  issueType (발행형태) |  supplyCostTotal (공급가액 합계) | ';
-        tmp := tmp + 'taxTotal (세액 합계) |  purposeType (영수/청구) | issueDT (발행일시) | lateIssueYN (지연발행 여부) | openYN (개봉 여부) | openDT (개봉 일시) | ';
-        tmp := tmp + 'stateMemo (상태메모) | stateCode (상태코드) | ntsconfirmNum (국세청승인번호) | ntsresult (국세청 전송결과) | ntssendDT (국세청 전송일시) | ';
-        tmp := tmp + 'ntsresultDT (국세청 결과 수신일시) | ntssendErrCode (실패사유 사유코드) | modifyCode (수정 사유코드) | interOPYN (연동문서 여부) | invoicerCorpName (공급자 상호) |';
-        tmp := tmp + 'invoicerCorpNum (공급자 사업자번호) | invoicerMgtKey (공급자 문서관리번호) | invoicerPrintYN (공급자 인쇄여부) | invoiceeCorpName (공급받는자 상호) |' ;
-        tmp := tmp + 'invoiceeCorpNum (공급받는자 사업자번호) | invoiceeMgtKey(공급받는자 문서관리번호) | invoiceePrintYN(공급받는자 인쇄여부) | closeDownState(공급받는자 휴폐업상태) |';
-        tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) | trusteeCorpName (수탁자 상호) | trusteeCorpNum (수탁자 사업자번호) | trusteeMgtKey(수탁자 문서관리번호) | ';
-        tmp := tmp + 'trusteePrintYN(수탁자 인쇄여부) ' + #13 + #13;
-
-        for i := 0 to Length(InfoList) -1 do
+        if taxinvoiceService.LastErrCode <> 0 then
         begin
-            tmp := tmp + InfoList[i].itemKey + '|'
-                + InfoList[i].taxType + '|'
-                + InfoList[i].writeDate + '|'
-                + InfoList[i].regDT + '|'
-                + InfoList[i].issueType + '|'
-                + InfoList[i].supplyCostTotal + '|'
+                ShowMessage('응답코드 : '+ IntToStr(taxinvoiceService.LastErrCode) + #10#13 +'응답메시지 : '+  taxinvoiceService.LastErrMessage);
+        end
+        else
+        begin
+        
+                tmp := tmp + 'itemKey(팝빌 관리번호) |  taxType (과세형태) |  writeDate (작성일자) |  regDT (임시저장 일시) |  issueType (발행형태) |  supplyCostTotal (공급가액 합계) | ';
+                tmp := tmp + 'taxTotal (세액 합계) |  purposeType (영수/청구) | issueDT (발행일시) | lateIssueYN (지연발행 여부) | openYN (개봉 여부) | openDT (개봉 일시) | ';
+                tmp := tmp + 'stateMemo (상태메모) | stateCode (상태코드) | ntsconfirmNum (국세청승인번호) | ntsresult (국세청 전송결과) | ntssendDT (국세청 전송일시) | ';
+                tmp := tmp + 'ntsresultDT (국세청 결과 수신일시) | ntssendErrCode (실패사유 사유코드) | modifyCode (수정 사유코드) | interOPYN (연동문서 여부) | invoicerCorpName (공급자 상호) |';
+                tmp := tmp + 'invoicerCorpNum (공급자 사업자번호) | invoicerMgtKey (공급자 문서관리번호) | invoicerPrintYN (공급자 인쇄여부) | invoiceeCorpName (공급받는자 상호) |' ;
+                tmp := tmp + 'invoiceeCorpNum (공급받는자 사업자번호) | invoiceeMgtKey(공급받는자 문서관리번호) | invoiceePrintYN(공급받는자 인쇄여부) | closeDownState(공급받는자 휴폐업상태) |';
+                tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) | trusteeCorpName (수탁자 상호) | trusteeCorpNum (수탁자 사업자번호) | trusteeMgtKey(수탁자 문서관리번호) | ';
+                tmp := tmp + 'trusteePrintYN(수탁자 인쇄여부) ' + #13 + #13;
 
-                + InfoList[i].taxTotal + '|'
-                + InfoList[i].purposeType + '|'
-                + BoolToStr(InfoList[i].lateIssueYN) + '|'
-                + BoolToStr(InfoList[i].openYN) + '|'
-                + InfoList[i].openDT + '|'
-                + InfoList[i].stateMemo + '|'
-                + IntToStr(InfoList[i].stateCode) + '|'
-                + InfoList[i].ntsconfirmNum + '|'
-                + InfoList[i].ntsresult + '|'
-                + InfoList[i].ntssendDT + '|'
-                + InfoList[i].ntsresultDT + '|'
-                + InfoList[i].ntssendErrCode + '|'
-                + InfoList[i].modifyCode + '|'
-                + BoolToStr(InfoList[i].interOPYN) + '|'
+                for i := 0 to Length(InfoList) -1 do
+                begin
+                    tmp := tmp + InfoList[i].itemKey + '|'
+                        + InfoList[i].taxType + '|'
+                        + InfoList[i].writeDate + '|'
+                        + InfoList[i].regDT + '|'
+                        + InfoList[i].issueType + '|'
+                        + InfoList[i].supplyCostTotal + '|'
 
-                + InfoList[i].invoicerCorpName + '|'
-                + InfoList[i].invoicerCorpNum + '|'
-                + InfoList[i].invoicerMgtKey + '|'
-                + BoolToStr(InfoList[i].invoicerPrintYN)+ '|'
+                        + InfoList[i].taxTotal + '|'
+                        + InfoList[i].purposeType + '|'
+                        + BoolToStr(InfoList[i].lateIssueYN) + '|'
+                        + BoolToStr(InfoList[i].openYN) + '|'
+                        + InfoList[i].openDT + '|'
+                        + InfoList[i].stateMemo + '|'
+                        + IntToStr(InfoList[i].stateCode) + '|'
+                        + InfoList[i].ntsconfirmNum + '|'
+                        + InfoList[i].ntsresult + '|'
+                        + InfoList[i].ntssendDT + '|'
+                        + InfoList[i].ntsresultDT + '|'
+                        + InfoList[i].ntssendErrCode + '|'
+                        + InfoList[i].modifyCode + '|'
+                        + BoolToStr(InfoList[i].interOPYN) + '|'
 
-                + InfoList[i].invoiceeCorpName + '|'
-                + InfoList[i].invoiceeCorpNum + '|'
-                + InfoList[i].invoiceeMgtKey + '|'
-                + BoolToStr(InfoList[i].invoicerPrintYN)+ '|'
-                + IntToStr(InfoList[i].closeDownState) + '|'
-                + InfoList[i].closeDownStateDate + '|'
+                        + InfoList[i].invoicerCorpName + '|'
+                        + InfoList[i].invoicerCorpNum + '|'
+                        + InfoList[i].invoicerMgtKey + '|'
+                        + BoolToStr(InfoList[i].invoicerPrintYN)+ '|'
 
-                + InfoList[i].trusteeCorpName + '|'
-                + InfoList[i].trusteeCorpNum + '|'
-                + InfoList[i].trusteeMgtKey + '|'
-                + BoolToStr(InfoList[i].trusteePrintYN) + #13 + #13;
+                        + InfoList[i].invoiceeCorpName + '|'
+                        + InfoList[i].invoiceeCorpNum + '|'
+                        + InfoList[i].invoiceeMgtKey + '|'
+                        + BoolToStr(InfoList[i].invoicerPrintYN)+ '|'
+                        + IntToStr(InfoList[i].closeDownState) + '|'
+                        + InfoList[i].closeDownStateDate + '|'
+
+                        + InfoList[i].trusteeCorpName + '|'
+                        + InfoList[i].trusteeCorpNum + '|'
+                        + InfoList[i].trusteeMgtKey + '|'
+                        + BoolToStr(InfoList[i].trusteePrintYN) + #13 + #13;
+                end;
+                ShowMessage(tmp);
         end;
-        ShowMessage(tmp);
 end;
 
 procedure TfrmExample.btnGetLogsClick(Sender: TObject);
@@ -1112,21 +1127,29 @@ begin
                 end;
         end;
 
-        tmp := 'DocLogType(로그타입) | Log(이력정보) | ProcType(처리형태) | procCorpName(처리회사명) | ';
-        tmp := tmp + 'procContactName(처리담당자) | ProcMemo(처리메모) | RegDT(등록일시) | IP(아이피)' + #13;
-
-        for i := 0 to Length(LogList) -1 do
+        if taxinvoiceService.LastErrCode <> 0 then
         begin
-            tmp := tmp + IntToStr(LogList[i].DocLogType) + ' | '
-                        + LogList[i].Log + ' | '
-                        + LogList[i].ProcType + ' | '
-                        + LogList[i].ProcCorpName + ' | '
-                        + LogList[i].ProcContactName + ' | '
-                        + LogList[i].ProcMemo + ' | '
-                        + LogList[i].RegDT + ' | '
-                        + LogList[i].IP + #13;
+                ShowMessage('응답코드 : '+ IntToStr(taxinvoiceService.LastErrCode) + #10#13 +'응답메시지 : '+  taxinvoiceService.LastErrMessage);
+                Exit;
+        end
+        else
+        begin
+                tmp := 'DocLogType(로그타입) | Log(이력정보) | ProcType(처리형태) | procCorpName(처리회사명) | ';
+                tmp := tmp + 'procContactName(처리담당자) | ProcMemo(처리메모) | RegDT(등록일시) | IP(아이피)' + #13;
+
+                for i := 0 to Length(LogList) -1 do
+                begin
+                    tmp := tmp + IntToStr(LogList[i].DocLogType) + ' | '
+                                + LogList[i].Log + ' | '
+                                + LogList[i].ProcType + ' | '
+                                + LogList[i].ProcCorpName + ' | '
+                                + LogList[i].ProcContactName + ' | '
+                                + LogList[i].ProcMemo + ' | '
+                                + LogList[i].RegDT + ' | '
+                                + LogList[i].IP + #13;
+                end;
+                ShowMessage(tmp);
         end;
-        ShowMessage(tmp);
 end;
 
 procedure TfrmExample.cbMgtKeyTypeChange(Sender: TObject);
@@ -1422,7 +1445,16 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('URL : ' + #13 + resultURL);
+
+        if taxinvoiceService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(taxinvoiceService.LastErrCode) + #10#13 +'응답메시지 : '+  taxinvoiceService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('URL : ' + #13 + resultURL);
+        end
+
 end;
 
 procedure TfrmExample.btnGetURL2Click(Sender: TObject);
@@ -1443,7 +1475,14 @@ begin
                 end;
         end;
 
-        ShowMessage('URL : ' + #13 + resultURL);
+        if taxinvoiceService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(taxinvoiceService.LastErrCode) + #10#13 +'응답메시지 : '+  taxinvoiceService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('URL : ' + #13 + resultURL);
+        end
 end;
 
 procedure TfrmExample.btnGetURL3Click(Sender: TObject);
@@ -1463,7 +1502,15 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('URL : ' + #13 + resultURL);
+
+        if taxinvoiceService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(taxinvoiceService.LastErrCode) + #10#13 +'응답메시지 : '+  taxinvoiceService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('URL : ' + #13 + resultURL);
+        end        
 end;
 
 procedure TfrmExample.btnGetURL4Click(Sender: TObject);
@@ -1484,7 +1531,14 @@ begin
                 end;
         end;
 
-        ShowMessage('URL : ' + #13 + resultURL);
+        if taxinvoiceService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(taxinvoiceService.LastErrCode) + #10#13 +'응답메시지 : '+  taxinvoiceService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('URL : ' + #13 + resultURL);
+        end
 end;
 
 procedure TfrmExample.btnGetPopUpURLClick(Sender: TObject);
@@ -2338,108 +2392,118 @@ begin
                 end;
         end;
 
-        tmp := tmp +'ntsconfirmNum(국세청승인번호) : ' +  taxinvoice.nTSConfirmNum + #13;
-        tmp := tmp +'issueType(발행형태) : ' +  taxinvoice.IssueType + #13;
-        tmp := tmp +'taxType(과세형태) : ' +  taxinvoice.TaxType + #13;
-        tmp := tmp +'issueTiming(발행시점) : ' +  taxinvoice.IssueTiming + #13;
-        tmp := tmp +'chargeDirection(과금방향) : ' +  taxinvoice.ChargeDirection + #13;
-        tmp := tmp +'serialNum(일련번호) : ' +  taxinvoice.serialNum + #13;
-        tmp := tmp +'kwon(권) : ' +  taxinvoice.kwon + #13;
-        tmp := tmp +'ho(호) : ' +  taxinvoice.ho + #13;
-        tmp := tmp +'writeDate(작성일자) : ' +  taxinvoice.WriteDate + #13;
-        tmp := tmp +'purposeType(영수/청구) : ' +  taxinvoice.purposeType + #13;
-        tmp := tmp +'supplyCostTotal(공급가액 합계) : ' +  taxinvoice.supplyCostTotal + #13;
-        tmp := tmp +'taxTotal(세액합계) : ' +  taxinvoice.taxTotal + #13;
-        tmp := tmp +'totalAmount(합계금액) : ' +  taxinvoice.totalAmount + #13;
-        tmp := tmp +'cash(현금) : ' +  taxinvoice.cash + #13;
-        tmp := tmp +'chkBill(수표) : ' +  taxinvoice.chkBill + #13;
-        tmp := tmp +'credit(외상) : ' +  taxinvoice.credit + #13;
-        tmp := tmp +'note(어음) : ' +  taxinvoice.note + #13;
-        tmp := tmp +'remark1(비고1) : ' +  taxinvoice.remark1 + #13;
-        tmp := tmp +'remark2(비고2) : ' +  taxinvoice.remark2 + #13;
-        tmp := tmp +'remark3(비고3) : ' +  taxinvoice.remark3 + #13;
-
-        tmp := tmp + '-----상세항목-----' + #13;
-        tmp := tmp + 'serialNum(일련번호) | purchaseDT(거래일자) | itemName(품명) | spec(규격) | qty(수량) |';
-        tmp := tmp + 'unitCost(단가) | supplyCost(공급가액) | tax(세액) | remark(비고)' + #13;
-        for i:= 0 to Length(taxinvoice.detailList)-1 do
+        
+        if taxinvoiceService.LastErrCode <> 0 then
         begin
-            tmp := tmp + IntToStr(taxinvoice.detailList[i].serialNum) + ' | ' +
-                         taxinvoice.detailList[i].purchaseDT + ' | ' +
-                         taxinvoice.detailList[i].itemName + ' | ' +
-                         taxinvoice.detailList[i].spec + ' | ' +
-                         taxinvoice.detailList[i].qty + ' | ' +
-                         taxinvoice.detailList[i].unitCost + ' | ' +
-                         taxinvoice.detailList[i].supplyCost + ' | ' +
-                         taxinvoice.detailList[i].tax + ' | ' +
-                         taxinvoice.detailList[i].remark + #13 ;
-        end;
-
-        tmp := tmp + '-----공급자 정보-----' + #13;
-        tmp := tmp +'invoicerCorpNum(사업자번호) : ' +  taxinvoice.InvoicerCorpNum + #13;
-        tmp := tmp +'invoicerMgtKey(관리번호) : ' +  taxinvoice.InvoicerMgtKey + #13;
-        tmp := tmp +'invoicerTaxRegID(종사업장 식별번호) : ' +  taxinvoice.InvoicerTaxRegID + #13;
-        tmp := tmp +'invoicerCorpName(상호) : ' +  taxinvoice.InvoicerCorpName + #13;
-        tmp := tmp +'invoicerCEOName(대표자 성명) : ' +  taxinvoice.InvoicerCEOName + #13;
-        tmp := tmp +'invoicerAddr(주소) : ' +  taxinvoice.InvoicerAddr + #13;
-        tmp := tmp +'invoicerBizClass(종목) : ' +  taxinvoice.InvoicerBizClass + #13;
-        tmp := tmp +'invoicerBizType(업태) : ' +  taxinvoice.InvoicerBizType + #13;
-        tmp := tmp +'invoicerContactName(담당자 성명) : ' +  taxinvoice.InvoicerContactName + #13;
-        tmp := tmp +'invoicerTEL(담당자 연락처) : ' +  taxinvoice.InvoicerTEL + #13;
-        tmp := tmp +'invoicerHP(담당자 휴대폰) : ' +  taxinvoice.InvoicerHP + #13;
-        tmp := tmp +'invoicerEmail(담당자 이메일) : ' +  taxinvoice.InvoicerEmail + #13;
-        tmp := tmp +'invoicerSMSSendYN(문자전송 여부) : ' +  IfThen(taxinvoice.InvoicerSMSSendYN,'true','false') + #13;
-
-        tmp := tmp + '-----공급받는자 정보-----' + #13;
-        tmp := tmp +'invoiceeCorpNum(사업자번호) : ' +  taxinvoice.InvoiceeCorpNum + #13;
-        tmp := tmp +'invoiceeType(구분) : ' +  taxinvoice.invoiceeType + #13;
-        tmp := tmp +'invoiceeMgtKey(관리번호) : ' +  taxinvoice.InvoiceeMgtKey + #13;
-        tmp := tmp +'invoiceeTaxRegID(종사업장 식별번호) : ' +  taxinvoice.InvoiceeTaxRegID + #13;
-        tmp := tmp +'invoiceeCorpName(상호) : ' +  taxinvoice.InvoiceeCorpName + #13;
-        tmp := tmp +'invoiceeCEOName(대표자 성명) : ' +  taxinvoice.InvoiceeCEOName + #13;
-        tmp := tmp +'invoiceeAddr(주소) : ' +  taxinvoice.InvoiceeAddr + #13;
-        tmp := tmp +'invoiceeBizClass(종목) : ' +  taxinvoice.InvoiceeBizClass + #13;
-        tmp := tmp +'invoiceeBizType(업태) : ' +  taxinvoice.InvoiceeBizType + #13;
-        tmp := tmp +'closeDownState(휴폐업상태) : ' +  IntToStr(taxinvoice.closeDownState) + #13;
-        tmp := tmp +'closeDownStateDate(휴폐업일자) : ' +  taxinvoice.closeDownStateDate + #13;
-        tmp := tmp +'invoiceeContactName1(주)담당자 성명) : ' +  taxinvoice.InvoiceeContactName1 + #13;
-        tmp := tmp +'invoiceeTEL1(주)담당자 연락처) : ' +  taxinvoice.InvoiceeTEL1 + #13;
-        tmp := tmp +'invoiceeHP1(주)담당자 휴대폰) : ' +  taxinvoice.InvoiceeHP1 + #13;
-        tmp := tmp +'invoiceeEmail1(주)담당자 이메일) : ' +  taxinvoice.InvoiceeEmail1 + #13;
-        tmp := tmp +'invoiceeSMSSendYN(문자전송 여부) : ' +  IfThen(taxinvoice.InvoiceeSMSSendYN,'true','false') + #13;
-
-        tmp := tmp + '-----수탁자 정보-----' + #13;
-        tmp := tmp +'trusteeCorpNum(사업자번호) : ' +  taxinvoice.trusteeCorpNum + #13;
-        tmp := tmp +'trusteeMgtKey(관리번호) : ' +  taxinvoice.trusteeMgtKey + #13;
-        tmp := tmp +'trusteeTaxRegID(종사업장 식별번호) : ' +  taxinvoice.trusteeTaxRegID + #13;
-        tmp := tmp +'trusteeCorpName(상호) : ' +  taxinvoice.trusteeCorpName + #13;
-        tmp := tmp +'trusteeCEOName(대표자 성명) : ' +  taxinvoice.trusteeCEOName + #13;
-        tmp := tmp +'trusteeAddr(주소) : ' +  taxinvoice.trusteeAddr + #13;
-        tmp := tmp +'trusteeBizClass(종목) : ' +  taxinvoice.trusteeBizClass + #13;
-        tmp := tmp +'trusteeBizType(업태) : ' +  taxinvoice.trusteeBizType + #13;
-        tmp := tmp +'trusteeContactName(담당자 성명) : ' +  taxinvoice.trusteeContactName + #13;
-        tmp := tmp +'trusteeTEL(담당자 연락처) : ' +  taxinvoice.trusteeTEL + #13;
-        tmp := tmp +'trusteeHP(담당자 휴대폰) : ' +  taxinvoice.trusteeHP + #13;
-        tmp := tmp +'trusteeEmail(담당자 이메일) : ' +  taxinvoice.trusteeEmail + #13;
-        tmp := tmp +'trusteeSMSSendYN(문자전송 여부) : ' +  IfThen(taxinvoice.trusteeSMSSendYN,'true','false') + #13;
-
-        tmp := tmp +'modifyCode(수정사유 코드) : ' +  taxinvoice.modifyCode + #13;
-        tmp := tmp +'orgNTSConfirmNum(원본 세금계산서 국세청승인번호) : ' +  taxinvoice.orgNTSConfirmNum + #13;
-        tmp := tmp +'originalTaxinvoiceKey(원본 팝빌 관리번호) : ' +  taxinvoice.originalTaxinvoiceKey + #13;
-
-        tmp := tmp + '-----추가담당자-----' + #13;
-        tmp := tmp + 'serialNum(일련번호) | email(이메일) | contactName(담당자 성명)' + #13;
-        for i:= 0 to Length(taxinvoice.AddContactList)-1 do
+                ShowMessage('응답코드 : '+ IntToStr(taxinvoiceService.LastErrCode) + #10#13 +'응답메시지 : '+  taxinvoiceService.LastErrMessage);
+                Exit;
+        end
+        else
         begin
-            tmp := tmp + IntToStr(taxinvoice.AddContactList[i].serialNum) + ' | ' +
-                         taxinvoice.AddContactList[i].email + ' | ' +
-                         taxinvoice.AddContactList[i].contactName + #13 ;
+                tmp := tmp +'ntsconfirmNum(국세청승인번호) : ' +  taxinvoice.nTSConfirmNum + #13;
+                tmp := tmp +'issueType(발행형태) : ' +  taxinvoice.IssueType + #13;
+                tmp := tmp +'taxType(과세형태) : ' +  taxinvoice.TaxType + #13;
+                tmp := tmp +'issueTiming(발행시점) : ' +  taxinvoice.IssueTiming + #13;
+                tmp := tmp +'chargeDirection(과금방향) : ' +  taxinvoice.ChargeDirection + #13;
+                tmp := tmp +'serialNum(일련번호) : ' +  taxinvoice.serialNum + #13;
+                tmp := tmp +'kwon(권) : ' +  taxinvoice.kwon + #13;
+                tmp := tmp +'ho(호) : ' +  taxinvoice.ho + #13;
+                tmp := tmp +'writeDate(작성일자) : ' +  taxinvoice.WriteDate + #13;
+                tmp := tmp +'purposeType(영수/청구) : ' +  taxinvoice.purposeType + #13;
+                tmp := tmp +'supplyCostTotal(공급가액 합계) : ' +  taxinvoice.supplyCostTotal + #13;
+                tmp := tmp +'taxTotal(세액합계) : ' +  taxinvoice.taxTotal + #13;
+                tmp := tmp +'totalAmount(합계금액) : ' +  taxinvoice.totalAmount + #13;
+                tmp := tmp +'cash(현금) : ' +  taxinvoice.cash + #13;
+                tmp := tmp +'chkBill(수표) : ' +  taxinvoice.chkBill + #13;
+                tmp := tmp +'credit(외상) : ' +  taxinvoice.credit + #13;
+                tmp := tmp +'note(어음) : ' +  taxinvoice.note + #13;
+                tmp := tmp +'remark1(비고1) : ' +  taxinvoice.remark1 + #13;
+                tmp := tmp +'remark2(비고2) : ' +  taxinvoice.remark2 + #13;
+                tmp := tmp +'remark3(비고3) : ' +  taxinvoice.remark3 + #13;
+
+                tmp := tmp + '-----상세항목-----' + #13;
+                tmp := tmp + 'serialNum(일련번호) | purchaseDT(거래일자) | itemName(품명) | spec(규격) | qty(수량) |';
+                tmp := tmp + 'unitCost(단가) | supplyCost(공급가액) | tax(세액) | remark(비고)' + #13;
+                for i:= 0 to Length(taxinvoice.detailList)-1 do
+                begin
+                    tmp := tmp + IntToStr(taxinvoice.detailList[i].serialNum) + ' | ' +
+                                 taxinvoice.detailList[i].purchaseDT + ' | ' +
+                                 taxinvoice.detailList[i].itemName + ' | ' +
+                                 taxinvoice.detailList[i].spec + ' | ' +
+                                 taxinvoice.detailList[i].qty + ' | ' +
+                                 taxinvoice.detailList[i].unitCost + ' | ' +
+                                 taxinvoice.detailList[i].supplyCost + ' | ' +
+                                 taxinvoice.detailList[i].tax + ' | ' +
+                                 taxinvoice.detailList[i].remark + #13 ;
+                end;
+
+                tmp := tmp + '-----공급자 정보-----' + #13;
+                tmp := tmp +'invoicerCorpNum(사업자번호) : ' +  taxinvoice.InvoicerCorpNum + #13;
+                tmp := tmp +'invoicerMgtKey(관리번호) : ' +  taxinvoice.InvoicerMgtKey + #13;
+                tmp := tmp +'invoicerTaxRegID(종사업장 식별번호) : ' +  taxinvoice.InvoicerTaxRegID + #13;
+                tmp := tmp +'invoicerCorpName(상호) : ' +  taxinvoice.InvoicerCorpName + #13;
+                tmp := tmp +'invoicerCEOName(대표자 성명) : ' +  taxinvoice.InvoicerCEOName + #13;
+                tmp := tmp +'invoicerAddr(주소) : ' +  taxinvoice.InvoicerAddr + #13;
+                tmp := tmp +'invoicerBizClass(종목) : ' +  taxinvoice.InvoicerBizClass + #13;
+                tmp := tmp +'invoicerBizType(업태) : ' +  taxinvoice.InvoicerBizType + #13;
+                tmp := tmp +'invoicerContactName(담당자 성명) : ' +  taxinvoice.InvoicerContactName + #13;
+                tmp := tmp +'invoicerTEL(담당자 연락처) : ' +  taxinvoice.InvoicerTEL + #13;
+                tmp := tmp +'invoicerHP(담당자 휴대폰) : ' +  taxinvoice.InvoicerHP + #13;
+                tmp := tmp +'invoicerEmail(담당자 이메일) : ' +  taxinvoice.InvoicerEmail + #13;
+                tmp := tmp +'invoicerSMSSendYN(문자전송 여부) : ' +  IfThen(taxinvoice.InvoicerSMSSendYN,'true','false') + #13;
+
+                tmp := tmp + '-----공급받는자 정보-----' + #13;
+                tmp := tmp +'invoiceeCorpNum(사업자번호) : ' +  taxinvoice.InvoiceeCorpNum + #13;
+                tmp := tmp +'invoiceeType(구분) : ' +  taxinvoice.invoiceeType + #13;
+                tmp := tmp +'invoiceeMgtKey(관리번호) : ' +  taxinvoice.InvoiceeMgtKey + #13;
+                tmp := tmp +'invoiceeTaxRegID(종사업장 식별번호) : ' +  taxinvoice.InvoiceeTaxRegID + #13;
+                tmp := tmp +'invoiceeCorpName(상호) : ' +  taxinvoice.InvoiceeCorpName + #13;
+                tmp := tmp +'invoiceeCEOName(대표자 성명) : ' +  taxinvoice.InvoiceeCEOName + #13;
+                tmp := tmp +'invoiceeAddr(주소) : ' +  taxinvoice.InvoiceeAddr + #13;
+                tmp := tmp +'invoiceeBizClass(종목) : ' +  taxinvoice.InvoiceeBizClass + #13;
+                tmp := tmp +'invoiceeBizType(업태) : ' +  taxinvoice.InvoiceeBizType + #13;
+                tmp := tmp +'closeDownState(휴폐업상태) : ' +  IntToStr(taxinvoice.closeDownState) + #13;
+                tmp := tmp +'closeDownStateDate(휴폐업일자) : ' +  taxinvoice.closeDownStateDate + #13;
+                tmp := tmp +'invoiceeContactName1(주)담당자 성명) : ' +  taxinvoice.InvoiceeContactName1 + #13;
+                tmp := tmp +'invoiceeTEL1(주)담당자 연락처) : ' +  taxinvoice.InvoiceeTEL1 + #13;
+                tmp := tmp +'invoiceeHP1(주)담당자 휴대폰) : ' +  taxinvoice.InvoiceeHP1 + #13;
+                tmp := tmp +'invoiceeEmail1(주)담당자 이메일) : ' +  taxinvoice.InvoiceeEmail1 + #13;
+                tmp := tmp +'invoiceeSMSSendYN(문자전송 여부) : ' +  IfThen(taxinvoice.InvoiceeSMSSendYN,'true','false') + #13;
+
+                tmp := tmp + '-----수탁자 정보-----' + #13;
+                tmp := tmp +'trusteeCorpNum(사업자번호) : ' +  taxinvoice.trusteeCorpNum + #13;
+                tmp := tmp +'trusteeMgtKey(관리번호) : ' +  taxinvoice.trusteeMgtKey + #13;
+                tmp := tmp +'trusteeTaxRegID(종사업장 식별번호) : ' +  taxinvoice.trusteeTaxRegID + #13;
+                tmp := tmp +'trusteeCorpName(상호) : ' +  taxinvoice.trusteeCorpName + #13;
+                tmp := tmp +'trusteeCEOName(대표자 성명) : ' +  taxinvoice.trusteeCEOName + #13;
+                tmp := tmp +'trusteeAddr(주소) : ' +  taxinvoice.trusteeAddr + #13;
+                tmp := tmp +'trusteeBizClass(종목) : ' +  taxinvoice.trusteeBizClass + #13;
+                tmp := tmp +'trusteeBizType(업태) : ' +  taxinvoice.trusteeBizType + #13;
+                tmp := tmp +'trusteeContactName(담당자 성명) : ' +  taxinvoice.trusteeContactName + #13;
+                tmp := tmp +'trusteeTEL(담당자 연락처) : ' +  taxinvoice.trusteeTEL + #13;
+                tmp := tmp +'trusteeHP(담당자 휴대폰) : ' +  taxinvoice.trusteeHP + #13;
+                tmp := tmp +'trusteeEmail(담당자 이메일) : ' +  taxinvoice.trusteeEmail + #13;
+                tmp := tmp +'trusteeSMSSendYN(문자전송 여부) : ' +  IfThen(taxinvoice.trusteeSMSSendYN,'true','false') + #13;
+
+                tmp := tmp +'modifyCode(수정사유 코드) : ' +  taxinvoice.modifyCode + #13;
+                tmp := tmp +'orgNTSConfirmNum(원본 세금계산서 국세청승인번호) : ' +  taxinvoice.orgNTSConfirmNum + #13;
+                tmp := tmp +'originalTaxinvoiceKey(원본 팝빌 관리번호) : ' +  taxinvoice.originalTaxinvoiceKey + #13;
+
+                tmp := tmp + '-----추가담당자-----' + #13;
+                tmp := tmp + 'serialNum(일련번호) | email(이메일) | contactName(담당자 성명)' + #13;
+        
+                for i:= 0 to Length(taxinvoice.AddContactList)-1 do
+                begin
+                    tmp := tmp + IntToStr(taxinvoice.AddContactList[i].serialNum) + ' | ' +
+                                 taxinvoice.AddContactList[i].email + ' | ' +
+                                 taxinvoice.AddContactList[i].contactName + #13 ;
+                end;
+
+                tmp := tmp +'businessLicenseYN(사업자등록증 첨부) : ' +  IfThen(taxinvoice.businessLicenseYN,'true','false') + #13;
+                tmp := tmp +'bankBookYN(통장사본 첨부) : ' +  IfThen(taxinvoice.bankBookYN,'true','false') + #13;
+
+                ShowMessage(tmp);
         end;
-
-        tmp := tmp +'businessLicenseYN(사업자등록증 첨부) : ' +  IfThen(taxinvoice.businessLicenseYN,'true','false') + #13;
-        tmp := tmp +'bankBookYN(통장사본 첨부) : ' +  IfThen(taxinvoice.bankBookYN,'true','false') + #13;
-
-        ShowMessage(tmp);
 end;
 
 procedure TfrmExample.btnCheckMgtKeyInUseClick(Sender: TObject);
@@ -2459,7 +2523,16 @@ begin
                         Exit;
                 end;
         end;
-        if InUse then ShowMessage('사용중') else ShowMessage('미 사용중.');
+
+        if taxinvoiceService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(taxinvoiceService.LastErrCode) + #10#13 + '응답메시지 : ' + taxinvoiceService.LastErrMessage);
+        end
+        else
+                if InUse then ShowMessage('사용중') else ShowMessage('미 사용중.');        
+        begin
+        end;
+
 end;
 
 procedure TfrmExample.btnGetEPrintUrlClick(Sender: TObject);
@@ -2742,7 +2815,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20190114
-        taxinvoice.writeDate := '20190228';
+        taxinvoice.writeDate := '20190306';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '정발행';
@@ -2989,7 +3062,10 @@ begin
                         Exit;
                 end;
         end;
+
         ShowMessage('응답코드 : '+ IntToStr(response.code) + #10#13 +'응답메시지 : '+  response.Message + #10#13 +'국세청승인번호 : '+  response.ntsConfirmNum);
+
+
 end;
 
 procedure TfrmExample.btnCancelIssueClick(Sender: TObject);
@@ -3071,12 +3147,21 @@ begin
 
         try
                 resultURL := taxinvoiceService.GetTaxCertURL(txtCorpNum.Text, txtUserID.Text);
-                ShellExecute(Handle, 'open', 'IEXPLORE.EXE', PChar(resultURL), '', SW_SHOWNORMAL);
+                //ShellExecute(Handle, 'open', 'IEXPLORE.EXE', PChar(resultURL), '', SW_SHOWNORMAL);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
+        end;
+
+        if taxinvoiceService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(taxinvoiceService.LastErrCode) + #10#13 +'응답메시지 : '+  taxinvoiceService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('URL : ' + #13 + resultURL);
         end;
 end;
 
@@ -3311,10 +3396,18 @@ begin
                 end;
         end;
 
-        tmp := 'unitCost (단가) : ' + chargeInfo.unitCost + #13;
-        tmp := tmp + 'chargeMethod (과금유형) : ' + chargeInfo.chargeMethod + #13;
-        tmp := tmp + 'rateSystem (과금제도) : ' + chargeInfo.rateSystem + #13;
-        ShowMessage(tmp);
+        if taxinvoiceService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(taxinvoiceService.LastErrCode) + #10#13 +'응답메시지 : '+  taxinvoiceService.LastErrMessage);
+        end
+        else
+        begin
+                tmp := 'unitCost (단가) : ' + chargeInfo.unitCost + #13;
+                tmp := tmp + 'chargeMethod (과금유형) : ' + chargeInfo.chargeMethod + #13;
+                tmp := tmp + 'rateSystem (과금제도) : ' + chargeInfo.rateSystem + #13;
+                ShowMessage(tmp);
+        end;
+
 end;
 
 procedure TfrmExample.btnGetSealURLClick(Sender: TObject);
@@ -3334,7 +3427,15 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('URL : ' + #13 + resultURL);
+
+        if taxinvoiceService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(taxinvoiceService.LastErrCode) + #10#13 +'응답메시지 : '+  taxinvoiceService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('URL : ' + #13 + resultURL);
+        end;
 end;
 
 procedure TfrmExample.btnGetPartnerURLClick(Sender: TObject);

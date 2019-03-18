@@ -1026,19 +1026,21 @@ begin
         end
         else
         begin
-                tmp := 'itemKey(팝빌 관리번호) :' +  taxinvoiceInfo.itemKey + #13;
-                tmp := tmp + 'taxType (과세형태) :' + taxinvoiceInfo.taxType + #13;
-                tmp := tmp + 'writeDate (작성일자) :' + taxinvoiceInfo.writeDate + #13;
-                tmp := tmp + 'regDT (임시저장 일자) :' + taxinvoiceInfo.regDT + #13;
-                tmp := tmp + 'issueType (발행형태) :' + taxinvoiceInfo.issueType + #13;
-                tmp := tmp + 'supplyCostTotal (공급가액 합계) :' + taxinvoiceInfo.supplyCostTotal + #13;
-                tmp := tmp + 'taxTotal (세액 합계) :' + taxinvoiceInfo.taxTotal + #13;
-                tmp := tmp + 'purposeType (영수/청구) :' + taxinvoiceInfo.purposeType + #13;
-                tmp := tmp + 'lateIssueYN (지연발행 여부) :' + BoolToStr(taxinvoiceInfo.lateIssueYN) + #13;
+                tmp := 'itemKey(팝빌 관리번호) : ' +  taxinvoiceInfo.itemKey + #13;
+                tmp := tmp + 'taxType (과세형태) : ' + taxinvoiceInfo.taxType + #13;
+                tmp := tmp + 'writeDate (작성일자) : ' + taxinvoiceInfo.writeDate + #13;
+                tmp := tmp + 'regDT (임시저장 일자) : ' + taxinvoiceInfo.regDT + #13;
+                tmp := tmp + 'issueDT (발행일시) : ' + taxinvoiceInfo.issueDT + #13;
+                tmp := tmp + 'issueType (발행형태) : ' + taxinvoiceInfo.issueType + #13;
+                tmp := tmp + 'supplyCostTotal (공급가액 합계) : ' + taxinvoiceInfo.supplyCostTotal + #13;
+                tmp := tmp + 'taxTotal (세액 합계) : ' + taxinvoiceInfo.taxTotal + #13;
+                tmp := tmp + 'purposeType (영수/청구) : ' + taxinvoiceInfo.purposeType + #13;
+                tmp := tmp + 'lateIssueYN (지연발행 여부) : ' + BoolToStr(taxinvoiceInfo.lateIssueYN) + #13;
                 tmp := tmp + 'openYN (개봉 여부) : ' + BoolToStr(taxinvoiceInfo.openYN) + #13;
                 tmp := tmp + 'openDT (개봉 일시) : ' + taxinvoiceInfo.openDT + #13;
                 tmp := tmp + 'stateMemo (상태메모) : ' + taxinvoiceInfo.stateMemo + #13;
                 tmp := tmp + 'stateCode (상태코드) : ' + IntToStr(taxinvoiceInfo.stateCode) + #13;
+                tmp := tmp + 'stateDT (상태 변경일시) : ' + taxinvoiceInfo.stateDT + #13;
                 tmp := tmp + 'ntsconfirmNum (국세청승인번호) : ' + taxinvoiceInfo.ntsconfirmNum + #13;
                 tmp := tmp + 'ntsresult (국세청 전송결과) : ' + taxinvoiceInfo.ntsresult + #13;
                 tmp := tmp + 'ntssendDT (국세청 전송일시) : ' + taxinvoiceInfo.ntssendDT + #13;

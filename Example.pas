@@ -638,7 +638,7 @@ begin
         taxinvoice.invoiceeContactName1 := '공급받는자 담당자명';
 
         // 공급받는자 메일주소
-        taxinvoice.invoiceeEmail1 := 'centily@naver.com';
+        taxinvoice.invoiceeEmail1 := 'test@test.com';
 
         // 공급받는자 연락처
         taxinvoice.invoiceeTEL1 := '070-4304-2991';

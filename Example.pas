@@ -1,19 +1,19 @@
-{******************************************************************************}
-{ 팝빌 전자세금계산서 API Delphi SDK Example                                   }
-{                                                                              }
-{ - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/572                   }
-{ - 업데이트 일자 : 2019-05-03                                                 }
-{ - 연동 기술지원 연락처 : 1600-9854 / 070-4304-2991                           }
-{ - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
-{                                                                              }
-{ <테스트 연동개발 준비사항>                                                   }
-{ (1) 36, 39번 라인에 선언된 링크아이디(LinkID)와 비밀키(SecretKey)를          }
-{    링크허브 가입시 메일로 발급받은 인증정보로 수정                           }
-{ (2) 팝빌 개발용 사이트(test.popbill.com)에 연동회원으로 가입                 }
-{ (3) 전자세금계산서 발행을 위해 공인인증서를 등록합니다.                      }
-{    - 팝빌사이트 로그인 > [전자세금계산서] > [환경설정] > [공인인증서 관리]   }
-{    - 공인인증서등록 팝업 URL (getTaxCertURL API)을 이용하여 등록             }
-{                                                                              }
+{******************************************************************************
+{ 팝빌 전자세금계산서 API Delphi SDK Example
+{
+{ - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/572
+{ - 업데이트 일자 : 2019-09-16
+{ - 기술지원 연락처 : 1600-9854 / 070-4304-2991
+{ - 기술지원 이메일 : code@linkhub.co.kr
+{
+{ <테스트 연동개발 준비사항>
+{ (1) 36, 39번 라인에 선언된 링크아이디(LinkID)와 비밀키(SecretKey)를
+{    링크허브 가입시 메일로 발급받은 인증정보로 수정
+{ (2) 팝빌 개발용 사이트(test.popbill.com)에 연동회원으로 가입
+{ (3) 전자세금계산서 발행을 위해 공인인증서를 등록합니다.
+{    - 팝빌사이트 로그인 > [전자세금계산서] > [환경설정] > [공인인증서 관리]
+{    - 공인인증서등록 팝업 URL (getTaxCertURL API)을 이용하여 등록
+{
 {******************************************************************************}
 
 unit Example;
@@ -3293,6 +3293,7 @@ var
         TType : Array Of String;
         TaxType : Array Of String;
         IssueType : Array Of String;
+        RegType : Array Of String;
         LateOnly : String;
         TaxRegIDYN : String;
         TaxRegIDType : String;
@@ -3316,10 +3317,10 @@ begin
         DType := 'W';
 
         // [필수] 시작일자, 작성형태(yyyyMMdd)
-        SDate := '20190101';
+        SDate := '20190801';
 
         // [필수] 종료일자, 작성형태(yyyyMMdd)
-        EDate := '20190114';
+        EDate := '20190930';
 
         // 전송상태값 배열. 미기재시 전체 상태조회, 문서상태 값 3자리의 배열, 2,3번째자리 와일드카드 사용가능
         // [참고] "[전자세금계산서 API 연동매뉴얼] > 5.1. (세금)계산서 상태코드"
@@ -3345,6 +3346,11 @@ begin
         IssueType[0] := 'N';
         IssueType[1] := 'R';
         IssueType[2] := 'T';
+
+        // 등록형태 배열, {P:팝빌 등록, H:홈택스, 외부 ASP) 선택기재
+        SetLength(RegType, 2);
+        RegType[0] := 'P';
+        RegType[1] := 'H';
 
         // 지연발행여부. {공백 : 전체조회, 0 : 정상발행조회, 1 : 지연발행 조회} 선택기재
         LateOnly := '';
@@ -3376,7 +3382,7 @@ begin
         try
                 SearchList := taxinvoiceService.search(txtCorpNum.text, MgtKeyType, DType, SDate, EDate, State, TType,
                                         TaxType, IssueType, LateOnly, TaxRegIDType, TaxRegID, TaxRegIDYN, QString, Page, PerPage,
-                                        Order, InterOPYN, txtUserID.text);
+                                        Order, InterOPYN, txtUserID.text, RegType);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);

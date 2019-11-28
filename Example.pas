@@ -706,8 +706,8 @@ begin
         // 수정사유코드, 수정사유별로 1~6중 선택기재
         taxinvoice.modifyCode := '';
 
-        // 원본세금계산서의 ItemKey, 문서확인 (GetInfo API)의 응답결과(ItemKey 항목) 확인.
-        taxinvoice.originalTaxinvoiceKey := '';
+        // 원본세금계산서 국세청승인번호 기재
+        taxinvoice.orgNTSConfirmNum := '';
 
         {**********************************************************************}
         {                        상세항목(품목) 정보                           }
@@ -1937,8 +1937,8 @@ begin
         // 수정사유코드, 수정사유별로 1~6중 선택기재
         taxinvoice.modifyCode := '';
 
-        // 원본세금계산서의 ItemKey, 문서확인 (GetInfo API)의 응답결과(ItemKey 항목) 확인.
-        taxinvoice.originalTaxinvoiceKey := '';
+        // 원본세금계산서 국세청승인번호 기재
+        taxinvoice.orgNTSConfirmNum := '';
 
         {**********************************************************************}
         {                        상세항목(품목) 정보                           }
@@ -2167,8 +2167,8 @@ begin
         // 수정사유코드, 수정사유별로 1~6중 선택기재
         taxinvoice.modifyCode := '';
 
-        // 원본세금계산서의 ItemKey, 문서확인 (GetInfo API)의 응답결과(ItemKey 항목) 확인.
-        taxinvoice.originalTaxinvoiceKey := '';
+        // 원본세금계산서 국세청승인번호 기재
+        taxinvoice.orgNTSConfirmNum := '';
 
 
         {**********************************************************************}
@@ -2428,8 +2428,8 @@ begin
         // 수정사유코드, 수정사유별로 1~6중 선택기재
         taxinvoice.modifyCode := '';
 
-        // 원본세금계산서의 ItemKey, 문서확인 (GetInfo API)의 응답결과(ItemKey 항목) 확인.
-        taxinvoice.originalTaxinvoiceKey := '';
+        // 원본세금계산서 국세청승인번호 기재
+        taxinvoice.orgNTSConfirmNum := '';
 
 
         {**********************************************************************}
@@ -2946,7 +2946,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20190114
-        taxinvoice.writeDate := '20190306';
+        taxinvoice.writeDate := '20191128';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '정발행';
@@ -3112,8 +3112,8 @@ begin
         // 수정사유코드, 수정사유별로 1~6중 선택기재
         taxinvoice.modifyCode := '';
 
-        // 원본세금계산서의 ItemKey, 문서확인 (GetInfo API)의 응답결과(ItemKey 항목) 확인.
-        taxinvoice.originalTaxinvoiceKey := '';
+        // 원본세금계산서 국세청승인번호 기재
+        taxinvoice.orgNTSConfirmNum := '';
 
         {**********************************************************************}
         {                        상세항목(품목) 정보                           }
@@ -4037,8 +4037,8 @@ begin
         // 수정사유코드, 수정사유별로 1~6중 선택기재
         taxinvoice.modifyCode := '';
 
-        // 원본세금계산서의 ItemKey, 문서확인 (GetInfo API)의 응답결과(ItemKey 항목) 확인.
-        taxinvoice.originalTaxinvoiceKey := '';
+        // 원본세금계산서 국세청승인번호 기재
+        taxinvoice.orgNTSConfirmNum := '';
 
         {**********************************************************************}
         {                        상세항목(품목) 정보                           }

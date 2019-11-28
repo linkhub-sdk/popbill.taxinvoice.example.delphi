@@ -338,7 +338,7 @@ begin
         { [발행완료] 상태의 세금계산서를 [발행취소] 합니다.                    }
         { - [발행취소]는 해당 세금계산서가 국세청 전송전에만 가능합니다.       }
         { - [발행취소]된 세금계산서는 국세청에 전송되지 않습니다.              }
-        { - [발행취소] 세금계산서에 기재된 문서관리번호를 재사용 하기 위해서는 }
+        { - [발행취소] 세금계산서에 기재된 문서번호를 재사용 하기 위해서는 }
         {   삭제(Delete API)를 호출하여 [삭제] 처리 하셔야 합니다.             }
         {**********************************************************************}
 
@@ -416,7 +416,7 @@ var
 begin
         {***********************************************************************}
         { 1건의 전자세금계산서를 [삭제]합니다. 세금계산서가 삭제된 경우에만     }
-        { 문서관리번호(mgtKey)를 재사용 할 수 있습니다.                         }
+        { 문서번호(mgtKey)를 재사용 할 수 있습니다.                         }
         { - 삭제가능한 문서 상태 : 임시저장, 발행취소, 역)발행 거부/취소        }
         {***********************************************************************}
 
@@ -571,7 +571,7 @@ begin
         // [필수] 공급자 상호
         taxinvoice.invoicerCorpName := '공급자 상호';
 
-        // [필수] 공급자 문서관리번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
+        // [필수] 공급자 문서번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
         // 사업자 별로 중복되지 않도록 구성
         taxinvoice.invoicerMgtKey := tbMgtKey.Text;
 
@@ -620,7 +620,7 @@ begin
         // [필수] 공급받는자 상호
         taxinvoice.invoiceeCorpName := '공급받는자 상호';
 
-        // [역발행시 필수] 공급받는자 문서관리번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
+        // [역발행시 필수] 공급받는자 문서번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
         // 사업자 별로 중복되지 않도록 구성
         taxinvoice.invoiceeMgtKey := '';
 
@@ -896,7 +896,7 @@ var
 begin
         {***********************************************************************}
         { 1건의 전자세금계산서를 [삭제]합니다. 세금계산서가 삭제된 경우에만     }
-        { 문서관리번호(mgtKey)를 재사용 할 수 있습니다.                         }
+        { 문서번호(mgtKey)를 재사용 할 수 있습니다.                         }
         { - 삭제가능한 문서 상태 : 임시저장, 발행취소, 역)발행 거부/취소        }
         {***********************************************************************}
 
@@ -1057,17 +1057,17 @@ begin
                 tmp := tmp + 'interOPYN (연동문서 여부) : ' + BoolToStr(taxinvoiceInfo.interOPYN) + #13;
                 tmp := tmp + 'invoicerCorpName (공급자 상호) : ' + taxinvoiceInfo.invoicerCorpName + #13;
                 tmp := tmp + 'invoicerCorpNum (공급자 사업자번호) : ' + taxinvoiceInfo.invoicerCorpNum + #13;
-                tmp := tmp + 'invoicerMgtKey (공급자 문서관리번호) : ' + taxinvoiceInfo.invoicerMgtKey + #13;
+                tmp := tmp + 'invoicerMgtKey (공급자 문서번호) : ' + taxinvoiceInfo.invoicerMgtKey + #13;
                 tmp := tmp + 'invoicerPrintYN (공급자 인쇄여부) : ' + BoolToStr(taxinvoiceInfo.invoicerPrintYN)+ #13;
                 tmp := tmp + 'invoiceeCorpName (공급받는자 상호) : ' + taxinvoiceInfo.invoiceeCorpName + #13;
                 tmp := tmp + 'invoiceeCorpNum (공급받는자 사업자번호) : ' + taxinvoiceInfo.invoiceeCorpNum + #13;
-                tmp := tmp + 'invoiceeMgtKey(공급받는자 문서관리번호) : ' + taxinvoiceInfo.invoiceeMgtKey + #13;
+                tmp := tmp + 'invoiceeMgtKey(공급받는자 문서번호) : ' + taxinvoiceInfo.invoiceeMgtKey + #13;
                 tmp := tmp + 'invoiceePrintYN(공급받는자 인쇄여부) : ' + BoolToStr(taxinvoiceInfo.invoicerPrintYN)+ #13;
                 tmp := tmp + 'closeDownState(공급받는자 휴폐업상태) : ' + IntToStr(taxinvoiceInfo.closeDownState) + #13;
                 tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) : ' + taxinvoiceInfo.closeDownStateDate + #13;
                 tmp := tmp + 'trusteeCorpName (수탁자 상호) : ' + taxinvoiceInfo.trusteeCorpName + #13;
                 tmp := tmp + 'trusteeCorpNum (수탁자 사업자번호) : ' + taxinvoiceInfo.trusteeCorpNum + #13;
-                tmp := tmp + 'trusteeMgtKey(수탁자 문서관리번호) : ' + taxinvoiceInfo.trusteeMgtKey + #13;
+                tmp := tmp + 'trusteeMgtKey(수탁자 문서번호) : ' + taxinvoiceInfo.trusteeMgtKey + #13;
                 tmp := tmp + 'trusteePrintYN(수탁자 인쇄여부) : ' + BoolToStr(taxinvoiceInfo.trusteePrintYN);
                 ShowMessage(tmp);
         end;
@@ -1087,7 +1087,7 @@ begin
         {  을 참조하시기 바랍니다.                                             }
         {**********************************************************************}
 
-        // 세금계산서 문서관리번호 배열, 최대 1000건까지 기재가능
+        // 세금계산서 문서번호 배열, 최대 1000건까지 기재가능
         SetLength(KeyList,2);
         KeyList[0] := '20190114-001';
         KeyList[1] := '20190114-002';
@@ -1112,9 +1112,9 @@ begin
                 tmp := tmp + 'taxTotal (세액 합계) |  purposeType (영수/청구) | issueDT (발행일시) | lateIssueYN (지연발행 여부) | openYN (개봉 여부) | openDT (개봉 일시) | ';
                 tmp := tmp + 'stateMemo (상태메모) | stateCode (상태코드) | ntsconfirmNum (국세청승인번호) | ntsresult (국세청 전송결과) | ntssendDT (국세청 전송일시) | ';
                 tmp := tmp + 'ntsresultDT (국세청 결과 수신일시) | ntssendErrCode (실패사유 사유코드) | modifyCode (수정 사유코드) | interOPYN (연동문서 여부) | invoicerCorpName (공급자 상호) |';
-                tmp := tmp + 'invoicerCorpNum (공급자 사업자번호) | invoicerMgtKey (공급자 문서관리번호) | invoicerPrintYN (공급자 인쇄여부) | invoiceeCorpName (공급받는자 상호) |' ;
-                tmp := tmp + 'invoiceeCorpNum (공급받는자 사업자번호) | invoiceeMgtKey(공급받는자 문서관리번호) | invoiceePrintYN(공급받는자 인쇄여부) | closeDownState(공급받는자 휴폐업상태) |';
-                tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) | trusteeCorpName (수탁자 상호) | trusteeCorpNum (수탁자 사업자번호) | trusteeMgtKey(수탁자 문서관리번호) | ';
+                tmp := tmp + 'invoicerCorpNum (공급자 사업자번호) | invoicerMgtKey (공급자 문서번호) | invoicerPrintYN (공급자 인쇄여부) | invoiceeCorpName (공급받는자 상호) |' ;
+                tmp := tmp + 'invoiceeCorpNum (공급받는자 사업자번호) | invoiceeMgtKey(공급받는자 문서번호) | invoiceePrintYN(공급받는자 인쇄여부) | closeDownState(공급받는자 휴폐업상태) |';
+                tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) | trusteeCorpName (수탁자 상호) | trusteeCorpNum (수탁자 사업자번호) | trusteeMgtKey(수탁자 문서번호) | ';
                 tmp := tmp + 'trusteePrintYN(수탁자 인쇄여부) ' + #13 + #13;
 
                 for i := 0 to Length(InfoList) -1 do
@@ -1698,7 +1698,7 @@ begin
         { - 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.              }
         {**********************************************************************}
 
-        // 세금계산서 문서관리번호 배열 (최대 100건)
+        // 세금계산서 문서번호 배열 (최대 100건)
         SetLength(KeyList,4);
         KeyList[0] := '20190114-001';
         KeyList[1] := '20190114-002';
@@ -1802,7 +1802,7 @@ begin
         // [필수] 공급자 상호
         taxinvoice.invoicerCorpName := '공급자 상호';
 
-        // [필수] 공급자 문서관리번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
+        // [필수] 공급자 문서번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
         // 사업자 별로 중복되지 않도록 구성
         taxinvoice.invoicerMgtKey := '';
 
@@ -1846,7 +1846,7 @@ begin
         // [필수] 공급받는자 상호
         taxinvoice.invoiceeCorpName := '공급받는자 상호';
 
-        // [역발행시 필수] 공급받는자 문서관리번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
+        // [역발행시 필수] 공급받는자 문서번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
         // 사업자 별로 중복되지 않도록 구성
         taxinvoice.invoiceeMgtKey := tbMgtKey.text;
 
@@ -2032,7 +2032,7 @@ begin
         // [필수] 공급자 상호
         taxinvoice.invoicerCorpName := '공급자 상호_수정';
 
-        // [필수] 공급자 문서관리번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
+        // [필수] 공급자 문서번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
         // 사업자 별로 중복되지 않도록 구성
         taxinvoice.invoicerMgtKey := tbMgtKey.Text;
 
@@ -2081,7 +2081,7 @@ begin
         // [필수] 공급받는자 상호
         taxinvoice.invoiceeCorpName := '공급받는자 상호';
 
-        // [역발행시 필수] 공급받는자 문서관리번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
+        // [역발행시 필수] 공급받는자 문서번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
         // 사업자 별로 중복되지 않도록 구성
         taxinvoice.invoiceeMgtKey := '';
 
@@ -2291,7 +2291,7 @@ begin
         // [필수] 공급자 상호
         taxinvoice.invoicerCorpName := '공급자 상호_수정';
 
-        // [필수] 공급자 문서관리번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
+        // [필수] 공급자 문서번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
         // 사업자 별로 중복되지 않도록 구성
         taxinvoice.invoicerMgtKey := '';
 
@@ -2336,7 +2336,7 @@ begin
         // [필수] 공급받는자 상호
         taxinvoice.invoiceeCorpName := '공급받는자 상호';
 
-        // [역발행시 필수] 공급받는자 문서관리번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
+        // [역발행시 필수] 공급받는자 문서번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
         // 사업자 별로 중복되지 않도록 구성
         taxinvoice.invoiceeMgtKey := tbMgtKey.text;
 
@@ -2977,7 +2977,7 @@ begin
         // [필수] 공급자 상호
         taxinvoice.invoicerCorpName := '공급자 상호';
 
-        // [필수] 공급자 문서관리번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
+        // [필수] 공급자 문서번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
         // 사업자 별로 중복되지 않도록 구성
         taxinvoice.invoicerMgtKey := tbMgtKey.Text;
 
@@ -3026,7 +3026,7 @@ begin
         // [필수] 공급받는자 상호
         taxinvoice.invoiceeCorpName := '공급받는자 상호';
 
-        // [역발행시 필수] 공급받는자 문서관리번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
+        // [역발행시 필수] 공급받는자 문서번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
         // 사업자 별로 중복되지 않도록 구성
         taxinvoice.invoiceeMgtKey := '';
 
@@ -3174,7 +3174,7 @@ begin
         // 거래명세서 동시작성 여부
         writeSpecification := false;
 
-        // 거래명세서 동시작성시 명세서 문서관리번호, 1~24자리 영문,숫자,'-','_' 조합으로 구성
+        // 거래명세서 동시작성시 명세서 문서번호, 1~24자리 영문,숫자,'-','_' 조합으로 구성
         dealInvoiceMgtKey := '';
 
         // 지연발행 강제여부(forceIssue)
@@ -3239,7 +3239,7 @@ var
 begin
         {***********************************************************************}
         { 1건의 전자세금계산서를 [삭제]합니다. 세금계산서가 삭제된 경우에만     }
-        { 문서관리번호(mgtKey)를 재사용 할 수 있습니다.                         }
+        { 문서번호(mgtKey)를 재사용 할 수 있습니다.                         }
         { - 삭제가능한 문서 상태 : 임시저장, 발행취소, 역)발행 거부/취소        }
         {***********************************************************************}
         
@@ -3429,9 +3429,9 @@ begin
         tmp := tmp + 'taxTotal (세액 합계) |  purposeType (영수/청구) | issueDT (발행일시) | lateIssueYN (지연발행 여부) | openYN (개봉 여부) | openDT (개봉 일시) | ';
         tmp := tmp + 'stateMemo (상태메모) | stateCode (상태코드) | ntsconfirmNum (국세청승인번호) | ntsresult (국세청 전송결과) | ntssendDT (국세청 전송일시) | ';
         tmp := tmp + 'ntsresultDT (국세청 결과 수신일시) | ntssendErrCode (실패사유 사유코드) | modifyCode (수정 사유코드) | interOPYN (연동문서 여부) | invoicerCorpName (공급자 상호) |';
-        tmp := tmp + 'invoicerCorpNum (공급자 사업자번호) | invoicerMgtKey (공급자 문서관리번호) | invoicerPrintYN (공급자 인쇄여부) | invoiceeCorpName (공급받는자 상호) |' ;
-        tmp := tmp + 'invoiceeCorpNum (공급받는자 사업자번호) | invoiceeMgtKey(공급받는자 문서관리번호) | invoiceePrintYN(공급받는자 인쇄여부) | closeDownState(공급받는자 휴폐업상태) |';
-        tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) | trusteeCorpName (수탁자 상호) | trusteeCorpNum (수탁자 사업자번호) | trusteeMgtKey(수탁자 문서관리번호) | ';
+        tmp := tmp + 'invoicerCorpNum (공급자 사업자번호) | invoicerMgtKey (공급자 문서번호) | invoicerPrintYN (공급자 인쇄여부) | invoiceeCorpName (공급받는자 상호) |' ;
+        tmp := tmp + 'invoiceeCorpNum (공급받는자 사업자번호) | invoiceeMgtKey(공급받는자 문서번호) | invoiceePrintYN(공급받는자 인쇄여부) | closeDownState(공급받는자 휴폐업상태) |';
+        tmp := tmp + 'closeDownStateDate(공급받는자 휴폐업일자) | trusteeCorpName (수탁자 상호) | trusteeCorpNum (수탁자 사업자번호) | trusteeMgtKey(수탁자 문서번호) | ';
         tmp := tmp + 'trusteePrintYN(수탁자 인쇄여부) ' + #13 + #13;
 
 	for i := 0 to Length(SearchList.list) -1 do
@@ -3488,7 +3488,7 @@ begin
         // 첨부할 전자명세서 문서종류코드, 121-거래명세서, 122-청구서, 123-견적서, 124-발주서, 125-입금표, 126-영수증
         SubItemCode := 121;
 
-        // 첨부할 전자명세서 문서관리번호
+        // 첨부할 전자명세서 문서번호
         SubMgtKey := '20190114-001';
 
         try
@@ -3517,7 +3517,7 @@ begin
         // 첨부해제할 전자명세서 문서종류코드, 121-거래명세서, 122-청구서, 123-견적서, 124-발주서, 125-입금표, 126-영수증
         SubItemCode := 121;
 
-        // 첨부해제할 전자명세서 문서관리번호
+        // 첨부해제할 전자명세서 문서번호
         SubMgtKey := '20190114-001';
 
         try
@@ -3637,7 +3637,7 @@ begin
         // 세금계산서 아이템키, 문서 목록조회(Search) API의 반환항목중 ItemKey 참조
         itemKey := '019011416122700001';
 
-        // 할당할 문서관리번호, 숫자, 영문 '-', '_' 조합으로 1~24자리까지
+        // 할당할 문서번호, 숫자, 영문 '-', '_' 조합으로 1~24자리까지
         // 사업자번호별 중복없는 고유번호 할당
         mgtKey := '20190114-100';
 
@@ -3902,7 +3902,7 @@ begin
         // [필수] 공급자 상호
         taxinvoice.invoicerCorpName := '공급자 상호';
 
-        // 공급자 문서관리번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
+        // 공급자 문서번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
         // 사업자 별로 중복되지 않도록 구성
         taxinvoice.invoicerMgtKey := '';
 
@@ -3946,7 +3946,7 @@ begin
         // [필수] 공급받는자 상호
         taxinvoice.invoiceeCorpName := '공급받는자 상호';
 
-        // [역발행시 필수] 공급받는자 문서관리번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
+        // [역발행시 필수] 공급받는자 문서번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
         // 사업자 별로 중복되지 않도록 구성
         taxinvoice.invoiceeMgtKey := tbMgtKey.Text;;
 
@@ -4115,5 +4115,6 @@ begin
                 ShowMessage('URL :  ' + #13 + resultURL);
         end;
 end;
+
 
 end.

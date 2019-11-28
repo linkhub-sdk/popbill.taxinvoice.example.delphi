@@ -1,7 +1,7 @@
 {******************************************************************************
 { 팝빌 전자세금계산서 API Delphi SDK Example
 {
-{ - 업데이트 일자 : 2019-09-25
+{ - 업데이트 일자 : 2019-11-28
 { - 기술지원 연락처 : 1600-9854 / 070-4304-2991
 { - 기술지원 이메일 : code@linkhub.co.kr
 {
@@ -640,6 +640,8 @@ begin
         taxinvoice.invoiceeContactName1 := '공급받는자 담당자명';
 
         // 공급받는자 메일주소
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의
         taxinvoice.invoiceeEmail1 := 'test@test.com';
 
         // 공급받는자 연락처
@@ -749,6 +751,9 @@ begin
 
         taxinvoice.addContactList[0] := TTaxinvoiceAddContact.Create;
         taxinvoice.addContactList[0].serialNum := 1;    // 일련번호, 1부터 순차기재
+
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의
         taxinvoice.addContactList[0].email := 'test2@invoicee.com';     // 메일주소
         taxinvoice.addContactList[0].contactName := '추가담당자명';     // 담당자명
 
@@ -1861,6 +1866,8 @@ begin
         taxinvoice.invoiceeContactName1 := '공급받는자 담당자명';
 
         // 공급받는자 메일주소
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의        
         taxinvoice.invoiceeEmail1 := 'test@test.com';
 
         // 공급받는자 연락처
@@ -2094,6 +2101,8 @@ begin
         taxinvoice.invoiceeContactName1 := '공급받는자 담당자명';
 
         // 공급받는자 메일주소
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의        
         taxinvoice.invoiceeEmail1 := 'test@test.com';
 
         // 공급받는자 연락처
@@ -2205,11 +2214,17 @@ begin
 
         taxinvoice.addContactList[0] := TTaxinvoiceAddContact.Create;
         taxinvoice.addContactList[0].serialNum := 1;    // 일련번호, 1부터 순차기재
+        
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의        
         taxinvoice.addContactList[0].email := 'test2@invoicee.com';     // 메일주소
         taxinvoice.addContactList[0].contactName := '추가담당자명';     // 담당자명
 
         taxinvoice.addContactList[1] := TTaxinvoiceAddContact.Create;
         taxinvoice.addContactList[1].serialNum := 2;    //일련번호, 1부터 순차기재
+
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의        
         taxinvoice.addContactList[1].email := 'test3@invoicee.com';     // 메일주소
         taxinvoice.addContactList[1].contactName := '추가담당자명2';    // 담당자명
 
@@ -2341,6 +2356,8 @@ begin
         taxinvoice.invoiceeContactName1 := '공급받는자 담당자명';
 
         // 공급받는자 메일주소
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의        
         taxinvoice.invoiceeEmail1 := 'test@test.com';
 
         // 공급받는자 연락처
@@ -3029,6 +3046,8 @@ begin
         taxinvoice.invoiceeContactName1 := '공급받는자 담당자명';
 
         // 공급받는자 메일주소
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의        
         taxinvoice.invoiceeEmail1 := 'test@test.com';
 
         // 공급받는자 연락처
@@ -3138,11 +3157,17 @@ begin
 
         taxinvoice.addContactList[0] := TTaxinvoiceAddContact.Create;
         taxinvoice.addContactList[0].serialNum := 1;    // 일련번호, 1부터 순차기재
+        
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의
         taxinvoice.addContactList[0].email := 'test2@invoicee.com';     // 메일주소
         taxinvoice.addContactList[0].contactName := '추가담당자명';     // 담당자명
 
         taxinvoice.addContactList[1] := TTaxinvoiceAddContact.Create;
         taxinvoice.addContactList[1].serialNum := 2;    //일련번호, 1부터 순차기재
+
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의        
         taxinvoice.addContactList[1].email := 'test3@invoicee.com';     // 메일주소
         taxinvoice.addContactList[1].contactName := '추가담당자명2';    // 담당자명
 
@@ -3941,6 +3966,8 @@ begin
         taxinvoice.invoiceeContactName1 := '공급받는자 담당자명';
 
         // 공급받는자 메일주소
+        // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+        // 실제 거래처의 메일주소가 기재되지 않도록 주의        
         taxinvoice.invoiceeEmail1 := 'test@test.com';
 
         // 공급받는자 연락처

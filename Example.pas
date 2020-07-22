@@ -2,7 +2,7 @@
 { 팝빌 전자세금계산서 API Delphi SDK Example
 {
 { - SDK 튜토리얼 : https://docs.popbill.com/taxinvoice/tutorial/delphi
-{ - 업데이트 일자 : 2020-01-29
+{ - 업데이트 일자 : 2020-07-22
 { - 기술지원 연락처 : 1600-9854 / 070-4304-2991
 { - 기술지원 이메일 : code@linkhub.co.kr
 {
@@ -545,9 +545,6 @@ begin
 
         // [필수] 영수/청구, [영수, 청구] 중 기재
         taxinvoice.purposeType := '영수';
-
-        // [필수] 발행시점
-        taxinvoice.issueTiming := '직접발행';
 
         // [필수] 과세형태, [과세, 영세, 면세] 중 기재
         taxinvoice.taxType :='과세';
@@ -1780,9 +1777,6 @@ begin
         // [필수] 영수/청구, [영수, 청구] 중 기재
         taxinvoice.purposeType := '영수';
 
-        // [필수] 발행시점
-        taxinvoice.issueTiming := '직접발행';
-
         // [필수] 과세형태, [과세, 영세, 면세] 중 기재
         taxinvoice.taxType :='과세';
 
@@ -2007,9 +2001,6 @@ begin
 
         // [필수] 영수/청구, [영수, 청구] 중 기재
         taxinvoice.purposeType := '영수';
-
-        // [필수] 발행시점
-        taxinvoice.issueTiming := '직접발행';
 
         // [필수] 과세형태, [과세, 영세, 면세] 중 기재
         taxinvoice.taxType :='과세';
@@ -2266,9 +2257,6 @@ begin
         // [필수] 영수/청구, [영수, 청구] 중 기재
         taxinvoice.purposeType := '영수';
 
-        // [필수] 발행시점
-        taxinvoice.issueTiming := '직접발행';
-
         // [필수] 과세형태, [과세, 영세, 면세] 중 기재
         taxinvoice.taxType :='과세';
 
@@ -2501,7 +2489,6 @@ begin
                 tmp := tmp +'ntsconfirmNum(국세청승인번호) : ' +  taxinvoice.nTSConfirmNum + #13;
                 tmp := tmp +'issueType(발행형태) : ' +  taxinvoice.IssueType + #13;
                 tmp := tmp +'taxType(과세형태) : ' +  taxinvoice.TaxType + #13;
-                tmp := tmp +'issueTiming(발행시점) : ' +  taxinvoice.IssueTiming + #13;
                 tmp := tmp +'chargeDirection(과금방향) : ' +  taxinvoice.ChargeDirection + #13;
                 tmp := tmp +'serialNum(일련번호) : ' +  taxinvoice.serialNum + #13;
                 tmp := tmp +'kwon(권) : ' +  taxinvoice.kwon + #13;
@@ -2954,9 +2941,6 @@ begin
 
         // [필수] 영수/청구, [영수, 청구] 중 기재
         taxinvoice.purposeType := '영수';
-
-        // [필수] 발행시점
-        taxinvoice.issueTiming := '직접발행';
 
         // [필수] 과세형태, [과세, 영세, 면세] 중 기재
         taxinvoice.taxType :='과세';
@@ -3888,9 +3872,6 @@ begin
 
         // [필수] 영수/청구, [영수, 청구] 중 기재
         taxinvoice.purposeType := '영수';
-
-        // [필수] 발행시점
-        taxinvoice.issueTiming := '직접발행';
 
         // [필수] 과세형태, [과세, 영세, 면세] 중 기재
         taxinvoice.taxType :='과세';

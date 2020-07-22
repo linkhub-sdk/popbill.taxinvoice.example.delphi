@@ -168,6 +168,7 @@ type
     Shape33: TShape;
     Shape5: TShape;
     btnGetViewURL: TButton;
+    btnGetPDFURL: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetAccessURLClick(Sender: TObject);
@@ -238,6 +239,7 @@ type
     procedure btnCancelRequestClick(Sender: TObject);
     procedure btnDelete_reverseClick(Sender: TObject);
     procedure btnGetViewURLClick(Sender: TObject);
+    procedure btnGetPDFURLClick(Sender: TObject);
 
   private
     MgtKeyType : EnumMgtKeyType;
@@ -4118,5 +4120,34 @@ begin
         end;
 end;
 
+
+procedure TfrmExample.btnGetPDFURLClick(Sender: TObject);
+var
+  resultURL : String;
+begin
+        {**********************************************************************}
+        { 1건의 전자세금계산서 PDF 다운로드 팝업 URL을 반환합니다.
+        { - 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.
+        {**********************************************************************}
+
+        try
+                resultURL := taxinvoiceService.getPDFURL(txtCorpNum.Text,
+                                        MgtKeyType, tbMgtKey.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
+                        Exit;
+                end;
+        end;
+
+        if taxinvoiceService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(taxinvoiceService.LastErrCode) + #10#13 +'응답메시지 : '+  taxinvoiceService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('URL : ' + #13 + resultURL);
+        end;
+end;
 
 end.

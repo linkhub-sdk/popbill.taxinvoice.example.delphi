@@ -3304,11 +3304,13 @@ var
         TaxType : Array Of String;
         IssueType : Array Of String;
         RegType : Array Of String;
+        CloseDownState : Array Of String;
         LateOnly : String;
         TaxRegIDYN : String;
         TaxRegIDType : String;
         TaxRegID : String;
         QString : String;
+        MgtKey : String;
         Page : Integer;
         PerPage : Integer;
         Order : String;
@@ -3326,10 +3328,10 @@ begin
         DType := 'W';
 
         // [필수] 시작일자, 작성형태(yyyyMMdd)
-        SDate := '20190801';
+        SDate := '20200701';
 
         // [필수] 종료일자, 작성형태(yyyyMMdd)
-        EDate := '20190930';
+        EDate := '20200731';
 
         // 전송상태값 배열. 미기재시 전체 상태조회, 문서상태 값 3자리의 배열, 2,3번째자리 와일드카드 사용가능
         // [참고] "[전자세금계산서 API 연동매뉴얼] > 5.1. (세금)계산서 상태코드"
@@ -3361,6 +3363,15 @@ begin
         RegType[0] := 'P';
         RegType[1] := 'H';
 
+        // 공급받는자 휴폐업조회 상태 배열, N-미확인, 0-미등록, 1-사업중, 2-폐업, 3-휴업
+        SetLength(CloseDownState, 5);
+        CloseDownState[0] := 'N';
+        CloseDownState[1] := '0';
+        CloseDownState[2] := '1';
+        CloseDownState[3] := '2';
+        CloseDownState[4] := '3';
+
+
         // 지연발행여부. {공백 : 전체조회, 0 : 정상발행조회, 1 : 지연발행 조회} 선택기재
         LateOnly := '';
 
@@ -3375,6 +3386,9 @@ begin
 
         // 거래처 정보, 거래처 상호 또는 사업자 등록번호 기재, 공백 처리시 전체조회
         QString := '';
+
+        // 전자세금계산서 문서번호 또는 국세청승인번호 기재, 공백 처리시 전체조회
+        MgtKey := '';
 
         // 페이지번호, 기본값 1
         Page := 1;
@@ -3391,7 +3405,7 @@ begin
         try
                 SearchList := taxinvoiceService.search(txtCorpNum.text, MgtKeyType, DType, SDate, EDate, State, TType,
                                         TaxType, IssueType, LateOnly, TaxRegIDType, TaxRegID, TaxRegIDYN, QString, Page, PerPage,
-                                        Order, InterOPYN, txtUserID.text, RegType);
+                                        Order, InterOPYN, txtUserID.text, RegType, CloseDownState, MgtKey);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);

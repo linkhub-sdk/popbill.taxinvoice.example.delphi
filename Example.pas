@@ -2,7 +2,7 @@
 { 팝빌 전자세금계산서 API Delphi SDK Example
 {
 { - SDK 튜토리얼 : https://docs.popbill.com/taxinvoice/tutorial/delphi
-{ - 업데이트 일자 : 2020-07-22
+{ - 업데이트 일자 : 2021-04-16
 { - 기술지원 연락처 : 1600-9854 / 070-4304-2991
 { - 기술지원 이메일 : code@linkhub.co.kr
 {
@@ -169,6 +169,7 @@ type
     Shape5: TShape;
     btnGetViewURL: TButton;
     btnGetPDFURL: TButton;
+    btnGetSendToNTSConfig: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetAccessURLClick(Sender: TObject);
@@ -240,6 +241,7 @@ type
     procedure btnDelete_reverseClick(Sender: TObject);
     procedure btnGetViewURLClick(Sender: TObject);
     procedure btnGetPDFURLClick(Sender: TObject);
+    procedure btnGetSendToNTSConfigClick(Sender: TObject);
 
   private
     MgtKeyType : EnumMgtKeyType;
@@ -1281,7 +1283,7 @@ var
         response : TResponse;
 begin
         {**********************************************************************}
-        { [발행완료] 상태의 세금계산서를 국세청으로 즉시전송 합니다.           
+        { [발행완료] 상태의 세금계산서를 국세청으로 즉시전송 합니다.
         { - 국세청 즉시전송을 호출하지 않은 경우 [발행완료] 상태의 세금계산서는
         {   발행일 기준으로 익일 오후 3시에 일괄적으로 국세청으로 전송됩니다.  
         { - https://docs.popbill.com/taxinvoice/delphi/api#SendToNTS
@@ -4149,5 +4151,34 @@ begin
                 ShowMessage('URL : ' + #13 + resultURL);
         end;
 end;
+
+procedure TfrmExample.btnGetSendToNTSConfigClick(Sender: TObject);
+var
+  result : Boolean;
+begin
+        {**********************************************************************}
+        { 발행 즉시전송 설정값을 확인합니다. 
+        { - https://docs.popbill.com/taxinvoice/delphi/api#GetSendToNTSConfig
+        {**********************************************************************}
+        
+        try
+                result := taxinvoiceService.GetSendToNTSConfig(txtCorpNum.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
+                        Exit;
+                end;
+        end;
+
+        if taxinvoiceService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(taxinvoiceService.LastErrCode) + #10#13 +'응답메시지 : '+  taxinvoiceService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('발행 즉시전송 설정 : '+ BoolToStr(result));
+        end;
+end;
+
 
 end.

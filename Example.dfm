@@ -51,6 +51,15 @@ object frmExample: TfrmExample
       Height = 273
       Caption = '정발행 프로세스'
       TabOrder = 18
+      object btnGetSendToNTSConfig: TButton
+        Left = 280
+        Top = 224
+        Width = 169
+        Height = 33
+        Caption = '발행 즉시전송 설정 확인'
+        TabOrder = 0
+        OnClick = btnGetSendToNTSConfigClick
+      end
     end
     object GroupBox2: TGroupBox
       Left = 296
@@ -771,7 +780,7 @@ object frmExample: TfrmExample
     object btnSendToNTS: TButton
       Left = 96
       Top = 296
-      Width = 401
+      Width = 185
       Height = 33
       Caption = '국세청 즉시전송'
       TabOrder = 10

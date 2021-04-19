@@ -56,7 +56,7 @@ object frmExample: TfrmExample
         Top = 224
         Width = 169
         Height = 33
-        Caption = '발행 즉시전송 설정 확인'
+        Caption = '국세청 전송 설정 확인'
         TabOrder = 0
         OnClick = btnGetSendToNTSConfigClick
       end

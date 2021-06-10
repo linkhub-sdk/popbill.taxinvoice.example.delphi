@@ -170,6 +170,7 @@ type
     btnGetViewURL: TButton;
     btnGetPDFURL: TButton;
     btnGetSendToNTSConfig: TButton;
+    btnGetOldPrintURL: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetAccessURLClick(Sender: TObject);
@@ -202,6 +203,7 @@ type
     procedure btnGetURL4Click(Sender: TObject);
     procedure btnGetPopUpURLClick(Sender: TObject);
     procedure btnGetPrintURLClick(Sender: TObject);
+    procedure btnGetOldPrintURLClick(Sender: TObject);
     procedure btnGetMailURLClick(Sender: TObject);
     procedure btnGetMassPrintURLClick(Sender: TObject);
     procedure btnGetEmailPublicKeyClick(Sender: TObject);
@@ -268,7 +270,7 @@ begin
         taxinvoiceService.IsTest := true;
 
         // Exception 처리 설정값. 미기재시 true(기본값)
-        taxinvoiceService.IsThrowException := true;
+        taxinvoiceService.IsThrowException := false;
 
         // 인증토큰 IP제한기능 사용여부, true(권장)
         taxinvoiceService.IPRestrictOnOff := true;
@@ -1637,6 +1639,36 @@ begin
 
         try
                 resultURL := taxinvoiceService.getPrintURL(txtCorpNum.Text,
+                                        MgtKeyType, tbMgtKey.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
+                        Exit;
+                end;
+        end;
+
+        if taxinvoiceService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(taxinvoiceService.LastErrCode) + #10#13 +'응답메시지 : '+  taxinvoiceService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('URL : ' + #13 + resultURL);
+        end;
+end;
+
+procedure TfrmExample.btnGetOldPrintURLClick(Sender: TObject);
+var
+  resultURL : String;
+begin
+        {**********************************************************************}
+        { 1건의 전자세금계산서 (구) 양식 인쇄팝업 URL을 반환합니다.
+        { - 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.
+        { - https://docs.popbill.com/taxinvoice/delphi/api#GetOldPrintURL
+        {**********************************************************************}
+
+        try
+                resultURL := taxinvoiceService.getOldPrintURL(txtCorpNum.Text,
                                         MgtKeyType, tbMgtKey.Text);
         except
                 on le : EPopbillException do begin
@@ -4180,6 +4212,5 @@ begin
                 ShowMessage('발행 즉시전송 설정 : '+ BoolToStr(result));
         end;
 end;
-
 
 end.

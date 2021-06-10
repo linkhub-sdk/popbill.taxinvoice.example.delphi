@@ -1,6 +1,6 @@
 object frmExample: TfrmExample
-  Left = 377
-  Top = 123
+  Left = 390
+  Top = 120
   Width = 1312
   Height = 842
   Caption = 'Linkhub 팝빌 전자세금계산서  SDK Examples'
@@ -840,7 +840,7 @@ object frmExample: TfrmExample
       end
       object btnGetMassPrintURL: TButton
         Left = 12
-        Top = 140
+        Top = 172
         Width = 164
         Height = 25
         Caption = '대량 인쇄 팝업 URL'
@@ -848,9 +848,9 @@ object frmExample: TfrmExample
         OnClick = btnGetMassPrintURLClick
       end
       object btnGetMailURL: TButton
-        Left = 12
-        Top = 170
-        Width = 164
+        Left = 184
+        Top = 24
+        Width = 180
         Height = 25
         Caption = '메일링크 URL'
         TabOrder = 3
@@ -858,7 +858,7 @@ object frmExample: TfrmExample
       end
       object btnGetEPrintUrl: TButton
         Left = 12
-        Top = 110
+        Top = 142
         Width = 164
         Height = 25
         Caption = '공급받는자 인쇄 팝업 URL'
@@ -876,12 +876,21 @@ object frmExample: TfrmExample
       end
       object btnGetPDFURL: TButton
         Left = 184
-        Top = 24
+        Top = 53
         Width = 180
         Height = 25
         Caption = '세금계산서 PDF 다운로드 URL'
         TabOrder = 6
         OnClick = btnGetPDFURLClick
+      end
+      object btnGetOldPrintURL: TButton
+        Left = 12
+        Top = 112
+        Width = 164
+        Height = 25
+        Caption = '(구) 공급자 인쇄 팝업 URL'
+        TabOrder = 7
+        OnClick = btnGetOldPrintURLClick
       end
     end
     object btnRegistRequest: TButton

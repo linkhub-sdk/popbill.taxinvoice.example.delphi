@@ -1036,7 +1036,7 @@ begin
         end
         else
         begin
-                tmp := 'itemKey(팝빌 관리번호) : ' +  taxinvoiceInfo.itemKey + #13;
+                tmp := 'itemKey(팝빌번호) : ' +  taxinvoiceInfo.itemKey + #13;
                 tmp := tmp + 'taxType (과세형태) : ' + taxinvoiceInfo.taxType + #13;
                 tmp := tmp + 'writeDate (작성일자) : ' + taxinvoiceInfo.writeDate + #13;
                 tmp := tmp + 'regDT (임시저장 일자) : ' + taxinvoiceInfo.regDT + #13;
@@ -1109,7 +1109,7 @@ begin
         else
         begin
         
-                tmp := tmp + 'itemKey(팝빌 관리번호) |  taxType (과세형태) |  writeDate (작성일자) |  regDT (임시저장 일시) |  issueType (발행형태) |  supplyCostTotal (공급가액 합계) | ';
+                tmp := tmp + 'itemKey(팝빌번호) |  taxType (과세형태) |  writeDate (작성일자) |  regDT (임시저장 일시) |  issueType (발행형태) |  supplyCostTotal (공급가액 합계) | ';
                 tmp := tmp + 'taxTotal (세액 합계) |  purposeType (영수/청구) | issueDT (발행일시) | lateIssueYN (지연발행 여부) | openYN (개봉 여부) | openDT (개봉 일시) | ';
                 tmp := tmp + 'stateMemo (상태메모) | stateCode (상태코드) | ntsconfirmNum (국세청승인번호) | ntsresult (국세청 전송결과) | ntssendDT (국세청 전송일시) | ';
                 tmp := tmp + 'ntsresultDT (국세청 결과 수신일시) | ntssendErrCode (실패사유 사유코드) | modifyCode (수정 사유코드) | interOPYN (연동문서 여부) | invoicerCorpName (공급자 상호) |';
@@ -1337,7 +1337,7 @@ var
 begin
         {*******************************************************************}
         { 공급받는자가 요청한 역발행 세금계산서 요청을 [취소] 처리합니다.    
-        { - [취소]처리 된 세금계산서의 문서관리번호를 재사용 하기 위해서는
+        { - [취소]처리 된 세금계산서의 문서번호를 재사용 하기 위해서는
         {   삭제 (Delete API) 호출해야 합니다.
         { - https://docs.popbill.com/taxinvoice/delphi/api#CancelRequest
         {*******************************************************************}
@@ -1364,7 +1364,7 @@ var
 begin
         {**********************************************************************}
         { 공급자가 요청받은 역발행 세금계산서를 [거부] 처리합니다.
-        { - [거부]처리 된 세금계산서의 문서관리번호를 재사용 하기 위해서는
+        { - [거부]처리 된 세금계산서의 문서번호를 재사용 하기 위해서는
         {   삭제 (Delete API) 호출해야 합니다.
         { - https://docs.popbill.com/taxinvoice/delphi/api#Refuse
         {**********************************************************************}
@@ -2560,7 +2560,7 @@ begin
 
                 tmp := tmp + '-----공급자 정보-----' + #13;
                 tmp := tmp +'invoicerCorpNum(사업자번호) : ' +  taxinvoice.InvoicerCorpNum + #13;
-                tmp := tmp +'invoicerMgtKey(관리번호) : ' +  taxinvoice.InvoicerMgtKey + #13;
+                tmp := tmp +'invoicerMgtKey(공급자 문서번호) : ' +  taxinvoice.InvoicerMgtKey + #13;
                 tmp := tmp +'invoicerTaxRegID(종사업장 식별번호) : ' +  taxinvoice.InvoicerTaxRegID + #13;
                 tmp := tmp +'invoicerCorpName(상호) : ' +  taxinvoice.InvoicerCorpName + #13;
                 tmp := tmp +'invoicerCEOName(대표자 성명) : ' +  taxinvoice.InvoicerCEOName + #13;
@@ -2576,7 +2576,7 @@ begin
                 tmp := tmp + '-----공급받는자 정보-----' + #13;
                 tmp := tmp +'invoiceeCorpNum(사업자번호) : ' +  taxinvoice.InvoiceeCorpNum + #13;
                 tmp := tmp +'invoiceeType(구분) : ' +  taxinvoice.invoiceeType + #13;
-                tmp := tmp +'invoiceeMgtKey(관리번호) : ' +  taxinvoice.InvoiceeMgtKey + #13;
+                tmp := tmp +'invoiceeMgtKey(공급받는자 문서번호) : ' +  taxinvoice.InvoiceeMgtKey + #13;
                 tmp := tmp +'invoiceeTaxRegID(종사업장 식별번호) : ' +  taxinvoice.InvoiceeTaxRegID + #13;
                 tmp := tmp +'invoiceeCorpName(상호) : ' +  taxinvoice.InvoiceeCorpName + #13;
                 tmp := tmp +'invoiceeCEOName(대표자 성명) : ' +  taxinvoice.InvoiceeCEOName + #13;
@@ -2593,7 +2593,7 @@ begin
 
                 tmp := tmp + '-----수탁자 정보-----' + #13;
                 tmp := tmp +'trusteeCorpNum(사업자번호) : ' +  taxinvoice.trusteeCorpNum + #13;
-                tmp := tmp +'trusteeMgtKey(관리번호) : ' +  taxinvoice.trusteeMgtKey + #13;
+                tmp := tmp +'trusteeMgtKey(수탁자 문서번호) : ' +  taxinvoice.trusteeMgtKey + #13;
                 tmp := tmp +'trusteeTaxRegID(종사업장 식별번호) : ' +  taxinvoice.trusteeTaxRegID + #13;
                 tmp := tmp +'trusteeCorpName(상호) : ' +  taxinvoice.trusteeCorpName + #13;
                 tmp := tmp +'trusteeCEOName(대표자 성명) : ' +  taxinvoice.trusteeCEOName + #13;
@@ -2608,7 +2608,6 @@ begin
 
                 tmp := tmp +'modifyCode(수정사유 코드) : ' +  taxinvoice.modifyCode + #13;
                 tmp := tmp +'orgNTSConfirmNum(원본 세금계산서 국세청승인번호) : ' +  taxinvoice.orgNTSConfirmNum + #13;
-                tmp := tmp +'originalTaxinvoiceKey(원본 팝빌 관리번호) : ' +  taxinvoice.originalTaxinvoiceKey + #13;
 
                 tmp := tmp + '-----추가담당자-----' + #13;
                 tmp := tmp + 'serialNum(일련번호) | email(이메일) | contactName(담당자 성명)' + #13;
@@ -2632,8 +2631,8 @@ var
         InUse : boolean;
 begin
         {***********************************************************************}
-        { 세금계산서를 발행하기전 관리번호 중복여부를 확인합니다.               
-        { - 관리번호는 1~24자리 숫자, 영문, '-', '_' 조합으로 구성할수 있습니다.
+        { 세금계산서를 발행하기전 문서번호 중복여부를 확인합니다.               
+        { - 문서번호는 1~24자리 숫자, 영문, '-', '_' 조합으로 구성할수 있습니다.
         { - https://docs.popbill.com/taxinvoice/delphi/api#CheckMgtKeyInUse
         {***********************************************************************}
 
@@ -3456,7 +3455,7 @@ begin
         tmp := tmp + 'pageCount (페이지 개수) : '+ IntToStr(SearchList.pageCount) + #13;
         tmp := tmp + 'message (응답메시지) : '+ SearchList.message + #13#13;
 
-        tmp := tmp + 'itemKey(팝빌 관리번호) |  taxType (과세형태) |  writeDate (작성일자) |  regDT (임시저장 일시) |  issueType (발행형태) |  supplyCostTotal (공급가액 합계) | ';
+        tmp := tmp + 'itemKey(팝빌번호) |  taxType (과세형태) |  writeDate (작성일자) |  regDT (임시저장 일시) |  issueType (발행형태) |  supplyCostTotal (공급가액 합계) | ';
         tmp := tmp + 'taxTotal (세액 합계) |  purposeType (영수/청구) | issueDT (발행일시) | lateIssueYN (지연발행 여부) | openYN (개봉 여부) | openDT (개봉 일시) | ';
         tmp := tmp + 'stateMemo (상태메모) | stateCode (상태코드) | ntsconfirmNum (국세청승인번호) | ntsresult (국세청 전송결과) | ntssendDT (국세청 전송일시) | ';
         tmp := tmp + 'ntsresultDT (국세청 결과 수신일시) | ntssendErrCode (실패사유 사유코드) | modifyCode (수정 사유코드) | interOPYN (연동문서 여부) | invoicerCorpName (공급자 상호) |';
@@ -3664,7 +3663,7 @@ var
         keyType : EnumMgtKeyType;
 begin
         {**********************************************************************}
-        { 팝빌사이트에서 작성된 세금계산서에 파트너 문서관리번호를 할당합니다.
+        { 팝빌사이트에서 작성된 세금계산서에 파트너 문서번호를 할당합니다.
         { - https://docs.popbill.com/taxinvoice/delphi/api#AssignMgtKey
         {**********************************************************************}
 

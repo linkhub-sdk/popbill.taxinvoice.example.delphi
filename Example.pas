@@ -276,7 +276,7 @@ begin
         taxinvoiceService.IsTest := true;
 
         // Exception 처리 설정값. 미기재시 true(기본값)
-        taxinvoiceService.IsThrowException := false;
+        taxinvoiceService.IsThrowException := true;
 
         // 인증토큰 IP제한기능 사용여부, true(권장)
         taxinvoiceService.IPRestrictOnOff := true;
@@ -549,7 +549,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20190113
-        taxinvoice.writeDate := '20190228';
+        taxinvoice.writeDate := '20210615';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '정발행';
@@ -726,7 +726,7 @@ begin
 
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[0].serialNum := 1;                //일련번호
-        taxinvoice.detailList[0].purchaseDT := '20190114';      //거래일자
+        taxinvoice.detailList[0].purchaseDT := '20210615';      //거래일자
         taxinvoice.detailList[0].itemName := '품목명';          //품목명
         taxinvoice.detailList[0].spec := '규격';                //규격
         taxinvoice.detailList[0].qty := '1';                    //수량
@@ -737,7 +737,7 @@ begin
 
         taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[1].serialNum := 2;                //일련번호
-        taxinvoice.detailList[1].purchaseDT := '20190114';      //거래일자
+        taxinvoice.detailList[1].purchaseDT := '20210615';      //거래일자
         taxinvoice.detailList[1].itemName := '품목명1';         //품목명
         taxinvoice.detailList[1].spec := '규격';                //규격
         taxinvoice.detailList[1].qty := '1';                    //수량
@@ -1099,8 +1099,8 @@ begin
 
         // 세금계산서 문서번호 배열, 최대 1000건까지 기재가능
         SetLength(KeyList,2);
-        KeyList[0] := '20190114-001';
-        KeyList[1] := '20190114-002';
+        KeyList[0] := '20210615-001';
+        KeyList[1] := '20210615-002';
 
         try
                 InfoList := taxinvoiceService.getInfos(txtCorpNum.text, MgtKeyType, KeyList);
@@ -1739,10 +1739,10 @@ begin
 
         // 세금계산서 문서번호 배열 (최대 100건)
         SetLength(KeyList,4);
-        KeyList[0] := '20190114-001';
-        KeyList[1] := '20190114-002';
-        KeyList[2] := '20190114-003';
-        KeyList[3] := '20190114-004';
+        KeyList[0] := '20210615-001';
+        KeyList[1] := '20210615-002';
+        KeyList[2] := '20210615-003';
+        KeyList[3] := '20210615-004';
 
         try
                 resultURL := taxinvoiceService.getMassPrintURL(txtCorpNum.text,
@@ -1810,7 +1810,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20190114
-        taxinvoice.writeDate := '20190114';
+        taxinvoice.writeDate := '20210615';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '역발행';
@@ -1986,7 +1986,7 @@ begin
 
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[0].serialNum := 1;                //일련번호
-        taxinvoice.detailList[0].purchaseDT := '20190114';      //거래일자
+        taxinvoice.detailList[0].purchaseDT := '20210615';      //거래일자
         taxinvoice.detailList[0].itemName := '품목명1';         //품목명
         taxinvoice.detailList[0].spec := '규격';                //규격
         taxinvoice.detailList[0].qty := '1';                    //수량
@@ -1997,7 +1997,7 @@ begin
 
         taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[1].serialNum := 2;                //일련번호
-        taxinvoice.detailList[1].purchaseDT := '20190114';      //거래일자
+        taxinvoice.detailList[1].purchaseDT := '20210615';      //거래일자
         taxinvoice.detailList[1].itemName := '품목명1';         //품목명
         taxinvoice.detailList[1].spec := '규격';                //규격
         taxinvoice.detailList[1].qty := '1';                    //수량
@@ -2035,7 +2035,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20190114
-        taxinvoice.writeDate := '20190114';
+        taxinvoice.writeDate := '20210615';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '정발행';
@@ -2214,7 +2214,7 @@ begin
 
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[0].serialNum := 1;                //일련번호
-        taxinvoice.detailList[0].purchaseDT := '20190114';      //거래일자
+        taxinvoice.detailList[0].purchaseDT := '20210615';      //거래일자
         taxinvoice.detailList[0].itemName := '품목명1';         //품목명
         taxinvoice.detailList[0].spec := '규격';                //규격
         taxinvoice.detailList[0].qty := '1';                    //수량
@@ -2225,7 +2225,7 @@ begin
 
         taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[1].serialNum := 2;                //일련번호
-        taxinvoice.detailList[1].purchaseDT := '20190114';      //거래일자
+        taxinvoice.detailList[1].purchaseDT := '20210615';      //거래일자
         taxinvoice.detailList[1].itemName := '품목명1';         //품목명
         taxinvoice.detailList[1].spec := '규격';                //규격
         taxinvoice.detailList[1].qty := '1';                    //수량
@@ -2290,7 +2290,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20180114
-        taxinvoice.writeDate := '20190128';
+        taxinvoice.writeDate := '20210615';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '역발행';
@@ -2470,7 +2470,7 @@ begin
 
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[0].serialNum := 1;                //일련번호
-        taxinvoice.detailList[0].purchaseDT := '20190128';      //거래일자
+        taxinvoice.detailList[0].purchaseDT := '20210615';      //거래일자
         taxinvoice.detailList[0].itemName := '품목명1';         //품목명
         taxinvoice.detailList[0].spec := '규격';                //규격
         taxinvoice.detailList[0].qty := '1';                    //수량
@@ -2481,7 +2481,7 @@ begin
 
         taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[1].serialNum := 2;                //일련번호
-        taxinvoice.detailList[1].purchaseDT := '20190128';      //거래일자
+        taxinvoice.detailList[1].purchaseDT := '20210615';      //거래일자
         taxinvoice.detailList[1].itemName := '품목명1';         //품목명
         taxinvoice.detailList[1].spec := '규격';                //규격
         taxinvoice.detailList[1].qty := '1';                    //수량
@@ -2968,7 +2968,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20190114
-        taxinvoice.writeDate := '20200722';
+        taxinvoice.writeDate := '20210615';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '정발행';
@@ -3145,7 +3145,7 @@ begin
 
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[0].serialNum := 1;                //일련번호
-        taxinvoice.detailList[0].purchaseDT := '20190114';      //거래일자
+        taxinvoice.detailList[0].purchaseDT := '20210615';      //거래일자
         taxinvoice.detailList[0].itemName := '품목명1';         //품목명
         taxinvoice.detailList[0].spec := '규격';                //규격
         taxinvoice.detailList[0].qty := '1';                    //수량
@@ -3156,7 +3156,7 @@ begin
 
         taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[1].serialNum := 2;                //일련번호
-        taxinvoice.detailList[1].purchaseDT := '20190114';      //거래일자
+        taxinvoice.detailList[1].purchaseDT := '20210615';      //거래일자
         taxinvoice.detailList[1].itemName := '품목명1';         //품목명
         taxinvoice.detailList[1].spec := '규격';                //규격
         taxinvoice.detailList[1].qty := '1';                    //수량
@@ -3366,10 +3366,10 @@ begin
         DType := 'W';
 
         // [필수] 시작일자, 작성형태(yyyyMMdd)
-        SDate := '20200701';
+        SDate := '20210601';
 
         // [필수] 종료일자, 작성형태(yyyyMMdd)
-        EDate := '20200731';
+        EDate := '20210615';
 
         // 전송상태값 배열. 미기재시 전체 상태조회, 문서상태 값 3자리의 배열, 2,3번째자리 와일드카드 사용가능
         // [참고] "[전자세금계산서 API 연동매뉴얼] > 5.1. (세금)계산서 상태코드"
@@ -3523,7 +3523,7 @@ begin
         SubItemCode := 121;
 
         // 첨부할 전자명세서 문서번호
-        SubMgtKey := '20190114-001';
+        SubMgtKey := '20210615-001';
 
         try
                 response := taxinvoiceService.AttachStatement(txtCorpNum.text,
@@ -3553,7 +3553,7 @@ begin
         SubItemCode := 121;
 
         // 첨부해제할 전자명세서 문서번호
-        SubMgtKey := '20190114-001';
+        SubMgtKey := '20210615-001';
 
         try
                 response := taxinvoiceService.DetachStatement(txtCorpNum.text,
@@ -3674,11 +3674,11 @@ begin
         keyType := SELL;
 
         // 세금계산서 아이템키, 문서 목록조회(Search) API의 반환항목중 ItemKey 참조
-        itemKey := '019011416122700001';
+        itemKey := '021011416122700001';
 
         // 할당할 문서번호, 숫자, 영문 '-', '_' 조합으로 1~24자리까지
         // 사업자번호별 중복없는 고유번호 할당
-        mgtKey := '20190114-100';
+        mgtKey := '20210615-100';
 
         try
                 response := taxinvoiceService.AssignMgtKey(txtCorpNum.text, keyType, itemKey, mgtKey);
@@ -3913,7 +3913,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20190114
-        taxinvoice.writeDate := '20190114';
+        taxinvoice.writeDate := '20210615';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '역발행';
@@ -4090,7 +4090,7 @@ begin
 
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[0].serialNum := 1;                //일련번호
-        taxinvoice.detailList[0].purchaseDT := '20190114';      //거래일자
+        taxinvoice.detailList[0].purchaseDT := '20210615';      //거래일자
         taxinvoice.detailList[0].itemName := '품목명1';         //품목명
         taxinvoice.detailList[0].spec := '규격';                //규격
         taxinvoice.detailList[0].qty := '1';                    //수량
@@ -4101,7 +4101,7 @@ begin
 
         taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[1].serialNum := 2;                //일련번호
-        taxinvoice.detailList[1].purchaseDT := '20190114';      //거래일자
+        taxinvoice.detailList[1].purchaseDT := '20210615';      //거래일자
         taxinvoice.detailList[1].itemName := '품목명1';         //품목명
         taxinvoice.detailList[1].spec := '규격';                //규격
         taxinvoice.detailList[1].qty := '1';                    //수량

@@ -1,4 +1,20 @@
-
+object frmExample: TfrmExample
+  Left = 316
+  Top = 142
+  Width = 1312
+  Height = 842
+  Caption = 'Linkhub ÆËºô ÀüÀÚ¼¼±Ý°è»ê¼­  SDK Examples'
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label3: TLabel
     Left = 16
     Top = 12
     Width = 129

@@ -1,20 +1,4 @@
-object frmExample: TfrmExample
-  Left = 316
-  Top = 142
-  Width = 1312
-  Height = 842
-  Caption = 'Linkhub 팝빌 전자세금계산서  SDK Examples'
-  Color = clBtnFace
-  Font.Charset = DEFAULT_CHARSET
-  Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
-  Font.Style = []
-  OldCreateOrder = False
-  OnCreate = FormCreate
-  PixelsPerInch = 96
-  TextHeight = 13
-  object Label3: TLabel
+
     Left = 16
     Top = 12
     Width = 129
@@ -53,7 +37,7 @@ object frmExample: TfrmExample
       TabOrder = 18
       object btnGetSendToNTSConfig: TButton
         Left = 280
-        Top = 224
+        Top = 232
         Width = 169
         Height = 33
         Caption = '국세청 전송 설정 확인'

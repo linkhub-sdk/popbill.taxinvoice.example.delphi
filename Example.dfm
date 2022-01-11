@@ -42,7 +42,7 @@ object frmExample: TfrmExample
       Top = 30
       Width = 120
       Height = 13
-      Caption = '문서관리번호(MgtKey) :'
+      Caption = '문서번호(MgtKey) :'
     end
     object GroupBox20: TGroupBox
       Left = 16
@@ -514,7 +514,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 165
         Height = 25
-        Caption = '관리번호 할당'
+        Caption = '문서번호 할당'
         TabOrder = 5
         OnClick = btnAssignMgtKeyClick
       end
@@ -550,7 +550,7 @@ object frmExample: TfrmExample
       Top = 18
       Width = 161
       Height = 31
-      Caption = '관리번호 사용여부 확인'
+      Caption = '문서번호 사용여부 확인'
       TabOrder = 5
       OnClick = btnCheckMgtKeyInUseClick
     end
@@ -1008,7 +1008,7 @@ object frmExample: TfrmExample
       Top = 24
       Width = 145
       Height = 122
-      Caption = '공인인증서 관련'
+      Caption = '공동인증서 관련'
       TabOrder = 3
       object btnGetCertificateExpireDate: TButton
         Left = 8

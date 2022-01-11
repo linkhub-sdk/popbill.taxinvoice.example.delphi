@@ -2,17 +2,17 @@
 { 팝빌 전자세금계산서 API Delphi SDK Example
 {
 { - SDK 튜토리얼 : https://docs.popbill.com/taxinvoice/tutorial/delphi
-{ - 업데이트 일자 : 2021-06-15
-{ - 기술지원 연락처 : 1600-9854 / 070-4304-2991
-{ - 기술지원 이메일 : code@linkhub.co.kr
+{ - 업데이트 일자 : 2021-01-10
+{ - 기술지원 연락처 : 1600-9854
+{ - 기술지원 이메일 : code@linkhubcorp.com
 {
 { <테스트 연동개발 준비사항>
 { (1) 36, 39번 라인에 선언된 링크아이디(LinkID)와 비밀키(SecretKey)를
 {    링크허브 가입시 메일로 발급받은 인증정보로 수정
 { (2) 팝빌 개발용 사이트(test.popbill.com)에 연동회원으로 가입
-{ (3) 전자세금계산서 발행을 위해 공인인증서를 등록합니다.
-{    - 팝빌사이트 로그인 > [전자세금계산서] > [환경설정] > [공인인증서 관리]
-{    - 공인인증서등록 팝업 URL (getTaxCertURL API)을 이용하여 등록
+{ (3) 전자세금계산서 발행을 위해 공동인증서를 등록합니다.
+{    - 팝빌사이트 로그인 > [전자세금계산서] > [환경설정] > [공동인증서 관리]
+{    - 공동인증서등록 팝업 URL (getTaxCertURL API)을 이용하여 등록
 {
 {******************************************************************************}
 
@@ -592,7 +592,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20190113
-        taxinvoice.writeDate := '20210615';
+        taxinvoice.writeDate := '20220101';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '정발행';
@@ -601,7 +601,7 @@ begin
         // 정과금(공급자 과금), 역과금(공급받는자 과금)
         taxinvoice.chargeDirection := '정과금';
 
-        // [필수] 영수/청구, [영수, 청구] 중 기재
+        // [필수] 영수/청구, [영수, 청구, 없음] 중 기재
         taxinvoice.purposeType := '영수';
 
         // [필수] 과세형태, [과세, 영세, 면세] 중 기재
@@ -769,7 +769,7 @@ begin
 
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[0].serialNum := 1;                //일련번호
-        taxinvoice.detailList[0].purchaseDT := '20210615';      //거래일자
+        taxinvoice.detailList[0].purchaseDT := '20220101';      //거래일자
         taxinvoice.detailList[0].itemName := '품목명';          //품목명
         taxinvoice.detailList[0].spec := '규격';                //규격
         taxinvoice.detailList[0].qty := '1';                    //수량
@@ -780,7 +780,7 @@ begin
 
         taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[1].serialNum := 2;                //일련번호
-        taxinvoice.detailList[1].purchaseDT := '20210615';      //거래일자
+        taxinvoice.detailList[1].purchaseDT := '20220101';      //거래일자
         taxinvoice.detailList[1].itemName := '품목명1';         //품목명
         taxinvoice.detailList[1].spec := '규격';                //규격
         taxinvoice.detailList[1].qty := '1';                    //수량
@@ -867,8 +867,8 @@ var
         Expired : String;
 begin
         {**********************************************************************}
-        { 팝빌에 등록되어있는 공인인증서의 만료일자를 반환합니다.
-        { - 등록된 공인인증서가 갱신/재발급/비밀번호변경 되는 경우 인증서를
+        { 팝빌에 등록되어있는 공동인증서의 만료일자를 반환합니다.
+        { - 등록된 공동인증서가 갱신/재발급/비밀번호변경 되는 경우 인증서를
         {   재등록 하셔야 정상적으로 API를 이용하실 수 있습니다.
         { - https://docs.popbill.com/taxinvoice/delphi/api#GetCertificateExpireDate
         {**********************************************************************}
@@ -1174,8 +1174,8 @@ begin
 
         // 세금계산서 문서번호 배열, 최대 1000건까지 기재가능
         SetLength(KeyList,2);
-        KeyList[0] := '20210615-001';
-        KeyList[1] := '20210615-002';
+        KeyList[0] := '20220101-001';
+        KeyList[1] := '20220101-002';
 
         try
                 InfoList := taxinvoiceService.getInfos(txtCorpNum.text, MgtKeyType, KeyList);
@@ -1870,10 +1870,10 @@ begin
 
         // 세금계산서 문서번호 배열 (최대 100건)
         SetLength(KeyList,4);
-        KeyList[0] := '20210615-001';
-        KeyList[1] := '20210615-002';
-        KeyList[2] := '20210615-003';
-        KeyList[3] := '20210615-004';
+        KeyList[0] := '20220101-001';
+        KeyList[1] := '20220101-002';
+        KeyList[2] := '20220101-003';
+        KeyList[3] := '20220101-004';
 
         try
                 resultURL := taxinvoiceService.getMassPrintURL(txtCorpNum.text,
@@ -1951,7 +1951,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20190114
-        taxinvoice.writeDate := '20210615';
+        taxinvoice.writeDate := '20220101';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '역발행';
@@ -1960,7 +1960,7 @@ begin
         // 포인트가 차감되는 '역과금' 가능
         taxinvoice.chargeDirection := '정과금';
 
-        // [필수] 영수/청구, [영수, 청구] 중 기재
+        // [필수] 영수/청구, [영수, 청구, 없음] 중 기재
         taxinvoice.purposeType := '영수';
 
         // [필수] 과세형태, [과세, 영세, 면세] 중 기재
@@ -2127,7 +2127,7 @@ begin
 
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[0].serialNum := 1;                //일련번호
-        taxinvoice.detailList[0].purchaseDT := '20210615';      //거래일자
+        taxinvoice.detailList[0].purchaseDT := '20220101';      //거래일자
         taxinvoice.detailList[0].itemName := '품목명1';         //품목명
         taxinvoice.detailList[0].spec := '규격';                //규격
         taxinvoice.detailList[0].qty := '1';                    //수량
@@ -2138,7 +2138,7 @@ begin
 
         taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[1].serialNum := 2;                //일련번호
-        taxinvoice.detailList[1].purchaseDT := '20210615';      //거래일자
+        taxinvoice.detailList[1].purchaseDT := '20220101';      //거래일자
         taxinvoice.detailList[1].itemName := '품목명1';         //품목명
         taxinvoice.detailList[1].spec := '규격';                //규격
         taxinvoice.detailList[1].qty := '1';                    //수량
@@ -2183,7 +2183,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20190114
-        taxinvoice.writeDate := '20210615';
+        taxinvoice.writeDate := '20220101';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '정발행';
@@ -2192,7 +2192,7 @@ begin
         // 정과금(공급자 과금), 역과금(공급받는자 과금)
         taxinvoice.chargeDirection := '정과금';
 
-        // [필수] 영수/청구, [영수, 청구] 중 기재
+        // [필수] 영수/청구, [영수, 청구, 없음] 중 기재
         taxinvoice.purposeType := '영수';
 
         // [필수] 과세형태, [과세, 영세, 면세] 중 기재
@@ -2362,7 +2362,7 @@ begin
 
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[0].serialNum := 1;                //일련번호
-        taxinvoice.detailList[0].purchaseDT := '20210615';      //거래일자
+        taxinvoice.detailList[0].purchaseDT := '20220101';      //거래일자
         taxinvoice.detailList[0].itemName := '품목명1';         //품목명
         taxinvoice.detailList[0].spec := '규격';                //규격
         taxinvoice.detailList[0].qty := '1';                    //수량
@@ -2373,7 +2373,7 @@ begin
 
         taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[1].serialNum := 2;                //일련번호
-        taxinvoice.detailList[1].purchaseDT := '20210615';      //거래일자
+        taxinvoice.detailList[1].purchaseDT := '20220101';      //거래일자
         taxinvoice.detailList[1].itemName := '품목명1';         //품목명
         taxinvoice.detailList[1].spec := '규격';                //규격
         taxinvoice.detailList[1].qty := '1';                    //수량
@@ -2445,7 +2445,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20180114
-        taxinvoice.writeDate := '20210615';
+        taxinvoice.writeDate := '20220101';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '역발행';
@@ -2454,7 +2454,7 @@ begin
         // 포인트가 차감되는 '역과금' 가능
         taxinvoice.chargeDirection := '정과금';
 
-        // [필수] 영수/청구, [영수, 청구] 중 기재
+        // [필수] 영수/청구, [영수, 청구, 없음] 중 기재
         taxinvoice.purposeType := '영수';
 
         // [필수] 과세형태, [과세, 영세, 면세] 중 기재
@@ -2625,7 +2625,7 @@ begin
 
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[0].serialNum := 1;                //일련번호
-        taxinvoice.detailList[0].purchaseDT := '20210615';      //거래일자
+        taxinvoice.detailList[0].purchaseDT := '20220101';      //거래일자
         taxinvoice.detailList[0].itemName := '품목명1';         //품목명
         taxinvoice.detailList[0].spec := '규격';                //규격
         taxinvoice.detailList[0].qty := '1';                    //수량
@@ -2636,7 +2636,7 @@ begin
 
         taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[1].serialNum := 2;                //일련번호
-        taxinvoice.detailList[1].purchaseDT := '20210615';      //거래일자
+        taxinvoice.detailList[1].purchaseDT := '20220101';      //거래일자
         taxinvoice.detailList[1].itemName := '품목명1';         //품목명
         taxinvoice.detailList[1].spec := '규격';                //규격
         taxinvoice.detailList[1].qty := '1';                    //수량
@@ -3168,7 +3168,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20190114
-        taxinvoice.writeDate := '20210615';
+        taxinvoice.writeDate := '20220101';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '정발행';
@@ -3177,7 +3177,7 @@ begin
         // 정과금(공급자 과금), 역과금(공급받는자 과금)
         taxinvoice.chargeDirection := '정과금';
 
-        // [필수] 영수/청구, [영수, 청구] 중 기재
+        // [필수] 영수/청구, [영수, 청구, 없음] 중 기재
         taxinvoice.purposeType := '영수';
 
         // [필수] 과세형태, [과세, 영세, 면세] 중 기재
@@ -3345,7 +3345,7 @@ begin
 
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[0].serialNum := 1;                //일련번호
-        taxinvoice.detailList[0].purchaseDT := '20210615';      //거래일자
+        taxinvoice.detailList[0].purchaseDT := '20220101';      //거래일자
         taxinvoice.detailList[0].itemName := '품목명1';         //품목명
         taxinvoice.detailList[0].spec := '규격';                //규격
         taxinvoice.detailList[0].qty := '1';                    //수량
@@ -3356,7 +3356,7 @@ begin
 
         taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[1].serialNum := 2;                //일련번호
-        taxinvoice.detailList[1].purchaseDT := '20210615';      //거래일자
+        taxinvoice.detailList[1].purchaseDT := '20220101';      //거래일자
         taxinvoice.detailList[1].itemName := '품목명1';         //품목명
         taxinvoice.detailList[1].spec := '규격';                //규격
         taxinvoice.detailList[1].qty := '1';                    //수량
@@ -3529,7 +3529,7 @@ var
   resultURL : String;
 begin
         {*********************************************************************}
-        { 팝빌 회원의 공인인증서를 등록하는 팝업 URL을 반환합니다.          
+        { 팝빌 회원의 공동인증서를 등록하는 팝업 URL을 반환합니다.          
         { - URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
         { - https://docs.popbill.com/taxinvoice/delphi/api#GetTaxCertURL
         {*********************************************************************}
@@ -3588,13 +3588,12 @@ begin
         DType := 'W';
 
         // [필수] 시작일자, 작성형태(yyyyMMdd)
-        SDate := '20210601';
+        SDate := '20220101';
 
         // [필수] 종료일자, 작성형태(yyyyMMdd)
-        EDate := '20210615';
+        EDate := '20220110';
 
         // 전송상태값 배열. 미기재시 전체 상태조회, 문서상태 값 3자리의 배열, 2,3번째자리 와일드카드 사용가능
-        // [참고] "[전자세금계산서 API 연동매뉴얼] > 5.1. (세금)계산서 상태코드"
         SetLength(State, 4);
         State[0] := '3**';
         State[1] := '4**';
@@ -3752,7 +3751,7 @@ begin
         SubItemCode := 121;
 
         // 첨부할 전자명세서 문서번호
-        SubMgtKey := '20210615-001';
+        SubMgtKey := '20220101-001';
 
         try
                 response := taxinvoiceService.AttachStatement(txtCorpNum.text,
@@ -3789,7 +3788,7 @@ begin
         SubItemCode := 121;
 
         // 첨부해제할 전자명세서 문서번호
-        SubMgtKey := '20210615-001';
+        SubMgtKey := '20220101-001';
 
         try
                 response := taxinvoiceService.DetachStatement(txtCorpNum.text,
@@ -3921,7 +3920,7 @@ begin
 
         // 할당할 문서번호, 숫자, 영문 '-', '_' 조합으로 1~24자리까지
         // 사업자번호별 중복없는 고유번호 할당
-        mgtKey := '20210615-100';
+        mgtKey := '20220101-100';
 
         try
                 response := taxinvoiceService.AssignMgtKey(txtCorpNum.text, keyType, itemKey, mgtKey);
@@ -3948,7 +3947,7 @@ var
         response : TResponse;
 begin
         {**********************************************************************}
-        { 팝빌에 등록된 공인인증서의 유효성을 확인합니다.
+        { 팝빌에 등록된 공동인증서의 유효성을 확인합니다.
         { - https://docs.popbill.com/taxinvoice/delphi/api#CheckCertValidation
         {**********************************************************************}
 
@@ -4076,7 +4075,7 @@ begin
                         tmp := tmp + '[정기발송] TAX_SEND_INFO (전월 귀속분 [매출 발행 대기] 세금계산서 발행 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
 
                     if EmailConfigList[i].EmailType = 'ETC_CERT_EXPIRATION' then
-                        tmp := tmp + '[정기발송] ETC_CERT_EXPIRATION (팝빌에서 이용중인 공인인증서의 갱신 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
+                        tmp := tmp + '[정기발송] ETC_CERT_EXPIRATION (팝빌에서 이용중인 공동인증서의 갱신 메일) | ' + BoolToStr(EmailConfigList[i].SendYN) + #13;
                 end;
                 ShowMessage(tmp);
         end;
@@ -4131,7 +4130,7 @@ begin
         {
         {  [정기발송]
         {  TAX_SEND_INFO : 전월 귀속분 [매출 발행 대기] 세금계산서 발행 메일 알림
-        {  ETC_CERT_EXPIRATION : 팝빌에서 이용중인 공인인증서의 갱신 메일 알림
+        {  ETC_CERT_EXPIRATION : 팝빌에서 이용중인 공동인증서의 갱신 메일 알림
         {*********************************************************************************}
 
         // 메일전송유형
@@ -4176,7 +4175,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20190114
-        taxinvoice.writeDate := '20210615';
+        taxinvoice.writeDate := '20220101';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '역발행';
@@ -4185,7 +4184,7 @@ begin
         // 포인트가 차감되는 '역과금' 가능
         taxinvoice.chargeDirection := '정과금';
 
-        // [필수] 영수/청구, [영수, 청구] 중 기재
+        // [필수] 영수/청구, [영수, 청구, 없음] 중 기재
         taxinvoice.purposeType := '영수';
 
         // [필수] 과세형태, [과세, 영세, 면세] 중 기재
@@ -4353,7 +4352,7 @@ begin
 
         taxinvoice.detailList[0] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[0].serialNum := 1;                //일련번호
-        taxinvoice.detailList[0].purchaseDT := '20210615';      //거래일자
+        taxinvoice.detailList[0].purchaseDT := '20220101';      //거래일자
         taxinvoice.detailList[0].itemName := '품목명1';         //품목명
         taxinvoice.detailList[0].spec := '규격';                //규격
         taxinvoice.detailList[0].qty := '1';                    //수량
@@ -4364,7 +4363,7 @@ begin
 
         taxinvoice.detailList[1] := TTaxinvoiceDetail.Create;
         taxinvoice.detailList[1].serialNum := 2;                //일련번호
-        taxinvoice.detailList[1].purchaseDT := '20210615';      //거래일자
+        taxinvoice.detailList[1].purchaseDT := '20220101';      //거래일자
         taxinvoice.detailList[1].itemName := '품목명1';         //품목명
         taxinvoice.detailList[1].spec := '규격';                //규격
         taxinvoice.detailList[1].qty := '1';                    //수량

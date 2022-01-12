@@ -7,10 +7,9 @@
 { - 기술지원 이메일 : code@linkhubcorp.com
 {
 { <테스트 연동개발 준비사항>
-{ (1) 36, 39번 라인에 선언된 링크아이디(LinkID)와 비밀키(SecretKey)를
+{ (1) 35, 38번 라인에 선언된 링크아이디(LinkID)와 비밀키(SecretKey)를
 {    링크허브 가입시 메일로 발급받은 인증정보로 수정
-{ (2) 팝빌 개발용 사이트(test.popbill.com)에 연동회원으로 가입
-{ (3) 전자세금계산서 발행을 위해 공동인증서를 등록합니다.
+{ (2) 전자세금계산서 발행을 위해 공동인증서를 등록합니다.
 {    - 팝빌사이트 로그인 > [전자세금계산서] > [환경설정] > [공동인증서 관리]
 {    - 공동인증서등록 팝업 URL (getTaxCertURL API)을 이용하여 등록
 {
@@ -272,16 +271,16 @@ begin
         // 세금계산서 모듈 초기화.
         taxinvoiceService := TTaxinvoiceService.Create(LinkID,SecretKey);
 
-        // 연동환경 설정값, true(개발용), false(상업용)
+        // 연동환경 설정, true-개발용, false-상업용
         taxinvoiceService.IsTest := true;
 
-        // Exception 처리 설정값. 미기재시 true(기본값)
+        // Exception 처리 설정, true-사용, false-미사용, 기본값(true)
         taxinvoiceService.IsThrowException := true;
 
-        // 인증토큰 IP제한기능 사용여부, true(권장)
+        // 인증토큰 IP제한기능 사용여부, true-사용, false-미사용, 기본값(true)
         taxinvoiceService.IPRestrictOnOff := true;
 
-        //로컬시스템 시간 사용여부, true(사용), false(미사용) - 기본값
+        //로컬시스템 시간 사용여부, true-사용, false-미사용, 기본값(true)
         taxinvoiceService.UseLocalTimeYN := false;
 end;
 

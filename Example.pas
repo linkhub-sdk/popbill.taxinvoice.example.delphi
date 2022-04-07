@@ -2,7 +2,7 @@
 { 팝빌 전자세금계산서 API Delphi SDK Example
 {
 { - SDK 튜토리얼 : https://docs.popbill.com/taxinvoice/tutorial/delphi
-{ - 업데이트 일자 : 2021-01-10
+{ - 업데이트 일자 : 2022-01-10
 { - 기술지원 연락처 : 1600-9854
 { - 기술지원 이메일 : code@linkhubcorp.com
 {
@@ -164,7 +164,6 @@ type
     Shape30: TShape;
     Shape31: TShape;
     StaticText1: TStaticText;
-    Shape33: TShape;
     Shape5: TShape;
     btnGetViewURL: TButton;
     btnGetPDFURL: TButton;
@@ -173,6 +172,8 @@ type
     btnGetPaymentURL: TButton;
     btnGetUseHistoryURL: TButton;
     btnGetContactInfo: TButton;
+    btnGetXML: TButton;
+    Button1: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetAccessURLClick(Sender: TObject);
@@ -213,6 +214,7 @@ type
     procedure btnUpdateClick(Sender: TObject);
     procedure btnUpdate_reverseClick(Sender: TObject);
     procedure btnGetDetailInfoClick(Sender: TObject);
+    procedure btnGetXMLClick(Sender: TObject);
     procedure btnCheckMgtKeyInUseClick(Sender: TObject);
     procedure btnGetEPrintUrlClick(Sender: TObject);
     procedure btnCheckIsMemberClick(Sender: TObject);
@@ -249,6 +251,7 @@ type
     procedure btnGetPaymentURLClick(Sender: TObject);
     procedure btnGetUseHistoryURLClick(Sender: TObject);
     procedure btnGetContactInfoClick(Sender: TObject);
+    procedure btnGetTaxCertInfoClick(Sender: TObject);
 
   private
     MgtKeyType : EnumMgtKeyType;
@@ -2796,6 +2799,40 @@ begin
         end;
 end;
 
+procedure TfrmExample.btnGetXMLClick(Sender: TObject);
+var
+        response : TTaxinvoiceXML;
+        tmp : string;
+begin
+        {**********************************************************************}
+        { 세금계산서 1건의 상세정보를 XML로 반환합니다.
+        { - https://docs.popbill.com/taxinvoice/delphi/api#api#GetXML
+        {**********************************************************************}
+
+        try
+                response := taxinvoiceService.getXML(txtCorpNum.text, MgtKeyType, tbMgtKey.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
+                        Exit;
+                end;
+        end;
+
+
+        if taxinvoiceService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(taxinvoiceService.LastErrCode) + #10#13 +'응답메시지 : '+  taxinvoiceService.LastErrMessage);
+                Exit;
+        end
+        else
+        begin
+                tmp := 'code (응답코드) : ' + IntToStr(response.code) + #13;
+                tmp := tmp + 'message (응답메시지) : ' + response.message + #13;
+                tmp := tmp + 'retObject (전자세금계산서 XML문서) : ' + #13 + response.retObject;
+                ShowMessage(tmp);
+        end;
+end;
+
 procedure TfrmExample.btnCheckMgtKeyInUseClick(Sender: TObject);
 var
         InUse : boolean;
@@ -3550,6 +3587,47 @@ begin
         else
         begin
                 ShowMessage('URL : ' + #13 + resultURL);
+        end;
+end;
+
+procedure TfrmExample.btnGetTaxCertInfoClick(Sender: TObject);
+var
+  certInfo : TTaxinvoiceCertificate;
+  tmp      : String;
+begin
+        {*********************************************************************}
+        { 팝빌 인증서버에 등록된 공동인증서의 정보를 확인합니다.
+        { - https://docs.popbill.com/taxinvoice/delphi/api#GetTaxCertInfo
+        {*********************************************************************}
+
+      try
+                certInfo := taxinvoiceService.getTaxCertInfo(txtCorpNum.text, txtUserID.text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
+                        Exit;
+                end;
+        end;
+
+
+        if taxinvoiceService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(taxinvoiceService.LastErrCode) + #10#13 +'응답메시지 : '+  taxinvoiceService.LastErrMessage);
+                Exit;
+        end
+        else
+        begin
+                tmp := tmp +'(등록일시) : ' +  certInfo.regDT + #13;
+                tmp := tmp +'(만료일시) : ' +  certInfo.expireDT + #13;
+                tmp := tmp +'(인증서 발급자 DN ) : ' +  certInfo.issuerDN + #13;
+                tmp := tmp +'(등록된 인증서 DN) : ' +  certInfo.subjectDN + #13;
+                tmp := tmp +'(인증서 종류) : ' +  certInfo.issuerName + #13;
+                tmp := tmp +'(OID) : ' +  certInfo.oid + #13;
+                tmp := tmp +'(등록 담당자 성명) : ' +  certInfo.regContactName + #13;
+                tmp := tmp +'(등록 담당자 아이디) : ' +  certInfo.regContactID + #13;
+
+
+                ShowMessage(tmp);
         end;
 end;
 

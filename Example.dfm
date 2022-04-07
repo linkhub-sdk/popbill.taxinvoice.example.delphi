@@ -1,6 +1,6 @@
 object frmExample: TfrmExample
-  Left = 316
-  Top = 142
+  Left = 405
+  Top = 188
   Width = 1312
   Height = 842
   Caption = 'Linkhub 팝빌 전자세금계산서  SDK Examples'
@@ -40,7 +40,7 @@ object frmExample: TfrmExample
     object Label1: TLabel
       Left = 40
       Top = 30
-      Width = 120
+      Width = 96
       Height = 13
       Caption = '문서번호(MgtKey) :'
     end
@@ -190,14 +190,6 @@ object frmExample: TfrmExample
       Height = 273
       Caption = '역발행 프로세스'
       TabOrder = 19
-      object Shape33: TShape
-        Left = 464
-        Top = 24
-        Width = 33
-        Height = 18
-        Brush.Color = cl3DLight
-        Pen.Style = psDot
-      end
     end
     object GroupBox19: TGroupBox
       Left = 624
@@ -422,7 +414,7 @@ object frmExample: TfrmExample
       end
       object btnGetLogs: TButton
         Left = 12
-        Top = 139
+        Top = 165
         Width = 135
         Height = 25
         Caption = '상태 변경이력 확인'
@@ -449,12 +441,21 @@ object frmExample: TfrmExample
       end
       object btnSearch: TButton
         Left = 12
-        Top = 110
+        Top = 136
         Width = 135
         Height = 25
         Caption = '목록 조회'
         TabOrder = 4
         OnClick = btnSearchClick
+      end
+      object btnGetXML: TButton
+        Left = 12
+        Top = 109
+        Width = 135
+        Height = 25
+        Caption = '상세정보 확인 - XML'
+        TabOrder = 5
+        OnClick = btnGetXMLClick
       end
     end
     object GroupBox6: TGroupBox
@@ -1007,7 +1008,7 @@ object frmExample: TfrmExample
       Left = 312
       Top = 24
       Width = 145
-      Height = 122
+      Height = 153
       Caption = '공동인증서 관련'
       TabOrder = 3
       object btnGetCertificateExpireDate: TButton
@@ -1036,6 +1037,15 @@ object frmExample: TfrmExample
         Caption = '인증서 유효성 확인'
         TabOrder = 2
         OnClick = btnCheckCertValidationClick
+      end
+      object Button1: TButton
+        Left = 6
+        Top = 120
+        Width = 131
+        Height = 25
+        Caption = '인증서 정보 확인'
+        TabOrder = 3
+        OnClick = btnGetTaxCertInfoClick
       end
     end
     object GroupBox4: TGroupBox

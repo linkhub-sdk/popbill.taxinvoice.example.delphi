@@ -2,7 +2,7 @@
 { 팝빌 전자세금계산서 API Delphi SDK Example
 {
 { - SDK 튜토리얼 : https://docs.popbill.com/taxinvoice/tutorial/delphi
-{ - 업데이트 일자 : 2022-01-10
+{ - 업데이트 일자 : 2022-04-07
 { - 기술지원 연락처 : 1600-9854
 { - 기술지원 이메일 : code@linkhubcorp.com
 {

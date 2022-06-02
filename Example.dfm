@@ -1,8 +1,8 @@
 object frmExample: TfrmExample
-  Left = 405
-  Top = 188
+  Left = 332
+  Top = 102
   Width = 1312
-  Height = 842
+  Height = 912
   Caption = 'Linkhub 팝빌 전자세금계산서  SDK Examples'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -34,7 +34,7 @@ object frmExample: TfrmExample
     Left = 8
     Top = 224
     Width = 1273
-    Height = 577
+    Height = 649
     Caption = '전자세금계산서 관련 API'
     TabOrder = 0
     object Label1: TLabel
@@ -51,15 +51,6 @@ object frmExample: TfrmExample
       Height = 273
       Caption = '정발행 프로세스'
       TabOrder = 18
-      object btnGetSendToNTSConfig: TButton
-        Left = 280
-        Top = 232
-        Width = 169
-        Height = 33
-        Caption = '국세청 전송 설정 확인'
-        TabOrder = 0
-        OnClick = btnGetSendToNTSConfigClick
-      end
     end
     object GroupBox2: TGroupBox
       Left = 296
@@ -347,9 +338,9 @@ object frmExample: TfrmExample
     end
     object GroupBox3: TGroupBox
       Left = 16
-      Top = 360
+      Top = 404
       Width = 153
-      Height = 209
+      Height = 229
       Caption = '첨부파일'
       TabOrder = 1
       object Label2: TLabel
@@ -398,9 +389,9 @@ object frmExample: TfrmExample
     end
     object GroupBox5: TGroupBox
       Left = 183
-      Top = 360
+      Top = 404
       Width = 162
-      Height = 209
+      Height = 229
       Caption = '문서 정보'
       TabOrder = 2
       object btnGetDetailInfo: TButton
@@ -457,12 +448,21 @@ object frmExample: TfrmExample
         TabOrder = 5
         OnClick = btnGetXMLClick
       end
+      object btnGetBulkResult: TButton
+        Left = 11
+        Top = 193
+        Width = 135
+        Height = 25
+        Caption = '초대량 접수결과 확인'
+        TabOrder = 6
+        OnClick = btnGetBulkResultClick
+      end
     end
     object GroupBox6: TGroupBox
       Left = 896
-      Top = 360
+      Top = 404
       Width = 350
-      Height = 209
+      Height = 229
       Caption = '부가기능'
       TabOrder = 3
       object btnSendEmail: TButton
@@ -537,6 +537,15 @@ object frmExample: TfrmExample
         TabOrder = 7
         OnClick = btnUpdateEmailConfigClick
       end
+      object btnGetSendToNTSConfig: TButton
+        Left = 173
+        Top = 112
+        Width = 165
+        Height = 25
+        Caption = '국세청 전송 설정 확인'
+        TabOrder = 8
+        OnClick = btnGetSendToNTSConfigClick
+      end
     end
     object tbMgtKey: TEdit
       Left = 244
@@ -557,9 +566,9 @@ object frmExample: TfrmExample
     end
     object GroupBox10: TGroupBox
       Left = 357
-      Top = 360
+      Top = 404
       Width = 152
-      Height = 209
+      Height = 229
       Caption = '기타  URL'
       TabOrder = 6
       object btnGetURL1: TButton
@@ -816,9 +825,9 @@ object frmExample: TfrmExample
     end
     object GroupBox7: TGroupBox
       Left = 518
-      Top = 360
+      Top = 404
       Width = 372
-      Height = 209
+      Height = 229
       Caption = '세금계산서 보기/인쇄'
       TabOrder = 15
       object btnGetPopUpURL: TButton
@@ -908,6 +917,38 @@ object frmExample: TfrmExample
       ParentFont = False
       TabOrder = 16
       OnClick = btnRegistRequestClick
+    end
+    object GroupBox22: TGroupBox
+      Left = 16
+      Top = 347
+      Width = 561
+      Height = 45
+      Caption = '초대량 발행'
+      TabOrder = 20
+      object Label7: TLabel
+        Left = 20
+        Top = 18
+        Width = 109
+        Height = 13
+        Caption = '제출아이디(SubmitID)'
+      end
+      object Button2: TButton
+        Left = 414
+        Top = 13
+        Width = 138
+        Height = 25
+        Caption = '초대량 발행 접수'
+        TabOrder = 0
+        OnClick = btnBulkSubmitClick
+      end
+      object txtSubmitID: TEdit
+        Left = 151
+        Top = 14
+        Width = 252
+        Height = 21
+        ImeName = '한국어 입력 시스템 (IME 2000)'
+        TabOrder = 1
+      end
     end
   end
   object GroupBox8: TGroupBox

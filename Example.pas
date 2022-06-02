@@ -2,7 +2,7 @@
 { 팝빌 전자세금계산서 API Delphi SDK Example
 {
 { - SDK 튜토리얼 : https://docs.popbill.com/taxinvoice/tutorial/delphi
-{ - 업데이트 일자 : 2022-04-07
+{ - 업데이트 일자 : 2022-06-02
 { - 기술지원 연락처 : 1600-9854
 { - 기술지원 이메일 : code@linkhubcorp.com
 {
@@ -167,13 +167,18 @@ type
     Shape5: TShape;
     btnGetViewURL: TButton;
     btnGetPDFURL: TButton;
-    btnGetSendToNTSConfig: TButton;
     btnGetOldPrintURL: TButton;
     btnGetPaymentURL: TButton;
     btnGetUseHistoryURL: TButton;
     btnGetContactInfo: TButton;
     btnGetXML: TButton;
     Button1: TButton;
+    btnGetSendToNTSConfig: TButton;
+    GroupBox22: TGroupBox;
+    Button2: TButton;
+    Label7: TLabel;
+    txtSubmitID: TEdit;
+    btnGetBulkResult: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetAccessURLClick(Sender: TObject);
@@ -252,6 +257,9 @@ type
     procedure btnGetUseHistoryURLClick(Sender: TObject);
     procedure btnGetContactInfoClick(Sender: TObject);
     procedure btnGetTaxCertInfoClick(Sender: TObject);
+    procedure btnBulkSubmitClick(Sender: TObject);
+    procedure btnGetBulkResultClick(Sender: TObject);
+
 
   private
     MgtKeyType : EnumMgtKeyType;
@@ -3192,7 +3200,7 @@ begin
         taxinvoice := TTaxinvoice.Create;
 
         // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20190114
-        taxinvoice.writeDate := '20220101';
+        taxinvoice.writeDate := '20220602';
 
         // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
         taxinvoice.issueType := '정발행';
@@ -4602,6 +4610,313 @@ begin
                 tmp := tmp + 'state (계정상태) : ' + inttostr(contactInfo.state) + #13;
                 ShowMessage(tmp);
         end
+end;
+
+procedure TfrmExample.btnBulkSubmitClick(Sender: TObject);
+var
+        SubmitID : string;
+        TaxinvoiceList : Array of TTaxinvoice;
+        Taxinvoice : TTaxinvoice;
+        i : integer;
+        response : TBulkResponse;
+begin
+        {**********************************************************************}
+        { 최대 100건의 세금계산서 발행을 한번의 요청으로 접수합니다.
+        { - https://docs.popbill.com/taxinvoice/delphi/api#BulkSubmit
+        {**********************************************************************}
+        SetLength(TaxinvoiceList, 10);
+
+        for i :=0 to Length(TaxinvoiceList) -1 do
+        begin
+                // 세금계산서 객체 생성
+                TaxinvoiceList[i] := TTaxinvoice.Create;
+
+                // [필수] 작성일자, 표시형식 (yyyyMMdd) ex)20190113
+                TaxinvoiceList[i].writeDate := '20220602';
+
+                // [필수] 발행형태, [정발행, 역발행, 위수탁] 중 기재
+                TaxinvoiceList[i].issueType := '정발행';
+
+                // [필수] [정과금, 역과금] 중 기재, '역과금' 은 역발행 프로세스에서만 이용가능
+                // 정과금(공급자 과금), 역과금(공급받는자 과금)
+                TaxinvoiceList[i].chargeDirection := '정과금';
+
+                // [필수] 영수/청구, [영수, 청구] 중 기재
+                TaxinvoiceList[i].purposeType := '영수';
+
+                // [필수] 과세형태, [과세, 영세, 면세] 중 기재
+                TaxinvoiceList[i].taxType :='과세';
+
+                {**********************************************************************}
+                {                             공급자 정보                              }
+                {**********************************************************************}
+
+                // [필수] 공급자 사업자번호, 하이픈('-') 제외 10자리
+                TaxinvoiceList[i].invoicerCorpNum := txtCorpNum.text;
+
+                // [필수] 공급자 종사업장 식별번호, 필요시 숫자 4자리 기재
+                TaxinvoiceList[i].invoicerTaxRegID := '';
+
+                // [필수] 공급자 상호
+                TaxinvoiceList[i].invoicerCorpName := '공급자 상호';
+
+                // [필수] 공급자 문서번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
+                // 사업자 별로 중복되지 않도록 구성
+                TaxinvoiceList[i].invoicerMgtKey := txtSubmitID.Text + inttostr(i);
+
+                // [필수] 공급자 대표자 성명
+                TaxinvoiceList[i].invoicerCEOName := '대표자성명';
+
+                // 공급자 주소
+                TaxinvoiceList[i].invoicerAddr := '공급자주소';
+
+                // 공급자 종목
+                TaxinvoiceList[i].invoicerBizClass := '공급자종목';
+
+                // 공급자 업태
+                TaxinvoiceList[i].invoicerBizType := '공급자 업태';
+
+                // 공급자 담당자명
+                TaxinvoiceList[i].invoicerContactName := '공급자 담당자명';
+
+                // 공급자 담당자 메일주소
+                TaxinvoiceList[i].invoicerEmail := 'test@test.com';
+
+                // 공급자 담당자 연락처
+                TaxinvoiceList[i].invoicerTEL := '070-4304-2991';
+
+                // 공급자 담당자 휴대폰 번호
+                TaxinvoiceList[i].invoicerHP := '010-0000-2222';
+
+                // 정발행시 알림문자 전송여부 (정발행에서만 사용가능)
+                // - 공급받는자 주)담당자 휴대폰번호(invoiceeHP1)로 전송
+                // - 전송시 포인트가 차감되며 전송실패하는 경우 포인트 환불처리
+                TaxinvoiceList[i].invoicerSMSSendYN := false;
+
+                {**********************************************************************}
+                {                            공급받는자 정보                           }
+                {**********************************************************************}
+
+                // [필수] 공급받는자 구분, [사업자, 개인, 외국인] 중 기재
+                TaxinvoiceList[i].invoiceeType := '사업자';
+
+                // [필수] 공급받는자 사업자번호, 하이픈('-') 제외 10자리
+                TaxinvoiceList[i].invoiceeCorpNum := '8888888888';
+
+                // [필수] 공급받는자 종사업장 식별번호, 필요시 숫자 4자리 기재
+                TaxinvoiceList[i].invoiceeTaxRegID := '';
+
+                // [필수] 공급받는자 상호
+                TaxinvoiceList[i].invoiceeCorpName := '공급받는자 상호';
+
+                // [역발행시 필수] 공급받는자 문서번호, 1~24자리 (숫자, 영문, '-', '_') 조합으로
+                // 사업자 별로 중복되지 않도록 구성
+                TaxinvoiceList[i].invoiceeMgtKey := '';
+
+                // [필수] 공급받는자 대표자 성명
+                TaxinvoiceList[i].invoiceeCEOName := '공급받는자 대표자 성명';
+
+                // 공급받는자 주소
+                TaxinvoiceList[i].invoiceeAddr := '공급받는자 주소';
+
+                // 공급받는자 종목
+                TaxinvoiceList[i].invoiceeBizClass := '공급받는자 종목';
+
+                // 공급받는자 업태
+                TaxinvoiceList[i].invoiceeBizType := '공급받는자 업태';
+
+                // 공급받는자 담당자명
+                TaxinvoiceList[i].invoiceeContactName1 := '공급받는자 담당자명';
+
+                // 공급받는자 메일주소
+                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+                // 실제 거래처의 메일주소가 기재되지 않도록 주의
+                TaxinvoiceList[i].invoiceeEmail1 := 'test@test.com';
+
+                // 공급받는자 연락처
+                TaxinvoiceList[i].invoiceeTEL1 := '070-4304-2991';
+
+                // 공급받는자 휴대폰번호
+                TaxinvoiceList[i].invoiceeHP1 := '010-0000-222';
+
+                {**********************************************************************}
+                {                           세금계산서 정보                            }
+                {**********************************************************************}
+
+                // [필수] 공급가액 합계
+                TaxinvoiceList[i].supplyCostTotal := '200000';
+
+                // [필수] 세액 합계
+                TaxinvoiceList[i].taxTotal := '20000';
+
+                // [필수] 합계금액, (공급가액 합계 + 세액합계)
+                TaxinvoiceList[i].totalAmount := '220000';
+
+                // 기재 상 '일련번호' 항목
+                TaxinvoiceList[i].serialNum := '';
+
+                // 기재 상 '권' 항목, 최대값 32767
+                // 미기재시 taxinvoice.kwon := '';
+                TaxinvoiceList[i].kwon := '1';
+
+                // 기재 상 '호' 항목, 최대값 32767
+                // 미기재시 taxinovice.ho := '';
+                TaxinvoiceList[i].ho := '1';
+
+                // 기재 상 '현금' 항목
+                TaxinvoiceList[i].cash := '';
+
+                // 기재 상 '수표' 항목
+                TaxinvoiceList[i].chkBill := '';
+
+                // 기재 상 '어음' 항목
+                TaxinvoiceList[i].note := '';
+
+                // 기재 상 '외상미수금' 항목
+                TaxinvoiceList[i].credit := '';
+
+                // 기재 상 '비고' 항목
+                TaxinvoiceList[i].remark1 := 'test';
+                TaxinvoiceList[i].remark2 := 'tes';
+                TaxinvoiceList[i].remark3 := 'test';
+
+                // 사업자등록증 이미지 첨부여부
+                TaxinvoiceList[i].businessLicenseYN := false;
+
+                // 통장사본 이미지 첨부여부
+                TaxinvoiceList[i].bankBookYN := false;
+
+                {**********************************************************************}
+                {         수정세금계산서 정보 (수정세금계산서 작성시에만 기재          }
+                {   수정세금계산서 관련 정보는 연동매뉴얼 또는 개발가이드 링크 참조    }
+                { [참고] 수정세금계산서 작성방법 안내 - https://docs.popbill.com/taxinvoice/modify?lang=delphi  }
+                {**********************************************************************}
+
+                // 수정사유코드, 수정사유별로 1~6중 선택기재
+                TaxinvoiceList[i].modifyCode := '';
+
+                // 원본세금계산서 국세청승인번호 기재
+                TaxinvoiceList[i].orgNTSConfirmNum := '';
+
+                {**********************************************************************}
+                {                        상세항목(품목) 정보                           }
+                {**********************************************************************}
+
+                // 상세항목 0~99개 까지 작성가능.
+                // 일련번호(serialNum) 는 1부터 99까지 순차기재.
+                // SetLength로 초기화 한후 기재.
+                setLength(TaxinvoiceList[i].detailList, 2);
+
+                TaxinvoiceList[i].detailList[0] := TTaxinvoiceDetail.Create;
+                TaxinvoiceList[i].detailList[0].serialNum := 1;                //일련번호
+                TaxinvoiceList[i].detailList[0].purchaseDT := '20220602';      //거래일자
+                TaxinvoiceList[i].detailList[0].itemName := '품목1';          //품목명
+                TaxinvoiceList[i].detailList[0].spec := '2';                //규격
+                TaxinvoiceList[i].detailList[0].qty := '1';                    //수량
+                TaxinvoiceList[i].detailList[0].unitCost := '100000';          //단가
+                TaxinvoiceList[i].detailList[0].supplyCost := '100000';        //공급가액
+                TaxinvoiceList[i].detailList[0].tax := '10000';                //세액
+                TaxinvoiceList[i].detailList[0].remark := '비고1';
+
+                TaxinvoiceList[i].detailList[1] := TTaxinvoiceDetail.Create;
+                TaxinvoiceList[i].detailList[1].serialNum := 2;                //일련번호
+                TaxinvoiceList[i].detailList[1].purchaseDT := '20220602';      //거래일자
+                TaxinvoiceList[i].detailList[1].itemName := '품목2';         //품목명
+                TaxinvoiceList[i].detailList[1].spec := '3';                //규격
+                TaxinvoiceList[i].detailList[1].qty := '1';                    //수량
+                TaxinvoiceList[i].detailList[1].unitCost := '100000';          //단가
+                TaxinvoiceList[i].detailList[1].supplyCost := '100000';        //공급가액
+                TaxinvoiceList[i].detailList[1].tax := '10000';                //세액
+                TaxinvoiceList[i].detailList[1].remark := '비고2';              //비고
+
+                {**********************************************************************}
+                {                           추가담당자 정보                            }
+                { 세금계산서 발행안내메일을 수신받아야 하는 담당자가 다수인 경우 추가로}
+                { 담당자 정보를 기재하여 발행안내메일을 전송받을수 있습니다.           }
+                {**********************************************************************}
+
+                // 추가담당자 배열초기화, 최대 5개까지 기재 가능
+                SetLength(TaxinvoiceList[i].addContactList,2);
+
+                TaxinvoiceList[i].addContactList[0] := TTaxinvoiceAddContact.Create;
+                TaxinvoiceList[i].addContactList[0].serialNum := 1;    // 일련번호, 1부터 순차기재
+
+                // 팝빌 개발환경에서 테스트하는 경우에도 안내 메일이 전송되므로,
+                // 실제 거래처의 메일주소가 기재되지 않도록 주의
+                TaxinvoiceList[i].addContactList[0].email := 'test2@invoicee.com';     // 메일주소
+                TaxinvoiceList[i].addContactList[0].contactName := 'test';     // 담당자명
+
+                TaxinvoiceList[i].addContactList[1] := TTaxinvoiceAddContact.Create;
+                TaxinvoiceList[i].addContactList[1].serialNum := 2;    //일련번호, 1부터 순차기재
+                TaxinvoiceList[i].addContactList[1].email := 'test3@invoicee.com';     // 메일주소
+                TaxinvoiceList[i].addContactList[1].contactName := 'test';    // 담당자명
+        end;
+        
+        try
+                response := taxinvoiceService.BulkSubmit(txtCorpNum.Text, txtSubmitID.Text, TaxinvoiceList);
+
+                ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 +'응답메시지 : '+ response.Message + #10#13 +'접수아이디 : '+ response.receiptID);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
+                        Exit;
+                end;
+        end;
+end;
+
+
+procedure TfrmExample.btnGetBulkResultClick(Sender: TObject);
+var
+        SubmitID : string;
+        bulkTaxinvoiceResult : TBulkTaxinvoiceResult;
+        tmp : string;
+        i : Integer;
+begin
+        {**********************************************************************}
+        { 접수시 기재한 SubmitID를 사용하여 세금계산서 접수결과를 확인합니다.
+        { - https://docs.popbill.com/taxinvoice/delphi/api#GetBulkResult
+        {**********************************************************************}
+        try
+            bulkTaxinvoiceResult := taxinvoiceService.GetBulkResult(txtCorpNum.text, txtSubmitID.text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
+                        Exit;
+                end;
+        end;
+
+        if taxinvoiceService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(taxinvoiceService.LastErrCode) + #10#13 +'응답메시지 : '+  taxinvoiceService.LastErrMessage);
+                Exit;
+        end
+        else
+        begin
+                tmp := 'code(코드) : ' +  IntToStr(bulkTaxinvoiceResult.code) + #13;
+                tmp := tmp + 'message (응답메시지) : ' + bulkTaxinvoiceResult.message + #13;
+                tmp := tmp + 'submitID (제출아이디) : ' + bulkTaxinvoiceResult.submitID + #13;
+                tmp := tmp + 'submitCount (세금계산서 접수 건수) : ' + IntToStr(bulkTaxinvoiceResult.submitCount) + #13;
+                tmp := tmp + 'successCount (세금계산서 발행 성공 건수) : ' + IntToStr(bulkTaxinvoiceResult.successCount) + #13;
+                tmp := tmp + 'failCount (세금계산서 발행 실패 건수) : ' + IntToStr(bulkTaxinvoiceResult.failCount) + #13;
+                tmp := tmp + 'txState (접수상태코드) : ' + IntToStr(bulkTaxinvoiceResult.txState) + #13;
+                tmp := tmp + 'txResultCode (접수 결과코드) : ' + IntToStr(bulkTaxinvoiceResult.txResultCode) + #13;
+                tmp := tmp + 'txStartDT (발행처리 시작일시) : ' + bulkTaxinvoiceResult.txStartDT + #13;
+                tmp := tmp + 'txEndDT (발행처리 완료일시) : ' + bulkTaxinvoiceResult.txEndDT + #13;
+                tmp := tmp + 'receiptDT (접수일시) : ' + bulkTaxinvoiceResult.receiptDT + #13;
+                tmp := tmp + 'receiptID (접수아이디) : ' + bulkTaxinvoiceResult.receiptID + #13#13;
+
+                tmp := tmp + 'invoicerMgtKey(공급자 문서번호) |  trusteeMgtKey (수탁자 문서번호) |  code (코드) |  ntsconfirmNum (국세청승인번호) |  issueDT (발행일시)' + #13#13;
+                for i := 0 to Length(bulkTaxinvoiceResult.issueResult) -1 do
+                begin
+        	  tmp := tmp + bulkTaxinvoiceResult.issueResult[i].invoicerMgtKey + ' | '
+                        + bulkTaxinvoiceResult.issueResult[i].trusteeMgtKey + ' | '
+                        + IntToStr(bulkTaxinvoiceResult.issueResult[i].code) + ' | '
+                        + bulkTaxinvoiceResult.issueResult[i].ntsconfirmNum + ' | '
+                        + bulkTaxinvoiceResult.issueResult[i].issueDT + #13#13;
+                end;
+                bulkTaxinvoiceResult.Free;
+                ShowMessage(tmp);
+        end;
 end;
 
 end.

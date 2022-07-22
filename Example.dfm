@@ -1,8 +1,8 @@
 object frmExample: TfrmExample
-  Left = 332
-  Top = 102
-  Width = 1296
-  Height = 847
+  Left = 2
+  Top = 1
+  Width = 1022
+  Height = 726
   Caption = 'Linkhub 팝빌 전자세금계산서  SDK Examples'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -40,7 +40,7 @@ object frmExample: TfrmExample
     object Label1: TLabel
       Left = 40
       Top = 30
-      Width = 96
+      Width = 92
       Height = 13
       Caption = '문서번호(MgtKey) :'
     end
@@ -919,7 +919,7 @@ object frmExample: TfrmExample
       object Label7: TLabel
         Left = 15
         Top = 18
-        Width = 127
+        Width = 113
         Height = 13
         Caption = '제출아이디(SubmitID) : '
       end

@@ -2,7 +2,7 @@
 { 팝빌 전자세금계산서 API Delphi SDK Example
 {
 { - SDK 튜토리얼 : https://docs.popbill.com/taxinvoice/tutorial/delphi
-{ - 업데이트 일자 : 2022-06-02
+{ - 업데이트 일자 : 2022-07-22
 { - 기술지원 연락처 : 1600-9854
 { - 기술지원 이메일 : code@linkhubcorp.com
 {
@@ -4905,12 +4905,13 @@ begin
                 tmp := tmp + 'receiptDT (접수일시) : ' + bulkTaxinvoiceResult.receiptDT + #13;
                 tmp := tmp + 'receiptID (접수아이디) : ' + bulkTaxinvoiceResult.receiptID + #13#13;
 
-                tmp := tmp + 'invoicerMgtKey(공급자 문서번호) |  trusteeMgtKey (수탁자 문서번호) |  code (코드) |  ntsconfirmNum (국세청승인번호) |  issueDT (발행일시)' + #13#13;
+                tmp := tmp + 'invoicerMgtKey(공급자 문서번호) |  trusteeMgtKey (수탁자 문서번호) |  code (코드) | message (메시지) |ntsconfirmNum (국세청승인번호) |  issueDT (발행일시)' + #13#13;
                 for i := 0 to Length(bulkTaxinvoiceResult.issueResult) -1 do
                 begin
         	  tmp := tmp + bulkTaxinvoiceResult.issueResult[i].invoicerMgtKey + ' | '
                         + bulkTaxinvoiceResult.issueResult[i].trusteeMgtKey + ' | '
                         + IntToStr(bulkTaxinvoiceResult.issueResult[i].code) + ' | '
+                        + bulkTaxinvoiceResult.issueResult[i].message + ' | '
                         + bulkTaxinvoiceResult.issueResult[i].ntsconfirmNum + ' | '
                         + bulkTaxinvoiceResult.issueResult[i].issueDT + #13#13;
                 end;

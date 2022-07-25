@@ -831,7 +831,7 @@ begin
         taxinvoice.addContactList[1].contactName := '추가담당자명2';    // 담당자명
 
         try
-                response := taxinvoiceService.Register(txtCorpNum.text, taxinvoice, txtUserID.Text);
+                response := taxinvoiceService.Register(txtCorpNum.text, taxinvoice);
                 taxinvoice.Free;
         except
                 on le : EPopbillException do begin
@@ -1827,7 +1827,7 @@ begin
 
         try
                 resultURL := taxinvoiceService.getPopupURL(txtCorpNum.Text,
-                                        MgtKeyType, tbMgtKey.Text);
+                                        MgtKeyType, tbMgtKey.Text, txtUserID.Text);
                 txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
@@ -1858,7 +1858,7 @@ begin
 
         try
                 resultURL := taxinvoiceService.getPrintURL(txtCorpNum.Text,
-                                        MgtKeyType, tbMgtKey.Text);
+                                        MgtKeyType, tbMgtKey.Text, txtUserID.Text);
                 txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
@@ -1889,7 +1889,7 @@ begin
 
         try
                 resultURL := taxinvoiceService.getOldPrintURL(txtCorpNum.Text,
-                                        MgtKeyType, tbMgtKey.Text);
+                                        MgtKeyType, tbMgtKey.Text, txtUserID.Text);
                 txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
@@ -1920,7 +1920,7 @@ begin
 
         try
                 resultURL := taxinvoiceService.getMailURL(txtCorpNum.Text,
-                                        MgtKeyType, tbMgtKey.Text);
+                                        MgtKeyType, tbMgtKey.Text, txtUserID.Text);
                 txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
@@ -1959,7 +1959,7 @@ begin
 
         try
                 resultURL := taxinvoiceService.getMassPrintURL(txtCorpNum.text,
-                        MgtKeyType, KeyList);
+                        MgtKeyType, KeyList, txtUserID.Text);
                 txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
@@ -2497,7 +2497,7 @@ begin
 
         try
                 response := taxinvoiceService.Update(txtCorpNum.text, MgtKeyType,
-                                        tbMgtKey.Text, taxinvoice,txtUserID.Text);
+                                        tbMgtKey.Text, taxinvoice);
                 taxinvoice.Free;
         except
                 on le : EPopbillException do begin
@@ -2732,7 +2732,7 @@ begin
         taxinvoice.detailList[1].remark := '비고';              //비고
 
         try
-                response := taxinvoiceService.Update(txtCorpNum.text,MgtKeyType,tbMgtKey.Text, taxinvoice,txtUserID.Text);
+                response := taxinvoiceService.Update(txtCorpNum.text,MgtKeyType,tbMgtKey.Text, taxinvoice);
                 taxinvoice.Free;
         except
                 on le : EPopbillException do begin
@@ -2959,7 +2959,7 @@ begin
 
         try
                 resultURL := taxinvoiceService.getEPrintURL(txtCorpNum.Text,
-                        MgtKeyType, tbMgtKey.Text);
+                        MgtKeyType, tbMgtKey.Text, txtUserID.Text);
                 txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
@@ -3045,7 +3045,7 @@ begin
         {**********************************************************************}
 
         try
-                corpInfo := taxinvoiceService.GetCorpInfo(txtCorpNum.text, txtUserID.Text);
+                corpInfo := taxinvoiceService.GetCorpInfo(txtCorpNum.text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -3559,7 +3559,7 @@ begin
 
         try
                 response := taxinvoiceService.CancelIssue(txtCorpNum.text, MgtKeyType,
-                                                 tbMgtKey.Text, memo, txtUserID.Text);
+                                                 tbMgtKey.Text, memo);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -3679,7 +3679,7 @@ begin
         {*********************************************************************}
 
       try
-                certInfo := taxinvoiceService.getTaxCertInfo(txtCorpNum.text, txtUserID.text);
+                certInfo := taxinvoiceService.getTaxCertInfo(txtCorpNum.text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -4487,7 +4487,7 @@ begin
         memo := '즉시요청 메모';
 
         try
-                response := taxinvoiceService.RegistRequest(txtCorpNum.text, taxinvoice, memo, txtUserID.text);
+                response := taxinvoiceService.RegistRequest(txtCorpNum.text, taxinvoice, memo);
                 taxinvoice.Free;
         except
                 on le : EPopbillException do begin
@@ -4520,7 +4520,7 @@ begin
 
         try
                 resultURL := taxinvoiceService.getViewURL(txtCorpNum.Text,
-                                        MgtKeyType, tbMgtKey.Text);
+                                        MgtKeyType, tbMgtKey.Text, txtUserID.Text);
                 txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
@@ -4552,7 +4552,7 @@ begin
 
         try
                 resultURL := taxinvoiceService.getPDFURL(txtCorpNum.Text,
-                                        MgtKeyType, tbMgtKey.Text);
+                                        MgtKeyType, tbMgtKey.Text, txtUserID.Text);
                 txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
@@ -4612,7 +4612,7 @@ begin
         {**********************************************************************}
         
         try
-                resultURL := taxinvoiceService.getPaymentURL(txtCorpNum.Text);
+                resultURL := taxinvoiceService.getPaymentURL(txtCorpNum.Text, txtUserID.Text);
                 txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
@@ -4641,7 +4641,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := taxinvoiceService.getUseHistoryURL(txtCorpNum.Text);
+                resultURL := taxinvoiceService.getUseHistoryURL(txtCorpNum.Text, txtUserID.Text);
                 txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin

@@ -1643,7 +1643,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, 'TBOX');
+                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, txtUserID.Text, 'TBOX');
                 txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
@@ -1674,7 +1674,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, 'SBOX');
+                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, txtUserID.Text, 'SBOX');
                 txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
@@ -1704,7 +1704,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, 'PBOX');
+                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, txtUserID.Text, 'PBOX');
                 txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
@@ -1734,7 +1734,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, 'WRITE');
+                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, txtUserID.Text, 'WRITE');
                 txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
@@ -1764,7 +1764,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, 'SWBOX');
+                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, txtUserID.Text, 'SWBOX');
                 txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
@@ -1795,7 +1795,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, 'PWBOX');
+                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, txtUserID.Text, 'PWBOX');
                 txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin

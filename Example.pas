@@ -2,7 +2,7 @@
 { 팝빌 전자세금계산서 API Delphi SDK Example
 {
 { - SDK 튜토리얼 : https://docs.popbill.com/taxinvoice/tutorial/delphi
-{ - 업데이트 일자 : 2022-07-22
+{ - 업데이트 일자 : 2022-07-25
 { - 기술지원 연락처 : 1600-9854
 { - 기술지원 이메일 : code@linkhubcorp.com
 {
@@ -179,6 +179,10 @@ type
     Label7: TLabel;
     txtSubmitID: TEdit;
     btnGetBulkResult: TButton;
+    btnGetURL5: TButton;
+    btnGetURL6: TButton;
+    txtURL: TEdit;
+    Label8: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetAccessURLClick(Sender: TObject);
@@ -209,6 +213,8 @@ type
     procedure btnGetURL2Click(Sender: TObject);
     procedure btnGetURL3Click(Sender: TObject);
     procedure btnGetURL4Click(Sender: TObject);
+    procedure btnGetURL5Click(Sender: TObject);
+    procedure btnGetURL6Click(Sender: TObject);
     procedure btnGetPopUpURLClick(Sender: TObject);
     procedure btnGetPrintURLClick(Sender: TObject);
     procedure btnGetOldPrintURLClick(Sender: TObject);
@@ -502,6 +508,7 @@ begin
 
         try
                 resultURL := taxinvoiceService.getAccessURL(txtCorpNum.Text, txtUserID.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1637,6 +1644,7 @@ begin
 
         try
                 resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, 'TBOX');
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1667,6 +1675,7 @@ begin
 
         try
                 resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, 'SBOX');
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1696,6 +1705,7 @@ begin
 
         try
                 resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, 'PBOX');
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1725,6 +1735,7 @@ begin
 
         try
                 resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, 'WRITE');
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1742,6 +1753,68 @@ begin
         end
 end;
 
+procedure TfrmExample.btnGetURL5Click(Sender: TObject);
+var
+        resultURL : String;
+begin
+        {**********************************************************************}
+        { 로그인 상태로 팝빌 사이트의 전자세금계산서 매출 발행 대기함  메뉴에 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
+        { - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
+        { - https://docs.popbill.com/taxinvoice/delphi/api#GetURL
+        {**********************************************************************}
+
+        try
+                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, 'SWBOX');
+                txtURL.Text := resultURL;
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
+                        Exit;
+                end;
+        end;
+
+        if taxinvoiceService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(taxinvoiceService.LastErrCode) + #10#13 +'응답메시지 : '+  taxinvoiceService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('URL : ' + #13 + resultURL);
+        end
+
+end;
+
+procedure TfrmExample.btnGetURL6Click(Sender: TObject);
+var
+        resultURL : String;
+begin
+        {**********************************************************************}
+        { 로그인 상태로 팝빌 사이트의 전자세금계산서 매입 발행 대기함 메뉴에 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
+        { - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
+        { - https://docs.popbill.com/taxinvoice/delphi/api#GetURL
+        {**********************************************************************}
+
+        try
+                resultURL := taxinvoiceService.GetURL(txtCorpNum.Text, 'PWBOX');
+                txtURL.Text := resultURL;
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
+                        Exit;
+                end;
+        end;
+
+        if taxinvoiceService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : '+ IntToStr(taxinvoiceService.LastErrCode) + #10#13 +'응답메시지 : '+  taxinvoiceService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('URL : ' + #13 + resultURL);
+        end
+
+end;
+
 procedure TfrmExample.btnGetPopUpURLClick(Sender: TObject);
 var
   resultURL : String;
@@ -1755,6 +1828,7 @@ begin
         try
                 resultURL := taxinvoiceService.getPopupURL(txtCorpNum.Text,
                                         MgtKeyType, tbMgtKey.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1785,6 +1859,7 @@ begin
         try
                 resultURL := taxinvoiceService.getPrintURL(txtCorpNum.Text,
                                         MgtKeyType, tbMgtKey.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1815,6 +1890,7 @@ begin
         try
                 resultURL := taxinvoiceService.getOldPrintURL(txtCorpNum.Text,
                                         MgtKeyType, tbMgtKey.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1845,6 +1921,7 @@ begin
         try
                 resultURL := taxinvoiceService.getMailURL(txtCorpNum.Text,
                                         MgtKeyType, tbMgtKey.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -1883,6 +1960,7 @@ begin
         try
                 resultURL := taxinvoiceService.getMassPrintURL(txtCorpNum.text,
                         MgtKeyType, KeyList);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -2882,6 +2960,7 @@ begin
         try
                 resultURL := taxinvoiceService.getEPrintURL(txtCorpNum.Text,
                         MgtKeyType, tbMgtKey.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -3540,6 +3619,7 @@ begin
         
         try
                 resultURL := taxinvoiceService.GetChargeURL(txtCorpNum.Text, txtUserID.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -3569,6 +3649,7 @@ begin
 
         try
                 resultURL := taxinvoiceService.GetTaxCertURL(txtCorpNum.Text, txtUserID.Text);
+                txtURL.Text := resultURL;
                 //ShellExecute(Handle, 'open', 'IEXPLORE.EXE', PChar(resultURL), '', SW_SHOWNORMAL);
         except
                 on le : EPopbillException do begin
@@ -3929,6 +4010,7 @@ begin
         
         try
                 resultURL := taxinvoiceService.GetSealURL(txtCorpNum.Text, txtUserID.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -3958,6 +4040,7 @@ begin
         
         try
                 resultURL := taxinvoiceService.GetPartnerURL(txtCorpNum.Text, 'CHRG');
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -4438,6 +4521,7 @@ begin
         try
                 resultURL := taxinvoiceService.getViewURL(txtCorpNum.Text,
                                         MgtKeyType, tbMgtKey.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -4469,6 +4553,7 @@ begin
         try
                 resultURL := taxinvoiceService.getPDFURL(txtCorpNum.Text,
                                         MgtKeyType, tbMgtKey.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -4528,6 +4613,7 @@ begin
         
         try
                 resultURL := taxinvoiceService.getPaymentURL(txtCorpNum.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -4556,6 +4642,7 @@ begin
 
         try
                 resultURL := taxinvoiceService.getUseHistoryURL(txtCorpNum.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);

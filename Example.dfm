@@ -1,8 +1,8 @@
 object frmExample: TfrmExample
-  Left = 2
-  Top = 1
-  Width = 1022
-  Height = 726
+  Left = 501
+  Top = 109
+  Width = 1320
+  Height = 863
   Caption = 'Linkhub 팝빌 전자세금계산서  SDK Examples'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -29,6 +29,14 @@ object frmExample: TfrmExample
     Height = 13
     AutoSize = False
     Caption = '팝빌아이디 : '
+  end
+  object Label8: TLabel
+    Left = 872
+    Top = 14
+    Width = 51
+    Height = 13
+    AutoSize = False
+    Caption = 'URL :'
   end
   object GroupBox1: TGroupBox
     Left = 8
@@ -573,7 +581,7 @@ object frmExample: TfrmExample
       end
       object btnGetURL2: TButton
         Left = 12
-        Top = 54
+        Top = 108
         Width = 127
         Height = 25
         Caption = '매출 문서함'
@@ -582,7 +590,7 @@ object frmExample: TfrmExample
       end
       object btnGetURL3: TButton
         Left = 12
-        Top = 83
+        Top = 135
         Width = 127
         Height = 25
         Caption = '매입 문서함'
@@ -591,12 +599,30 @@ object frmExample: TfrmExample
       end
       object btnGetURL4: TButton
         Left = 12
-        Top = 113
+        Top = 164
         Width = 127
         Height = 25
         Caption = '매출 문서작성'
         TabOrder = 3
         OnClick = btnGetURL4Click
+      end
+      object btnGetURL5: TButton
+        Left = 12
+        Top = 52
+        Width = 127
+        Height = 25
+        Caption = '매출 발행 대기함'
+        TabOrder = 4
+        OnClick = btnGetURL5Click
+      end
+      object btnGetURL6: TButton
+        Left = 12
+        Top = 80
+        Width = 127
+        Height = 25
+        Caption = '매입 발행 대기함'
+        TabOrder = 5
+        OnClick = btnGetURL6Click
       end
     end
     object cbMgtKeyType: TComboBox
@@ -1247,6 +1273,14 @@ object frmExample: TfrmExample
       TabOrder = 1
       OnClick = btnGetPartnerURLClick
     end
+  end
+  object txtURL: TEdit
+    Left = 904
+    Top = 8
+    Width = 377
+    Height = 21
+    ImeName = 'Microsoft IME 2010'
+    TabOrder = 6
   end
   object OpenDialog1: TOpenDialog
     Left = 728
